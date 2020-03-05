@@ -24,10 +24,12 @@ public class GlobalScope extends BaseScope
     public void Initializer() throws SemanticError
     {
         definePrimitiveTypeSymbol(IntTypeSymbol);
-        definePrimitiveTypeSymbol(IntTypeSymbol);
+        definePrimitiveTypeSymbol(BoolTypeSymbol);
         definePrimitiveTypeSymbol(VoidTypeSymbol);
 
         //string
+//        FunctionSymbol stringLength = new FunctionSymbol("length", IntTypeSymbol,null, string);
+//        string.defineFunction(stringLength);
         string.defineFunction(new FunctionSymbol("length", IntTypeSymbol,null, string));
         FunctionSymbol stringSubstring = new FunctionSymbol("substring", string, null, string);
         stringSubstring.defineVariable(new VariableSymbol("left", IntTypeSymbol, null));
@@ -128,8 +130,11 @@ public class GlobalScope extends BaseScope
 
     public Symbol resolveMain() throws SemanticError
     {
-        Symbol type = symbolMap.get("main");
-        if (type != null) return type;
-        else throw new SemanticError(new Position(0,0), "Can't find Main!");
+        if (!symbolMap.containsKey("main"))
+            throw new SemanticError(new Position(0,0), "Can't find Main!");
+        else return symbolMap.get("main");
+//        Symbol type = symbolMap.get("main");
+//        if (type != null) return type;
+//        else throw new SemanticError(new Position(0,0), "Can't find Main!");
     }
 }

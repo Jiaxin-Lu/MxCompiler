@@ -23,10 +23,10 @@ public class FunctionInitializer implements ASTVisitor
 
         //Check Main
         Symbol main = globalScope.resolveMain();
-        if (!(main.getType() instanceof PrimitiveType))
+        if (!(main.getType() instanceof PrimitiveTypeSymbol))
             throw new SemanticError(node.getPosition(), "Main must have return type of int!");
         if (!main.getType().getTypeName().equals("int"))
-            throw new SemanticError(node.getPosition(), "Main must have return type of int!");
+            throw new SemanticError(node.getPosition(), "Main should be type of int!");
         if (!((FuncDeclNode)main.getOrigin()).getParameterList().isEmpty())
             throw new SemanticError(node.getPosition(), "Main mustn't have any parameter!");
     }
@@ -49,6 +49,10 @@ public class FunctionInitializer implements ASTVisitor
             throw new SemanticError(node.getPosition(), "Global Function should have a type!");
         Type type = globalScope.getTypeForTypeNode(node.getType());
         FunctionSymbol functionSymbol = new FunctionSymbol(node.getId(), type, node, globalScope);
+//        if (node.getId().equals("main"))
+//        {
+//            System.out.println("ok");
+//        }
         node.setFunctionSymbol(functionSymbol);
         for (VarDeclNode varDeclNode : node.getParameterList())
         {

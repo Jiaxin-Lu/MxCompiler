@@ -20,7 +20,7 @@ public class Main
     public static void main(String[] args) throws Exception
     {
         SyntaxErrorHandler syntaxErrorHandler = new SyntaxErrorHandler();
-        InputStream inStream = new FileInputStream("code.txt");
+        InputStream inStream = new FileInputStream("code.mx");
 
         try
         {

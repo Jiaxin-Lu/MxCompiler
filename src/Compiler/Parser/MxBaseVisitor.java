@@ -1,6 +1,5 @@
 // Generated from Mx.g4 by ANTLR 4.8
  package Compiler.Parser; 
-import Compiler.Utils.SyntaxError;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

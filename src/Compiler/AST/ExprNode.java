@@ -71,7 +71,7 @@ public abstract class ExprNode extends ASTNode {
 
     public boolean isVal()
     {
-        return !(typeResolved.isFunctionType() || typeResolved.isClassType());
+        return (exprType != ExprType.CLASS && exprType != ExprType.FUNCTION);
     }
     public boolean isIntVariable()
     {

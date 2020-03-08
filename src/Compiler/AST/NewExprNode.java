@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewExprNode extends ExprNode {
-    private TypeNode type;
+    private TypeNode baseType;
     private int dims;
     private List<ExprNode> exprList = new ArrayList<ExprNode>();
-    private Type typeResolved;
+    private Type baseTypeResolved;
 
     public NewExprNode(Position position, TypeNode type, int dims, List<ExprNode> exprList)
     {
         super(position);
-        this.type = type;
+        this.baseType = type;
         this.dims = dims;
         this.exprList = exprList;
     }
 
-    public TypeNode getType()
+    public TypeNode getBaseType()
     {
-        return type;
+        return baseType;
     }
 
     public int getDims()
@@ -36,14 +36,14 @@ public class NewExprNode extends ExprNode {
         return exprList;
     }
 
-    public void setTypeResolved(Type typeResolved)
+    public void setBaseTypeResolved(Type baseTypeResolved)
     {
-        this.typeResolved = typeResolved;
+        this.baseTypeResolved = baseTypeResolved;
     }
 
-    public Type getTypeResolved()
+    public Type getBaseTypeResolved()
     {
-        return typeResolved;
+        return baseTypeResolved;
     }
 
     @Override

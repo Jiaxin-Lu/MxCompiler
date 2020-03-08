@@ -8,8 +8,13 @@ public class ArraySymbol extends Symbol implements Type
     private int dims;
     public ArraySymbol(Type type, int dims)
     {
-        super(type.getTypeName()+" array", type, null);
+        super(type.getTypeName() + "array", type, null);
         this.dims = dims;
+    }
+
+    public Type getType()
+    {
+        return super.getType();
     }
 
     public int getDims()
@@ -34,13 +39,13 @@ public class ArraySymbol extends Symbol implements Type
     }
 
     @Override
-    public void isCompatible(Position position, Type type) throws SemanticError
+    public void isCompatible(Position position, Type type) throws SemanticError //TODO: Check every array mistake!
     {
         if (!type.getTypeName().equals("null"))
         {
             if (type instanceof ArraySymbol)
             {
-                super.getType().isCompatible(position, ((ArraySymbol)type).getType());
+                super.getType().isCompatible(position, ((ArraySymbol) type).getType());
                 if (dims != ((ArraySymbol)type).getDims())
                     throw new SemanticError(position, "Dimension doesn't match!");
             } else

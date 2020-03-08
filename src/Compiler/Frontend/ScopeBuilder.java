@@ -216,8 +216,12 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(NewExprNode node) throws SemanticError
     {
-        Type type = globalScope.getTypeForTypeNode(node.getType());
-        node.setTypeResolved(type);
+        Type type = globalScope.getTypeForTypeNode(node.getBaseType());
+//        if (type == null)
+//        {
+//            System.out.println("type is null");
+//        }
+        node.setBaseTypeResolved(type);
         for (ExprNode x : node.getExprList()) {
             x.accept(this);
         }

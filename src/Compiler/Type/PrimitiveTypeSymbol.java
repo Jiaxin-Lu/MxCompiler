@@ -28,7 +28,7 @@ public class PrimitiveTypeSymbol extends Symbol implements Type
         if (!type.getTypeName().equals("void"))
         {
             if (!getTypeName().equals(type.getTypeName()))
-                throw new SemanticError(position, getTypeName() + "is not compatible with " + type.getTypeName() + "!");
+                throw new SemanticError(position, getTypeName() + " is not compatible with " + type.getTypeName() + "!");
         } else
             throw new SemanticError(position, "Void type can't be on the right hand side!");
     }

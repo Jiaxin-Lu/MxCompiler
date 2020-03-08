@@ -55,6 +55,8 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(ClassDeclNode node) throws SemanticError
     {
+        if (node.getConstructorDecl() != null)
+            node.getConstructorDecl().accept(this);
         for (FuncDeclNode x : node.getFuncDeclList()) {
             x.accept(this);
         }
@@ -146,6 +148,7 @@ public class SemanticChecker implements ASTVisitor
     {
         if (node.getCurrentFunction().getType().getTypeName().equals("void"))
         {
+//            System.out.println("1 yes, I'm here in " + node.getCurrentFunction().getTypeName());
             if (node.getExpr() != null)
                 throw new SemanticError(node.getPosition(), "Shouldn't have a return expression!");
                 // TODO : Or need do nothing
@@ -153,11 +156,13 @@ public class SemanticChecker implements ASTVisitor
         {
             if (((FuncDeclNode) node.getCurrentFunction().getOrigin()).getType() == null)
             {
+//                System.out.println("2 yes, I'm here in " + node.getCurrentFunction().getTypeName());
                 if (node.getExpr() != null)
                     throw new SemanticError(node.getPosition(), "Constructor shouldn't have a return expression!");
                     // TODO : Or need do nothing
             } else
             {
+//                System.out.println("3 yes, I'm here in " + node.getCurrentFunction().getTypeName());
                 if (node.getExpr() == null)
                     throw new SemanticError(node.getPosition(), "Should have a return expression!");
                 node.getExpr().accept(this);
@@ -195,7 +200,7 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(WhileStmtNode node) throws SemanticError
     {
-        node.getStatement().accept(this);
+        node.getExpr().accept(this);
         if (!node.getExpr().isBool())
             throw new SemanticError(node.getPosition(), "Condition must be the type of bool!");
         if (node.getStatement() != null) node.getStatement().accept(this);
@@ -244,7 +249,7 @@ public class SemanticChecker implements ASTVisitor
                 node.setTypeResolved(memberSymbol.getType());
                 node.setFunctionSymbol((FunctionSymbol) memberSymbol);
             }
-        } else if (node.getTypeResolved().isArrayType())
+        } else if (node.getExpr().getTypeResolved().isArrayType())
         {
             if (!node.getId().equals("size"))
                 throw new SemanticError(node.getPosition(), "Not a builtin function!");
@@ -258,7 +263,23 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(ArrayExprNode node) throws SemanticError
     {
-        
+        ExprNode array = node.getArray();
+        ExprNode index = node.getIndex();
+        array.accept(this);
+        index.accept(this);
+        if (!array.getTypeResolved().isArrayType())
+            throw new SemanticError(node.getPosition(), "Array should have array type!");
+        if (!index.isInt())
+            throw new SemanticError(node.getPosition(), "Index should be int!");
+        node.setExprType(ExprNode.ExprType.LEFT);
+        if (((ArraySymbol)array.getTypeResolved()).getDims() == 1)
+        {
+            node.setTypeResolved(((ArraySymbol)array.getTypeResolved()).getType());
+        } else {
+            node.setTypeResolved(new ArraySymbol(((ArraySymbol)array.getTypeResolved()).getType(),
+                    ((ArraySymbol)array.getTypeResolved()).getDims() - 1));
+        }
+        //DONE : array node.setType
     }
 
     @Override
@@ -267,17 +288,18 @@ public class SemanticChecker implements ASTVisitor
         for (ExprNode exprNode : node.getExprList())
         {
             exprNode.accept(this);
-            if (!exprNode.isVal())
-                throw new SemanticError(node.getPosition(), "Array index should be a value!");
+            if (!exprNode.isInt())
+                throw new SemanticError(node.getPosition(), "Array index should be int!");
         }
-        Type type = node.getTypeResolved();
+        Type type = node.getBaseTypeResolved();
         if (node.getDims() == 0)
         {
             node.setExprType(ExprNode.ExprType.RIGHT);
             node.setTypeResolved(type);
             if (type.isClassType())
-                if (((ClassSymbol)type).getConstructor() != null)
-                    node.setFunctionSymbol(((ClassSymbol)type).getConstructor());
+                if (!type.getTypeName().equals("string"))
+                    if (((ClassSymbol)type).getConstructor() != null)
+                        node.setFunctionSymbol(((ClassSymbol)type).getConstructor());
         } else
         {
             node.setExprType(ExprNode.ExprType.RIGHT);
@@ -387,8 +409,8 @@ public class SemanticChecker implements ASTVisitor
                 if ((lhs.isInt() && rhs.isInt())
                         || (lhs.isBool() && rhs.isBool())
                         || (lhs.isString() && rhs.isString())
-                        || (lhs.isNull() && rhs.isNull())
-                        || (lhs.canNull() && rhs.canNull()))
+                        || (lhs.canNull() && rhs.isNull())
+                        || (lhs.isNull() && rhs.canNull()))
                 {
                     node.setExprType(ExprNode.ExprType.RIGHT);
                     node.setTypeResolved(globalScope.getBoolTypeSymbol());
@@ -421,16 +443,17 @@ public class SemanticChecker implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
-        if (symbol instanceof ClassSymbol) // TODO : CAN THIS USE INSTANCEOF?
+        //if (symbol instanceof ClassSymbol) // TODO : CAN THIS USE INSTANCEOF?
+        if (((Type)symbol).isClassType())
         {
             node.setExprType(ExprNode.ExprType.CLASS);
             node.setTypeResolved(symbol.getType());
-        } else if (symbol instanceof FunctionSymbol)
+        } else if (((Type)symbol).isFunctionType()) //if (symbol instanceof FunctionSymbol)
         {
             node.setExprType(ExprNode.ExprType.FUNCTION);
             node.setTypeResolved(symbol.getType());
             node.setFunctionSymbol((FunctionSymbol) symbol);
-        } else if (symbol instanceof VariableSymbol)
+        } else if (((Type)symbol).isVariableType()) //if (symbol instanceof VariableSymbol)
         {
             node.setExprType(ExprNode.ExprType.LEFT);
             node.setTypeResolved(symbol.getType());

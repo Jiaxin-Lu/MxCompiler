@@ -1,13 +1,14 @@
 package Compiler.Frontend;
 
 import Compiler.AST.*;
-import Compiler.Type.ClassSymbol;
-import Compiler.Type.GlobalScope;
+import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
 
 public class ClassInitializer implements ASTVisitor
 {
     private GlobalScope globalScope;
+    private Scope currentScope;
+
     public ClassInitializer(GlobalScope globalScope)
     {
         this.globalScope = globalScope;
@@ -16,8 +17,9 @@ public class ClassInitializer implements ASTVisitor
     @Override
     public void visit(ProgramNode node) throws SemanticError
     {
-        for (ProgramDeclNode x : node.getProgramDeclNodeList()) {
-            x.accept(this);
+        for (ProgramDeclNode programDeclNode : node.getProgramDeclNodeList()) {
+            if (programDeclNode instanceof ClassDeclNode)
+                programDeclNode.accept(this);
         }
     }
 
@@ -25,7 +27,6 @@ public class ClassInitializer implements ASTVisitor
     @Override
     public void visit(VarDeclNode node) throws SemanticError
     {
-
     }
 
     @Override

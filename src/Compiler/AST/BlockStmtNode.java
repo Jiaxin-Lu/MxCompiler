@@ -3,10 +3,11 @@ package Compiler.AST;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlockStmtNode extends StmtNode {
-    private List<StmtNode> stmtList;
+    private List<StmtNode> stmtList = new ArrayList<>();
     public BlockStmtNode(Position position, List<StmtNode> stmtList)
     {
         super(position);

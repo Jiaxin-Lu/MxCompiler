@@ -104,7 +104,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode>
     @Override
     public ASTNode visitConstructorDecl(MxParser.ConstructorDeclContext ctx)
     {
-        TypeNode type = new VoidTypeNode(new Position(ctx.getStart()));
+//        TypeNode type = new VoidTypeNode(new Position(ctx.getStart()));
         String id = ctx.Identifier().getText();
         List<VarDeclNode> parameterList = new ArrayList<>();
         if (ctx.parameterList() != null)
@@ -113,7 +113,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode>
             parameterList.addAll(((VarDeclListNode)decl).getVarDeclList());
         }
         BlockStmtNode block = (BlockStmtNode) visit(ctx.block());
-        return new FuncDeclNode(new Position(ctx.getStart()), type, id, parameterList, block);
+        return new FuncDeclNode(new Position(ctx.getStart()), null, id, parameterList, block);
     }
 
     @Override

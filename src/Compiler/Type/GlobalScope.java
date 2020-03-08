@@ -3,6 +3,7 @@ package Compiler.Type;
 import Compiler.AST.*;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
+import com.sun.jdi.VoidType;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -50,11 +51,20 @@ public class GlobalScope extends BaseScope
         globalPrintln.defineVariable(new VariableSymbol("str", string ,null));
         defineFunction(globalPrintln);
 
+        FunctionSymbol globalPrintInt = new FunctionSymbol("printInt", VoidTypeSymbol, null, this);
+        globalPrintInt.defineVariable(new VariableSymbol("i", IntTypeSymbol, null));
+        defineFunction(globalPrintInt);
+
+        FunctionSymbol globalPrintlnInt = new FunctionSymbol("printlnInt", VoidTypeSymbol, null, this);
+        globalPrintlnInt.defineVariable(new VariableSymbol("i", IntTypeSymbol, null));
+        defineFunction(globalPrintlnInt);
+
         defineFunction(new FunctionSymbol("getString", string, null, this));
         defineFunction(new FunctionSymbol("getInt", IntTypeSymbol, null, this));
 
         FunctionSymbol globalToString = new FunctionSymbol("toString", string, null, this);
         globalToString.defineVariable(new VariableSymbol("i", IntTypeSymbol, null));
+        defineFunction(globalToString);
     }
 
     public Type getTypeForTypeNode(TypeNode typeNode) throws SemanticError
@@ -117,6 +127,7 @@ public class GlobalScope extends BaseScope
     public Symbol resolveSymbol(Position position, String id) throws SemanticError
     {
         Symbol type = symbolMap.get(id);
+//        System.out.println("now try to get id: " + id);
         if (type == null) throw new SemanticError(position, "Unknown id!");
         return type;
     }

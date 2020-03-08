@@ -25,14 +25,19 @@ public class Main
         try
         {
             //Syntax
-            MxParser parser = new MxParser(new CommonTokenStream(new MxLexer(CharStreams.fromStream(inStream))));
+            MxLexer lexer = new MxLexer(CharStreams.fromStream(inStream));
+            lexer.removeErrorListeners();;
+            lexer.addErrorListener(new MxErrorListener(syntaxErrorHandler));
+
+            MxParser parser = new MxParser(new CommonTokenStream(lexer));
             parser.removeErrorListeners();
             parser.addErrorListener(new MxErrorListener(syntaxErrorHandler));
+            ParseTree tree = parser.program();
             if (syntaxErrorHandler.isHaveError())
             {
                 throw new RuntimeException();
             }
-            ParseTree tree = parser.program();
+
             ASTBuilder astBuilder = new ASTBuilder(syntaxErrorHandler);
             ProgramNode ast = (ProgramNode) astBuilder.visit(tree);
             if (syntaxErrorHandler.isHaveError())
@@ -46,7 +51,7 @@ public class Main
             new ClassMemberInitializer(globalScope).visit(ast);
             new ScopeBuilder(globalScope).visit(ast);
             new SemanticChecker(globalScope).visit(ast);
-
+            System.out.println("Success");
         } catch (Exception exception)
         {
             exception.printStackTrace();

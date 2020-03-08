@@ -95,12 +95,12 @@ loopStatement
 // Expression
 
 expression
-    : expression '(' expressionList? ')'                            #FunctionCallExpr
+    : expression op = ('++' | '--')                                 #PostFixExpr
+    | <assoc = right> New creator                                   #newExpr
     | expression '.' Identifier                                     #MemberExpr
+    | expression '(' expressionList? ')'                            #FunctionCallExpr
     | array = expression '[' sub = expression ']'                   #ArrayExpr
 
-    | <assoc = right> New creator                                   #newExpr
-    | expression op = ('++' | '--')                                 #PostFixExpr
     | <assoc = right> op = ('++' | '--') expression                 #UnaryExpr
     | <assoc = right> op = ('!' | '~') expression                   #UnaryExpr
     | <assoc = right> op = ('+' | '-') expression                   #UnaryExpr
@@ -130,7 +130,7 @@ expressionList
     ;
 
 creator
-    : nonArraytype ('[' expression ']')+ ('[' ']')+ ('[' expression ']')+   #errorCreator
+    : nonArraytype ('[' expression ']')*('[' ']')+ ('[' expression ']')+   #errorCreator
     | nonArraytype ('[' expression ']')+ ('[' ']')*     #arrayCreator
     | nonArraytype '(' ')'                              #classCreator
     | nonArraytype                                      #nArrayCreator

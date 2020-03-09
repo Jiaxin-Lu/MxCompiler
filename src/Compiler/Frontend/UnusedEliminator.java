@@ -36,7 +36,7 @@ public class UnusedEliminator implements ASTVisitor
             if (!usedSymbolSet.contains(variableSymbol))
             {
                 variableSymbol.setUnUsed(true);
-                // TODO : CHECK IS ALL THIS RIGHT?
+                // MAYBE DONE : CHECK IS ALL THIS RIGHT?
                 // System.out.println(variableSymbol.getName());
             }
         }

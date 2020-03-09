@@ -10,7 +10,7 @@ public class BaseScope implements Scope
 {
     private String name;
     private Scope fatherScope;
-    public Map<String, Symbol> symbolMap = new LinkedHashMap<>();
+    Map<String, Symbol> symbolMap = new LinkedHashMap<>();
 
     public BaseScope(String name, Scope fatherScope)
     {
@@ -41,6 +41,10 @@ public class BaseScope implements Scope
     {
         if (symbolMap.containsKey(obj.getName()))
             throw new SemanticError(obj.getOrigin().getPosition(), "Duplicate id!");
+//        if (obj.getName().equals("A"))
+//        {
+//            System.out.println("define A");
+//        }
         symbolMap.put(obj.getName(), obj);
         obj.setScope(this);
     }

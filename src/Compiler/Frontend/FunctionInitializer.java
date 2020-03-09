@@ -59,7 +59,8 @@ public class FunctionInitializer implements ASTVisitor
             Type varType = globalScope.getTypeForTypeNode(varDeclNode.getType());
             VariableSymbol variableSymbol = new VariableSymbol(varDeclNode.getId(), varType, varDeclNode);
             varDeclNode.setVariableSymbol(variableSymbol);
-            functionSymbol.defineVariable(variableSymbol);
+            globalScope.TypeConflict(variableSymbol);
+            functionSymbol.defineVariable(variableSymbol); //DONE : CHECK GLOBALLY
         }
         globalScope.defineFunction(functionSymbol);
     }

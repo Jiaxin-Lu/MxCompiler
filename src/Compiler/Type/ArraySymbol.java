@@ -39,7 +39,7 @@ public class ArraySymbol extends Symbol implements Type
     }
 
     @Override
-    public void isCompatible(Position position, Type type) throws SemanticError //TODO: Check every array mistake!
+    public void isCompatible(Position position, Type type) throws SemanticError //DONE: Check every array mistake!
     {
         if (!type.getTypeName().equals("null"))
         {

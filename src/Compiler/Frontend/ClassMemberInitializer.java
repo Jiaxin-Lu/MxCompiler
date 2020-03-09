@@ -32,7 +32,8 @@ public class ClassMemberInitializer implements ASTVisitor
         VariableSymbol variableSymbol = new VariableSymbol(node.getId(), type, node);
         variableSymbol.setScope(currentScope);
         node.setVariableSymbol(variableSymbol);
-        currentScope.defineVariable(variableSymbol);
+        globalScope.TypeConflict(variableSymbol);
+        currentScope.defineVariable(variableSymbol); //DONE : CHECK GLOBALLY
     }
 
     @Override

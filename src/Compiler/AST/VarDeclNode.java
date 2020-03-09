@@ -73,6 +73,11 @@ public class VarDeclNode extends ProgramDeclNode
         isGlobalVar = true;
     }
 
+    public boolean isGlobalVar()
+    {
+        return isGlobalVar;
+    }
+
     public void setPrimitiveVar()
     {
         isPrimitiveVar = true;

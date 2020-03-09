@@ -5,6 +5,7 @@ import Compiler.Frontend.*;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
+import Compiler.Type.FunctionSymbol;
 import Compiler.Type.GlobalScope;
 import Compiler.Utils.*;
 import org.antlr.v4.runtime.CharStream;
@@ -46,12 +47,22 @@ public class Main
             }
             //Semantic
             GlobalScope globalScope = (new ScopeInitializer(ast)).getGlobalScope();
-            new ClassInitializer(globalScope).visit(ast);
-            new FunctionInitializer(globalScope).visit(ast);
-            new ClassMemberInitializer(globalScope).visit(ast);
-            new ScopeBuilder(globalScope).visit(ast);
-            new SemanticChecker(globalScope).visit(ast);
+            ClassInitializer classInitializer = new ClassInitializer(globalScope);
+            classInitializer.visit(ast);
+            FunctionInitializer functionInitializer = new FunctionInitializer(globalScope);
+            functionInitializer.visit(ast);
+            ClassMemberInitializer classMemberInitializer = new ClassMemberInitializer(globalScope);
+            classMemberInitializer.visit(ast);
+            ScopeBuilder scopeBuilder = new ScopeBuilder(globalScope);
+            scopeBuilder.visit(ast);
+            SemanticChecker semanticChecker = new SemanticChecker(globalScope);
+            semanticChecker.visit(ast);
             System.out.println("Success");
+
+            // I'm not sure this is necessary.
+            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
+            unusedEliminator.visit(ast);
+
         } catch (Exception exception)
         {
             exception.printStackTrace();

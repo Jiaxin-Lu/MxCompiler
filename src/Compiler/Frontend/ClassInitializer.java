@@ -18,8 +18,7 @@ public class ClassInitializer implements ASTVisitor
     public void visit(ProgramNode node) throws SemanticError
     {
         for (ProgramDeclNode programDeclNode : node.getProgramDeclNodeList()) {
-            if (programDeclNode instanceof ClassDeclNode)
-                programDeclNode.accept(this);
+            programDeclNode.accept(this);
         }
     }
 
@@ -34,6 +33,10 @@ public class ClassInitializer implements ASTVisitor
     {
         ClassSymbol classSymbol = new ClassSymbol(node.getId(),node,globalScope);
         globalScope.defineClass(classSymbol);
+//        if (classSymbol.getTypeName().equals("A"))
+//        {
+//            System.out.println("get A");
+//        }
         node.setClassSymbol(classSymbol);
     }
 

@@ -71,9 +71,6 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(VarDeclListNode node) throws SemanticError
     {
-        for (VarDeclNode x : node.getVarDeclList()) {
-            x.accept(this);
-        }
     }
 
     //Type
@@ -239,7 +236,7 @@ public class SemanticChecker implements ASTVisitor
             ClassSymbol classSymbol = (ClassSymbol) node.getExpr().getTypeResolved();
             Symbol memberSymbol = classSymbol.resolveMember(node.getPosition(), node.getId());
             node.setMember(memberSymbol);
-            if (memberSymbol instanceof VariableSymbol) // TODO : CAN THIS USE INSTANCEOF?
+            if (memberSymbol instanceof VariableSymbol)
             {
                 node.setExprType(ExprNode.ExprType.LEFT);
                 node.setTypeResolved(memberSymbol.getType());
@@ -443,7 +440,7 @@ public class SemanticChecker implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
-        //if (symbol instanceof ClassSymbol) // TODO : CAN THIS USE INSTANCEOF?
+        //if (symbol instanceof ClassSymbol) // DONE : CAN THIS USE INSTANCEOF?
         if (((Type)symbol).isClassType())
         {
             node.setExprType(ExprNode.ExprType.CLASS);

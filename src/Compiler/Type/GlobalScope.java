@@ -5,6 +5,7 @@ import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 import com.sun.jdi.VoidType;
 
+import java.security.PublicKey;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -121,6 +122,12 @@ public class GlobalScope extends BaseScope
         symbolMap.put(obj.getTypeName(), obj);
         typeMap.put(obj.getTypeName(), obj);
         obj.setScope(this);
+    }
+
+    public void TypeConflict(Symbol obj) throws SemanticError
+    {
+        if (typeMap.containsKey(obj.getName()))
+            throw new SemanticError(obj.getOrigin().getPosition(), "Conflict with known Type!");
     }
 
     @Override

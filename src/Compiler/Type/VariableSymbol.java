@@ -6,6 +6,8 @@ import Compiler.Utils.SemanticError;
 
 public class VariableSymbol extends Symbol implements Type
 {
+    private boolean unUsed = false;
+
     public VariableSymbol(String name, Type type, VarDeclNode varDeclNode)
     {
         super(name, type, varDeclNode);
@@ -63,5 +65,15 @@ public class VariableSymbol extends Symbol implements Type
     public void isCompatible(Position position, Type type) throws SemanticError
     {
 
+    }
+
+    public void setUnUsed(boolean unUsed)
+    {
+        this.unUsed = unUsed;
+    }
+
+    public boolean isUnUsed()
+    {
+        return unUsed;
     }
 }

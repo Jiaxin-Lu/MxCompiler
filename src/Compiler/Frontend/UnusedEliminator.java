@@ -4,17 +4,20 @@ import Compiler.AST.*;
 import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
 
-import java.util.Stack;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ScopeBuilder implements ASTVisitor
+//DONE : EVERYTHING!
+
+public class UnusedEliminator implements ASTVisitor
 {
     private GlobalScope globalScope;
     private Scope currentScope;
-    private ClassSymbol currentClass;
-    private FunctionSymbol currentFunction;
-    private Stack<LoopStmtNode> loopStack = new Stack<>();
+    private boolean inDefine = false;
+    private Set<VariableSymbol> definedSymbolSet = new HashSet<>();
+    private Set<VariableSymbol> usedSymbolSet = new HashSet<>();
 
-    public ScopeBuilder(GlobalScope globalScope)
+    public UnusedEliminator(GlobalScope globalScope)
     {
         this.globalScope = globalScope;
     }
@@ -23,14 +26,19 @@ public class ScopeBuilder implements ASTVisitor
     public void visit(ProgramNode node) throws SemanticError
     {
         currentScope = globalScope;
-        currentClass = null;
-        currentFunction = null;
         for (ProgramDeclNode programDeclNode : node.getProgramDeclNodeList())
         {
             programDeclNode.accept(this);
             currentScope = globalScope;
-            currentClass = null;
-            currentFunction = null;
+        }
+        for (VariableSymbol variableSymbol : definedSymbolSet)
+        {
+            if (!usedSymbolSet.contains(variableSymbol))
+            {
+                variableSymbol.setUnUsed(true);
+                // TODO : CHECK IS ALL THIS RIGHT?
+                // System.out.println(variableSymbol.getName());
+            }
         }
     }
 
@@ -38,14 +46,14 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(VarDeclNode node) throws SemanticError
     {
-        if (node.getExpr() != null) node.getExpr().accept(this);
-        Type type = globalScope.getTypeForTypeNode(node.getType());
-        node.setTypeResolved(type);
-        VariableSymbol variableSymbol = new VariableSymbol(node.getId(), type, node);
-        node.setVariableSymbol(variableSymbol);
-        globalScope.TypeConflict(variableSymbol);
-        currentScope.defineVariable(variableSymbol); //DONE : CHECK GLOBALLY
-        if (currentScope == globalScope) node.setGlobalVar();
+        if (node.getExpr() != null)
+        {
+            VariableSymbol variableSymbol = node.getVariableSymbol();
+            // TODO: what's necessary?
+            // if (variableSymbol.getType() instanceof ArraySymbol || node.isGlobalVar())
+            definedSymbolSet.add(variableSymbol);
+            node.getExpr().accept(this);
+        }
     }
 
     @Override
@@ -53,7 +61,6 @@ public class ScopeBuilder implements ASTVisitor
     {
         ClassSymbol classSymbol = node.getClassSymbol();
         currentScope = classSymbol;
-        currentClass = classSymbol;
         if (node.getConstructorDecl() != null)
         {
             node.getConstructorDecl().accept(this);
@@ -70,9 +77,7 @@ public class ScopeBuilder implements ASTVisitor
     public void visit(FuncDeclNode node) throws SemanticError
     {
         FunctionSymbol functionSymbol = node.getFunctionSymbol();
-        //FunctionSymbol functionSymbol = (FunctionSymbol) currentScope.resolveSymbol(node.getPosition(), node.getId());
         currentScope = functionSymbol;
-        currentFunction = functionSymbol;
         visit(node.getBlock());
     }
 
@@ -116,20 +121,19 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(BlockStmtNode node) throws SemanticError
     {
-        LocalScope blockScope = new LocalScope("block scope", currentScope);
-        node.setBlockScope(blockScope);
-        currentScope = blockScope;
+        currentScope = node.getBlockScope();
         for (StmtNode stmtNode : node.getStmtList())
         {
             stmtNode.accept(this);
-            currentScope = blockScope;
+            currentScope = node.getBlockScope();
         }
     }
 
     @Override
     public void visit(VarDeclStmtNode node) throws SemanticError
     {
-        for (VarDeclNode varDeclNode : node.getVarDeclList().getVarDeclList()) {
+        for (VarDeclNode varDeclNode : node.getVarDeclList().getVarDeclList())
+        {
             varDeclNode.accept(this);
         }
     }
@@ -152,45 +156,32 @@ public class ScopeBuilder implements ASTVisitor
     public void visit(ReturnStmtNode node) throws SemanticError
     {
         if (node.getExpr() != null) node.getExpr().accept(this);
-        if (currentFunction == null)
-            throw new SemanticError(node.getPosition(), "Return must be in a function!");
-        node.setCurrentFunction(currentFunction);
     }
 
     @Override
     public void visit(BreakStmtNode node) throws SemanticError
     {
-        if (loopStack.empty())
-            throw new SemanticError(node.getPosition(), "Break must be in a loop!");
-        node.setLoop(loopStack.peek());
     }
 
     @Override
     public void visit(ContinueStmtNode node) throws SemanticError
     {
-        if (loopStack.empty())
-            throw new SemanticError(node.getPosition(), "Continue must be in a loop!");
-        node.setLoop(loopStack.peek());
     }
 
     @Override
     public void visit(ForStmtNode node) throws SemanticError
     {
-        loopStack.push(node);
         if (node.getInit() != null) node.getInit().accept(this);
         if (node.getCond() != null) node.getCond().accept(this);;
         if (node.getStep() != null) node.getStep().accept(this);
         if (node.getStatement() != null) node.getStatement().accept(this);
-        loopStack.pop();
     }
 
     @Override
     public void visit(WhileStmtNode node) throws SemanticError
     {
-        loopStack.push(node);
         if (node.getExpr() != null) node.getExpr().accept(this);
         if (node.getStatement() != null) node.getStatement().accept(this);
-        loopStack.pop();
     }
 
     //Expr
@@ -212,19 +203,21 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(ArrayExprNode node) throws SemanticError
     {
-        node.getArray().accept(this);
-        node.getIndex().accept(this);
+        if (inDefine)
+        {
+            node.getArray().accept(this);
+            inDefine = false;
+            node.getIndex().accept(this);
+            inDefine = true;
+        } else {
+            node.getArray().accept(this);
+            node.getIndex().accept(this);
+        }
     }
 
     @Override
     public void visit(NewExprNode node) throws SemanticError
     {
-        Type type = globalScope.getTypeForTypeNode(node.getBaseType());
-//        if (type == null)
-//        {
-//            System.out.println("type is null");
-//        }
-        node.setBaseTypeResolved(type);
         for (ExprNode x : node.getExprList()) {
             x.accept(this);
         }
@@ -239,22 +232,51 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(BinaryExprNode node) throws SemanticError
     {
-        node.getLhs().accept(this);
-        node.getRhs().accept(this);
+        if (node.getOp() == BinaryExprNode.Op.ASS)
+        {
+            //TODO : what's necessary?
+            if (node.getRhs().getTypeResolved() instanceof ArraySymbol || !(node.getRhs() instanceof NewExprNode))
+            {
+                node.getLhs().accept(this);
+                node.getRhs().accept(this);
+            } else
+            {
+                inDefine = true;
+                node.getLhs().accept(this);
+                inDefine = false;
+                node.getRhs().accept(this);
+            }
+        } else
+        {
+            node.getLhs().accept(this);
+            node.getRhs().accept(this);
+        }
     }
 
     @Override
     public void visit(IdExprNode node) throws SemanticError
     {
-        Symbol symbol = currentScope.resolveSymbol(node.getPosition(), node.getId());
-        node.setSymbol(symbol);
+        Symbol symbol = node.getSymbol();
+        if (symbol instanceof VariableSymbol)
+        {
+            //TODO : What's necessary?
+            if (inDefine)
+                definedSymbolSet.add((VariableSymbol)symbol);
+            else
+                usedSymbolSet.add((VariableSymbol)symbol);
+//            if (symbol.getType() instanceof ArraySymbol || ((VarDeclNode)symbol.getOrigin()).isGlobalVar())
+//            {
+//                if (indefine)
+//                    definedSymbolSet.add((VariableSymbol)symbol);
+//                else
+//                    usedSymbolSet.add((VariableSymbol)symbol);
+//            }
+        }
     }
 
     @Override
     public void visit(ThisExprNode node) throws SemanticError
     {
-        if (currentClass == null) throw new SemanticError(node.getPosition(), "'this' must be in a class!");
-        node.setScope(currentClass);
     }
 
     //Const

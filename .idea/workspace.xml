@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRRoot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +114,7 @@
       <workItem from="1582387236335" duration="2100000" />
       <workItem from="1582402351260" duration="147662000" />
       <workItem from="1583569333817" duration="9500000" />
-      <workItem from="1583650800282" duration="32330000" />
+      <workItem from="1583650800282" duration="39217000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -126,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583778490592</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add UnusedEliminator">
+      <created>1583780105895</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583780105895</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,30 +205,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1583778488211">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1583780104647">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1583778488211" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1583780104647" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1583080062539">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583080062539" />
-    <state width="1493" height="240" key="GridCell.Tab.0.bottom" timestamp="1583778053591">
+    <state width="1493" height="240" key="GridCell.Tab.0.bottom" timestamp="1583956743451">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="240" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583778053591" />
-    <state width="1493" height="240" key="GridCell.Tab.0.center" timestamp="1583778053591">
+    <state width="1493" height="240" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583956743451" />
+    <state width="1493" height="240" key="GridCell.Tab.0.center" timestamp="1583956743451">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="240" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583778053591" />
-    <state width="1493" height="240" key="GridCell.Tab.0.left" timestamp="1583778053591">
+    <state width="1493" height="240" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583956743451" />
+    <state width="1493" height="240" key="GridCell.Tab.0.left" timestamp="1583956743450">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="240" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583778053591" />
-    <state width="1493" height="240" key="GridCell.Tab.0.right" timestamp="1583778053591">
+    <state width="1493" height="240" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583956743450" />
+    <state width="1493" height="240" key="GridCell.Tab.0.right" timestamp="1583956743451">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="240" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583778053591" />
+    <state width="1493" height="240" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583956743451" />
     <state width="1493" height="2" key="GridCell.Tab.1.bottom" timestamp="1583761088960">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -224,10 +249,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1583416333124" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1583778659413">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1583780128189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1583778659413" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1583780128189" />
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1582036372627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

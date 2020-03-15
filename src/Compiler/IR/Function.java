@@ -11,6 +11,7 @@ import java.util.Set;
 public class Function
 {
     private String name;
+    private String builtinName;
     private BasicBlock entryBlock = new BasicBlock(this, "entry");
     private BasicBlock exitBlock = new BasicBlock(this, "exit");
     private List<Return> returnList = new ArrayList<>();
@@ -21,6 +22,17 @@ public class Function
     public Function(String name)
     {
         this.name = name;
+    }
+
+    public Function(String name, String builtinName)
+    {
+        this.name = name;
+        this.builtinName = builtinName;
+    }
+
+    public String getBuiltinName()
+    {
+        return builtinName;
     }
 
     public String getName()

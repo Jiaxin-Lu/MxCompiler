@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class BasicBlock
 {
-    private IRInstruction headInst;
-    private IRInstruction tailInst;
+    public IRInstruction headInst;
+    public IRInstruction tailInst;
 
     private Function function;
     private String name;
@@ -117,5 +117,5 @@ public class BasicBlock
     //TODO: mergeBlock
 
     //TODO : A lot more!
-    //      I'M MOVING TO IR INSTRUCTION!
+    //      I'M MOVING TO IR instructions!
 }

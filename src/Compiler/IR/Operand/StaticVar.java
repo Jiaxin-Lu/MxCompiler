@@ -2,18 +2,11 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
 
-public class Immediate extends Operand
+public class StaticVar extends StaticData
 {
-    private int imm;
-
-    public Immediate(int imm)
+    public StaticVar(VirtualRegister base)
     {
-        this.imm = imm;
-    }
-
-    public int getImm()
-    {
-        return imm;
+        super(base);
     }
 
     @Override

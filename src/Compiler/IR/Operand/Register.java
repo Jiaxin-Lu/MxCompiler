@@ -1,5 +1,10 @@
 package Compiler.IR.Operand;
 
-public class Register
+public abstract class Register extends Operand
 {
+    public Register() {}
+    public Register(String name)
+    {
+        super(name);
+    }
 }

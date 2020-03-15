@@ -1,8 +1,7 @@
 package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
-import Compiler.IR.Operand.Immediate;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.*;
 
 public interface IRVisitor
 {
@@ -25,4 +24,6 @@ public interface IRVisitor
     void visit(Return inst);
     void visit(Register register);
     void visit(Immediate immediate);
+    void visit(Memory memory);
+    // TODO: CHECK THIS AFTER FINISHING THE IR INSTRUCTION PACKAGE!
 }

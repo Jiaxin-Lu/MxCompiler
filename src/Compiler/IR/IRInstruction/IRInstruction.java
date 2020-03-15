@@ -5,6 +5,7 @@ import Compiler.IR.Operand.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class IRInstruction
 {
@@ -48,6 +49,11 @@ public abstract class IRInstruction
         return nextInst;
     }
 
+    public void setUsedRegister(List<Register> usedRegister)
+    {
+        this.usedRegister = usedRegister;
+    }
+
     public void setNextInst(IRInstruction nextInst)
     {
         this.nextInst = nextInst;
@@ -58,17 +64,65 @@ public abstract class IRInstruction
         return  this.nextInst != null;
     }
 
-    public void setUsedRegister(List<Register> usedRegister)
+    public void replaceInst(IRInstruction instruction)
     {
-        this.usedRegister = usedRegister;
+        if (hasPrevInst())
+        {
+            this.prevInst.setNextInst(instruction);
+            instruction.setPrevInst(this.prevInst);
+        } else currentBlock.headInst = instruction;
+        if (hasNextInst())
+        {
+            this.nextInst.setPrevInst(instruction);
+            instruction.setNextInst(this.nextInst);
+        } else currentBlock.tailInst = instruction;
     }
+
+    public void addPrevInst(IRInstruction instruction)
+    {
+        if (hasPrevInst())
+            this.prevInst.setNextInst(instruction);
+        else currentBlock.headInst = instruction;
+        instruction.setNextInst(this);
+        instruction.setPrevInst(this.prevInst);
+        this.prevInst = instruction;
+    }
+
+    public void addNextInst(IRInstruction instruction)
+    {
+        if (hasNextInst())
+            this.nextInst.setPrevInst(instruction);
+        else currentBlock.tailInst = instruction;
+        instruction.setPrevInst(this);
+        instruction.setNextInst(this.nextInst);
+        this.nextInst = instruction;
+    }
+
+    public void removeThis(IRInstruction instruction)
+    {
+        if (hasPrevInst()) this.prevInst.setNextInst(this.nextInst);
+        else currentBlock.headInst = this.nextInst;
+        if (hasNextInst()) this.nextInst.setPrevInst(this.prevInst);
+        else currentBlock.tailInst = this.prevInst;
+    }
+
+    public abstract void accept(IRVisitor visitor);
+
+    public abstract void resolveUsedRegister();
+
+    public abstract void setUsedRegister(Map<Register, Register> registerMap);
 
     public List<Register> getUsedRegister()
     {
+        resolveUsedRegister();
         return usedRegister;
     }
 
-    public abstract void accept(IRVisitor irVisitor);
-    //TODO : replace, prepend, postpend, removeThis,
+    public abstract Register getOriginRegister();
+
+    public abstract void setOriginRegister(Register register);
+
+    public abstract IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap);
+    //TODO : A lot more!
 
 }

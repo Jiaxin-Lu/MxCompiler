@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="Pass all Semantic Check">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/GlobalVariable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Immediate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Operand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" afterDir="false" />
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StackData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticStr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticVar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/GlobalVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/GlobalVariable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Immediate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Immediate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Operand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Operand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +124,9 @@
       <workItem from="1582387236335" duration="2100000" />
       <workItem from="1582402351260" duration="147662000" />
       <workItem from="1583569333817" duration="9500000" />
-      <workItem from="1583650800282" duration="51360000" />
+      <workItem from="1583650800282" duration="51508000" />
+      <workItem from="1584188649388" duration="15076000" />
+      <workItem from="1584275061933" duration="9532000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -150,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584088555943</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="IR Package is hard!!!">
+      <created>1584130472672</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1584130472672</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,11 +197,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Starting Semantic Check" />
     <MESSAGE value="Pass all the Semantic Check" />
     <MESSAGE value="Add UnusedEliminator" />
     <MESSAGE value="Pass all Semantic Check" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pass all Semantic Check" />
+    <MESSAGE value="IR Package is hard!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="IR Package is hard!!!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -205,46 +234,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584088574442">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584130471169">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584088574442" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584130471169" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1583080062539">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583080062539" />
-    <state width="1493" height="100" key="GridCell.Tab.0.bottom" timestamp="1584122439750">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584122439750" />
-    <state width="1493" height="100" key="GridCell.Tab.0.center" timestamp="1584122439750">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584122439750" />
-    <state width="1493" height="100" key="GridCell.Tab.0.left" timestamp="1584122439749">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584122439749" />
-    <state width="1493" height="100" key="GridCell.Tab.0.right" timestamp="1584122439750">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="100" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584122439750" />
-    <state width="1493" height="2" key="GridCell.Tab.1.bottom" timestamp="1583761088960">
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.1.bottom" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583761088960" />
-    <state width="1493" height="2" key="GridCell.Tab.1.center" timestamp="1583761088960">
+    <state width="1493" height="2" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.1.center" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1583761088960" />
-    <state width="1493" height="2" key="GridCell.Tab.1.left" timestamp="1583761088960">
+    <state width="1493" height="2" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.1.left" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1583761088960" />
-    <state width="1493" height="2" key="GridCell.Tab.1.right" timestamp="1583761088960">
+    <state width="1493" height="2" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
+    <state width="1493" height="2" key="GridCell.Tab.1.right" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1583761088960" />
+    <state width="1493" height="2" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1584130486931" />
     <state x="270" y="0" key="SettingsEditor" timestamp="1583416333124">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

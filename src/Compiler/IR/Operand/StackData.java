@@ -2,18 +2,13 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
 
-public class Immediate extends Operand
+public class StackData extends Memory
 {
-    private int imm;
 
-    public Immediate(int imm)
+    //TODO : much more to add
+    public StackData(VirtualRegister base)
     {
-        this.imm = imm;
-    }
-
-    public int getImm()
-    {
-        return imm;
+        super(base);
     }
 
     @Override

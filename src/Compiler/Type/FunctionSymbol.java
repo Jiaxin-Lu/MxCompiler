@@ -1,6 +1,7 @@
 package Compiler.Type;
 
 import Compiler.AST.FuncDeclNode;
+import Compiler.IR.Function;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
@@ -12,6 +13,10 @@ public class FunctionSymbol extends Symbol implements Scope, Type
     private Scope fatherScope;
     private Map<String, VariableSymbol> arguments = new LinkedHashMap<>();
 
+    //IR
+    private Function function;
+    private boolean isMemberFunction = false;
+
     public FunctionSymbol(String name, Type type, FuncDeclNode funcDeclNode, Scope fatherScope)
     {
         super(name, type, funcDeclNode);
@@ -21,6 +26,27 @@ public class FunctionSymbol extends Symbol implements Scope, Type
     public Map<String, VariableSymbol> getArguments()
     {
         return arguments;
+    }
+
+    //IR
+    public void setFunction(Function function)
+    {
+        this.function = function;
+    }
+
+    public Function getFunction()
+    {
+        return function;
+    }
+
+    public boolean isMemberFunction()
+    {
+        return isMemberFunction;
+    }
+
+    public void setMemberFunction()
+    {
+        isMemberFunction = true;
     }
 
     // Scope

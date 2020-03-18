@@ -1,12 +1,17 @@
 package Compiler.Type;
 
 import Compiler.AST.VarDeclNode;
+import Compiler.IR.Operand.Operand;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
 public class VariableSymbol extends Symbol implements Type
 {
     private boolean unUsed = false;
+    private boolean isGlobal = false;
+
+    //for IR
+    private Operand variableOperand;
 
     public VariableSymbol(String name, Type type, VarDeclNode varDeclNode)
     {
@@ -63,9 +68,7 @@ public class VariableSymbol extends Symbol implements Type
 
     @Override
     public void isCompatible(Position position, Type type) throws SemanticError
-    {
-
-    }
+    {}
 
     public void setUnUsed(boolean unUsed)
     {
@@ -75,5 +78,25 @@ public class VariableSymbol extends Symbol implements Type
     public boolean isUnUsed()
     {
         return unUsed;
+    }
+
+    public void setGlobal()
+    {
+        isGlobal = true;
+    }
+
+    public boolean isGlobal()
+    {
+        return isGlobal;
+    }
+
+    public void setVariableOperand(Operand variableOperand)
+    {
+        this.variableOperand = variableOperand;
+    }
+
+    public Operand getVariableOperand()
+    {
+        return variableOperand;
     }
 }

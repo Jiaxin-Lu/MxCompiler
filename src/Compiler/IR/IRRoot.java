@@ -46,11 +46,13 @@ public class IRRoot
         addBuiltinFunction(builtinGetString);
         addBuiltinFunction(builtinGetInt);
         addBuiltinFunction(builtinToString);
+
         addBuiltinFunction(builtinStringLength);
         addBuiltinFunction(builtinStringSubstring);
         addBuiltinFunction(builtinStringParseInt);
         addBuiltinFunction(builtinStringOrd);
-        addBuiltinFunction(builtinArraySize);
+//        addBuiltinFunction(builtinArraySize);
+
         addBuiltinFunction(builtinStringAdd);
         addBuiltinFunction(builtinStringLT);
         addBuiltinFunction(builtinStringLEQ);

@@ -6,6 +6,7 @@ public class VirtualRegister extends Register
 {
     private PhysicalRegister enforcedReg = null;
 
+    public VirtualRegister(){}
     public VirtualRegister(String name)
     {
         super(name);

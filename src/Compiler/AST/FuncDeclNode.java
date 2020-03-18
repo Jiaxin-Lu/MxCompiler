@@ -22,6 +22,10 @@ public class FuncDeclNode extends ProgramDeclNode
         this.id = id;
         this.parameterList = parameterList;
         this.block = block;
+        for (VarDeclNode varDeclNode : parameterList)
+        {
+            varDeclNode.setParameterVar();
+        }
     }
 
     public TypeNode getType()

@@ -1,8 +1,6 @@
 package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
-import Compiler.IR.Operand.*;
-import Compiler.Type.BaseScope;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,10 +17,12 @@ public class BasicBlock
 
     public BasicBlock IDOM;
     public BasicBlock postIDOM;
-    public int dfn;
+    public int preOrderIndex;
+    public int postOrderIndex;
     public BasicBlock dfsFatherBlock;
     public Set<BasicBlock> DF;
-    //TODO : ARE THERE ANYTHING MORE?
+
+    private boolean isEnded;
 
     public BasicBlock(Function function, String name)
     {
@@ -48,6 +48,11 @@ public class BasicBlock
     public Function getFunction()
     {
         return function;
+    }
+
+    public boolean isEnded()
+    {
+        return isEnded;
     }
 
     public void addSuccessor(BasicBlock basicBlock)
@@ -101,7 +106,47 @@ public class BasicBlock
         }
     }
 
-    //TODO : removeInst
+    public void removeTailInst()
+    {
+        isEnded = false;
+        if (tailInst == null)
+        {
+
+        } else
+        {
+            if (tailInst instanceof Branch)
+            {
+                removeSuccessor(((Branch) tailInst).getThenBlock());
+                removeSuccessor(((Branch) tailInst).getElseBlock());
+            } else if (tailInst instanceof Jump)
+            {
+                removeSuccessor(((Jump) tailInst).getDstBlock());
+            } else if (tailInst instanceof Return)
+            {
+                function.getReturnList().remove(tailInst);
+            }
+            tailInst = tailInst.getPrevInst();
+            if (tailInst != null) tailInst.setNextInst(null);
+            else headInst = tailInst = null;
+        }
+    }
+
+    public void endThis(IRInstruction instruction)
+    {
+        addInst2Tail(instruction);
+        if (instruction instanceof Branch)
+        {
+            addBasicBlock(((Branch) instruction).getThenBlock());
+            addBasicBlock(((Branch) instruction).getElseBlock());
+        } else if (instruction instanceof Jump)
+        {
+            addBasicBlock(((Jump) instruction).getDstBlock());
+        } else if (instruction instanceof Return)
+        {
+            function.addReturnList((Return) instruction);
+        }
+        isEnded = true;
+    }
 
     public void removeThis()
     {
@@ -109,13 +154,52 @@ public class BasicBlock
         {
             for (IRInstruction instruction = successor.headInst; instruction.hasNextInst() ; instruction = instruction.getNextInst())
             {
-                //TODO : removeThis !
+                if (instruction instanceof Phi) ((Phi) instruction).removePath(this);
+                else break;
             }
+        }
+        for (BasicBlock successor : successors)
+        {
+            successor.removePredecessor(this);
+        }
+        for (BasicBlock predecessor : predecessors)
+        {
+            predecessor.removeSuccessor(this);
         }
     }
 
-    //TODO: mergeBlock
+    public void addBasicBlock(BasicBlock basicBlock)
+    {
+        if (basicBlock != null)
+        {
+            this.addSuccessor(basicBlock);
+            basicBlock.addPredecessor(this);
+        }
+    }
+
+    public void mergeBasicBlock(BasicBlock basicBlock)
+    {
+        for (BasicBlock successor : successors)
+        {
+            for (IRInstruction instruction = successor.headInst; instruction.hasNextInst() ; instruction = instruction.getNextInst())
+            {
+                if (instruction instanceof Phi) ((Phi) instruction).replacePath(this, basicBlock);
+                else break;
+            }
+        }
+        for (BasicBlock successor : successors)
+        {
+            successor.replacePredecessor(this, basicBlock);
+        }
+        basicBlock.removeTailInst();
+        basicBlock.addInst2Tail(this.headInst);
+        basicBlock.tailInst = this.tailInst;
+        basicBlock.isEnded = true;
+        for (IRInstruction instruction = this.headInst; instruction.hasNextInst(); instruction = instruction.getNextInst())
+        {
+            instruction.setCurrentBlock(basicBlock);
+        }
+    }
 
     //TODO : A lot more!
-    //      I'M MOVING TO IR instructions!
 }

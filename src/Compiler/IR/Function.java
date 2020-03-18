@@ -2,11 +2,9 @@ package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.Register;
+import Compiler.Parser.MxParser;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Function
 {
@@ -16,8 +14,10 @@ public class Function
     private BasicBlock exitBlock = new BasicBlock(this, "exit");
     private List<Return> returnList = new ArrayList<>();
     private List<Register> parameterList = new ArrayList<>();
-    private List<BasicBlock> dfsOrderBlockList = null;
+    private List<BasicBlock> preOrderBlockList = null;
+    private List<BasicBlock> postOrderBlockList = null;
     private Set<BasicBlock> dfsVisit = null;
+    private Register inClassThis = null;
 
     public Function(String name)
     {
@@ -85,22 +85,47 @@ public class Function
         this.exitBlock = exitBlock;
     }
 
-    public List<BasicBlock> getDfsOrderBlockList()
+    public void setInClassThis(Register inClassThis)
     {
-        if (dfsOrderBlockList == null)
-            calcDfsOrderBlockList();
-        return dfsOrderBlockList;
+        this.inClassThis = inClassThis;
     }
-    public void calcDfsOrderBlockList()
+
+    public Register getInClassThis()
     {
-        dfsOrderBlockList = new ArrayList<>();
+        return inClassThis;
+    }
+
+    public List<BasicBlock> getPreOrderBlockList()
+    {
+        if (preOrderBlockList == null)
+            calcPreOrderBlockList();
+        return preOrderBlockList;
+    }
+    public void calcPreOrderBlockList()
+    {
+        preOrderBlockList = new ArrayList<>();
         dfsVisit = new HashSet<>();
         dfsBasicBlock(entryBlock);
     }
+//    public void calcPostOrderBlockList()
+//    {
+//    }
+    public List<BasicBlock> getPostOrderBlockList()
+    {
+        if (postOrderBlockList == null)
+        {
+            postOrderBlockList = new ArrayList<>();
+            postOrderBlockList.addAll(getPreOrderBlockList());
+            Collections.reverse(postOrderBlockList);
+        }
+        for (int i = 0; i < postOrderBlockList.size(); ++i)
+            postOrderBlockList.get(i).postOrderIndex = i;
+        return postOrderBlockList;
+    }
     public void dfsBasicBlock(BasicBlock basicBlock)
     {
-        basicBlock.dfn = dfsOrderBlockList.size();
-        dfsOrderBlockList.add(basicBlock);
+        basicBlock.preOrderIndex = preOrderBlockList.size();
+        preOrderBlockList.add(basicBlock);
         dfsVisit.add(basicBlock);
         for (BasicBlock successor : basicBlock.getSuccessors())
         {

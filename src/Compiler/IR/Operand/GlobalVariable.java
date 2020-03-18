@@ -2,7 +2,7 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
 
-public class GlobalVariable extends VirtualRegister
+public class GlobalVariable extends Value
 {
     public GlobalVariable(String name)
     {

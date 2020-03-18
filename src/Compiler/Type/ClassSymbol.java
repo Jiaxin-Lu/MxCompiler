@@ -58,6 +58,7 @@ public class ClassSymbol extends Symbol implements Type, Scope
         if (variableTypeMap.containsKey(obj.getName()) || functionTypeMap.containsKey(obj.getName()))
             throw new SemanticError(obj.getOrigin().getPosition(), "Duplicate id!");
         obj.setScope(this);
+        obj.setMemberFunction();
         functionTypeMap.put(obj.getName(), obj);
     }
 

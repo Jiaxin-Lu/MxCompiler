@@ -1,11 +1,17 @@
 package Compiler.AST;
 
+import Compiler.IR.BasicBlock;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
 public class ForStmtNode extends StmtNode implements LoopStmtNode {
     private ExprNode init, cond, step;
     private StmtNode statement;
+
+    //IR
+    private BasicBlock stepBlock;
+    private BasicBlock mergedBlock;
+
     public ForStmtNode(Position position, ExprNode init, ExprNode cond, ExprNode step, StmtNode statement)
     {
         super(position);
@@ -39,5 +45,27 @@ public class ForStmtNode extends StmtNode implements LoopStmtNode {
     public void accept(ASTVisitor visitor) throws SemanticError
     {
         visitor.visit(this);
+    }
+
+    public void setMergedBlock(BasicBlock mergedBlock)
+    {
+        this.mergedBlock = mergedBlock;
+    }
+
+    public void setStepBlock(BasicBlock stepBlock)
+    {
+        this.stepBlock = stepBlock;
+    }
+
+    @Override
+    public BasicBlock getMergedBlock()
+    {
+        return mergedBlock;
+    }
+
+    @Override
+    public BasicBlock getStepBlock()
+    {
+        return stepBlock;
     }
 }

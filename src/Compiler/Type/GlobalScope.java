@@ -28,10 +28,9 @@ public class GlobalScope extends BaseScope
         definePrimitiveTypeSymbol(IntTypeSymbol);
         definePrimitiveTypeSymbol(BoolTypeSymbol);
         definePrimitiveTypeSymbol(VoidTypeSymbol);
+        arraySizeSymbol.setMemberFunction();
 
         //string
-//        FunctionSymbol stringLength = new FunctionSymbol("length", IntTypeSymbol,null, string);
-//        string.defineFunction(stringLength);
         string.defineFunction(new FunctionSymbol("length", IntTypeSymbol,null, string));
         FunctionSymbol stringSubstring = new FunctionSymbol("substring", string, null, string);
         stringSubstring.defineVariable(new VariableSymbol("left", IntTypeSymbol, null));

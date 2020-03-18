@@ -13,7 +13,7 @@ public class VarDeclNode extends ProgramDeclNode
 
     private VariableSymbol variableSymbol;
     private boolean isGlobalVar = false;
-    private boolean isPrimitiveVar = false;
+    private boolean isParameterVar = false;
 
     public VarDeclNode(Position position, TypeNode type, String id, ExprNode expr)
     {
@@ -78,9 +78,14 @@ public class VarDeclNode extends ProgramDeclNode
         return isGlobalVar;
     }
 
-    public void setPrimitiveVar()
+    public void setParameterVar()
     {
-        isPrimitiveVar = true;
+        isParameterVar = true;
+    }
+
+    public boolean isParameterVar()
+    {
+        return isParameterVar;
     }
 
     @Override

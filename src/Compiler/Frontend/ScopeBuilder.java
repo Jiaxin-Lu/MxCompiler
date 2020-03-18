@@ -45,7 +45,11 @@ public class ScopeBuilder implements ASTVisitor
         node.setVariableSymbol(variableSymbol);
         globalScope.TypeConflict(variableSymbol);
         currentScope.defineVariable(variableSymbol); //DONE : CHECK GLOBALLY
-        if (currentScope == globalScope) node.setGlobalVar();
+        if (currentScope == globalScope)
+        {
+            node.setGlobalVar();
+            node.getVariableSymbol().setGlobal();
+        }
     }
 
     @Override

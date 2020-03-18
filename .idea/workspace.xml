@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Value.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/ForStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/ForStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/FuncDeclNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/FuncDeclNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/LoopStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/LoopStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/VarDeclNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/VarDeclNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/WhileStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/WhileStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRRoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/GlobalVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/GlobalVariable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/ClassSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/FunctionSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/FunctionSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/ExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/ExprNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +98,7 @@
       <workItem from="1583569333817" duration="9500000" />
       <workItem from="1583650800282" duration="51508000" />
       <workItem from="1584188649388" duration="15076000" />
-      <workItem from="1584275061933" duration="33247000" />
+      <workItem from="1584275061933" duration="34550000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -193,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584381418569</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Start building IRBuilder...">
+      <created>1584557035443</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1584557035443</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,7 +213,8 @@
     <MESSAGE value="Did A SMALL PART OF IR package." />
     <MESSAGE value="Add builtin functions to IRRoot!" />
     <MESSAGE value="Add IRBuilder!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add IRBuilder!" />
+    <MESSAGE value="Start building IRBuilder..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Start building IRBuilder..." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -253,10 +245,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584381417601">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584557032402">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584381417601" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584557032402" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1583080062539">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

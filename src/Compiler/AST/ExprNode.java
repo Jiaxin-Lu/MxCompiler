@@ -1,8 +1,11 @@
 package Compiler.AST;
 
+import Compiler.IR.BasicBlock;
 import Compiler.Type.FunctionSymbol;
 import Compiler.Type.Type;
 import Compiler.Utils.Position;
+
+import java.util.Base64;
 
 public abstract class ExprNode extends ASTNode {
     public enum ExprType
@@ -13,6 +16,10 @@ public abstract class ExprNode extends ASTNode {
     private ExprType exprType;
     private Type typeResolved;
     private FunctionSymbol functionSymbol;
+
+    //IR
+    private BasicBlock bodyBlock;
+    private BasicBlock afterBodyBlock;
 
     public ExprNode(Position position)
     {
@@ -102,5 +109,25 @@ public abstract class ExprNode extends ASTNode {
     {
         return ((exprType == ExprType.LEFT) &&
                 (typeResolved.isClassType() || typeResolved.isArrayType() || typeResolved.isNullType()));
+    }
+
+    public BasicBlock getBodyBlock()
+    {
+        return bodyBlock;
+    }
+
+    public void setBodyBlock(BasicBlock bodyBlock)
+    {
+        this.bodyBlock = bodyBlock;
+    }
+
+    public BasicBlock getAfterBodyBlock()
+    {
+        return afterBodyBlock;
+    }
+
+    public void setAfterBodyBlock(BasicBlock afterBodyBlock)
+    {
+        this.afterBodyBlock = afterBodyBlock;
     }
 }

@@ -21,5 +21,10 @@ public abstract class Memory extends Operand
         return usedRegister;
     }
 
+    public Register getBase()
+    {
+        return base;
+    }
+
     //TODO : everything concerning StackData!
 }

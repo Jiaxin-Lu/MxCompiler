@@ -1,6 +1,7 @@
 package Compiler.AST;
 
 import Compiler.IR.BasicBlock;
+import Compiler.IR.Operand.Operand;
 import Compiler.Type.FunctionSymbol;
 import Compiler.Type.Type;
 import Compiler.Utils.Position;
@@ -20,6 +21,7 @@ public abstract class ExprNode extends ASTNode {
     //IR
     private BasicBlock bodyBlock;
     private BasicBlock afterBodyBlock;
+    private Operand resultOperand;
 
     public ExprNode(Position position)
     {
@@ -129,5 +131,15 @@ public abstract class ExprNode extends ASTNode {
     public void setAfterBodyBlock(BasicBlock afterBodyBlock)
     {
         this.afterBodyBlock = afterBodyBlock;
+    }
+
+    public Operand getResultOperand()
+    {
+        return resultOperand;
+    }
+
+    public void setResultOperand(Operand resultOperand)
+    {
+        this.resultOperand = resultOperand;
     }
 }

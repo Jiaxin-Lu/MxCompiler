@@ -216,7 +216,26 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(IfStmtNode node) throws SemanticError
     {
-        //TODO : IF
+        BasicBlock thenBlock = new BasicBlock(currentFunction, "if_then");
+        BasicBlock elseBlock = node.getElseStmt() == null ? null : new BasicBlock(currentFunction, "if_else");
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "if_merge");
+
+        node.getExpr().setBodyBlock(thenBlock);
+        node.getExpr().setAfterBodyBlock(elseBlock == null ? mergeBlock : elseBlock);
+        node.getExpr().accept(this);
+
+        currentBlock = thenBlock;
+        node.getThenStmt().accept(this);
+        if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, mergeBlock));
+
+        if (elseBlock != null)
+        {
+            currentBlock = elseBlock;
+            node.getElseStmt().accept(this);
+            if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, mergeBlock));
+        }
+
+        currentBlock = mergeBlock;
     }
 
     @Override
@@ -248,11 +267,64 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(ForStmtNode node) throws SemanticError
     {
+        BasicBlock condBlock = node.getCond() == null ? null : new BasicBlock(currentFunction, "for_cond");
+        BasicBlock stepBlock = node.getStep() == null ? null : new BasicBlock(currentFunction, "for_step");
+        BasicBlock bodyBlock = new BasicBlock(currentFunction, "for_body");
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "for_merge");
+
+        node.setMergedBlock(mergeBlock);
+        node.setStepBlock(stepBlock);
+
+        if (node.getInit() != null)
+        {
+            node.getInit().accept(this);
+        }
+        if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, condBlock));
+
+        if (condBlock != null)
+        {
+            currentBlock = condBlock;
+            node.getCond().setBodyBlock(bodyBlock);
+            node.getCond().setAfterBodyBlock(mergeBlock);
+            node.getCond().accept(this);
+        }
+
+        currentBlock = bodyBlock;
+        node.getStatement().accept(this);
+        if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, stepBlock));
+
+        if (stepBlock != null)
+        {
+            currentBlock = stepBlock;
+            node.getStep().accept(this);
+            if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, condBlock));
+        }
+
+        currentBlock = mergeBlock;
     }
 
     @Override
     public void visit(WhileStmtNode node) throws SemanticError
     {
+        BasicBlock condBlock = new BasicBlock(currentFunction, "while_cond");
+        BasicBlock bodyBlock = new BasicBlock(currentFunction, "while_body");
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "while_merge");
+
+        node.setMergedBlock(mergeBlock);
+        node.setStepBlock(condBlock);
+
+        currentBlock.endThis(new Jump(currentBlock, condBlock));
+
+        currentBlock = condBlock;
+        node.getExpr().setBodyBlock(bodyBlock);
+        node.getExpr().setAfterBodyBlock(mergeBlock);
+        node.getExpr().accept(this);
+
+        currentBlock = bodyBlock;
+        node.getStatement().accept(this);
+        if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, condBlock));
+
+        currentBlock = mergeBlock;
     }
 
     //Expr
@@ -294,28 +366,41 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(ThisExprNode node) throws SemanticError
     {
+        node.setResultOperand(currentFunction.getInClassThis());
     }
 
     //Const
     @Override
     public void visit(NullConstNode node) throws SemanticError
     {
+        node.setResultOperand(new Immediate(0));
     }
 
     @Override
     public void visit(StringConstNode node) throws SemanticError
     {
+        StaticStr staticStr = new StaticStr(new GlobalVariable("__str_const", true), node.getVal());
+        node.setResultOperand(staticStr.getBase());
+        irRoot.addStaticStr(staticStr);
     }
 
     @Override
     public void visit(IntConstNode node) throws SemanticError
     {
+        node.setResultOperand(new Immediate(node.getVal()));
     }
 
     @Override
     public void visit(BoolConstNode node) throws SemanticError
     {
+        node.setResultOperand(new Immediate(node.getVal() ? 1 : 0));
+        if (node.getBodyBlock() != null)
+        {
+            if (node.getVal()) currentBlock.endThis(new Jump(currentBlock, node.getBodyBlock()));
+            else currentBlock.endThis(new Jump(currentBlock, node.getAfterBodyBlock()));
+        }
     }
+
     public void assign(Operand lhs, ExprNode rhs)
     {
         //TODO : A LOT

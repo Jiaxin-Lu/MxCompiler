@@ -4,9 +4,16 @@ import Compiler.IR.IRVisitor;
 
 public class GlobalVariable extends Value
 {
+    private boolean isString = false;
     public GlobalVariable(String name)
     {
         super(name);
+    }
+
+    public GlobalVariable(String name, boolean isString)
+    {
+        super(name);
+        this.isString = isString;
     }
 
     @Override

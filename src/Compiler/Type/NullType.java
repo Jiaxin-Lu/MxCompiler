@@ -62,4 +62,10 @@ public class NullType implements Type
     {
         throw new SemanticError(position, "Null cannot be assigned!");
     }
+
+    @Override
+    public int getTypeSize()
+    {
+        return 0;
+    }
 }

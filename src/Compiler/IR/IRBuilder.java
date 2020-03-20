@@ -100,6 +100,8 @@ public class IRBuilder implements ASTVisitor
     public void visit(ClassDeclNode node) throws SemanticError
     {
         currentClassSymbol = node.getClassSymbol();
+        if (node.getConstructorDecl() != null)
+            node.getConstructorDecl().accept(this);
         for (FuncDeclNode funcDeclNode : node.getFuncDeclList())
         {
             funcDeclNode.accept(this);
@@ -331,36 +333,121 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(FuncCallExprNode node) throws SemanticError
     {
+        FunctionSymbol functionSymbol = node.getFunctionExpr().getFunctionSymbol();
+        node.getFunctionExpr().accept(this);
+        if (functionSymbol.isMemberFunction() && functionSymbol.getTypeName().equals("array.size"))
+        {
+            Operand operand = node.getFunctionExpr().getResultOperand();
+            node.setResultOperand(new Value());
+            currentBlock.addInst2Tail(new Load(currentBlock, operand, node.getResultOperand()));
+            return;
+        }
+        if (node.getTypeResolved().getTypeName().equals("void")) node.setResultOperand(null);
+        else node.setResultOperand(new Value());
+        Call call = new Call(currentBlock, functionSymbol.getFunction(), node.getResultOperand());
+        for (ExprNode exprNode : node.getParameterList())
+        {
+            exprNode.accept(this);
+            call.addParameterList(resolvePointer(currentBlock, exprNode.getResultOperand()));
+        }
+        if (functionSymbol.isMemberFunction())
+        {
+            call.setPointer(node.getFunctionExpr().getResultOperand());
+        }
+        currentBlock.addInst2Tail(call);
+
+        if (node.getBodyBlock() != null)
+        {
+            currentBlock.addInst2Tail(new Branch(currentBlock,
+                    resolvePointer(currentBlock, node.getResultOperand()),
+                    node.getBodyBlock(), node.getAfterBodyBlock()));
+        }
+    }
+
+    public Operand resolvePointer(BasicBlock basicBlock, Operand operand)
+    {
+        if (operand instanceof Pointer)
+        {
+            Value value = new Value();
+            currentBlock.addInst2Tail(new Load(basicBlock, operand, new Value()));
+            return value;
+        }
+        else return operand;
     }
 
     @Override
     public void visit(MemberExprNode node) throws SemanticError
     {
+        //TODO : MEMBER
     }
 
     @Override
     public void visit(ArrayExprNode node) throws SemanticError
     {
+        //TODO : ARRAY EXPR
     }
 
     @Override
     public void visit(NewExprNode node) throws SemanticError
     {
+        node.setResultOperand(new Value());
+        if (node.getDims() == 0)
+        {
+            ClassSymbol classSymbol = (ClassSymbol) node.getTypeResolved();
+            currentBlock.addInst2Tail(new Alloc(currentBlock,
+                    new Immediate(classSymbol.getClassSize()), node.getResultOperand()));
+            if (classSymbol.getConstructor() != null)
+            {
+                Call call = new Call(currentBlock, classSymbol.getConstructor().getFunction(), null);
+                call.setPointer(node.getResultOperand());
+                currentBlock.addInst2Tail(call);
+            }
+        } else
+        {
+            arrayAllocate(node, node.getResultOperand(), 0);
+        }
     }
 
     @Override
     public void visit(UnaryExprNode node) throws SemanticError
     {
+        //TODO : UNARY
     }
 
     @Override
     public void visit(BinaryExprNode node) throws SemanticError
     {
+        //TODO : BINARY
     }
 
     @Override
     public void visit(IdExprNode node) throws SemanticError
     {
+        Symbol symbol = node.getSymbol();
+        if (symbol.getScope() == currentClassSymbol)
+        {
+            //add this.id
+            if (symbol instanceof VariableSymbol)
+            {
+                Pointer pointer = new Pointer();
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD,
+                        currentFunction.getInClassThis(), new Immediate(((VariableSymbol) symbol).getOffset()), pointer));
+                node.setResultOperand(pointer);
+                if (node.getBodyBlock() != null)
+                {
+                    Value value = new Value();
+                    currentBlock.addInst2Tail(new Load(currentBlock, pointer, value));
+                    currentBlock.endThis(new Branch(currentBlock, value, node.getBodyBlock(), node.getAfterBodyBlock()));
+                }
+            } else
+                node.setResultOperand(currentFunction.getInClassThis());
+        } else if (symbol instanceof VariableSymbol)
+        {
+            node.setResultOperand(((VariableSymbol) symbol).getVariableOperand());
+            if (node.getBodyBlock() != null)
+                currentBlock.endThis(new Branch(currentBlock, ((VariableSymbol) symbol).getVariableOperand(),
+                        node.getBodyBlock(), node.getAfterBodyBlock()));
+        }
     }
 
     @Override
@@ -403,6 +490,11 @@ public class IRBuilder implements ASTVisitor
 
     public void assign(Operand lhs, ExprNode rhs)
     {
-        //TODO : A LOT
+        //TODO : ASSIGN
+    }
+
+    public void arrayAllocate(NewExprNode node, Operand operand, int times)
+    {
+        //TODO : ARRAY ALLOCATE
     }
 }

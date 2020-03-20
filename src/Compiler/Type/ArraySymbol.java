@@ -2,6 +2,7 @@ package Compiler.Type;
 
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
+import Compiler.Utils.Width;
 
 public class ArraySymbol extends Symbol implements Type
 {
@@ -94,5 +95,11 @@ public class ArraySymbol extends Symbol implements Type
     public boolean isNullType()
     {
         return false;
+    }
+
+    @Override
+    public int getTypeSize()
+    {
+        return Width.pointerWidth;
     }
 }

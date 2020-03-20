@@ -60,8 +60,8 @@ public class Main
             System.out.println("Success");
 
             // I'm not sure this is necessary.
-            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
-            unusedEliminator.visit(ast);
+//            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
+//            unusedEliminator.visit(ast);
 
         } catch (Exception exception)
         {

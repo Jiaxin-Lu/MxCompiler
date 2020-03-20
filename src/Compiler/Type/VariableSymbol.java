@@ -12,6 +12,7 @@ public class VariableSymbol extends Symbol implements Type
 
     //for IR
     private Operand variableOperand;
+    private int offset;
 
     public VariableSymbol(String name, Type type, VarDeclNode varDeclNode)
     {
@@ -98,5 +99,15 @@ public class VariableSymbol extends Symbol implements Type
     public Operand getVariableOperand()
     {
         return variableOperand;
+    }
+
+    public void setOffset(int offset)
+    {
+        this.offset = offset;
+    }
+
+    public int getOffset()
+    {
+        return offset;
     }
 }

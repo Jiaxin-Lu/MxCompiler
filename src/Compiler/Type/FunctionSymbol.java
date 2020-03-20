@@ -145,4 +145,10 @@ public class FunctionSymbol extends Symbol implements Scope, Type
     {
         return false;
     }
+
+    @Override
+    public int getTypeSize()
+    {
+        return 0;
+    }
 }

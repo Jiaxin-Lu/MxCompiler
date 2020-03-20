@@ -3,6 +3,7 @@ package Compiler.Type;
 import Compiler.AST.ClassDeclNode;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
+import Compiler.Utils.Width;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,6 +14,9 @@ public class ClassSymbol extends Symbol implements Type, Scope
     private FunctionSymbol constructor;
     private Map<String, VariableSymbol> variableTypeMap = new LinkedHashMap<>();
     private Map<String, FunctionSymbol> functionTypeMap = new LinkedHashMap<>();
+
+    //IR
+    private int classSize = 0;
 
     public ClassSymbol(String name, ClassDeclNode classDeclNode, Scope fatherScope)
     {
@@ -28,6 +32,11 @@ public class ClassSymbol extends Symbol implements Type, Scope
     public FunctionSymbol getConstructor()
     {
         return constructor;
+    }
+
+    public int getClassSize()
+    {
+        return classSize;
     }
 
     // Scope
@@ -50,6 +59,8 @@ public class ClassSymbol extends Symbol implements Type, Scope
             throw new SemanticError(obj.getOrigin().getPosition(), "Duplicate id!");
         variableTypeMap.put(obj.getName(), obj);
         obj.setScope(this);
+        obj.setOffset(classSize);
+        classSize += obj.getType().getTypeSize();
     }
 
     @Override
@@ -151,5 +162,11 @@ public class ClassSymbol extends Symbol implements Type, Scope
     public boolean isFunctionType()
     {
         return false;
+    }
+
+    @Override
+    public int getTypeSize()
+    {
+        return Width.pointerWidth;
     }
 }

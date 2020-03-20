@@ -188,7 +188,7 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(FuncCallExprNode node) throws SemanticError
     {
-        node.getFunction().accept(this);
+        node.getFunctionExpr().accept(this);
         for (ExprNode x : node.getParameterList()) {
             x.accept(this);
         }

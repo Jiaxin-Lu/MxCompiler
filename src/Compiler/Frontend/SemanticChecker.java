@@ -3,7 +3,6 @@ package Compiler.Frontend;
 import Compiler.AST.*;
 import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
-import javafx.scene.control.SeparatorMenuItem;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -207,7 +206,7 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(FuncCallExprNode node) throws SemanticError
     {
-        ExprNode function = node.getFunction();
+        ExprNode function = node.getFunctionExpr();
         function.accept(this);
         for (ExprNode x : node.getParameterList()) {
             x.accept(this);

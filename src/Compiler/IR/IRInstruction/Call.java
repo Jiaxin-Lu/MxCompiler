@@ -4,8 +4,10 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Pointer;
 import Compiler.IR.Operand.Register;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +18,21 @@ public class Call extends IRInstruction
     private List<Operand> parameterList = new LinkedList<>();
     private Operand dst;
 
-    public Call(BasicBlock basicBlock, Function function, List<Operand> parameterList, Operand dst)
+    private Operand pointer;
+
+    public Call(BasicBlock basicBlock, Function function, Operand dst)
     {
         super(basicBlock);
         this.function = function;
-        this.parameterList = parameterList;
         this.dst = dst;
+        resolveUsedRegister();
+    }
+    public Call(BasicBlock basicBlock, Function function, Operand dst, List<Operand> parameterList)
+    {
+        super(basicBlock);
+        this.function = function;
+        this.dst = dst;
+        this.parameterList = parameterList;
         resolveUsedRegister();
     }
 
@@ -29,6 +40,16 @@ public class Call extends IRInstruction
     {
         parameterList.add(operand);
         resolveUsedRegister();
+    }
+
+    public Operand getPointer()
+    {
+        return pointer;
+    }
+
+    public void setPointer(Operand pointer)
+    {
+        this.pointer = pointer;
     }
 
     public List<Operand> getParameterList()
@@ -95,8 +116,10 @@ public class Call extends IRInstruction
         {
             newParameterList.add(registerMap.getOrDefault(parameter, parameter));
         }
-        return new Call(basicBlockMap.getOrDefault(currentBlock, currentBlock), function, newParameterList,
-                registerMap.getOrDefault(dst, dst));
+        Call call = new Call(basicBlockMap.getOrDefault(currentBlock, currentBlock), function,
+                registerMap.getOrDefault(dst, dst), newParameterList);
+        call.setPointer(registerMap.getOrDefault(pointer, pointer));
+        return call;
     }
 
     @Override

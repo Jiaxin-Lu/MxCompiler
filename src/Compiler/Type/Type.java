@@ -14,4 +14,7 @@ public interface Type
     boolean isVariableType();
     boolean isFunctionType();
     void isCompatible(Position position, Type type) throws SemanticError;
+
+    //IR
+    int getTypeSize();
 }

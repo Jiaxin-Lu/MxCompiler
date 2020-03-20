@@ -6,18 +6,18 @@ import Compiler.Utils.SemanticError;
 import java.util.List;
 
 public class FuncCallExprNode extends ExprNode {
-    private ExprNode function;
+    private ExprNode functionExpr;
     private List<ExprNode> parameterList;
-    public FuncCallExprNode(Position position, ExprNode function, List<ExprNode> parameterList)
+    public FuncCallExprNode(Position position, ExprNode functionExpr, List<ExprNode> parameterList)
     {
         super(position);
-        this.function = function;
+        this.functionExpr = functionExpr;
         this.parameterList = parameterList;
     }
 
-    public ExprNode getFunction()
+    public ExprNode getFunctionExpr()
     {
-        return function;
+        return functionExpr;
     }
 
     public List<ExprNode> getParameterList()

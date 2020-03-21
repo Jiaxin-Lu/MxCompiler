@@ -6,9 +6,7 @@ import Compiler.IR.Operand.*;
 import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
 import Compiler.Utils.Width;
-import javafx.beans.property.ObjectPropertyBase;
-
-import java.awt.*;
+import org.stringtemplate.v4.debug.AddAttributeEvent;
 
 public class IRBuilder implements ASTVisitor
 {
@@ -612,18 +610,27 @@ public class IRBuilder implements ASTVisitor
                 break;
             case LEQ:
                 op_cmp = Cmp.Op.LEQ;
+                function_call = irRoot.builtinStringLEQ;
                 break;
             case REQ:
                 op_cmp = Cmp.Op.REQ;
+                function_call = irRoot.builtinStringREQ;
                 break;
             case LT:
                 op_cmp = Cmp.Op.LT;
+                function_call = irRoot.builtinStringLT;
                 break;
             case RT:
                 op_cmp = Cmp.Op.RT;
+                function_call = irRoot.builtinStringRT;
+                break;
+            case EQ:
+                op_cmp = Cmp.Op.EQ;
+                function_call = irRoot.builtinStringEQ;
                 break;
             case NEQ:
                 op_cmp = Cmp.Op.NEQ;
+                function_call = irRoot.builtinStringNEQ;
                 break;
             case AND:
                 op_bin = Binary.Op.AND;
@@ -637,6 +644,123 @@ public class IRBuilder implements ASTVisitor
             case ANDI:
             case ORI:
             case ASS:
+            default:
+                break;
+        }
+
+        switch (node.getOp())
+        {
+            case MUL:
+            case DIV:
+            case MOD:
+            case SUB:
+            case SHL:
+            case SHR:
+            case AND:
+            case XOR:
+            case OR:
+            {
+                lhs.accept(this);
+                rhs.accept(this);
+                Operand lvalue = resolvePointer(currentBlock, lhs.getResultOperand());
+                Operand rvalue = resolvePointer(currentBlock, rhs.getResultOperand());
+                Operand dst = new Value();
+                currentBlock.addInst2Tail(new Binary(currentBlock, op_bin, lvalue, rvalue, dst));
+                node.setResultOperand(dst);
+                break;
+            }
+            case ADD:
+            {
+                lhs.accept(this);
+                rhs.accept(this);
+                Operand lvalue = resolvePointer(currentBlock, lhs.getResultOperand());
+                Operand rvalue = resolvePointer(currentBlock, rhs.getResultOperand());
+                if (lhs.isString())
+                {
+                    Operand dst = new Value();
+                    Call call = new Call(currentBlock, irRoot.builtinStringAdd, dst);
+                    call.addParameterList(lvalue);
+                    call.addParameterList(rvalue);
+                    currentBlock.addInst2Tail(call);
+                    node.setResultOperand(dst);
+                } else
+                {
+                    Operand dst = new Value();
+                    currentBlock.addInst2Tail(new Binary(currentBlock, op_bin, lvalue, rvalue, dst));
+                    node.setResultOperand(dst);
+                }
+                break;
+            }
+            case LEQ:
+            case REQ:
+            case LT:
+            case RT:
+            case EQ:
+            case NEQ:
+            {
+                lhs.accept(this);
+                rhs.accept(this);
+                Operand lvalue = resolvePointer(currentBlock, lhs.getResultOperand());
+                Operand rvalue = resolvePointer(currentBlock, rhs.getResultOperand());
+                if (lhs.isString())
+                {
+                    Operand dst = new Value();
+                    Call call = new Call(currentBlock, function_call, dst);
+                    call.addParameterList(lvalue);
+                    call.addParameterList(rvalue);
+                    currentBlock.addInst2Tail(call);
+                    node.setResultOperand(dst);
+                } else
+                {
+                    Operand dst = new Value();
+                    currentBlock.addInst2Tail(new Cmp(currentBlock, op_cmp, lvalue, rvalue, dst));
+                    node.setResultOperand(dst);
+                }
+                if (node.getBodyBlock() != null)
+                    currentBlock.endThis(new Branch(currentBlock, node.getResultOperand(), node.getBodyBlock(), node.getAfterBodyBlock()));
+                break;
+            }
+            case ANDI:
+            {
+                if (node.getBodyBlock() != null)
+                {
+                    lhs.setBodyBlock(new BasicBlock(currentFunction, "lhs_and_then"));
+                    lhs.setAfterBodyBlock(node.getAfterBodyBlock());
+                    lhs.accept(this);
+                    currentBlock = lhs.getBodyBlock();
+                    rhs.setBodyBlock(node.getBodyBlock());
+                    rhs.setAfterBodyBlock(node.getAfterBodyBlock());
+                    rhs.accept(this);
+                } else {
+                    Operand dst = new Value();
+                    node.setResultOperand(dst);
+                    assign(dst, node);
+                }
+                break;
+            }
+            case ORI:
+            {
+                if (node.getBodyBlock() != null)
+                {
+                    lhs.setBodyBlock(node.getBodyBlock());
+                    lhs.setAfterBodyBlock(new BasicBlock(currentFunction, "lhs_or_else"));
+                    lhs.accept(this);
+                    currentBlock = lhs.getAfterBodyBlock();
+                    rhs.setBodyBlock(node.getBodyBlock());
+                    rhs.setAfterBodyBlock(node.getAfterBodyBlock());
+                    rhs.accept(this);
+                } else {
+                    Operand dst = new Value();
+                    node.setResultOperand(dst);
+                    assign(dst, node);
+                }
+                break;
+            }
+            case ASS:{
+                lhs.accept(this);
+                assign(lhs.getResultOperand(), rhs);
+                break;
+            }
             default:
                 break;
         }
@@ -710,13 +834,107 @@ public class IRBuilder implements ASTVisitor
         }
     }
 
-    public void assign(Operand lhs, ExprNode rhs)
+    public void assign(Operand lhs, ExprNode rhs) throws SemanticError
     {
-        //TODO : ASSIGN
+        if (rhs.isBool())
+        {
+            BasicBlock thenBlock = new BasicBlock(currentFunction, "bool_then");
+            BasicBlock elseBlock = new BasicBlock(currentFunction, "bool_else");
+            BasicBlock mergeBlock = new BasicBlock(currentFunction, "bool_merge");
+            rhs.setBodyBlock(thenBlock);
+            rhs.setAfterBodyBlock(elseBlock);
+            rhs.accept(this);
+            if (lhs instanceof Pointer)
+            {
+                currentBlock.addInst2Tail(new Store(thenBlock, new Immediate(1), lhs));
+                currentBlock.addInst2Tail(new Store(elseBlock, new Immediate(0), lhs));
+            } else {
+                currentBlock.addInst2Tail(new Move(thenBlock, new Immediate(1), lhs));
+                currentBlock.addInst2Tail(new Move(elseBlock, new Immediate(0), lhs));
+            }
+            thenBlock.endThis(new Jump(thenBlock, mergeBlock));
+            elseBlock.endThis(new Jump(elseBlock, mergeBlock));
+            currentBlock = mergeBlock;
+        } else
+        {
+            rhs.accept(this);
+            Operand operand = rhs.getResultOperand();
+            if (operand instanceof Pointer)
+            {
+                Value dts = new Value();
+                currentBlock.addInst2Tail(new Load(currentBlock, operand, dts));
+                if (lhs instanceof Pointer) currentBlock.addInst2Tail(new Store(currentBlock, dts, lhs));
+                else currentBlock.addInst2Tail(new Move(currentBlock, dts, lhs));
+            } else
+            {
+                if (lhs instanceof Pointer) currentBlock.addInst2Tail(new Store(currentBlock, operand, lhs));
+                else currentBlock.addInst2Tail(new Move(currentBlock, operand, lhs));
+            }
+        }
     }
 
-    public void arrayAllocate(NewExprNode node, Operand operand, int times)
+    public void arrayAllocate(NewExprNode node, Operand operand, int times) throws SemanticError
     {
-        //TODO : ARRAY ALLOCATE
+        if (times == node.getExprList().size()) return;
+        ExprNode exprNode = node.getExprList().get(times);
+        exprNode.accept(this);
+        Operand index = resolvePointer(currentBlock, exprNode.getResultOperand());
+        Value size = new Value();
+
+        int mulWidth = Width.pointerWidth;
+        if ((times == node.getExprList().size() - 1) && (times == node.getDims() - 1))
+            mulWidth = node.getTypeResolved().getTypeSize();
+        currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.MUL, index, new Immediate(mulWidth), size));
+        currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, index, new Immediate(Width.regWidth), size));
+        Value dst = new Value();
+        if (operand instanceof Pointer)
+        {
+            currentBlock.addInst2Tail(new Alloc(currentBlock, size, dst));
+            currentBlock.addInst2Tail(new Store(currentBlock, index, dst));
+            currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
+        } else
+        {
+            currentBlock.addInst2Tail(new Alloc(currentBlock, size, operand));
+            currentBlock.addInst2Tail(new Store(currentBlock, index, operand));
+        }
+
+        if (times < node.getExprList().size() - 1)
+        {
+            //allocate using loop
+            BasicBlock bodyBlock = new BasicBlock(currentFunction, "array_loop_body");
+            BasicBlock condBlock = new BasicBlock(currentFunction, "array_loop_cond");
+            BasicBlock stepBlock = new BasicBlock(currentFunction, "array_loop_step");
+            BasicBlock mergeBlock = new BasicBlock(currentFunction, "array_loop_merge");
+            //init
+            Pointer initPointer = new Pointer();
+            Pointer endPointer = new Pointer();
+            if (operand instanceof Pointer)
+            {
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, dst, new Immediate(Width.regWidth), initPointer));
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, dst, size, endPointer));
+            } else
+            {
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, operand, new Immediate(Width.regWidth), initPointer));
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, operand, size, endPointer));
+            }
+            currentBlock.endThis(new Jump(currentBlock, condBlock));
+            //cond
+            currentBlock = condBlock;
+            Value cmpValue = new Value();
+            currentBlock.addInst2Tail(new Cmp(currentBlock, Cmp.Op.LT, initPointer, endPointer, cmpValue));
+            currentBlock.endThis(new Branch(currentBlock, cmpValue, bodyBlock, mergeBlock));
+            //body
+            currentBlock = bodyBlock;
+            arrayAllocate(node, initPointer, times + 1);
+            currentBlock.endThis(new Jump(currentBlock, stepBlock));
+            //step
+            currentBlock = stepBlock;
+            Pointer tmpPointer = new Pointer();
+            currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, initPointer, new Immediate(Width.regWidth), tmpPointer));
+            currentBlock.addInst2Tail(new Move(currentBlock, tmpPointer, initPointer));
+            currentBlock.endThis(new Jump(currentBlock, condBlock));
+            //merge
+            currentBlock = mergeBlock;
+        }
     }
 }

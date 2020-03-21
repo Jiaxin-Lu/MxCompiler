@@ -147,7 +147,7 @@ public class SemanticChecker implements ASTVisitor
 //            System.out.println("1 yes, I'm here in " + node.getCurrentFunction().getTypeName());
             if (node.getExpr() != null)
                 throw new SemanticError(node.getPosition(), "Shouldn't have a return expression!");
-                // TODO : Or need do nothing
+                // LATER : Or need do nothing
         } else
         {
             if (((FuncDeclNode) node.getCurrentFunction().getOrigin()).getType() == null)
@@ -155,7 +155,7 @@ public class SemanticChecker implements ASTVisitor
 //                System.out.println("2 yes, I'm here in " + node.getCurrentFunction().getTypeName());
                 if (node.getExpr() != null)
                     throw new SemanticError(node.getPosition(), "Constructor shouldn't have a return expression!");
-                    // TODO : Or need do nothing
+                    // LATER : Or need do nothing
             } else
             {
 //                System.out.println("3 yes, I'm here in " + node.getCurrentFunction().getTypeName());

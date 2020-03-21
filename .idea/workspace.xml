@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="Still building IRBuilder...">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Pointer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Utils/Width.java" afterDir="false" />
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/FuncCallExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/FuncCallExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/SemanticChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/SemanticChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/ArraySymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/ArraySymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/ClassSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/FunctionSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/FunctionSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/NullType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/NullType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/PrimitiveTypeSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/PrimitiveTypeSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +106,7 @@
       <workItem from="1583569333817" duration="9500000" />
       <workItem from="1583650800282" duration="51508000" />
       <workItem from="1584188649388" duration="15076000" />
-      <workItem from="1584275061933" duration="54226000" />
+      <workItem from="1584275061933" duration="67447000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -219,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584641533561</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Still building IRBuilder....">
+      <created>1584735340246</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1584735340246</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +244,8 @@
     <MESSAGE value="Add IRBuilder!" />
     <MESSAGE value="Start building IRBuilder..." />
     <MESSAGE value="Still building IRBuilder..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder..." />
+    <MESSAGE value="Still building IRBuilder...." />
+    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder...." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -269,10 +264,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="620" y="97" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1582459743671" />
-    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1584730704813">
+    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1584792365852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1584730704813" />
+    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1584792365852" />
     <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1584734425454">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -281,10 +276,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584698757456">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584735358502">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584698757456" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584735358502" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1584725418831">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

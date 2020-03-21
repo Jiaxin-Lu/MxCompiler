@@ -5,6 +5,10 @@ import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.*;
 import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
+import Compiler.Utils.Width;
+import javafx.beans.property.ObjectPropertyBase;
+
+import java.awt.*;
 
 public class IRBuilder implements ASTVisitor
 {
@@ -378,13 +382,54 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(MemberExprNode node) throws SemanticError
     {
-        //TODO : MEMBER
+        node.getExpr().accept(this);
+        Operand baseClass = resolvePointer(currentBlock, node.getExpr().getResultOperand());
+        if (!node.getExpr().canAccess()) node.setResultOperand(baseClass);
+        else if (!(node.getMember() instanceof VariableSymbol)) node.setResultOperand(baseClass);
+        else
+        {
+            Symbol symbol = node.getMember();
+            Pointer pointer = new Pointer();
+            currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, baseClass,
+                    new Immediate(((VariableSymbol) symbol).getOffset()), pointer));
+            node.setResultOperand(pointer);
+            if (node.getBodyBlock() != null)
+            {
+                Value value = new Value();
+                currentBlock.addInst2Tail(new Load(currentBlock, pointer, value));
+                currentBlock.endThis(new Branch(currentBlock, value, node.getBodyBlock(), node.getAfterBodyBlock()));
+            }
+        }
     }
 
     @Override
     public void visit(ArrayExprNode node) throws SemanticError
     {
-        //TODO : ARRAY EXPR
+        node.getArray().accept(this);
+        node.getIndex().accept(this);
+        Operand arrayBase = resolvePointer(currentBlock, node.getArray().getResultOperand());
+        Operand arrayIndex = resolvePointer(currentBlock, node.getIndex().getResultOperand());
+        Pointer pointer = new Pointer();
+        node.setResultOperand(pointer);
+        Value offset = new Value();
+        if (((ArraySymbol) node.getArray().getTypeResolved()).getDims() > 1)
+        {
+            currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.MUL, arrayIndex, new Immediate(Width.pointerWidth), offset));
+        } else
+        {
+            ArraySymbol arraySymbol = (ArraySymbol) node.getArray().getTypeResolved();
+            currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.MUL, arrayIndex, new Immediate(arraySymbol.getType().getTypeSize()), offset));
+        }
+        Value offsetNew = new Value();
+        currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, offset, new Immediate(Width.regWidth), offsetNew));
+        currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, offsetNew, arrayBase, pointer)); //YES?
+
+        if (node.getBodyBlock() != null)
+        {
+            Value value = new Value();
+            currentBlock.addInst2Tail(new Load(currentBlock, pointer, value));
+            currentBlock.endThis(new Branch(currentBlock, value, node.getBodyBlock(), node.getAfterBodyBlock()));
+        }
     }
 
     @Override
@@ -411,13 +456,190 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(UnaryExprNode node) throws SemanticError
     {
-        //TODO : UNARY
+        Unary.Op op = Unary.Op.NOT;
+        switch (node.getOp())
+        {
+            case ADDP:
+            case ADDS:
+                op = Unary.Op.INC;
+                break;
+            case SUBP:
+            case SUBS:
+                op = Unary.Op.DEC;
+                break;
+            case NOT:
+                op = Unary.Op.NOT;
+                break;
+            case NOTI:
+                op = Unary.Op.NOTI;
+                break;
+            case NEG:
+                op = Unary.Op.NEG;
+                break;
+            case POS:
+                op = Unary.Op.POS;
+                break;
+            default:
+                break;
+        }
+        ExprNode src = node.getExpr();
+        switch (node.getOp())
+        {
+            case ADDP:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                Operand dst = value;
+                if (operand instanceof Pointer) dst = new Value();
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, value, new Immediate(1), dst));
+                if (operand instanceof Pointer)  currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
+                node.setResultOperand(operand);
+                break;
+            }
+            case SUBP:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                Operand dst = value;
+                if (operand instanceof Pointer) dst = new Value();
+                currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.SUB, value, new Immediate(1), dst));
+                if (operand instanceof Pointer)  currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
+                node.setResultOperand(operand);
+                break;
+            }
+            case ADDS:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                if (operand instanceof Pointer)
+                {
+                    Value dst = new Value();
+                    currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, value, new Immediate(1), dst));
+                    currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
+                } else if (operand instanceof Value)
+                {
+                    Value dst = new Value();
+                    currentBlock.addInst2Tail(new Move(currentBlock, value, dst));
+                    currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, value, new Immediate(1), value));
+                }
+                node.setResultOperand(operand);
+                break;
+            }
+            case SUBS:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                if (operand instanceof Pointer)
+                {
+                    Value dst = new Value();
+                    currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.SUB, value, new Immediate(1), dst));
+                    currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
+                    node.setResultOperand(value);
+                } else if (operand instanceof Value)
+                {
+                    Value dst = new Value();
+                    currentBlock.addInst2Tail(new Move(currentBlock, value, dst));
+                    currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.SUB, value, new Immediate(1), value));
+                    node.setResultOperand(dst);
+                }
+                break;
+            }
+            case NOT:
+            case NEG:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                Value dst = new Value();
+                currentBlock.addInst2Tail(new Unary(currentBlock, op, value, dst));
+                node.setResultOperand(dst);
+                break;
+            }
+            case NOTI:{
+                if (node.getBodyBlock() != null)
+                {
+                    src.setBodyBlock(node.getAfterBodyBlock());
+                    src.setAfterBodyBlock(node.getBodyBlock());
+                    src.accept(this);
+                } else
+                {
+                    Value dst = new Value();
+                    node.setResultOperand(dst);
+                    assign(dst, node);
+                }
+                break;
+            }
+            case POS:{
+                src.accept(this);
+                Operand value = resolvePointer(currentBlock, src.getResultOperand());
+                node.setResultOperand(value);
+                break;
+            }
+            default:
+                break;
+        }
     }
 
     @Override
     public void visit(BinaryExprNode node) throws SemanticError
     {
-        //TODO : BINARY
+        ExprNode lhs = node.getLhs();
+        ExprNode rhs = node.getRhs();
+        Binary.Op op_bin = Binary.Op.ADD;
+        Cmp.Op op_cmp = Cmp.Op.EQ;
+        Function function_call = irRoot.builtinStringEQ;
+        switch (node.getOp())
+        {
+            case MUL:
+                op_bin = Binary.Op.MUL;
+                break;
+            case DIV:
+                op_bin = Binary.Op.DIV;
+                break;
+            case MOD:
+                op_bin = Binary.Op.MOD;
+                break;
+            case ADD:
+                op_bin = Binary.Op.ADD;
+                break;
+            case SUB:
+                op_bin = Binary.Op.SUB;
+                break;
+            case SHL:
+                op_bin = Binary.Op.SHL;
+                break;
+            case SHR:
+                op_bin = Binary.Op.SHR;
+                break;
+            case LEQ:
+                op_cmp = Cmp.Op.LEQ;
+                break;
+            case REQ:
+                op_cmp = Cmp.Op.REQ;
+                break;
+            case LT:
+                op_cmp = Cmp.Op.LT;
+                break;
+            case RT:
+                op_cmp = Cmp.Op.RT;
+                break;
+            case NEQ:
+                op_cmp = Cmp.Op.NEQ;
+                break;
+            case AND:
+                op_bin = Binary.Op.AND;
+                break;
+            case XOR:
+                op_bin = Binary.Op.XOR;
+                break;
+            case OR:
+                op_bin = Binary.Op.OR;
+                break;
+            case ANDI:
+            case ORI:
+            case ASS:
+            default:
+                break;
+        }
     }
 
     @Override

@@ -104,7 +104,7 @@
       <workItem from="1583569333817" duration="9500000" />
       <workItem from="1583650800282" duration="51508000" />
       <workItem from="1584188649388" duration="15076000" />
-      <workItem from="1584275061933" duration="73793000" />
+      <workItem from="1584275061933" duration="73908000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -218,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584815255086</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Still building IRBuilder......">
+      <created>1584823227328</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1584823227329</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +258,8 @@
     <MESSAGE value="Still building IRBuilder..." />
     <MESSAGE value="Still building IRBuilder...." />
     <MESSAGE value="Still building IRBuilder....." />
-    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder....." />
+    <MESSAGE value="Still building IRBuilder......" />
+    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder......" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -282,10 +290,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584815253127">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584823225832">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584815253127" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584823225832" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1584725418831">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

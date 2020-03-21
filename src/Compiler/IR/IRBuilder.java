@@ -6,7 +6,6 @@ import Compiler.IR.Operand.*;
 import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
 import Compiler.Utils.Width;
-import org.stringtemplate.v4.debug.AddAttributeEvent;
 
 public class IRBuilder implements ASTVisitor
 {
@@ -364,17 +363,6 @@ public class IRBuilder implements ASTVisitor
                     resolvePointer(currentBlock, node.getResultOperand()),
                     node.getBodyBlock(), node.getAfterBodyBlock()));
         }
-    }
-
-    public Operand resolvePointer(BasicBlock basicBlock, Operand operand)
-    {
-        if (operand instanceof Pointer)
-        {
-            Value value = new Value();
-            currentBlock.addInst2Tail(new Load(basicBlock, operand, new Value()));
-            return value;
-        }
-        else return operand;
     }
 
     @Override
@@ -936,5 +924,16 @@ public class IRBuilder implements ASTVisitor
             //merge
             currentBlock = mergeBlock;
         }
+    }
+
+    public Operand resolvePointer(BasicBlock basicBlock, Operand operand)
+    {
+        if (operand instanceof Pointer)
+        {
+            Value value = new Value();
+            currentBlock.addInst2Tail(new Load(basicBlock, operand, new Value()));
+            return value;
+        }
+        else return operand;
     }
 }

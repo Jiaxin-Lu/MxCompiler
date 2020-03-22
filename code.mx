@@ -1,0 +1,44 @@
+class A{
+    int a, b, c, d, e;
+    int[] f = new int[10];
+    A()
+    {
+        a = 0;
+    }
+};
+
+B globe;
+int call(int t)
+{
+    int m;
+    int k;
+    k = 1;
+    int q = globe.a;
+    return q;
+}
+int main()
+{
+    A ptr, ptt, ptb, pts;
+    ptt.f[1] = 1;
+    pts.b = 1;
+    ptr.c = pts.d;
+    B trying, harder, better;
+    trying.e.e = 10;
+    ptb.d = trying.c;
+    return 0;
+}
+
+
+class B{
+    A e, g;
+    int a, b, c, d;
+    int[] f = new int[5];
+    B()
+    {
+        d = 1;
+        f[1] = 10;
+    }
+    void func(int l)
+    {
+    }
+};

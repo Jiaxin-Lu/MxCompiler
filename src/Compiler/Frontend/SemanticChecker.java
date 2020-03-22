@@ -439,17 +439,16 @@ public class SemanticChecker implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
-        //if (symbol instanceof ClassSymbol) // DONE : CAN THIS USE INSTANCEOF?
         if (((Type)symbol).isClassType())
         {
             node.setExprType(ExprNode.ExprType.CLASS);
             node.setTypeResolved(symbol.getType());
-        } else if (((Type)symbol).isFunctionType()) //if (symbol instanceof FunctionSymbol)
+        } else if (((Type)symbol).isFunctionType())
         {
             node.setExprType(ExprNode.ExprType.FUNCTION);
             node.setTypeResolved(symbol.getType());
             node.setFunctionSymbol((FunctionSymbol) symbol);
-        } else if (((Type)symbol).isVariableType()) //if (symbol instanceof VariableSymbol)
+        } else if (((Type)symbol).isVariableType())
         {
             node.setExprType(ExprNode.ExprType.LEFT);
             node.setTypeResolved(symbol.getType());

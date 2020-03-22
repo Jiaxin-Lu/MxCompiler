@@ -37,6 +37,7 @@ public class UnusedEliminator implements ASTVisitor
             {
                 variableSymbol.setUnUsed(true);
                 // MAYBE DONE : CHECK IS ALL THIS RIGHT?
+                // output unused for check
                 System.out.println(variableSymbol.getName() + " " + variableSymbol.getScope().getScopeName());
             }
         }
@@ -49,8 +50,6 @@ public class UnusedEliminator implements ASTVisitor
         //        if (node.getExpr() != null)
         {
             VariableSymbol variableSymbol = node.getVariableSymbol();
-            // TODO: what's necessary?
-            // if (variableSymbol.getType() instanceof ArraySymbol || node.isGlobalVar())
             definedSymbolSet.add(variableSymbol);
             inDefine = false;
             if (node.getExpr() != null) node.getExpr().accept(this);
@@ -247,7 +246,6 @@ public class UnusedEliminator implements ASTVisitor
     {
         if (node.getOp() == BinaryExprNode.Op.ASS)
         {
-            //TODO : what's necessary?
             if (node.getRhs().getTypeResolved() instanceof ArraySymbol || !(node.getRhs() instanceof NewExprNode))
             {
                 node.getLhs().accept(this);
@@ -272,18 +270,10 @@ public class UnusedEliminator implements ASTVisitor
         Symbol symbol = node.getSymbol();
         if (symbol instanceof VariableSymbol)
         {
-            //TODO : What's necessary?
             if (inDefine)
                 definedSymbolSet.add((VariableSymbol)symbol);
             else
                 usedSymbolSet.add((VariableSymbol)symbol);
-            //            if (symbol.getType() instanceof ArraySymbol || ((VarDeclNode)symbol.getOrigin()).isGlobalVar())
-            //            {
-            //                if (indefine)
-            //                    definedSymbolSet.add((VariableSymbol)symbol);
-            //                else
-            //                    usedSymbolSet.add((VariableSymbol)symbol);
-            //            }
         }
     }
 

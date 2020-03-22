@@ -4,7 +4,7 @@ import Compiler.IR.BasicBlock;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
-public class WhileStmtNode extends StmtNode implements LoopStmtNode {
+public class WhileStmtNode extends LoopStmtNode {
     private ExprNode expr;
     private StmtNode statement;
 

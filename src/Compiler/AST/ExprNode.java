@@ -110,7 +110,7 @@ public abstract class ExprNode extends ASTNode {
     public boolean canNull()
     {
         return ((exprType == ExprType.LEFT) &&
-                (typeResolved.isClassType() || typeResolved.isArrayType() || typeResolved.isNullType()));
+                (typeResolved.isClassType() || typeResolved.isArrayType())) || typeResolved.isNullType();
     }
 
     public BasicBlock getBodyBlock()

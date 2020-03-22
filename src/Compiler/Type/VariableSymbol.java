@@ -71,6 +71,12 @@ public class VariableSymbol extends Symbol implements Type
     public void isCompatible(Position position, Type type) throws SemanticError
     {}
 
+    @Override
+    public int getTypeSize()
+    {
+        return 0;
+    }
+
     public void setUnUsed(boolean unUsed)
     {
         this.unUsed = unUsed;

@@ -57,6 +57,13 @@ public class IRBuilder implements ASTVisitor
                 functionSymbol.setFunction(new Function(functionSymbol.getTypeName()));
             } else if (declNode instanceof ClassDeclNode)
             {
+                if (((ClassDeclNode) declNode).getConstructorDecl() != null)
+                {
+                    FuncDeclNode constructorDecl = ((ClassDeclNode) declNode).getConstructorDecl();
+                    FunctionSymbol functionSymbol = constructorDecl.getFunctionSymbol();
+                    Function function = new Function(((ClassDeclNode) declNode).getClassSymbol().getTypeName() + ".Constructor");
+                    functionSymbol.setFunction(function);
+                }
                 for (FuncDeclNode funcDeclNode : ((ClassDeclNode) declNode).getFuncDeclList())
                 {
                     FunctionSymbol functionSymbol = funcDeclNode.getFunctionSymbol();
@@ -94,6 +101,9 @@ public class IRBuilder implements ASTVisitor
                     currentFunction.addParameterList(virtualRegister);
                 if (node.getExpr() != null) assign(virtualRegister, node.getExpr());
             }
+        } else
+        {
+            System.out.println("detected unused " + variableSymbol.getName());
         }
     }
 
@@ -758,6 +768,14 @@ public class IRBuilder implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
+        if (symbol instanceof VariableSymbol)
+        {
+            if (((VariableSymbol) symbol).isUnUsed())
+            {
+                System.out.println("unused in id!");
+                return;
+            }
+        }
         if (symbol.getScope() == currentClassSymbol)
         {
             //add this.id

@@ -1,9 +1,14 @@
 package Compiler.AST;
 
 import Compiler.IR.BasicBlock;
+import Compiler.Utils.Position;
 
-public interface LoopStmtNode{
-    BasicBlock getMergedBlock();
+public abstract class LoopStmtNode extends StmtNode{
+    public LoopStmtNode(Position position)
+    {
+        super(position);
+    }
+    public abstract BasicBlock getMergedBlock();
 
-    BasicBlock getStepBlock();
+    public abstract BasicBlock getStepBlock();
 }

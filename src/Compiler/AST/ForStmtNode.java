@@ -4,7 +4,7 @@ import Compiler.IR.BasicBlock;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 
-public class ForStmtNode extends StmtNode implements LoopStmtNode {
+public class ForStmtNode extends LoopStmtNode {
     private ExprNode init, cond, step;
     private StmtNode statement;
 

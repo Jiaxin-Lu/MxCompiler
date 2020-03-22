@@ -20,6 +20,10 @@ int main()
 {
     A ptr, ptt, ptb, pts;
     ptt.f[1] = 1;
+    if (null == null)
+    {
+
+    }
     pts.b = 1;
     ptr.c = pts.d;
     B trying, harder, better;

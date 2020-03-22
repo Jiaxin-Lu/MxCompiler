@@ -7,10 +7,8 @@ import Compiler.IR.IRRoot;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
-import Compiler.Type.FunctionSymbol;
 import Compiler.Type.GlobalScope;
 import Compiler.Utils.*;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -24,12 +22,12 @@ public class Main
     {
         SyntaxErrorHandler syntaxErrorHandler = new SyntaxErrorHandler();
         InputStream inStream = new FileInputStream("code.mx");
-
+//        InputStream inStream = System.in;
         try
         {
             //Syntax
             MxLexer lexer = new MxLexer(CharStreams.fromStream(inStream));
-            lexer.removeErrorListeners();;
+            lexer.removeErrorListeners();
             lexer.addErrorListener(new MxErrorListener(syntaxErrorHandler));
 
             MxParser parser = new MxParser(new CommonTokenStream(lexer));
@@ -49,10 +47,8 @@ public class Main
             }
             //Semantic
             GlobalScope globalScope = (new ScopeInitializer(ast)).getGlobalScope();
-            ClassInitializer classInitializer = new ClassInitializer(globalScope);
-            classInitializer.visit(ast);
-            FunctionInitializer functionInitializer = new FunctionInitializer(globalScope);
-            functionInitializer.visit(ast);
+            GlobalDeclScanner globalDeclScanner = new GlobalDeclScanner(globalScope);
+            globalDeclScanner.visit(ast);
             ClassMemberInitializer classMemberInitializer = new ClassMemberInitializer(globalScope);
             classMemberInitializer.visit(ast);
             ScopeBuilder scopeBuilder = new ScopeBuilder(globalScope);
@@ -61,11 +57,12 @@ public class Main
             semanticChecker.visit(ast);
             System.out.println("Success");
 
-            // I'm not sure this is necessary.
-//            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
-//            unusedEliminator.visit(ast);
+            // a little optimizer
+            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
+            unusedEliminator.visit(ast);
 
             IRBuilder irBuilder = new IRBuilder(globalScope);
+            irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
 
         } catch (Exception exception)

@@ -144,21 +144,21 @@ public class SemanticChecker implements ASTVisitor
     {
         if (node.getCurrentFunction().getType().getTypeName().equals("void"))
         {
-//            System.out.println("1 yes, I'm here in " + node.getCurrentFunction().getTypeName());
+            //            System.out.println("1 yes, I'm here in " + node.getCurrentFunction().getTypeName());
             if (node.getExpr() != null)
                 throw new SemanticError(node.getPosition(), "Shouldn't have a return expression!");
-                // LATER : Or need do nothing
+            // TODO : Or need do nothing
         } else
         {
             if (((FuncDeclNode) node.getCurrentFunction().getOrigin()).getType() == null)
             {
-//                System.out.println("2 yes, I'm here in " + node.getCurrentFunction().getTypeName());
+                //                System.out.println("2 yes, I'm here in " + node.getCurrentFunction().getTypeName());
                 if (node.getExpr() != null)
                     throw new SemanticError(node.getPosition(), "Constructor shouldn't have a return expression!");
-                    // LATER : Or need do nothing
+                // TODO : Or need do nothing
             } else
             {
-//                System.out.println("3 yes, I'm here in " + node.getCurrentFunction().getTypeName());
+                //                System.out.println("3 yes, I'm here in " + node.getCurrentFunction().getTypeName());
                 if (node.getExpr() == null)
                     throw new SemanticError(node.getPosition(), "Should have a return expression!");
                 node.getExpr().accept(this);
@@ -439,16 +439,17 @@ public class SemanticChecker implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
+        //if (symbol instanceof ClassSymbol) // DONE : CAN THIS USE INSTANCEOF?
         if (((Type)symbol).isClassType())
         {
             node.setExprType(ExprNode.ExprType.CLASS);
             node.setTypeResolved(symbol.getType());
-        } else if (((Type)symbol).isFunctionType())
+        } else if (((Type)symbol).isFunctionType()) //if (symbol instanceof FunctionSymbol)
         {
             node.setExprType(ExprNode.ExprType.FUNCTION);
             node.setTypeResolved(symbol.getType());
             node.setFunctionSymbol((FunctionSymbol) symbol);
-        } else if (((Type)symbol).isVariableType())
+        } else if (((Type)symbol).isVariableType()) //if (symbol instanceof VariableSymbol)
         {
             node.setExprType(ExprNode.ExprType.LEFT);
             node.setTypeResolved(symbol.getType());

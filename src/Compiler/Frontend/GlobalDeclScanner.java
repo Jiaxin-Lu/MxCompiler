@@ -6,10 +6,10 @@ import Compiler.Utils.SemanticError;
 
 import javax.lang.model.type.PrimitiveType;
 
-public class FunctionInitializer implements ASTVisitor
+public class GlobalDeclScanner implements ASTVisitor
 {
     private GlobalScope globalScope;
-    public FunctionInitializer(GlobalScope globalScope)
+    public GlobalDeclScanner(GlobalScope globalScope)
     {
         this.globalScope = globalScope;
     }
@@ -17,8 +17,14 @@ public class FunctionInitializer implements ASTVisitor
     @Override
     public void visit(ProgramNode node) throws SemanticError
     {
+        for (ProgramDeclNode x : node.getProgramDeclNodeList())
+        {
+            if (x instanceof ClassDeclNode)
+                x.accept(this);
+        }
         for (ProgramDeclNode x : node.getProgramDeclNodeList()) {
-            x.accept(this);
+            if (x instanceof FuncDeclNode)
+                x.accept(this);
         }
 
         //Check Main
@@ -40,6 +46,13 @@ public class FunctionInitializer implements ASTVisitor
     @Override
     public void visit(ClassDeclNode node) throws SemanticError
     {
+        ClassSymbol classSymbol = new ClassSymbol(node.getId(),node,globalScope);
+        globalScope.defineClass(classSymbol);
+        //        if (classSymbol.getTypeName().equals("A"))
+        //        {
+        //            System.out.println("get A");
+        //        }
+        node.setClassSymbol(classSymbol);
     }
 
     @Override
@@ -49,10 +62,10 @@ public class FunctionInitializer implements ASTVisitor
             throw new SemanticError(node.getPosition(), "Global Function should have a type!");
         Type type = globalScope.getTypeForTypeNode(node.getType());
         FunctionSymbol functionSymbol = new FunctionSymbol(node.getId(), type, node, globalScope);
-//        if (node.getId().equals("main"))
-//        {
-//            System.out.println("ok");
-//        }
+        //        if (node.getId().equals("main"))
+        //        {
+        //            System.out.println("ok");
+        //        }
         node.setFunctionSymbol(functionSymbol);
         for (VarDeclNode varDeclNode : node.getParameterList())
         {

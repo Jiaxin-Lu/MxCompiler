@@ -37,7 +37,7 @@ public class UnusedEliminator implements ASTVisitor
             {
                 variableSymbol.setUnUsed(true);
                 // MAYBE DONE : CHECK IS ALL THIS RIGHT?
-                // System.out.println(variableSymbol.getName());
+                System.out.println(variableSymbol.getName() + " " + variableSymbol.getScope().getScopeName());
             }
         }
     }
@@ -46,13 +46,14 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(VarDeclNode node) throws SemanticError
     {
-        if (node.getExpr() != null)
+        //        if (node.getExpr() != null)
         {
             VariableSymbol variableSymbol = node.getVariableSymbol();
-            // LATER: what's necessary?
+            // TODO: what's necessary?
             // if (variableSymbol.getType() instanceof ArraySymbol || node.isGlobalVar())
             definedSymbolSet.add(variableSymbol);
-            node.getExpr().accept(this);
+            inDefine = false;
+            if (node.getExpr() != null) node.getExpr().accept(this);
         }
     }
 
@@ -61,6 +62,10 @@ public class UnusedEliminator implements ASTVisitor
     {
         ClassSymbol classSymbol = node.getClassSymbol();
         currentScope = classSymbol;
+
+        for (VarDeclNode x : node.getVarDeclList()) {
+            x.accept(this);
+        }
         if (node.getConstructorDecl() != null)
         {
             node.getConstructorDecl().accept(this);
@@ -197,7 +202,15 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(MemberExprNode node) throws SemanticError
     {
-        node.getExpr().accept(this);
+        //        node.getExpr().accept(this);
+        if (node.getMember() != null)
+        {
+            if (node.getMember() instanceof VariableSymbol)
+            {
+                usedSymbolSet.add((VariableSymbol) node.getMember());
+            }
+            node.getExpr().accept(this);
+        }
     }
 
     @Override
@@ -234,7 +247,7 @@ public class UnusedEliminator implements ASTVisitor
     {
         if (node.getOp() == BinaryExprNode.Op.ASS)
         {
-            //LATER : what's necessary?
+            //TODO : what's necessary?
             if (node.getRhs().getTypeResolved() instanceof ArraySymbol || !(node.getRhs() instanceof NewExprNode))
             {
                 node.getLhs().accept(this);
@@ -259,18 +272,18 @@ public class UnusedEliminator implements ASTVisitor
         Symbol symbol = node.getSymbol();
         if (symbol instanceof VariableSymbol)
         {
-            //LATER : What's necessary?
+            //TODO : What's necessary?
             if (inDefine)
                 definedSymbolSet.add((VariableSymbol)symbol);
             else
                 usedSymbolSet.add((VariableSymbol)symbol);
-//            if (symbol.getType() instanceof ArraySymbol || ((VarDeclNode)symbol.getOrigin()).isGlobalVar())
-//            {
-//                if (indefine)
-//                    definedSymbolSet.add((VariableSymbol)symbol);
-//                else
-//                    usedSymbolSet.add((VariableSymbol)symbol);
-//            }
+            //            if (symbol.getType() instanceof ArraySymbol || ((VarDeclNode)symbol.getOrigin()).isGlobalVar())
+            //            {
+            //                if (indefine)
+            //                    definedSymbolSet.add((VariableSymbol)symbol);
+            //                else
+            //                    usedSymbolSet.add((VariableSymbol)symbol);
+            //            }
         }
     }
 

@@ -2,6 +2,8 @@ package Compiler;
 
 import Compiler.AST.ProgramNode;
 import Compiler.Frontend.*;
+import Compiler.IR.IRBuilder;
+import Compiler.IR.IRRoot;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
@@ -62,6 +64,9 @@ public class Main
             // I'm not sure this is necessary.
 //            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
 //            unusedEliminator.visit(ast);
+
+            IRBuilder irBuilder = new IRBuilder(globalScope);
+            IRRoot irRoot = irBuilder.getIrRoot();
 
         } catch (Exception exception)
         {

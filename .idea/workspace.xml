@@ -4,37 +4,15 @@
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ExprNode$ExprType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ExprNode$ExprType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ExprNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ExprNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ForStmtNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/ForStmtNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/FuncCallExprNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/FuncCallExprNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/FuncDeclNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/FuncDeclNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/LoopStmtNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/LoopStmtNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/VarDeclNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/VarDeclNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/WhileStmtNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/AST/WhileStmtNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ScopeBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ScopeBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ClassInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/FunctionInitializer.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/ArraySymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/ArraySymbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/ClassSymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/ClassSymbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/FunctionSymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/FunctionSymbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/GlobalScope.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/GlobalScope.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/NullType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/NullType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/PrimitiveTypeSymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/PrimitiveTypeSymbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/VariableSymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Type/VariableSymbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/ExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/ExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/ForStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/ForStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/LoopStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/LoopStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AST/WhileStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AST/WhileStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/ClassInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/FunctionInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/GlobalDeclScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/SemanticChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/SemanticChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/VariableSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +69,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/ANTLR4/antlr-4.8-complete.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Compiler_Submit" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -136,7 +114,9 @@
       <workItem from="1583650800282" duration="51508000" />
       <workItem from="1584188649388" duration="15076000" />
       <workItem from="1584275061933" duration="85019000" />
-      <workItem from="1584883742303" duration="381000" />
+      <workItem from="1584883742303" duration="2854000" />
+      <workItem from="1585592398809" duration="9948000" />
+      <workItem from="1585822397408" duration="7347000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -285,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584872169995</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Still building IRBuilder........">
+      <created>1584884150079</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1584884150079</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +307,8 @@
     <MESSAGE value="Still building IRBuilder....." />
     <MESSAGE value="Still building IRBuilder......" />
     <MESSAGE value="Still building IRBuilder......." />
-    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder......." />
+    <MESSAGE value="Still building IRBuilder........" />
+    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder........" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -343,38 +331,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1584792365852" />
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1584883860426">
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585644612614">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1584883860426" />
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1585644612614" />
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583309386921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584872169237">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584884147847">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584872169237" />
-    <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1584725418831">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584884147847" />
+    <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1584884946183">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584725418831" />
-    <state width="1493" height="18" key="GridCell.Tab.0.bottom" timestamp="1584884122368">
+    <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584884946183" />
+    <state width="1493" height="35" key="GridCell.Tab.0.bottom" timestamp="1585806896800">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="18" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584884122368" />
-    <state width="1493" height="18" key="GridCell.Tab.0.center" timestamp="1584884122368">
+    <state width="1493" height="35" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585806896800" />
+    <state width="1493" height="35" key="GridCell.Tab.0.center" timestamp="1585806896800">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="18" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584884122368" />
-    <state width="1493" height="18" key="GridCell.Tab.0.left" timestamp="1584884122368">
+    <state width="1493" height="35" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585806896800" />
+    <state width="1493" height="35" key="GridCell.Tab.0.left" timestamp="1585806896800">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="18" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584884122368" />
-    <state width="1493" height="18" key="GridCell.Tab.0.right" timestamp="1584884122368">
+    <state width="1493" height="35" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585806896800" />
+    <state width="1493" height="35" key="GridCell.Tab.0.right" timestamp="1585806896800">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="18" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584884122368" />
+    <state width="1493" height="35" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585806896800" />
     <state width="1493" height="2" key="GridCell.Tab.1.bottom" timestamp="1584130486931">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -399,10 +387,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584553525753" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1584696840569">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1584884179566">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584696840569" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584884179566" />
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1582036372627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

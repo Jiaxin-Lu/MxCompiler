@@ -7,8 +7,12 @@ import Compiler.Type.*;
 import Compiler.Utils.SemanticError;
 import Compiler.Utils.Width;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IRBuilder implements ASTVisitor
 {
+
     private GlobalScope globalScope;
     private BasicBlock currentBlock;
     private ClassSymbol currentClassSymbol;
@@ -26,29 +30,10 @@ public class IRBuilder implements ASTVisitor
         return irRoot;
     }
 
-    public void builtinFunctionInitializer() throws SemanticError
-    {
-        //string
-        ((FunctionSymbol) globalScope.getString().resolveSymbol(null,"length")).setFunction(irRoot.builtinStringLength);
-        ((FunctionSymbol) globalScope.getString().resolveSymbol(null,"substring")).setFunction(irRoot.builtinStringSubstring);
-        ((FunctionSymbol) globalScope.getString().resolveSymbol(null,"parseInt")).setFunction(irRoot.builtinStringParseInt);
-        ((FunctionSymbol) globalScope.getString().resolveSymbol(null,"ord")).setFunction(irRoot.builtinStringOrd);
-
-        //function
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "print")).setFunction(irRoot.builtinPrint);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "println")).setFunction(irRoot.builtinPrintln);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "printInt")).setFunction(irRoot.builtinPrintInt);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "printlnInt")).setFunction(irRoot.builtinPrintlnInt);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "getString")).setFunction(irRoot.builtinGetString);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "getInt")).setFunction(irRoot.builtinGetInt);
-        ((FunctionSymbol) globalScope.resolveSymbol(null, "toString")).setFunction(irRoot.builtinToString);
-    }
-
     @Override
     public void visit(ProgramNode node) throws SemanticError
     {
-        builtinFunctionInitializer();
-        //define Function
+        globalScope.IRInitializer(irRoot);
         for (ProgramDeclNode declNode : node.getProgramDeclNodeList())
         {
             if (declNode instanceof FuncDeclNode)
@@ -71,13 +56,16 @@ public class IRBuilder implements ASTVisitor
                             + functionSymbol.getTypeName());
                     functionSymbol.setFunction(function);
                 }
+            } else if (declNode instanceof VarDeclNode)
+            {
+                declNode.accept(this);
             }
         }
 
-        //visit
         for (ProgramDeclNode declNode : node.getProgramDeclNodeList())
         {
-            declNode.accept(this);
+            if ((declNode instanceof FuncDeclNode) || (declNode instanceof ClassDeclNode))
+                declNode.accept(this);
         }
     }
 
@@ -88,22 +76,22 @@ public class IRBuilder implements ASTVisitor
         VariableSymbol variableSymbol = node.getVariableSymbol();
         if (!variableSymbol.isUnUsed())
         {
-            if (variableSymbol.isGlobal())
-            {
-                VirtualRegister virtualRegister = new GlobalVariable(node.getId());
-                irRoot.addGlobalVariable((GlobalVariable) virtualRegister);
-                variableSymbol.setVariableOperand(virtualRegister);
-            } else
+            if (!variableSymbol.isGlobal())
             {
                 VirtualRegister virtualRegister = new Value(node.getId());
                 variableSymbol.setVariableOperand(virtualRegister);
                 if (currentFunction != null && node.isParameterVar())
                     currentFunction.addParameterList(virtualRegister);
-                if (node.getExpr() != null) assign(virtualRegister, node.getExpr());
+                if (node.getExpr() != null)
+                {
+                    assign(virtualRegister, node.getExpr());
+                }
+            } else //isGlobal
+            {
+                VirtualRegister virtualRegister = new GlobalVariable(node.getId());
+                irRoot.addGlobalVariable((GlobalVariable) virtualRegister);
+                variableSymbol.setVariableOperand(virtualRegister);
             }
-        } else
-        {
-            System.out.println("detected unused " + variableSymbol.getName());
         }
     }
 
@@ -125,8 +113,12 @@ public class IRBuilder implements ASTVisitor
     {
         FunctionSymbol functionSymbol = node.getFunctionSymbol();
         currentFunction = functionSymbol.getFunction();
-        if (functionSymbol.isMemberFunction()) currentFunction.setInClassThis(new Value("this"));
         irRoot.addFunction(currentFunction);
+
+        if (functionSymbol.isMemberFunction())
+        {
+            currentFunction.setInClassThis();
+        }
 
         currentBlock = currentFunction.getEntryBlock();
 
@@ -136,10 +128,10 @@ public class IRBuilder implements ASTVisitor
         }
         node.getBlock().accept(this);
 
-        //add return if don't have one
+        //default return
         if (!currentBlock.isEnded())
         {
-            if (functionSymbol.getType().getTypeName().equals("void"))
+            if (functionSymbol.getType().getTypeName().equals("void") || node.getType() == null)
                 currentBlock.endThis(new Return(currentBlock, null));
             else currentBlock.endThis(new Return(currentBlock, new Immediate(0)));
         }
@@ -149,9 +141,13 @@ public class IRBuilder implements ASTVisitor
             currentFunction.setExitBlock(currentFunction.getReturnList().get(0).getCurrentBlock());
         } else {    //Merge the return list
             Operand returnOperand = null;
-            if (!functionSymbol.getType().getTypeName().equals("void")) returnOperand = new Value();
+            if (functionSymbol.getType().getTypeName().equals("void") || node.getType() == null)
+                returnOperand = null;
+            else
+                returnOperand = new Value("returnVal");
             BasicBlock exitBlock = currentFunction.getExitBlock();
-            for (Return ret : currentFunction.getReturnList())
+            List<Return> newReturnList = new ArrayList<>(currentFunction.getReturnList());
+            for (Return ret : newReturnList)
             {
                 ret.getCurrentBlock().removeTailInst();
                 if (ret.getReturnValue() != null)
@@ -229,13 +225,25 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(IfStmtNode node) throws SemanticError
     {
-        BasicBlock thenBlock = new BasicBlock(currentFunction, "if_then");
-        BasicBlock elseBlock = node.getElseStmt() == null ? null : new BasicBlock(currentFunction, "if_else");
-        BasicBlock mergeBlock = new BasicBlock(currentFunction, "if_merge");
+        BasicBlock thenBlock = new BasicBlock(currentFunction, "_if_then");
+        BasicBlock elseBlock = null;
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "_if_merge");
 
         node.getExpr().setBodyBlock(thenBlock);
-        node.getExpr().setAfterBodyBlock(elseBlock == null ? mergeBlock : elseBlock);
+        if (node.getElseStmt() == null)
+        {
+            node.getExpr().setAfterBodyBlock(mergeBlock);
+        } else
+        {
+            elseBlock = new BasicBlock(currentFunction, "_if_else");
+            node.getExpr().setAfterBodyBlock(elseBlock);
+        }
         node.getExpr().accept(this);
+        if (node.getExpr() instanceof BoolConstNode)
+        {
+            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
+                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
+        }
 
         currentBlock = thenBlock;
         node.getThenStmt().accept(this);
@@ -280,13 +288,10 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(ForStmtNode node) throws SemanticError
     {
-        BasicBlock condBlock = node.getCond() == null ? null : new BasicBlock(currentFunction, "for_cond");
-        BasicBlock stepBlock = node.getStep() == null ? null : new BasicBlock(currentFunction, "for_step");
-        BasicBlock bodyBlock = new BasicBlock(currentFunction, "for_body");
-        BasicBlock mergeBlock = new BasicBlock(currentFunction, "for_merge");
-
-        node.setMergedBlock(mergeBlock);
-        node.setStepBlock(stepBlock);
+        BasicBlock condBlock = node.getCond() == null ? null : new BasicBlock(currentFunction, "_for_cond");
+        BasicBlock stepBlock = node.getStep() == null ? null : new BasicBlock(currentFunction, "_for_step");
+        BasicBlock bodyBlock = new BasicBlock(currentFunction, "_for_body");
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "_for_merge");
 
         if (node.getInit() != null)
         {
@@ -300,6 +305,12 @@ public class IRBuilder implements ASTVisitor
             node.getCond().setBodyBlock(bodyBlock);
             node.getCond().setAfterBodyBlock(mergeBlock);
             node.getCond().accept(this);
+
+            if (node.getCond() instanceof BoolConstNode)
+            {
+                currentBlock.endThis(new Branch(currentBlock, node.getCond().getResultOperand(),
+                        node.getCond().getBodyBlock(), node.getCond().getAfterBodyBlock()));
+            }
         }
 
         currentBlock = bodyBlock;
@@ -314,17 +325,17 @@ public class IRBuilder implements ASTVisitor
         }
 
         currentBlock = mergeBlock;
+
+        node.setMergedBlock(mergeBlock);
+        node.setStepBlock(stepBlock);
     }
 
     @Override
     public void visit(WhileStmtNode node) throws SemanticError
     {
-        BasicBlock condBlock = new BasicBlock(currentFunction, "while_cond");
-        BasicBlock bodyBlock = new BasicBlock(currentFunction, "while_body");
-        BasicBlock mergeBlock = new BasicBlock(currentFunction, "while_merge");
-
-        node.setMergedBlock(mergeBlock);
-        node.setStepBlock(condBlock);
+        BasicBlock condBlock = new BasicBlock(currentFunction, "_while_cond");
+        BasicBlock bodyBlock = new BasicBlock(currentFunction, "_while_body");
+        BasicBlock mergeBlock = new BasicBlock(currentFunction, "_while_merge");
 
         currentBlock.endThis(new Jump(currentBlock, condBlock));
 
@@ -333,11 +344,20 @@ public class IRBuilder implements ASTVisitor
         node.getExpr().setAfterBodyBlock(mergeBlock);
         node.getExpr().accept(this);
 
+        if (node.getExpr() instanceof BoolConstNode)
+        {
+            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
+                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
+        }
+
         currentBlock = bodyBlock;
         node.getStatement().accept(this);
         if (!currentBlock.isEnded()) currentBlock.endThis(new Jump(currentBlock, condBlock));
 
         currentBlock = mergeBlock;
+
+        node.setMergedBlock(mergeBlock);
+        node.setStepBlock(condBlock);
     }
 
     //Expr
@@ -380,12 +400,11 @@ public class IRBuilder implements ASTVisitor
     {
         node.getExpr().accept(this);
         Operand baseClass = resolvePointer(currentBlock, node.getExpr().getResultOperand());
-        if (!node.getExpr().canAccess()) node.setResultOperand(baseClass);
-        else if (!(node.getMember() instanceof VariableSymbol)) node.setResultOperand(baseClass);
+        if ((!node.getExpr().canAccess()) || (!(node.getMember() instanceof VariableSymbol))) node.setResultOperand(baseClass);
         else
         {
-            Symbol symbol = node.getMember();
             Pointer pointer = new Pointer();
+            Symbol symbol = node.getMember();
             currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, baseClass,
                     new Immediate(((VariableSymbol) symbol).getOffset()), pointer));
             node.setResultOperand(pointer);
@@ -431,53 +450,27 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(NewExprNode node) throws SemanticError
     {
-        node.setResultOperand(new Value());
-        if (node.getDims() == 0)
+        Value value = new Value();
+        node.setResultOperand(value);
+        if (node.getDims() > 0)
         {
-            ClassSymbol classSymbol = (ClassSymbol) node.getTypeResolved();
-            currentBlock.addInst2Tail(new Alloc(currentBlock,
-                    new Immediate(classSymbol.getClassSize()), node.getResultOperand()));
-            if (classSymbol.getConstructor() != null)
-            {
-                Call call = new Call(currentBlock, classSymbol.getConstructor().getFunction(), null);
-                call.setPointer(node.getResultOperand());
-                currentBlock.addInst2Tail(call);
-            }
-        } else
+            arrayAllocate(node, value, 0);
+            return;
+        }
+        ClassSymbol classSymbol = (ClassSymbol) node.getTypeResolved();
+        currentBlock.addInst2Tail(new Alloc(currentBlock,
+                new Immediate(classSymbol.getClassSize()), value));
+        if (classSymbol.getConstructor() != null)
         {
-            arrayAllocate(node, node.getResultOperand(), 0);
+            Call call = new Call(currentBlock, classSymbol.getConstructor().getFunction(), null);
+            call.setPointer(value);
+            currentBlock.addInst2Tail(call);
         }
     }
 
     @Override
     public void visit(UnaryExprNode node) throws SemanticError
     {
-        Unary.Op op = Unary.Op.NOT;
-        switch (node.getOp())
-        {
-            case ADDP:
-            case ADDS:
-                op = Unary.Op.INC;
-                break;
-            case SUBP:
-            case SUBS:
-                op = Unary.Op.DEC;
-                break;
-            case NOT:
-                op = Unary.Op.NOT;
-                break;
-            case NOTI:
-                op = Unary.Op.NOTI;
-                break;
-            case NEG:
-                op = Unary.Op.NEG;
-                break;
-            case POS:
-                op = Unary.Op.POS;
-                break;
-            default:
-                break;
-        }
         ExprNode src = node.getExpr();
         switch (node.getOp())
         {
@@ -540,13 +533,21 @@ public class IRBuilder implements ASTVisitor
                 }
                 break;
             }
-            case NOT:
+            case NOT:{
+                src.accept(this);
+                Operand operand = src.getResultOperand();
+                Operand value = resolvePointer(currentBlock, operand);
+                Value dst = new Value();
+                currentBlock.addInst2Tail(new Unary(currentBlock, Unary.Op.NOT, value, dst));
+                node.setResultOperand(dst);
+                break;
+            }
             case NEG:{
                 src.accept(this);
                 Operand operand = src.getResultOperand();
                 Operand value = resolvePointer(currentBlock, operand);
                 Value dst = new Value();
-                currentBlock.addInst2Tail(new Unary(currentBlock, op, value, dst));
+                currentBlock.addInst2Tail(new Unary(currentBlock, Unary.Op.NEG, value, dst));
                 node.setResultOperand(dst);
                 break;
             }
@@ -722,7 +723,7 @@ public class IRBuilder implements ASTVisitor
             {
                 if (node.getBodyBlock() != null)
                 {
-                    lhs.setBodyBlock(new BasicBlock(currentFunction, "lhs_and_then"));
+                    lhs.setBodyBlock(new BasicBlock(currentFunction, "_lhs_and_then"));
                     lhs.setAfterBodyBlock(node.getAfterBodyBlock());
                     lhs.accept(this);
                     currentBlock = lhs.getBodyBlock();
@@ -741,7 +742,7 @@ public class IRBuilder implements ASTVisitor
                 if (node.getBodyBlock() != null)
                 {
                     lhs.setBodyBlock(node.getBodyBlock());
-                    lhs.setAfterBodyBlock(new BasicBlock(currentFunction, "lhs_or_else"));
+                    lhs.setAfterBodyBlock(new BasicBlock(currentFunction, "_lhs_or_else"));
                     lhs.accept(this);
                     currentBlock = lhs.getAfterBodyBlock();
                     rhs.setBodyBlock(node.getBodyBlock());
@@ -768,14 +769,14 @@ public class IRBuilder implements ASTVisitor
     public void visit(IdExprNode node) throws SemanticError
     {
         Symbol symbol = node.getSymbol();
-        if (symbol instanceof VariableSymbol)
-        {
-            if (((VariableSymbol) symbol).isUnUsed())
-            {
-                System.out.println("unused in id!");
-                return;
-            }
-        }
+//        if (symbol instanceof VariableSymbol)
+//        {
+//            if (((VariableSymbol) symbol).isUnUsed())
+//            {
+//                System.out.println("unused in id!");
+//                return;
+//            }
+//        }
         if (symbol.getScope() == currentClassSymbol)
         {
             //add this.id
@@ -832,10 +833,11 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(BoolConstNode node) throws SemanticError
     {
-        node.setResultOperand(new Immediate(node.getVal() ? 1 : 0));
+        int imm = node.getVal() ? 1 : 0;
+        node.setResultOperand(new Immediate(imm));
         if (node.getBodyBlock() != null)
         {
-            if (node.getVal()) currentBlock.endThis(new Jump(currentBlock, node.getBodyBlock()));
+            if (imm == 1) currentBlock.endThis(new Jump(currentBlock, node.getBodyBlock()));
             else currentBlock.endThis(new Jump(currentBlock, node.getAfterBodyBlock()));
         }
     }
@@ -844,9 +846,9 @@ public class IRBuilder implements ASTVisitor
     {
         if (rhs.isBool())
         {
-            BasicBlock thenBlock = new BasicBlock(currentFunction, "bool_then");
-            BasicBlock elseBlock = new BasicBlock(currentFunction, "bool_else");
-            BasicBlock mergeBlock = new BasicBlock(currentFunction, "bool_merge");
+            BasicBlock thenBlock = new BasicBlock(currentFunction, "_bool_then");
+            BasicBlock elseBlock = new BasicBlock(currentFunction, "_bool_else");
+            BasicBlock mergeBlock = new BasicBlock(currentFunction, "_bool_merge");
             rhs.setBodyBlock(thenBlock);
             rhs.setAfterBodyBlock(elseBlock);
             rhs.accept(this);
@@ -907,10 +909,10 @@ public class IRBuilder implements ASTVisitor
         if (times < node.getExprList().size() - 1)
         {
             //allocate using loop
-            BasicBlock bodyBlock = new BasicBlock(currentFunction, "array_loop_body");
-            BasicBlock condBlock = new BasicBlock(currentFunction, "array_loop_cond");
-            BasicBlock stepBlock = new BasicBlock(currentFunction, "array_loop_step");
-            BasicBlock mergeBlock = new BasicBlock(currentFunction, "array_loop_merge");
+            BasicBlock bodyBlock = new BasicBlock(currentFunction, "_array_loop_body");
+            BasicBlock condBlock = new BasicBlock(currentFunction, "_array_loop_cond");
+            BasicBlock stepBlock = new BasicBlock(currentFunction, "_array_loop_step");
+            BasicBlock mergeBlock = new BasicBlock(currentFunction, "_array_loop_merge");
             //init
             Pointer initPointer = new Pointer();
             Pointer endPointer = new Pointer();

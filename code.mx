@@ -8,6 +8,8 @@ class A{
 };
 
 B globe;
+int iamhere = 1;
+int jtttt;
 int call(int t)
 {
     int m;

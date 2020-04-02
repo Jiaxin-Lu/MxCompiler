@@ -2,6 +2,7 @@ package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.Value;
 import Compiler.Parser.MxParser;
 
 import java.util.*;
@@ -85,9 +86,9 @@ public class Function
         this.exitBlock = exitBlock;
     }
 
-    public void setInClassThis(Register inClassThis)
+    public void setInClassThis()
     {
-        this.inClassThis = inClassThis;
+        this.inClassThis = new Value("this");
     }
 
     public Register getInClassThis()

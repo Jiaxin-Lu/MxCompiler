@@ -1,6 +1,7 @@
 package Compiler.Type;
 
 import Compiler.AST.*;
+import Compiler.IR.IRRoot;
 import Compiler.Utils.Position;
 import Compiler.Utils.SemanticError;
 import com.sun.jdi.VoidType;
@@ -65,6 +66,24 @@ public class GlobalScope extends BaseScope
         FunctionSymbol globalToString = new FunctionSymbol("toString", string, null, this);
         globalToString.defineVariable(new VariableSymbol("i", IntTypeSymbol, null));
         defineFunction(globalToString);
+    }
+
+    public void IRInitializer(IRRoot irRoot) throws SemanticError
+    {
+        //string
+        ((FunctionSymbol) this.getString().resolveSymbol(null,"length")).setFunction(irRoot.builtinStringLength);
+        ((FunctionSymbol) this.getString().resolveSymbol(null,"substring")).setFunction(irRoot.builtinStringSubstring);
+        ((FunctionSymbol) this.getString().resolveSymbol(null,"parseInt")).setFunction(irRoot.builtinStringParseInt);
+        ((FunctionSymbol) this.getString().resolveSymbol(null,"ord")).setFunction(irRoot.builtinStringOrd);
+
+        //function
+        ((FunctionSymbol) this.resolveSymbol(null, "print")).setFunction(irRoot.builtinPrint);
+        ((FunctionSymbol) this.resolveSymbol(null, "println")).setFunction(irRoot.builtinPrintln);
+        ((FunctionSymbol) this.resolveSymbol(null, "printInt")).setFunction(irRoot.builtinPrintInt);
+        ((FunctionSymbol) this.resolveSymbol(null, "printlnInt")).setFunction(irRoot.builtinPrintlnInt);
+        ((FunctionSymbol) this.resolveSymbol(null, "getString")).setFunction(irRoot.builtinGetString);
+        ((FunctionSymbol) this.resolveSymbol(null, "getInt")).setFunction(irRoot.builtinGetInt);
+        ((FunctionSymbol) this.resolveSymbol(null, "toString")).setFunction(irRoot.builtinToString);
     }
 
     public Type getTypeForTypeNode(TypeNode typeNode) throws SemanticError

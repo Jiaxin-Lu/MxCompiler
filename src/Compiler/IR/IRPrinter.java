@@ -13,10 +13,10 @@ public class IRPrinter implements IRVisitor
     private IRRoot irRoot;
     private PrintStream output;
 
-    private Map<VirtualRegister, String> virtualRegisterMap= new HashMap<VirtualRegister, String>();
-    private Map<BasicBlock, String> basicBlockMap = new HashMap<BasicBlock, String>();
-    private Map<String, Integer> virtualRegisterIDMap = new HashMap<String, Integer>();
-    private Map<String, Integer> basicBlockIDMap = new HashMap<String, Integer>();
+    private Map<VirtualRegister, String> virtualRegisterMap= new HashMap<>();
+    private Map<BasicBlock, String> basicBlockMap = new HashMap<>();
+    private Map<String, Integer> virtualRegisterIDMap = new HashMap<>();
+    private Map<String, Integer> basicBlockIDMap = new HashMap<>();
 
     public IRPrinter(IRRoot irRoot)
     {
@@ -25,7 +25,7 @@ public class IRPrinter implements IRVisitor
 
     private String getID(String name, Map<String, Integer> idMap)
     {
-        int nameId = idMap.getOrDefault(idMap, 0) + 1;
+        int nameId = idMap.getOrDefault(name, 0) + 1;
         idMap.put(name, nameId);
         if (nameId == 1)
             return name;
@@ -54,7 +54,7 @@ public class IRPrinter implements IRVisitor
         if (register instanceof PhysicalRegister)
         {
             return register.getName();
-        } else
+        } else if (register instanceof VirtualRegister)
         {
             String id = virtualRegisterMap.get(register);
             if (id == null)
@@ -69,7 +69,7 @@ public class IRPrinter implements IRVisitor
                 virtualRegisterMap.put((VirtualRegister) register, id);
             }
             return id;
-        }
+        } else return null;
     }
 
     @Override
@@ -93,8 +93,8 @@ public class IRPrinter implements IRVisitor
     @Override
     public void visit(Function function)
     {
-        virtualRegisterMap = new HashMap<VirtualRegister, String>();
-        virtualRegisterIDMap = new HashMap<String, Integer>();
+        virtualRegisterMap = new HashMap<>();
+        virtualRegisterIDMap = new HashMap<>();
         if (function.getReturnList().get(0).getReturnValue() == null)
             output.printf("void %s ", function.getName());
         else

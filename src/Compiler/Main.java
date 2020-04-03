@@ -3,7 +3,9 @@ package Compiler;
 import Compiler.AST.ProgramNode;
 import Compiler.Frontend.*;
 import Compiler.IR.IRBuilder;
+import Compiler.IR.IRPrinter;
 import Compiler.IR.IRRoot;
+import Compiler.IR.LLIRInterpreter.LLIRInterpreter;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
@@ -13,8 +15,11 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.imageio.stream.FileImageInputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 public class Main
 {
@@ -65,6 +70,13 @@ public class Main
             irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
 
+            PrintStream printStream = new PrintStream("irOutput.ir");
+            IRPrinter irPrinter = new IRPrinter(printStream);
+            irPrinter.visit(irRoot);
+
+            InputStream irInterpreterIn = new FileInputStream("irOutput.ir");
+            LLIRInterpreter llirInterpreter = new LLIRInterpreter(irInterpreterIn, false);
+            llirInterpreter.run();
 
         } catch (Exception exception)
         {

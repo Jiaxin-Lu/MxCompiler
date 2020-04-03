@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class IRPrinter implements IRVisitor
 {
-    private IRRoot irRoot;
     private PrintStream output;
 
     private Map<VirtualRegister, String> virtualRegisterMap= new HashMap<>();
@@ -18,9 +17,9 @@ public class IRPrinter implements IRVisitor
     private Map<String, Integer> virtualRegisterIDMap = new HashMap<>();
     private Map<String, Integer> basicBlockIDMap = new HashMap<>();
 
-    public IRPrinter(IRRoot irRoot)
+    public IRPrinter(PrintStream output)
     {
-        this.irRoot = irRoot;
+        this.output = output;
     }
 
     private String getID(String name, Map<String, Integer> idMap)

@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreterREADME.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ClassInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/FunctionInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/SemanticChecker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Type/GlobalScope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +111,7 @@
       <workItem from="1584275061933" duration="85019000" />
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
-      <workItem from="1585822397408" duration="7347000" />
+      <workItem from="1585822397408" duration="20772000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -272,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584884150079</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Still building IRBuilder.........">
+      <created>1585850255934</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1585850255934</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,7 +310,8 @@
     <MESSAGE value="Still building IRBuilder......" />
     <MESSAGE value="Still building IRBuilder......." />
     <MESSAGE value="Still building IRBuilder........" />
-    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder........" />
+    <MESSAGE value="Still building IRBuilder........." />
+    <option name="LAST_COMMIT_MESSAGE" value="Still building IRBuilder........." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -339,10 +342,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1584884147847">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1585850253332">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584884147847" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585850253332" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1584884946183">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

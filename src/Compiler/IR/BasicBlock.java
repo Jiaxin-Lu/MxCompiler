@@ -201,5 +201,10 @@ public class BasicBlock
         }
     }
 
+    public void accept(IRVisitor visitor)
+    {
+        visitor.visit(this);
+    }
+
     //TODO : A lot more!
 }

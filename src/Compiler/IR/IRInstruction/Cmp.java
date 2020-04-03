@@ -54,6 +54,11 @@ public class Cmp extends IRInstruction
         return dst;
     }
 
+    public Op getOp()
+    {
+        return op;
+    }
+
     @Override
     public Register getOriginRegister()
     {

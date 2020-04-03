@@ -478,8 +478,7 @@ public class IRBuilder implements ASTVisitor
                 src.accept(this);
                 Operand operand = src.getResultOperand();
                 Operand value = resolvePointer(currentBlock, operand);
-                Operand dst = value;
-                if (operand instanceof Pointer) dst = new Value();
+                Operand dst = (operand instanceof Pointer) ? new Value() : value;
                 currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.ADD, value, new Immediate(1), dst));
                 if (operand instanceof Pointer)  currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
                 node.setResultOperand(operand);
@@ -489,8 +488,7 @@ public class IRBuilder implements ASTVisitor
                 src.accept(this);
                 Operand operand = src.getResultOperand();
                 Operand value = resolvePointer(currentBlock, operand);
-                Operand dst = value;
-                if (operand instanceof Pointer) dst = new Value();
+                Operand dst = (operand instanceof Pointer) ? new Value() : value;
                 currentBlock.addInst2Tail(new Binary(currentBlock, Binary.Op.SUB, value, new Immediate(1), dst));
                 if (operand instanceof Pointer)  currentBlock.addInst2Tail(new Store(currentBlock, dst, operand));
                 node.setResultOperand(operand);
@@ -869,10 +867,10 @@ public class IRBuilder implements ASTVisitor
             Operand operand = rhs.getResultOperand();
             if (operand instanceof Pointer)
             {
-                Value dts = new Value();
-                currentBlock.addInst2Tail(new Load(currentBlock, operand, dts));
-                if (lhs instanceof Pointer) currentBlock.addInst2Tail(new Store(currentBlock, dts, lhs));
-                else currentBlock.addInst2Tail(new Move(currentBlock, dts, lhs));
+                Value dst = new Value();
+                currentBlock.addInst2Tail(new Load(currentBlock, operand, dst));
+                if (lhs instanceof Pointer) currentBlock.addInst2Tail(new Store(currentBlock, dst, lhs));
+                else currentBlock.addInst2Tail(new Move(currentBlock, dst, lhs));
             } else
             {
                 if (lhs instanceof Pointer) currentBlock.addInst2Tail(new Store(currentBlock, operand, lhs));

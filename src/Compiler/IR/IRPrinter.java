@@ -2,6 +2,7 @@ package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.*;
+import Compiler.Utils.Width;
 
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -200,15 +201,55 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Call inst){}
+    public void visit(Call inst)
+    {
+        output.print("    ");
+        if (inst.getDst() != null)
+        {
+            inst.getDst().accept(this);
+            output.print(" = ");
+        }
+        output.printf("call %s ", inst.getFunction().getName());
+        if (inst.getPointer() != null)
+        {
+            inst.getPointer().accept(this);
+            output.print(" ");
+        }
+        for (Register register : inst.getFunction().getParameterList())
+        {
+            register.accept(this);
+            output.print(" ");
+        }
+        output.println();
+    }
     @Override
-    public void visit(Move inst){}
+    public void visit(Move inst)
+    {
+        output.print("    ");
+        inst.getDst().accept(this);
+        output.print(" = move ");
+        inst.getSrc().accept(this);
+        output.println();
+    }
     @Override
-    public void visit(Load inst){}
+    public void visit(Load inst)
+    {
+        output.print("    ");
+        inst.getDst().accept(this);
+        output.print(" = load " + Width.regWidth + " "); //regWidth
+        inst.getSrc().accept(this);
+        output.print(" 0");
+        output.println();
+    }
     @Override
     public void visit(Store inst)
     {
-
+        output.print("    store " + Width.regWidth + " "); //regWidth
+        inst.getSrc().accept(this);
+        output.print(" ");
+        inst.getDst().accept(this);
+        output.print(" 0"); //offset is 0
+        output.println();
     }
     @Override
     public void visit(Cmp inst)
@@ -274,7 +315,9 @@ public class IRPrinter implements IRVisitor
     @Override
     public void visit(Register register)
     {
-        output.print("$" + getRegisterID(register));
+        if (register instanceof GlobalVariable)
+            output.print("@" + getRegisterID(register));
+        else output.print("$" + getRegisterID(register));
     }
     @Override
     public void visit(Immediate immediate)

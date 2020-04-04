@@ -15,11 +15,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import javax.imageio.stream.FileImageInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 public class Main
 {
@@ -75,7 +71,8 @@ public class Main
             irPrinter.visit(irRoot);
 
             InputStream irInterpreterIn = new FileInputStream("irOutput.ir");
-            LLIRInterpreter llirInterpreter = new LLIRInterpreter(irInterpreterIn, false);
+            LLIRInterpreter llirInterpreter = new LLIRInterpreter(irInterpreterIn, false,
+                    new DataInputStream(System.in), new PrintStream(System.out));
             llirInterpreter.run();
 
         } catch (Exception exception)

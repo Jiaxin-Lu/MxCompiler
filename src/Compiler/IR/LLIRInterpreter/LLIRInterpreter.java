@@ -368,6 +368,142 @@ public class LLIRInterpreter {
 
             case "call":
                 Function func = functions.get(curInst.op1);
+                switch (curInst.op1)
+                {
+                    case "string.length":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        registerWrite(curInst.dest, str.length());
+                        return;
+                    }
+                    case "string.parseInt":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        int ans = Integer.parseInt(str);
+                        registerWrite(curInst.dest, ans);
+                        return;
+                    }
+                    case "string.substring":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        int a = readSrc(curInst.args.get(1));
+                        int b = readSrc(curInst.args.get(2));
+                        String subStr = str.substring(a,b);
+                        stringStatic.put(stringStaticCnt, subStr);
+                        registerWrite(curInst.dest, stringStaticCnt);
+                        ++stringStaticCnt;
+                        return;
+                    }
+                    case "string.ord":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        int pos = readSrc(curInst.args.get(1));
+                        int ans = str.charAt(pos);
+                        registerWrite(curInst.dest, ans);
+                        return;
+                    }
+                    case "string.add":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        String str = str1 + str2;
+                        stringStatic.put(stringStaticCnt, str);
+                        registerWrite(curInst.dest, stringStaticCnt);
+                        ++stringStaticCnt;
+                        return;
+                    }
+                    case "string.lt":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) < 0 ? 1 : 0);
+                        return;
+                    }
+                    case "string.leq":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) <= 0 ? 1 : 0);
+                        return;
+                    }
+                    case "string.req":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) >= 0 ? 1 : 0);
+                        return;
+                    }
+                    case "string.rt":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) > 0 ? 1 : 0);
+                        return;
+                    }
+                    case "string.eq":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) == 0 ? 1 : 0);
+                        return;
+                    }
+                    case "string.neq":
+                    {
+                        String str1 = stringStatic.get(readSrc(curInst.args.get(0)));
+                        String str2 = stringStatic.get(readSrc(curInst.args.get(1)));
+                        registerWrite(curInst.dest, str1.compareTo(str2) != 0 ? 1 : 0);
+                        return;
+                    }
+                    case "print":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        dataOutput.print(str);
+                        return;
+                    }
+                    case "println":
+                    {
+                        String str = stringStatic.get(readSrc(curInst.args.get(0)));
+                        dataOutput.println(str);
+                        return;
+                    }
+                    case "printInt":
+                    {
+                        int out = readSrc(curInst.args.get(0));
+                        dataOutput.print(out);
+                        return;
+                    }
+                    case "printlnInt":
+                    {
+                        int out = readSrc(curInst.args.get(0));
+                        dataOutput.println(out);
+                        return;
+                    }
+                    case "getString":
+                    {
+                        String str = scanner.next();
+                        stringStatic.put(stringStaticCnt, str);
+                        registerWrite(curInst.dest, stringStaticCnt);
+                        ++stringStaticCnt;
+                        return;
+                    }
+                    case "getInt":
+                    {
+                        int in = scanner.nextInt();
+                        registerWrite(curInst.dest, in);
+                        return;
+                    }
+                    case "toString":
+                    {
+                        int src = readSrc(curInst.args.get(0));
+                        String str = String.valueOf(src);
+                        stringStatic.put(stringStaticCnt, str);
+                        registerWrite(curInst.dest, stringStaticCnt);
+                        ++stringStaticCnt;
+                        return;
+                    }
+                    default:
+                        break;
+                }
                 if (func == null) throw new RuntimeError("cannot resolve function `" + curInst.op1 + "`");
                 if (curInst.dest != null && !func.hasReturnValue) throw new RuntimeError("function `" + func.name + "` has not return value");
                 Map<String, Register> regs = new HashMap<>();

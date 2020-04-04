@@ -261,8 +261,8 @@ public class LLIRInterpreter {
     }
 
     private void registerWrite(String name, Integer value) throws RuntimeError {
-        if (!name.startsWith("$") && !name.startsWith("%")) throw new RuntimeError("not a register");
-        if (name.startsWith("%"))
+        if (!name.startsWith("$") && !name.startsWith("@")) throw new RuntimeError("not a register");
+        if (name.startsWith("$"))
         {
             Register reg = registers.get(name);
 
@@ -629,12 +629,10 @@ public class LLIRInterpreter {
     private int instLimit = Integer.MAX_VALUE;
 
     private PrintStream dataOutput;
-    private DataInputStream dataInput;
     private Scanner scanner;
 
     public LLIRInterpreter(InputStream in, boolean isSSAMode, DataInputStream dataInput, PrintStream dataOutput) throws IOException {
         this.isSSAMode = isSSAMode;
-        this.dataInput = dataInput;
         this.dataOutput = dataOutput;
         this.scanner = new Scanner(dataInput);
 

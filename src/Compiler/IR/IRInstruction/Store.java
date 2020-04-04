@@ -14,6 +14,9 @@ public class Store extends IRInstruction
     private Operand dst;
     private boolean isGlobal;
 
+    private int size;
+    private int offset;
+
     public Store(BasicBlock basicBlock, Operand src, Operand dst)
     {
         super(basicBlock);
@@ -31,6 +34,17 @@ public class Store extends IRInstruction
         resolveUsedRegister();
     }
 
+    public Store(BasicBlock basicBlock, Operand src, Operand dst, int size, int offset)
+    {
+        super(basicBlock);
+        this.src = src;
+        this.dst = dst;
+        this.size = size;
+        this.offset = offset;
+        this.isGlobal = false;
+        resolveUsedRegister();
+    }
+
     public Operand getSrc()
     {
         return src;
@@ -44,6 +58,16 @@ public class Store extends IRInstruction
     public boolean isGlobal()
     {
         return isGlobal;
+    }
+
+    public int getSize()
+    {
+        return size;
+    }
+
+    public int getOffset()
+    {
+        return offset;
     }
 
     @Override
@@ -77,8 +101,8 @@ public class Store extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Load(basicBlockMap.getOrDefault(currentBlock, currentBlock),
-                registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst));
+        return new Store(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+                registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst), size, offset);
     }
 
     @Override

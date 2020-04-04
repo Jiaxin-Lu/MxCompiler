@@ -490,6 +490,7 @@ public class LLIRInterpreter {
                     {
                         int in = scanner.nextInt();
                         registerWrite(curInst.dest, in);
+//                        dataOutput.println("in " + in);
                         return;
                     }
                     case "toString":
@@ -660,8 +661,8 @@ public class LLIRInterpreter {
     public void run() {
         try {
             if (!isReady) throw new RuntimeException("not ready");
-            Function main = functions.get("main");
-            if (main == null) throw new RuntimeError("cannot find `main` function");
+            Function main = functions.get("_init_");
+            if (main == null) throw new RuntimeError("cannot find `_init_` function");
             registers = new HashMap<>();
             runFunction(main);
             exitcode = retValue;

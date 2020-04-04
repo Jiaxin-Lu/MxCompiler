@@ -5,64 +5,64 @@
 @j
 
 func abs $c {
-%abs._if_then:
-    $_virtual_register = move $c
-    $returnVal = move $_virtual_register
-    jump %abs.exit
-%abs.exit:
-    ret $returnVal
+%abs.entry:
+    $_virtual_register = sgt $c 0
+    br $_virtual_register %abs._if_then %abs._if_merge
 %abs._if_merge:
     $_virtual_register_2 = neg $c
     $_virtual_register_3 = move $_virtual_register_2
     $returnVal = move $_virtual_register_3
     jump %abs.exit
-%abs.entry:
-    $_virtual_register_4 = sgt $c 0
-    br $_virtual_register_4 %abs._if_then %abs._if_merge
+%abs.exit:
+    ret $returnVal
+%abs._if_then:
+    $_virtual_register_4 = move $c
+    $returnVal = move $_virtual_register_4
+    jump %abs.exit
 }
 
 func main {
-%main._for_step:
-    $_virtual_register = move @i
-    @i = add @i 1
+%main.entry:
+    @i = move 0
     jump %main._for_cond
+%main._for_cond:
+    $_virtual_register = slt @i 5
+    br $_virtual_register %main._for_body %main._for_merge
 %main._for_merge:
+    $_virtual_register_2 = sub 2 @r
+    $_virtual_register_3 = call abs $_virtual_register_2 
+    $_virtual_register_4 = sub 2 @c
+    $_virtual_register_5 = call abs $_virtual_register_4 
+    $_virtual_register_6 = add $_virtual_register_3 $_virtual_register_5
+    call printInt $_virtual_register_6 
+    $_virtual_register_7 = move 0
+    ret $_virtual_register_7
+%main._for_body:
+    @j = move 0
+    jump %main._for_cond_2
+%main._for_cond_2:
+    $_virtual_register_8 = slt @j 5
+    br $_virtual_register_8 %main._for_body_2 %main._for_merge_2
+%main._for_body_2:
+    $_virtual_register_9 = call getInt 
+    @n = move $_virtual_register_9
+    $_virtual_register_10 = seq @n 1
+    br $_virtual_register_10 %main._if_then %main._if_merge
+%main._if_merge:
     jump %main._for_step
+%main._for_step:
+    $_virtual_register_11 = move @j
+    @j = add @j 1
+    jump %main._for_cond_2
 %main._if_then:
     @r = move @i
     @c = move @j
     jump %main._if_merge
-%main._for_step_2:
-    $_virtual_register_2 = move @j
-    @j = add @j 1
-    jump %main._for_cond_2
-%main._if_merge:
-    jump %main._for_step_2
-%main._for_body:
-    $_virtual_register_3 = call getInt 
-    @n = move $_virtual_register_3
-    $_virtual_register_4 = seq @n 1
-    br $_virtual_register_4 %main._if_then %main._if_merge
-%main._for_cond_2:
-    $_virtual_register_5 = slt @j 5
-    br $_virtual_register_5 %main._for_body %main._for_merge
-%main._for_body_2:
-    @j = move 0
-    jump %main._for_cond_2
 %main._for_merge_2:
-    $_virtual_register_6 = sub 2 @r
-    $_virtual_register_7 = call abs $c_2 
-    $_virtual_register_8 = sub 2 @c
-    $_virtual_register_9 = call abs $c_2 
-    $_virtual_register_10 = add $_virtual_register_7 $_virtual_register_9
-    call printInt 
-    $_virtual_register_11 = move 0
-    ret $_virtual_register_11
-%main._for_cond:
-    $_virtual_register_12 = slt @i 5
-    br $_virtual_register_12 %main._for_body_2 %main._for_merge_2
-%main.entry:
-    @i = move 0
+    jump %main._for_step_2
+%main._for_step_2:
+    $_virtual_register_12 = move @i
+    @i = add @i 1
     jump %main._for_cond
 }
 

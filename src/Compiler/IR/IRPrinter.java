@@ -103,7 +103,7 @@ public class IRPrinter implements IRVisitor
             output.printf("$%s ", getRegisterID(register));
         }
         output.println("{");
-        for (BasicBlock basicBlock : function.getPostOrderBlockList())
+        for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             basicBlock.accept(this);
         }
@@ -215,7 +215,7 @@ public class IRPrinter implements IRVisitor
             inst.getPointer().accept(this);
             output.print(" ");
         }
-        for (Register register : inst.getFunction().getParameterList())
+        for (Operand register : inst.getParameterList())
         {
             register.accept(this);
             output.print(" ");
@@ -236,19 +236,19 @@ public class IRPrinter implements IRVisitor
     {
         output.print("    ");
         inst.getDst().accept(this);
-        output.print(" = load " + Width.regWidth + " "); //regWidth
+        output.print(" = load " + inst.getSize() + " "); //regWidth
         inst.getSrc().accept(this);
-        output.print(" 0");
+        output.print(" " + inst.getOffset());
         output.println();
     }
     @Override
     public void visit(Store inst)
     {
-        output.print("    store " + Width.regWidth + " "); //regWidth
+        output.print("    store " + inst.getSize() + " "); //regWidth
         inst.getSrc().accept(this);
         output.print(" ");
         inst.getDst().accept(this);
-        output.print(" 0"); //offset is 0
+        output.print(" " + inst.getOffset());
         output.println();
     }
     @Override

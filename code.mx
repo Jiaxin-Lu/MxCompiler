@@ -1,50 +1,24 @@
-class A{
-    int a, b, c, d, e;
-    int[] f = new int[10];
-    A()
-    {
-        a = 0;
-    }
-};
-
-B globe;
-int iamhere = 1;
-int jtttt;
-int call(int t)
-{
-    int m;
-    int k;
-    k = 1;
-    int q = globe.a;
-    return q;
+int n;
+int r;
+int c;
+int i;
+int j;
+int abs(int c){
+    if(c>0) return c;
+    return -c;
 }
+
 int main()
 {
-    A ptr, ptt, ptb, pts;
-    ptt.f[1] = 1;
-    if (null == null)
-    {
-
-    }
-    pts.b = 1;
-    ptr.c = pts.d;
-    B trying, harder, better;
-    trying.e.e = 10;
-    ptb.d = trying.c;
-    return 0;
+	// int n,r,c,i,j;
+	for (i=0;i<5;i++)
+		for (j=0;j<5;j++)
+		{
+            n = getInt();
+		//scanf("%d", &n);
+		if (n==1)
+		{r=i;c=j;}}
+    printInt(abs(2-r) + abs(2-c));
+	// printf("%d",abs(2-r)+abs(2-c));
+	return 0;
 }
-
-
-class B{
-    A e, g;
-    int a, b, c, d;
-    int[] f = new int[5];
-    B()
-    {
-        d = 1;
-        f[1] = 10;
-    }
-    void func(int l)
-    {
-    }
-};

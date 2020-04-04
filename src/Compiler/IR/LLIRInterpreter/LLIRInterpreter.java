@@ -1,9 +1,6 @@
 package Compiler.IR.LLIRInterpreter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -171,7 +168,7 @@ public class LLIRInterpreter {
                 for (int i = 1; i < words.size(); i += 2) {
                     String label = words.get(i);
                     String reg = words.get(i+1);
-                    if (!label.startsWith("%")) throw new SemanticError("label should starts with `%`");
+                    if (!label.startsWith("%") || !label.startsWith("@")) throw new SemanticError("label should starts with `%`");
                     if (!reg.startsWith("$") && !reg.equals("undef")) throw new SemanticError("source of a phi node should be a register or `undef`");
                     phi.paths.put(label, reg);
                 }
@@ -224,6 +221,9 @@ public class LLIRInterpreter {
     //====== run IR
 
     private Map<String, Register> registers;
+    private Map<String, Register> globalRegisters = new HashMap<>();
+    private Map<Integer, String> stringStatic = new HashMap<>();
+    private int stringStaticCnt = 0;
     private Map<String, Integer> tmpRegister = new HashMap<>(); // for phi node
     private Map<Integer, Byte> memory = new HashMap<>();
     private int heapTop = (int)(Math.random() * 4096);
@@ -253,20 +253,69 @@ public class LLIRInterpreter {
         return reg.value;
     }
 
+    private int globalRegisterRead(String name) throws RuntimeError
+    {
+        Register reg = globalRegisters.get(name);
+        if (reg == null) throw new RuntimeError("global register `" + name + "` haven't been defined yet");
+        return reg.value;
+    }
+
     private void registerWrite(String name, Integer value) throws RuntimeError {
-        if (!name.startsWith("$")) throw new RuntimeError("not a register");
-        Register reg = registers.get(name);
-        if (reg == null) {
-            reg = new Register();
-            registers.put(name, reg);
+        if (!name.startsWith("$") && !name.startsWith("%")) throw new RuntimeError("not a register");
+        if (name.startsWith("%"))
+        {
+            Register reg = registers.get(name);
+
+            if (reg == null) {
+                reg = new Register();
+                registers.put(name, reg);
+            }
+            reg.value = value;
+            reg.timestamp = cntInst;
+        } else
+        {
+            Register reg = globalRegisters.get(name);
+
+            if (reg == null)
+            {
+                reg = new Register();
+                globalRegisters.put(name, reg);
+            }
+            reg.value = value;
+            reg.timestamp = cntInst;
         }
-        reg.value = value;
-        reg.timestamp = cntInst;
     }
 
     private int readSrc(String name) throws RuntimeError {
         if (name.startsWith("$")) return registerRead(name);
+        else if (name.startsWith("@")) return globalRegisterRead(name);
         return Integer.valueOf(name);
+    }
+
+    private void readGlobalVariable()
+    {
+        if (!line.startsWith("@")) throw new RuntimeException("global variable should start with @!");
+        if (line.contains("="))
+        {
+            //string
+            String[] words = line.split("=", 2);
+            String name = words[0].trim();
+            String val = words[1].trim();
+            val = val.substring(1, val.length() - 1);
+            Register register = new Register();
+            register.value = stringStaticCnt;
+            register.timestamp = 0;
+            stringStatic.put(stringStaticCnt, val);
+            globalRegisters.put(name, register);
+            ++stringStaticCnt;
+        } else
+        {
+            String name = line.trim();
+            Register register = new Register();
+            register.value = 0;
+            register.timestamp = 0;
+            globalRegisters.put(name, register);
+        }
     }
 
     private void jump(String name) throws RuntimeError {
@@ -443,13 +492,24 @@ public class LLIRInterpreter {
     private boolean exception = false;
     private int instLimit = Integer.MAX_VALUE;
 
-    public LLIRInterpreter(InputStream in, boolean isSSAMode) throws IOException {
+    private PrintStream dataOutput;
+    private DataInputStream dataInput;
+    private Scanner scanner;
+
+    public LLIRInterpreter(InputStream in, boolean isSSAMode, DataInputStream dataInput, PrintStream dataOutput) throws IOException {
         this.isSSAMode = isSSAMode;
+        this.dataInput = dataInput;
+        this.dataOutput = dataOutput;
+        this.scanner = new Scanner(dataInput);
+
         try {
             br = new BufferedReader(new InputStreamReader(in));
             while (readLine() != null) {
                 if (line.startsWith("func ") || line.startsWith("void ")) {
                     readFunction();
+                } else if (line.startsWith("@"))
+                {
+                    readGlobalVariable();
                 }
             }
             br.close();
@@ -491,12 +551,12 @@ public class LLIRInterpreter {
 
     public static void main(String[] args) throws IOException {
         boolean ssa = args.length > 0 && args[0].trim().equals("+ssa");
-        LLIRInterpreter vm = new LLIRInterpreter(System.in, ssa);
+        LLIRInterpreter vm = new LLIRInterpreter(System.in, ssa, new DataInputStream(System.in), new PrintStream(System.out));
         if (ssa)
             System.out.println("running with SSA mode");
         else
             System.out.println("running without SSA mode");
-        vm.setInstructionLimit(1<<26);
+//        vm.setInstructionLimit(1<<26);
         vm.run();
         System.out.println("exitcode:  " + vm.getExitcode());
         System.out.println("exception: " + vm.exitException());

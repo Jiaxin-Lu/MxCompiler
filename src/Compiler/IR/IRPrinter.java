@@ -76,12 +76,12 @@ public class IRPrinter implements IRVisitor
     {
         for (GlobalVariable globalVariable : irRoot.getGlobalVariableList())
         {
-            output.printf("@%s", getRegisterID(globalVariable));
+            output.printf("@%s\n", getRegisterID(globalVariable));
         }
 
         for (StaticStr staticStr : irRoot.getStaticStrList())
         {
-            output.printf("@%s = \"%s\"", getRegisterID(staticStr.getBase()), staticStr.getValue());
+            output.printf("@%s = \"%s\"\n", getRegisterID(staticStr.getBase()), staticStr.getValue());
         }
         output.println();
         for (Function function : irRoot.getFunctionMap().values())
@@ -184,6 +184,7 @@ public class IRPrinter implements IRVisitor
     public void visit(Unary inst)
     {
         output.print("    ");
+        if (inst.getDst() == null) System.out.println(inst.getOp() == Unary.Op.NOT ? "not" : "neg");
         inst.getDst().accept(this);
         switch (inst.getOp())
         {

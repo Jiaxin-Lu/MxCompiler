@@ -24,6 +24,7 @@ public class Unary extends IRInstruction
         super(basicBlock);
         this.op = op;
         this.src = src;
+        this.dst = dst;
         resolveUsedRegister();
     }
 

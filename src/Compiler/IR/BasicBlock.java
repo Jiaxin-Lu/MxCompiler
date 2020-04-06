@@ -22,7 +22,7 @@ public class BasicBlock
     public BasicBlock dfsFatherBlock;
     public Set<BasicBlock> DF;
 
-    private boolean isEnded;
+    private boolean isEnded = false;
 
     public BasicBlock(Function function, String name)
     {

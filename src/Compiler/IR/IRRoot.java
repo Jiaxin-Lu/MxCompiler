@@ -14,6 +14,7 @@ public class IRRoot
     private List<GlobalVariable> globalVariableList = new ArrayList<>();
     private List<StaticStr> staticStrList = new ArrayList<>();
     private List<StaticData> staticDataList = new ArrayList<>();
+    private Map<Register, String> staticStringValMap = new LinkedHashMap<>();
 
     public Function builtinPrint = new Function("print", "__builtin_print");
     public Function builtinPrintln = new Function("println", "__builtin_println");
@@ -83,6 +84,16 @@ public class IRRoot
     {
         staticStrList.add(str);
         staticDataList.add(str);
+    }
+
+    public void addStaticStringVal(Register base, String str)
+    {
+        staticStringValMap.put(base, str);
+    }
+
+    public Map<Register, String> getStaticStringValMap()
+    {
+        return staticStringValMap;
     }
 
     public void addStaticData(StaticData data)

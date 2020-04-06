@@ -58,6 +58,7 @@ public class IRPrinter implements IRVisitor
             String id = virtualRegisterMap.get(register);
             if (id == null)
             {
+//                System.out.println("id == null");
                 if (register.getName() == null)
                 {
                     id = getID("_virtual_register", virtualRegisterIDMap);
@@ -76,12 +77,18 @@ public class IRPrinter implements IRVisitor
     {
         for (GlobalVariable globalVariable : irRoot.getGlobalVariableList())
         {
-            output.printf("@%s\n", getRegisterID(globalVariable));
+            globalVariable.accept(this);
+//            System.out.println("register name " + globalVariable.getName());
+//            output.printf("@%s\n", getRegisterID(globalVariable));
+            output.println();
         }
-
         for (StaticStr staticStr : irRoot.getStaticStrList())
         {
-            output.printf("@%s = \"%s\"\n", getRegisterID(staticStr.getBase()), staticStr.getValue());
+            staticStr.accept(this);
+            output.println(" = " + staticStr.getValue());
+//            staticStr.accept(this);
+//            System.out.println("register name " + staticStr.getName());
+//            output.printf("@%s = %s\n", getRegisterID(staticStr.getBase()), staticStr.getValue());
         }
         output.println();
         for (Function function : irRoot.getFunctionMap().values())
@@ -92,14 +99,16 @@ public class IRPrinter implements IRVisitor
     @Override
     public void visit(Function function)
     {
-        virtualRegisterMap = new HashMap<>();
-        virtualRegisterIDMap = new HashMap<>();
+//        virtualRegisterMap = new HashMap<>();
+//        virtualRegisterIDMap = new HashMap<>();
         if (function.getReturnList().get(0).getReturnValue() == null)
             output.printf("void %s ", function.getName());
         else
             output.printf("func %s ", function.getName());
+        if (function.getInClassThis() != null) {function.getInClassThis().accept(this); output.print(" ");}
         for (Register register : function.getParameterList())
         {
+//            System.out.println("register name " + register.getName());
             output.printf("$%s ", getRegisterID(register));
         }
         output.println("{");
@@ -184,7 +193,6 @@ public class IRPrinter implements IRVisitor
     public void visit(Unary inst)
     {
         output.print("    ");
-        if (inst.getDst() == null) System.out.println(inst.getOp() == Unary.Op.NOT ? "not" : "neg");
         inst.getDst().accept(this);
         switch (inst.getOp())
         {
@@ -245,9 +253,9 @@ public class IRPrinter implements IRVisitor
     public void visit(Store inst)
     {
         output.print("    store " + inst.getSize() + " "); //regWidth
-        inst.getSrc().accept(this);
-        output.print(" ");
         inst.getDst().accept(this);
+        output.print(" ");
+        inst.getSrc().accept(this);
         output.print(" " + inst.getOffset());
         output.println();
     }
@@ -262,7 +270,7 @@ public class IRPrinter implements IRVisitor
                 output.print(" = slt ");
                 break;
             case LEQ:
-                output.print(" = slq ");
+                output.print(" = sle ");
                 break;
             case EQ:
                 output.print(" = seq ");
@@ -315,8 +323,11 @@ public class IRPrinter implements IRVisitor
     @Override
     public void visit(Register register)
     {
+//        System.out.println("register name " + register.getName());
         if (register instanceof GlobalVariable)
+        {
             output.print("@" + getRegisterID(register));
+        }
         else output.print("$" + getRegisterID(register));
     }
     @Override
@@ -327,6 +338,8 @@ public class IRPrinter implements IRVisitor
     @Override
     public void visit(Memory memory)
     {
+//        output.print("NO");
+//        output.print(((StaticStr)memory).getValue());
         output.print("@" + getRegisterID(memory.getBase()));
     }
 }

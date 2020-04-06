@@ -25,6 +25,7 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(ProgramNode node) throws SemanticError
     {
+        System.out.println("analyze unused symbol!");
         currentScope = globalScope;
         for (ProgramDeclNode programDeclNode : node.getProgramDeclNodeList())
         {
@@ -209,6 +210,12 @@ public class UnusedEliminator implements ASTVisitor
                 usedSymbolSet.add((VariableSymbol) node.getMember());
             }
             node.getExpr().accept(this);
+        } else
+        {
+            if (node.getExpr().getTypeResolved().isArrayType())
+            {
+                node.getExpr().accept(this);
+            }
         }
     }
 
@@ -271,9 +278,13 @@ public class UnusedEliminator implements ASTVisitor
         if (symbol instanceof VariableSymbol)
         {
             if (inDefine)
+            {
                 definedSymbolSet.add((VariableSymbol)symbol);
+            }
             else
+            {
                 usedSymbolSet.add((VariableSymbol)symbol);
+            }
         }
     }
 

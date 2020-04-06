@@ -1,75 +1,33 @@
-@n
-@r
-@c
-@i
-@j
 
-func abs $c {
-%abs.entry:
-    $_virtual_register = sgt $c 0
-    br $_virtual_register %abs._if_then %abs._if_merge
-%abs._if_merge:
-    $_virtual_register_2 = neg $c
-    $_virtual_register_3 = move $_virtual_register_2
-    $returnVal = move $_virtual_register_3
-    jump %abs.exit
-%abs.exit:
-    ret $returnVal
-%abs._if_then:
-    $_virtual_register_4 = move $c
-    $returnVal = move $_virtual_register_4
-    jump %abs.exit
+void A.Constructor $this {
+%A.Constructor.entry:
+    ret 
+}
+
+void A.getA $this_2 $t {
+%A.getA.entry:
+    $_virtual_register = add $this_2 0
+    store 8 $_virtual_register $t 0
+    ret 
 }
 
 func main {
 %main.entry:
-    @i = move 0
-    jump %main._for_cond
-%main._for_cond:
-    $_virtual_register = slt @i 5
-    br $_virtual_register %main._for_body %main._for_merge
-%main._for_merge:
-    $_virtual_register_2 = sub 2 @r
-    $_virtual_register_3 = call abs $_virtual_register_2 
-    $_virtual_register_4 = sub 2 @c
-    $_virtual_register_5 = call abs $_virtual_register_4 
-    $_virtual_register_6 = add $_virtual_register_3 $_virtual_register_5
-    call printInt $_virtual_register_6 
-    $_virtual_register_7 = move 0
-    ret $_virtual_register_7
-%main._for_body:
-    @j = move 0
-    jump %main._for_cond_2
-%main._for_cond_2:
-    $_virtual_register_8 = slt @j 5
-    br $_virtual_register_8 %main._for_body_2 %main._for_merge_2
-%main._for_body_2:
-    $_virtual_register_9 = call getInt 
-    @n = move $_virtual_register_9
-    $_virtual_register_10 = seq @n 1
-    br $_virtual_register_10 %main._if_then %main._if_merge
-%main._if_merge:
-    jump %main._for_step
-%main._for_step:
-    $_virtual_register_11 = move @j
-    @j = add @j 1
-    jump %main._for_cond_2
-%main._if_then:
-    @r = move @i
-    @c = move @j
-    jump %main._if_merge
-%main._for_merge_2:
-    jump %main._for_step_2
-%main._for_step_2:
-    $_virtual_register_12 = move @i
-    @i = add @i 1
-    jump %main._for_cond
+    $_virtual_register_2 = alloc 8
+    call A.Constructor $_virtual_register_2 
+    $b = move $_virtual_register_2
+    call A.getA $b 2 
+    $_virtual_register_3 = add $b 0
+    $_virtual_register_4 = load 8 $_virtual_register_3 0
+    call printlnInt $_virtual_register_4 
+    $_virtual_register_5 = move 0
+    ret $_virtual_register_5
 }
 
 func _init_ {
 %_init_.entry:
-    $_virtual_register = call main 
-    $_virtual_register_2 = move $_virtual_register
-    ret $_virtual_register_2
+    $_virtual_register_6 = call main 
+    $_virtual_register_7 = move $_virtual_register_6
+    ret $_virtual_register_7
 }
 

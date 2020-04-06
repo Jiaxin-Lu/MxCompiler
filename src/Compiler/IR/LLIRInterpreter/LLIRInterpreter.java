@@ -1,5 +1,7 @@
 package Compiler.IR.LLIRInterpreter;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.*;
 import java.util.*;
 
@@ -71,7 +73,7 @@ public class LLIRInterpreter {
     // instructions that have destination
     static private final Set<String> opnames2 = new HashSet<>(Arrays.asList(
             "load", "move", "alloc", "phi",
-            "add", "sub", "mul", "div", "rem", "shl", "shr", "and", "or", "xor", "neg", "not",
+            "add", "sub", "mul", "div", "mod", "shl", "shr", "and", "or", "xor", "neg", "not",
             "slt", "sgt", "sle", "sge", "seq", "sne", "call"
     ));
 
@@ -137,14 +139,14 @@ public class LLIRInterpreter {
             case "store":
                 inst.op1 = words.get(2);
                 inst.op2 = words.get(3);
-                inst.size = Integer.valueOf(words.get(1));
-                inst.offset = Integer.valueOf(words.get(4));
+                inst.size = Integer.parseInt(words.get(1));
+                inst.offset = Integer.parseInt(words.get(4));
                 return;
             case "load":
                 inst.dest = split[0].trim();
                 inst.op1 = words.get(2);
-                inst.size = Integer.valueOf(words.get(1));
-                inst.offset = Integer.valueOf(words.get(3));
+                inst.size = Integer.parseInt(words.get(1));
+                inst.offset = Integer.parseInt(words.get(3));
                 return;
             case "alloc":
                 inst.dest = split[0].trim();
@@ -176,6 +178,7 @@ public class LLIRInterpreter {
                 return;
             default:
                 if (split.length == 2) inst.dest = split[0].trim();
+                if (inst.operator.equals("ret") && words.size() == 1) return;
                 inst.op1 = words.get(1);
                 if (opnum1.contains(inst.operator)) return;
                 inst.op2 = words.get(2);
@@ -289,19 +292,20 @@ public class LLIRInterpreter {
     private int readSrc(String name) throws RuntimeError {
         if (name.startsWith("$")) return registerRead(name);
         else if (name.startsWith("@")) return globalRegisterRead(name);
-        return Integer.valueOf(name);
+        return Integer.parseInt(name);
     }
 
     private void readGlobalVariable()
     {
         if (!line.startsWith("@")) throw new RuntimeException("global variable should start with @!");
-        if (line.contains("="))
+        if (line.contains("=")) //readGlobalString
         {
             //string
             String[] words = line.split("=", 2);
             String name = words[0].trim();
             String val = words[1].trim();
             val = val.substring(1, val.length() - 1);
+            val = StringEscapeUtils.unescapeJava(val);
             Register register = new Register();
             register.value = stringStaticCnt;
             register.timestamp = 0;
@@ -348,12 +352,14 @@ public class LLIRInterpreter {
             case "alloc":
                 int size = readSrc(curInst.op1);
                 registerWrite(curInst.dest, heapTop);
-                for (int i = 0; i < size; ++i) memory.put(heapTop+i, (byte)(Math.random() * 256));
+//                System.out.print("alloc size " + size);
+                for (int i = 0; i < size; ++i) memory.put(heapTop+i, (byte)(0));
+                heapTop += size;
                 heapTop += (int)(Math.random() * 4096);
                 return;
 
             case "ret":
-                retValue = readSrc(curInst.op1);
+                if (curInst.op1 != null) retValue = readSrc(curInst.op1);
                 ret = true;
                 return;
 
@@ -543,7 +549,7 @@ public class LLIRInterpreter {
                 registerWrite(curInst.dest, readSrc(curInst.op1) / readSrc(curInst.op2));
                 return;
 
-            case "rem":
+            case "mod":
                 if (readSrc(curInst.op2) == 0) throw new RuntimeError("mod by zero");
                 registerWrite(curInst.dest, readSrc(curInst.op1) % readSrc(curInst.op2));
                 return;
@@ -667,6 +673,8 @@ public class LLIRInterpreter {
             runFunction(main);
             exitcode = retValue;
             exception = false;
+            dataOutput.println();
+            dataOutput.println("exitCode = " + exitcode);
         } catch (RuntimeError e) {
             System.err.println("Runtime Error");
             System.err.println("    " + e.getMessage());

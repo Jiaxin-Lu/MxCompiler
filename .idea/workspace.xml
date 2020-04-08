@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="IR seems to star working! Add new files &amp; moving forward!">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Compiler.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRRoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticStr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticStr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/StaticVar.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +33,9 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Compiler" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -115,7 +120,7 @@
       <workItem from="1584275061933" duration="85019000" />
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
-      <workItem from="1585822397408" duration="78945000" />
+      <workItem from="1585822397408" duration="86917000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -341,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586027746784</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="IRPrinter and IRInterpreter...">
+      <created>1586197450092</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1586197450092</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +394,8 @@
     <MESSAGE value="IRPrinter and IRInterpreter." />
     <MESSAGE value="IRPrinter and IRInterpreter.." />
     <MESSAGE value="IRPrinter and IRInterpreter..." />
-    <option name="LAST_COMMIT_MESSAGE" value="IRPrinter and IRInterpreter..." />
+    <MESSAGE value="IR seems to star working! Add new files &amp; moving forward!" />
+    <option name="LAST_COMMIT_MESSAGE" value="IR seems to star working! Add new files &amp; moving forward!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -413,30 +426,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586027745485">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586349274325">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586027745485" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586349274325" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586184122691" />
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom" timestamp="1586191595855">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1586349274657">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586191595855" />
-    <state width="1493" height="163" key="GridCell.Tab.0.center" timestamp="1586191595854">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586349274657" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1586349274657">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586191595854" />
-    <state width="1493" height="163" key="GridCell.Tab.0.left" timestamp="1586191595854">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586349274657" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1586349274639">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586191595854" />
-    <state width="1493" height="163" key="GridCell.Tab.0.right" timestamp="1586191595855">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586349274639" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1586349274657">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586191595855" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586349274657" />
     <state width="1493" height="218" key="GridCell.Tab.1.bottom" timestamp="1586171338729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

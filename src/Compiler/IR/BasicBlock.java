@@ -109,10 +109,7 @@ public class BasicBlock
     public void removeTailInst()
     {
         isEnded = false;
-        if (tailInst == null)
-        {
-
-        } else
+        if (!(tailInst == null))
         {
             if (tailInst instanceof Branch)
             {
@@ -123,16 +120,17 @@ public class BasicBlock
                 removeSuccessor(((Jump) tailInst).getDstBlock());
             } else if (tailInst instanceof Return)
             {
-                function.getReturnList().remove(tailInst);
+                function.getReturnList().remove((Return)tailInst);
             }
             tailInst = tailInst.getPrevInst();
             if (tailInst != null) tailInst.setNextInst(null);
-            else headInst = tailInst = null;
+            else headInst = null;
         }
     }
 
     public void endThis(IRInstruction instruction)
     {
+        if (isEnded) return;
         addInst2Tail(instruction);
         if (instruction instanceof Branch)
         {
@@ -199,6 +197,12 @@ public class BasicBlock
         {
             instruction.setCurrentBlock(basicBlock);
         }
+    }
+
+    public void removePhiUnusedBlock(BasicBlock basicBlock)
+    {
+        for (IRInstruction instruction = headInst; instruction instanceof Phi; instruction = instruction.getNextInst())
+            ((Phi) instruction).removePath(basicBlock);
     }
 
     public void accept(IRVisitor visitor)

@@ -90,9 +90,9 @@ public class IRBuilder implements ASTVisitor
                 }
             } else //isGlobal
             {
-                VirtualRegister virtualRegister = new GlobalVariable(node.getId());
-                irRoot.addGlobalVariable((GlobalVariable) virtualRegister);
-                variableSymbol.setVariableOperand(virtualRegister);
+                GlobalVariable globalVariable = new GlobalVariable(node.getId());
+                irRoot.addGlobalVariable(globalVariable);
+                variableSymbol.setVariableOperand(globalVariable);
             }
         }
     }
@@ -239,11 +239,11 @@ public class IRBuilder implements ASTVisitor
             node.getExpr().setAfterBodyBlock(elseBlock);
         }
         node.getExpr().accept(this);
-        if (node.getExpr() instanceof BoolConstNode)
-        {
-            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
-                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
-        }
+//        if (node.getExpr() instanceof BoolConstNode)
+//        {
+//            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
+//                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
+//        }
 
         currentBlock = thenBlock;
         node.getThenStmt().accept(this);
@@ -309,11 +309,11 @@ public class IRBuilder implements ASTVisitor
             node.getCond().setAfterBodyBlock(mergeBlock);
             node.getCond().accept(this);
 
-            if (node.getCond() instanceof BoolConstNode)
-            {
-                currentBlock.endThis(new Branch(currentBlock, node.getCond().getResultOperand(),
-                        node.getCond().getBodyBlock(), node.getCond().getAfterBodyBlock()));
-            }
+//            if (node.getCond() instanceof BoolConstNode)
+//            {
+//                currentBlock.endThis(new Branch(currentBlock, node.getCond().getResultOperand(),
+//                        node.getCond().getBodyBlock(), node.getCond().getAfterBodyBlock()));
+//            }
         }
 
         currentBlock = bodyBlock;
@@ -347,11 +347,11 @@ public class IRBuilder implements ASTVisitor
         node.getExpr().setAfterBodyBlock(mergeBlock);
         node.getExpr().accept(this);
 
-        if (node.getExpr() instanceof BoolConstNode)
-        {
-            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
-                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
-        }
+//        if (node.getExpr() instanceof BoolConstNode)
+//        {
+//            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
+//                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
+//        }
 
         currentBlock = bodyBlock;
         node.getStatement().accept(this);

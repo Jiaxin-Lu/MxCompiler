@@ -41,9 +41,17 @@ public class Phi extends IRInstruction
         {
             IRInstruction instruction = new Move(currentBlock, path.values().iterator().next(), dst);
             replaceInst(instruction);
-            if (this == currentBlock.headInst) currentBlock.headInst = this;
-            if (this == currentBlock.tailInst) currentBlock.tailInst = this;
+            if (this == currentBlock.headInst) currentBlock.headInst = instruction;
+            if (this == currentBlock.tailInst) currentBlock.tailInst = instruction;
         }
+    }
+
+    public void eliminateSinglePath()
+    {
+        IRInstruction instruction = new Move(currentBlock, path.values().iterator().next(), dst);
+        replaceInst(instruction);
+        if (this == currentBlock.headInst) currentBlock.headInst = instruction;
+        if (this == currentBlock.tailInst) currentBlock.tailInst = instruction;
     }
 
     public void replacePath(BasicBlock oldBlock, BasicBlock newBlock)

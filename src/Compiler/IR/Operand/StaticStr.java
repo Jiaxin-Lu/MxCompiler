@@ -2,7 +2,7 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
 
-public class StaticStr extends StaticData
+public class StaticStr extends Memory
 {
     private String value;
     public StaticStr(VirtualRegister base, String value)

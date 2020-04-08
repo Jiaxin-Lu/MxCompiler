@@ -1,20 +1,6 @@
-class A
-{
-    int a = 1;
-    A()
-    {
-
-    }
-    void getA(int t)
-    {
-        a = t;
-    }
-};
 int main()
 {
     int i = 0;
-    A b = new A();
-    b.getA(2);
-    printlnInt(b.a);
+    for (;true;) break;
     return 0;
 }

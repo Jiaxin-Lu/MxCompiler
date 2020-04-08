@@ -1,33 +1,20 @@
 
-void A.Constructor $this {
-%A.Constructor.entry:
-    ret 
-}
-
-void A.getA $this_2 $t {
-%A.getA.entry:
-    $_virtual_register = add $this_2 0
-    store 8 $_virtual_register $t 0
-    ret 
-}
-
 func main {
 %main.entry:
-    $_virtual_register_2 = alloc 8
-    call A.Constructor $_virtual_register_2 
-    $b = move $_virtual_register_2
-    call A.getA $b 2 
-    $_virtual_register_3 = add $b 0
-    $_virtual_register_4 = load 8 $_virtual_register_3 0
-    call printlnInt $_virtual_register_4 
-    $_virtual_register_5 = move 0
-    ret $_virtual_register_5
+    jump %main._for_cond
+%main._for_cond:
+    jump %main._for_body
+%main._for_body:
+    jump %main._for_merge
+%main._for_merge:
+    $_virtual_register = move 0
+    ret $_virtual_register
 }
 
 func _init_ {
 %_init_.entry:
-    $_virtual_register_6 = call main 
-    $_virtual_register_7 = move $_virtual_register_6
-    ret $_virtual_register_7
+    $_virtual_register_2 = call main 
+    $_virtual_register_3 = move $_virtual_register_2
+    ret $_virtual_register_3
 }
 

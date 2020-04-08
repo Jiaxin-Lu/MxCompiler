@@ -13,7 +13,7 @@ public class IRRoot
     private Map<String, Function> builtinFunctions = new LinkedHashMap<>();
     private List<GlobalVariable> globalVariableList = new ArrayList<>();
     private List<StaticStr> staticStrList = new ArrayList<>();
-    private List<StaticData> staticDataList = new ArrayList<>();
+//    private List<StaticData> staticDataList = new ArrayList<>();
     private Map<Register, String> staticStringValMap = new LinkedHashMap<>();
 
     public Function builtinPrint = new Function("print", "__builtin_print");
@@ -83,7 +83,7 @@ public class IRRoot
     public void addStaticStr(StaticStr str)
     {
         staticStrList.add(str);
-        staticDataList.add(str);
+//        staticDataList.add(str);
     }
 
     public void addStaticStringVal(Register base, String str)
@@ -96,10 +96,10 @@ public class IRRoot
         return staticStringValMap;
     }
 
-    public void addStaticData(StaticData data)
-    {
-        staticDataList.add(data);
-    }
+//    public void addStaticData(StaticData data)
+//    {
+//        staticDataList.add(data);
+//    }
 
     public void addGlobalVariable(GlobalVariable globalVariable)
     {
@@ -121,10 +121,10 @@ public class IRRoot
         return globalVariableList;
     }
 
-    public List<StaticData> getStaticDataList()
-    {
-        return staticDataList;
-    }
+//    public List<StaticData> getStaticDataList()
+//    {
+//        return staticDataList;
+//    }
 
     public List<StaticStr> getStaticStrList()
     {

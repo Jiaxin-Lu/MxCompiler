@@ -79,6 +79,7 @@ public class CFGSimplifier extends Pass
         {
             basicBlock.removeThis();
         }
+        function.calcPreOrderBlockList();
         return isChanged;
     }
 
@@ -96,6 +97,40 @@ public class CFGSimplifier extends Pass
                 }
             }
         }
+        function.calcPreOrderBlockList();
+        return isChanged;
+    }
+
+    public boolean removeSingleBranchBlock(Function function)
+    {
+        boolean isChanged = false;
+        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            if (basicBlock != function.getEntryBlock())
+            {
+                if (basicBlock.headInst == basicBlock.tailInst && basicBlock.headInst instanceof Jump)
+                {
+                    isChanged = true;
+                    BasicBlock target = ((Jump) basicBlock.headInst).getDstBlock();
+                    target.getPredecessors().remove(basicBlock);
+                    for (BasicBlock predecessor : basicBlock.getPredecessors())
+                    {
+                        predecessor.getSuccessors().remove(basicBlock);
+                        predecessor.getSuccessors().add(target);
+                        target.getPredecessors().add(predecessor);
+                        if (predecessor.tailInst instanceof Jump)
+                        {
+                            ((Jump) predecessor.tailInst).setDstBlock(target);
+                        }
+                        if (predecessor.tailInst instanceof Branch)
+                        {
+                            ((Branch) predecessor.tailInst).replaceTargetBlock(basicBlock, target);
+                        }
+                    }
+                }
+            }
+        }
+        function.calcPreOrderBlockList();
         return isChanged;
     }
 }

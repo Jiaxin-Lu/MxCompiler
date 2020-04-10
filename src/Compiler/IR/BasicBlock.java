@@ -15,11 +15,11 @@ public class BasicBlock
     private Set<BasicBlock> predecessors = new HashSet<>();
     private Set<BasicBlock> successors = new HashSet<>();
 
-    public BasicBlock IDOM;
-    public BasicBlock postIDOM;
     public int preOrderIndex;
     public int postOrderIndex;
     public BasicBlock dfsFatherBlock;
+    public BasicBlock IDOM;
+    public BasicBlock postIDOM;
     public Set<BasicBlock> DF;
 
     private boolean isEnded = false;

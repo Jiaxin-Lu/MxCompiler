@@ -43,6 +43,12 @@ public class Branch extends IRInstruction
         resolveUsedRegister();
     }
 
+    public void replaceTargetBlock(BasicBlock basicBlock, BasicBlock targetBlock)
+    {
+        if (basicBlock == this.thenBlock) this.thenBlock = targetBlock;
+        else this.elseBlock = targetBlock;
+    }
+
     @Override
     public void resolveUsedRegister()
     {

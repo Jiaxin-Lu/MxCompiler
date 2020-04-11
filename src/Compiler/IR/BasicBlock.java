@@ -19,8 +19,14 @@ public class BasicBlock
     public int postOrderIndex;
     public BasicBlock dfsFatherBlock;
     public BasicBlock IDOM;
+    public Set<BasicBlock> DominanceFrontier;
+    public Set<BasicBlock> DominatorTreeSuccessor;
+    public Set<BasicBlock> DominatorTreeSuccessorsAll;
+
+    public int reverseCFGPostOrderIndex;
     public BasicBlock postIDOM;
-    public Set<BasicBlock> DF;
+    public Set<BasicBlock> PostDominatorTreeSuccessor;
+    public Set<BasicBlock> PostDominanceFrontier;
 
     private boolean isEnded = false;
 

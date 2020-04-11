@@ -20,6 +20,8 @@ public class Function
     private Set<BasicBlock> dfsVisit = null;
     private Register inClassThis = null;
 
+    private List<BasicBlock> reverseCFGPostOrderBlockList = null;
+
     public Function(String name)
     {
         this.name = name;
@@ -107,10 +109,12 @@ public class Function
         preOrderBlockList = new ArrayList<>();
         dfsVisit = new HashSet<>();
         dfsBasicBlock(entryBlock);
+        for (int i = preOrderBlockList.size() - 1; i >= 0; --i)
+        {
+            preOrderBlockList.get(i).postOrderIndex = preOrderBlockList.size() - i;
+        }
     }
-//    public void calcPostOrderBlockList()
-//    {
-//    }
+
     public List<BasicBlock> getPostOrderBlockList()
     {
         if (postOrderBlockList == null)
@@ -123,6 +127,7 @@ public class Function
             postOrderBlockList.get(i).postOrderIndex = i;
         return postOrderBlockList;
     }
+
     public void dfsBasicBlock(BasicBlock basicBlock)
     {
         basicBlock.preOrderIndex = preOrderBlockList.size();
@@ -137,6 +142,34 @@ public class Function
             }
         }
     }
+
+    public List<BasicBlock> getReverseCFGPostOrderBlockList()
+    {
+        if (reverseCFGPostOrderBlockList == null) calcReverseCFGPostOrderBlockList();
+        return reverseCFGPostOrderBlockList;
+    }
+
+    public void calcReverseCFGPostOrderBlockList()
+    {
+        reverseCFGPostOrderBlockList = new LinkedList<>();
+        dfsVisit = new HashSet<>();
+        reverseCFGPostOrderDFS(exitBlock);
+        for (int i = 0; i < reverseCFGPostOrderBlockList.size(); ++i)
+            reverseCFGPostOrderBlockList.get(i).reverseCFGPostOrderIndex = i;
+    }
+
+    public void reverseCFGPostOrderDFS(BasicBlock basicBlock)
+    {
+        dfsVisit.add(basicBlock);
+        for (BasicBlock predecessor : basicBlock.getPredecessors())
+            if (!dfsVisit.contains(predecessor))
+            {
+                reverseCFGPostOrderDFS(predecessor);
+            }
+        reverseCFGPostOrderBlockList.add(basicBlock);
+    }
+
+
     public boolean canReach(BasicBlock basicBlock)
     {
         return dfsVisit.contains(basicBlock);

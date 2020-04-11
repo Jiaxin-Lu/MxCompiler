@@ -12,5 +12,10 @@ public abstract class Pass
         this.irRoot = irRoot;
     }
 
+    public boolean isChanged()
+    {
+        return changed;
+    }
+
     public abstract boolean run();
 }

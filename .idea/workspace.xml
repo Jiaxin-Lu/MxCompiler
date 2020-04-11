@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/BasicBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +114,7 @@
       <workItem from="1584275061933" duration="85019000" />
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
-      <workItem from="1585822397408" duration="92518000" />
+      <workItem from="1585822397408" duration="103739000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -352,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586349563836</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Starting CFGSimplifier.">
+      <created>1586545550274</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1586545550274</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +403,8 @@
     <MESSAGE value="IRPrinter and IRInterpreter.." />
     <MESSAGE value="IRPrinter and IRInterpreter..." />
     <MESSAGE value="IR seems to star working! Add new files &amp; moving forward!" />
-    <option name="LAST_COMMIT_MESSAGE" value="IR seems to star working! Add new files &amp; moving forward!" />
+    <MESSAGE value="Starting CFGSimplifier." />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting CFGSimplifier." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -425,10 +435,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586349560871">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586545547502">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586349560871" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586545547502" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

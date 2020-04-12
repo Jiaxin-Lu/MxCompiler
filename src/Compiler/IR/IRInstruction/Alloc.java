@@ -77,4 +77,21 @@ public class Alloc extends IRInstruction
     {
         visitor.visit(this);
     }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable)))
+            size = ((VirtualRegister) size).getSSARegister(((VirtualRegister) size).stack.peek());
+        resolveUsedRegister();
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable)))
+        {
+            dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
+        }
+    }
 }

@@ -34,6 +34,11 @@ public class Phi extends IRInstruction
         return path;
     }
 
+    public void addPath(BasicBlock basicBlock, Operand dst)
+    {
+        path.put(basicBlock, dst);
+    }
+
     public void removePath(BasicBlock basicBlock)
     {
         path.remove(basicBlock);
@@ -98,5 +103,17 @@ public class Phi extends IRInstruction
     public void accept(IRVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+
     }
 }

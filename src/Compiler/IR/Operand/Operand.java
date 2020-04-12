@@ -4,7 +4,7 @@ import Compiler.IR.IRVisitor;
 
 public abstract class Operand
 {
-    private String name;
+    protected String name;
     public Operand() {}
     public Operand(String name)
     {

@@ -2,8 +2,10 @@ package Compiler.IR.IRInstruction;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.IRVisitor;
+import Compiler.IR.Operand.GlobalVariable;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
@@ -91,5 +93,22 @@ public class Unary extends IRInstruction
     public void accept(IRVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable)))
+            src = ((VirtualRegister) src).getSSARegister(((VirtualRegister) src).stack.peek());
+        resolveUsedRegister();
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable)))
+        {
+            dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
+        }
     }
 }

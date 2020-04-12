@@ -61,4 +61,16 @@ public class Jump extends IRInstruction
     {
         visitor.visit(this);
     }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+        
+    }
 }

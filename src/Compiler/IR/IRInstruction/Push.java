@@ -57,4 +57,16 @@ public class Push extends IRInstruction
     {
         visitor.visit(this);
     }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+
+    }
 }

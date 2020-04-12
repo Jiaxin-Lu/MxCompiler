@@ -3,11 +3,8 @@ package Compiler.IR.IRInstruction;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRVisitor;
-import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Pointer;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.*;
 
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +92,7 @@ public class Call extends IRInstruction
         {
             if (parameter instanceof Register) usedRegister.add((Register) parameter);
         }
+        if (pointer instanceof Register) usedRegister.add((Register) pointer);
     }
 
     @Override
@@ -126,5 +124,30 @@ public class Call extends IRInstruction
     public void accept(IRVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    @Override
+    public void renameUsedRegisterSSA()
+    {
+        if ((pointer instanceof VirtualRegister) && (!(pointer instanceof GlobalVariable)))
+            pointer = ((VirtualRegister) pointer).getSSARegister(((VirtualRegister) pointer).stack.peek());
+        for (int i = 0; i < parameterList.size(); ++i)
+        {
+            Operand parameter = parameterList.get(i);
+            if ((parameter instanceof VirtualRegister) && !(parameter instanceof GlobalVariable))
+            {
+                parameterList.set(i, ((VirtualRegister) parameter).getSSARegister(((VirtualRegister) parameter).stack.peek()));
+            }
+        }
+        resolveUsedRegister();
+    }
+
+    @Override
+    public void renameDstRegisterSSA()
+    {
+        if ((dst != null) && (dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable)))
+        {
+            dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
+        }
     }
 }

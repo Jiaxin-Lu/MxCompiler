@@ -3,6 +3,7 @@ package Compiler.IR;
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.Value;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Parser.MxParser;
 
 import java.util.*;
@@ -178,6 +179,10 @@ public class Function
     {
         visitor.visit(this);
     }
+
+
+    // SSA
+    public Set<VirtualRegister> globals = new HashSet<>();
 
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

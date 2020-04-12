@@ -2,6 +2,7 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
+import Compiler.IR.IRInstruction.Call;
 import Compiler.IR.IRInstruction.IRInstruction;
 import Compiler.IR.IRInstruction.Phi;
 import Compiler.IR.IRRoot;
@@ -37,14 +38,19 @@ public class SSAConstructor extends Pass
                 Register  originRegister = inst.getOriginRegister();
                 for (Register register : usedRegister)
                 {
-                    if ((register instanceof VirtualRegister) && (!varKill.contains(register)))
+                    if (register instanceof VirtualRegister)
                     {
-                        function.globals.add((VirtualRegister) register);
+                        if (!varKill.contains(register))
+                            function.globals.add((VirtualRegister) register);
+                        if (((VirtualRegister) register).defBlocks == null)
+                            ((VirtualRegister) register).defBlocks = new HashSet<>();
                     }
                 }
                 if (originRegister instanceof VirtualRegister)
                 {
                     varKill.add((VirtualRegister) originRegister);
+                    if (((VirtualRegister) originRegister).defBlocks == null)
+                        ((VirtualRegister) originRegister).defBlocks = new HashSet<>();
                     ((VirtualRegister) originRegister).defBlocks.add(basicBlock);
                 }
             }
@@ -76,7 +82,63 @@ public class SSAConstructor extends Pass
 
     public void renameVariables(Function function)
     {
+        initializeParameters(function);
         rename(function.getEntryBlock());
+        setBackParameters(function);
+    }
+
+    private void initializeParameters(Function function)
+    {
+        VirtualRegister functionThis = (VirtualRegister) function.getInClassThis();
+        if (functionThis != null)
+        {
+            if (functionThis.defBlocks != null)
+            {
+                function.setInClassThis(functionThis.getSSARegister(functionThis.getSSAid()));
+            } else
+            {
+                function.setInClassThis(null);
+                for (Call call : function.callInstructionList)
+                {
+                    call.setPointer(null);
+                }
+            }
+        }
+
+        List<Register> parameterList = function.getParameterList();
+        for (int i = 0; i < parameterList.size(); i++)
+        {
+            VirtualRegister parameter = (VirtualRegister) parameterList.get(i);
+            if (parameter.defBlocks != null)
+            {
+                parameterList.set(i, parameter.getSSARegister(parameter.getSSAid()));
+            } else
+            {
+                for (Call call : function.callInstructionList)
+                {
+                    call.getParameterList().set(i, null);
+                }
+                parameterList.set(i, null);
+            }
+        }
+        parameterList.removeAll(Collections.singleton(null));
+        for (Call call : function.callInstructionList)
+        {
+            call.getParameterList().removeAll(Collections.singleton(null));
+        }
+    }
+
+    private void setBackParameters(Function function)
+    {
+        VirtualRegister functionThis = (VirtualRegister) function.getInClassThis();
+        if (functionThis != null && functionThis.stack != null)
+        {
+            functionThis.getOriginal().stack.pop();
+        }
+        for (Register parameter : function.getParameterList())
+        {
+            ((VirtualRegister)parameter).getOriginal().stack.pop();
+        }
     }
 
     private void rename(BasicBlock basicBlock)
@@ -120,6 +182,5 @@ public class SSAConstructor extends Pass
                 ((VirtualRegister)inst.getOriginRegister()).getOriginal().stack.pop();
             }
         }
-
     }
 }

@@ -4,7 +4,6 @@ import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.Value;
 import Compiler.IR.Operand.VirtualRegister;
-import Compiler.Parser.MxParser;
 
 import java.util.*;
 
@@ -92,6 +91,11 @@ public class Function
     public void setInClassThis()
     {
         this.inClassThis = new Value("this");
+    }
+
+    public void setInClassThis(Register inClassThis)
+    {
+        this.inClassThis = inClassThis;
     }
 
     public Register getInClassThis()
@@ -183,6 +187,7 @@ public class Function
 
     // SSA
     public Set<VirtualRegister> globals = new HashSet<>();
+    public List<Call> callInstructionList = new LinkedList<>();
 
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

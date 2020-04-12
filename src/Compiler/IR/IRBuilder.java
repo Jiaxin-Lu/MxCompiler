@@ -387,6 +387,7 @@ public class IRBuilder implements ASTVisitor
         {
             call.setPointer(node.getFunctionExpr().getResultOperand());
         }
+        functionSymbol.getFunction().callInstructionList.add(call);
         currentBlock.addInst2Tail(call);
 
         if (node.getBodyBlock() != null)
@@ -466,6 +467,7 @@ public class IRBuilder implements ASTVisitor
         {
             Call call = new Call(currentBlock, classSymbol.getConstructor().getFunction(), null);
             call.setPointer(value);
+            classSymbol.getConstructor().getFunction().callInstructionList.add(call);
             currentBlock.addInst2Tail(call);
         }
     }

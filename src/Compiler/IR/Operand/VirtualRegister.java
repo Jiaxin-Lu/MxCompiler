@@ -35,7 +35,7 @@ public class VirtualRegister extends Register
     }
 
     // SSA
-    public Set<BasicBlock> defBlocks = new HashSet<>();
+    public Set<BasicBlock> defBlocks = null;
     public Stack<Integer> stack = new Stack<>();
     public int counter = 0;
 

@@ -98,7 +98,7 @@ public abstract class IRInstruction
         this.nextInst = instruction;
     }
 
-    public void removeThis(IRInstruction instruction)
+    public void removeThis()
     {
         if (hasPrevInst()) this.prevInst.setNextInst(this.nextInst);
         else currentBlock.headInst = this.nextInst;

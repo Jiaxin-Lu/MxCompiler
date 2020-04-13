@@ -17,6 +17,8 @@ public class UnusedEliminator implements ASTVisitor
     private Set<VariableSymbol> definedSymbolSet = new HashSet<>();
     private Set<VariableSymbol> usedSymbolSet = new HashSet<>();
 
+    public boolean isEliminated = true;
+
     public UnusedEliminator(GlobalScope globalScope)
     {
         this.globalScope = globalScope;
@@ -25,6 +27,9 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(ProgramNode node) throws SemanticError
     {
+        isEliminated = false;
+        definedSymbolSet.clear();
+        usedSymbolSet.clear();
         System.out.println("analyze unused symbol!");
         currentScope = globalScope;
         for (ProgramDeclNode programDeclNode : node.getProgramDeclNodeList())
@@ -37,6 +42,7 @@ public class UnusedEliminator implements ASTVisitor
             if (!usedSymbolSet.contains(variableSymbol))
             {
                 variableSymbol.setUnUsed(true);
+                isEliminated = true;
                 // MAYBE DONE : CHECK IS ALL THIS RIGHT?
                 // output unused for check
                 System.out.println(variableSymbol.getName() + " " + variableSymbol.getScope().getScopeName());
@@ -48,9 +54,9 @@ public class UnusedEliminator implements ASTVisitor
     @Override
     public void visit(VarDeclNode node) throws SemanticError
     {
-        //        if (node.getExpr() != null)
+        VariableSymbol variableSymbol = node.getVariableSymbol();
+        if (!variableSymbol.isUnUsed())
         {
-            VariableSymbol variableSymbol = node.getVariableSymbol();
             definedSymbolSet.add(variableSymbol);
             inDefine = false;
             if (node.getExpr() != null) node.getExpr().accept(this);
@@ -83,6 +89,11 @@ public class UnusedEliminator implements ASTVisitor
     {
         FunctionSymbol functionSymbol = node.getFunctionSymbol();
         currentScope = functionSymbol;
+        for (VarDeclNode varDeclNode : node.getParameterList())
+        {
+//            inDefine = true;
+            varDeclNode.accept(this);
+        }
         visit(node.getBlock());
     }
 

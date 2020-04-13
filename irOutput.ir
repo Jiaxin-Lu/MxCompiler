@@ -1,20 +1,129 @@
+@n
+@a
+@i
+
+func jud $x {
+%jud.entry:
+    $i_2 = move 0
+    $j = move 0
+    $i_2 = move 0
+    jump %jud._for_cond
+%jud._for_cond:
+    $_virtual_register = div @n $x
+    $_virtual_register_2 = slt $i_2 $_virtual_register
+    br $_virtual_register_2 %jud._for_body %jud._for_merge
+%jud._for_body:
+    $flag = move 0
+    $j = move 0
+    jump %jud._for_cond_2
+%jud._for_cond_2:
+    $_virtual_register_3 = sub $x 1
+    $_virtual_register_4 = slt $j $_virtual_register_3
+    br $_virtual_register_4 %jud._for_body_2 %jud._for_merge_2
+%jud._for_body_2:
+    $_virtual_register_5 = mul $i_2 $x
+    $_virtual_register_6 = add $_virtual_register_5 $j
+    $_virtual_register_7 = mul $_virtual_register_6 8
+    $_virtual_register_8 = add $_virtual_register_7 8
+    $_virtual_register_9 = add $_virtual_register_8 @a
+    $_virtual_register_10 = mul $i_2 $x
+    $_virtual_register_11 = add $_virtual_register_10 $j
+    $_virtual_register_12 = add $_virtual_register_11 1
+    $_virtual_register_13 = mul $_virtual_register_12 8
+    $_virtual_register_14 = add $_virtual_register_13 8
+    $_virtual_register_15 = add $_virtual_register_14 @a
+    $_virtual_register_16 = load 8 $_virtual_register_9 0
+    $_virtual_register_17 = load 8 $_virtual_register_15 0
+    $_virtual_register_18 = sgt $_virtual_register_16 $_virtual_register_17
+    br $_virtual_register_18 %jud._if_then %jud._if_merge
+%jud._if_then:
+    $flag = move 1
+    jump %jud._if_merge
+%jud._if_merge:
+    jump %jud._for_step
+%jud._for_step:
+    $_virtual_register_19 = move $j
+    $j = add $j 1
+    jump %jud._for_cond_2
+%jud._for_merge_2:
+    br $flag %jud._if_merge_2 %jud._if_then_2
+%jud._if_then_2:
+    $_virtual_register_20 = move 1
+    $returnVal = move $_virtual_register_20
+    jump %jud.exit
+%jud.exit:
+    ret $returnVal
+%jud._if_merge_2:
+    jump %jud._for_step_2
+%jud._for_step_2:
+    $_virtual_register_21 = move $i_2
+    $i_2 = add $i_2 1
+    jump %jud._for_cond
+%jud._for_merge:
+    $_virtual_register_22 = move 0
+    $returnVal = move $_virtual_register_22
+    jump %jud.exit
+}
 
 func main {
 %main.entry:
+    $_virtual_register_23 = call getInt 
+    @n = move $_virtual_register_23
+    @i = move 0
     jump %main._for_cond
 %main._for_cond:
-    jump %main._for_body
-%main._for_body:
-    jump %main._for_merge
+    $_virtual_register_24 = slt @i @n
+    br $_virtual_register_24 %main._for_body %main._for_merge
 %main._for_merge:
-    $_virtual_register = move 0
-    ret $_virtual_register
+    @i = move @n
+    jump %main._for_cond_2
+%main._for_cond_2:
+    $_virtual_register_25 = sgt @i 0
+    br $_virtual_register_25 %main._for_body_2 %main._for_merge_2
+%main._for_body_2:
+    $_virtual_register_26 = call jud @i 
+    $_virtual_register_27 = sgt $_virtual_register_26 0
+    br $_virtual_register_27 %main._if_then %main._if_merge
+%main._if_then:
+    $_virtual_register_28 = call toString @i 
+    call print $_virtual_register_28 
+    $_virtual_register_29 = move 0
+    $returnVal_2 = move $_virtual_register_29
+    jump %main.exit
+%main.exit:
+    ret $returnVal_2
+%main._if_merge:
+    jump %main._for_step
+%main._for_step:
+    $_virtual_register_30 = div @i 2
+    @i = move $_virtual_register_30
+    jump %main._for_cond_2
+%main._for_merge_2:
+    $_virtual_register_31 = move 0
+    $returnVal_2 = move $_virtual_register_31
+    jump %main.exit
+%main._for_body:
+    $_virtual_register_32 = mul @i 8
+    $_virtual_register_33 = add $_virtual_register_32 8
+    $_virtual_register_34 = add $_virtual_register_33 @a
+    $_virtual_register_35 = call getInt 
+    store 8 $_virtual_register_34 $_virtual_register_35 0
+    jump %main._for_step_2
+%main._for_step_2:
+    $_virtual_register_36 = move @i
+    @i = add @i 1
+    jump %main._for_cond
 }
 
 func _init_ {
 %_init_.entry:
-    $_virtual_register_2 = call main 
-    $_virtual_register_3 = move $_virtual_register_2
-    ret $_virtual_register_3
+    $_virtual_register_37 = mul 20 8
+    $_virtual_register_37 = add $_virtual_register_37 8
+    $_virtual_register_38 = alloc $_virtual_register_37
+    store 8 $_virtual_register_38 20 0
+    @a = move $_virtual_register_38
+    $_virtual_register_39 = call main 
+    $_virtual_register_40 = move $_virtual_register_39
+    ret $_virtual_register_40
 }
 

@@ -378,10 +378,22 @@ public class IRBuilder implements ASTVisitor
         if (node.getTypeResolved().getTypeName().equals("void")) node.setResultOperand(null);
         else node.setResultOperand(new Value());
         Call call = new Call(currentBlock, functionSymbol.getFunction(), node.getResultOperand());
-        for (ExprNode exprNode : node.getParameterList())
+        if (functionSymbol.getFunction().getBuiltinName() == null)
         {
-            exprNode.accept(this);
-            call.addParameterList(resolvePointer(currentBlock, exprNode.getResultOperand()));
+            for (int i = 0; i < node.getParameterList().size(); i++)
+            {
+                if (((FuncDeclNode)functionSymbol.getOrigin()).getParameterList().get(i).getVariableSymbol().isUnUsed()) continue;
+                ExprNode exprNode = node.getParameterList().get(i);
+                exprNode.accept(this);
+                call.addParameterList(resolvePointer(currentBlock, exprNode.getResultOperand()));
+            }
+        } else
+        {
+            for (ExprNode exprNode : node.getParameterList())
+            {
+                exprNode.accept(this);
+                call.addParameterList(resolvePointer(currentBlock, exprNode.getResultOperand()));
+            }
         }
         if (functionSymbol.isMemberFunction())
         {

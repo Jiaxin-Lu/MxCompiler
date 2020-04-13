@@ -60,7 +60,8 @@ public class Main
 
             // a little optimizer
             UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
-            unusedEliminator.visit(ast);
+            while (unusedEliminator.isEliminated)
+                unusedEliminator.visit(ast);
 
             IRBuilder irBuilder = new IRBuilder(globalScope);
             irBuilder.visit(ast);

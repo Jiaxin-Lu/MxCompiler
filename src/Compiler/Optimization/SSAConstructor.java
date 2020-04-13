@@ -21,7 +21,13 @@ public class SSAConstructor extends Pass
     @Override
     public boolean run()
     {
-        return false;
+        for (Function function : irRoot.getFunctionMap().values())
+        {
+            findGlobals(function);
+            insertPhiFunction(function);
+            renameVariables(function);
+        }
+        return true;
     }
 
     public void findGlobals(Function function)

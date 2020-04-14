@@ -127,4 +127,12 @@ public class Binary extends IRInstruction
             dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
         }
     }
+
+    //CSE
+    public Operand preDst = null;
+
+    public boolean isCommutative()
+    {
+        return (op == Op.MUL || op == Op.ADD || op == Op.AND || op == Op.OR || op == Op.XOR);
+    }
 }

@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CSE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +113,7 @@
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
       <workItem from="1585822397408" duration="105725000" />
-      <workItem from="1586697629341" duration="22355000" />
+      <workItem from="1586697629341" duration="25682000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -394,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586807508636</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Starting DeadCodeEliminator..">
+      <created>1586860089770</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1586860089770</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,7 +423,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Add UnusedEliminator" />
     <MESSAGE value="Pass all Semantic Check" />
     <MESSAGE value="IR Package is hard!!!" />
     <MESSAGE value="Did A SMALL PART OF IR package." />
@@ -440,7 +447,8 @@
     <MESSAGE value="Starting SSA...." />
     <MESSAGE value="Improve UnusedEliminator." />
     <MESSAGE value="Starting DeadCodeEliminator." />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting DeadCodeEliminator." />
+    <MESSAGE value="Starting DeadCodeEliminator.." />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting DeadCodeEliminator.." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -471,10 +479,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586807507753">
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1586860088136">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586807507753" />
+    <state x="372" y="5" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586860088136" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

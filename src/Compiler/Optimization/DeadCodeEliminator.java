@@ -24,6 +24,7 @@ public class DeadCodeEliminator extends Pass
         changed = false;
         for (Function function : irRoot.getFunctionMap().values())
         {
+            resolveDefUseChain(function);
             changed |= aggressiveDeadCodeElimination(function);
         }
         return changed;
@@ -59,9 +60,17 @@ public class DeadCodeEliminator extends Pass
         {
             IRInstruction inst = workList.iterator().next();
             workList.remove(inst);
-            for (Register used : inst.getUsedRegister())
+            for (Register u : inst.getUsedRegister())
             {
-                //TODO : calc def()
+                IRInstruction defU = def.get(u);
+                if (defU != null)
+                {
+                    if (!markList.contains(defU))
+                    {
+                        markList.add(defU);
+                        workList.add(defU);
+                    }
+                }
             }
             for (BasicBlock b : inst.getCurrentBlock().PostDominanceFrontier)
             {

@@ -22,13 +22,13 @@ public class CFGSimplifier extends Pass
     @Override
     public boolean run()
     {
-        changed = false;
+        boolean isChanged = false;
         for (Function function : irRoot.getFunctionMap().values())
         {
-            changed |= removeBranch(function);
-            changed |= removeUnreachableBlock(function);
+            isChanged |= removeBranch(function);
+            isChanged |= removeUnreachableBlock(function);
         }
-        return changed;
+        return isChanged;
     }
 
     public boolean removeBranch(Function function)

@@ -189,5 +189,8 @@ public class Function
     public Set<VirtualRegister> globals = new HashSet<>();
     public List<Call> callInstructionList = new LinkedList<>();
 
+    //Unused
+    public boolean isUnused = false;
+
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

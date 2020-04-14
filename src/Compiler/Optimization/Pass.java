@@ -14,17 +14,17 @@ import java.util.Set;
 public abstract class Pass
 {
     protected IRRoot irRoot;
-    protected boolean changed;
+//    protected boolean changed;
 
     Pass(IRRoot irRoot)
     {
         this.irRoot = irRoot;
     }
 
-    public boolean isChanged()
-    {
-        return changed;
-    }
+//    public boolean isChanged()
+//    {
+//        return changed;
+//    }
 
     public abstract boolean run();
 

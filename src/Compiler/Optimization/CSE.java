@@ -29,6 +29,23 @@ public class CSE extends Pass
             this.lhs = lhs instanceof Immediate ? String.valueOf(((Immediate) lhs).getImm()) : lhs.toString();
             this.rhs = rhs instanceof Immediate ? String.valueOf(((Immediate) rhs).getImm()) : rhs.toString();
         }
+
+        @Override
+        public boolean equals(Object o)
+        {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            HashInst hashInst = (HashInst) o;
+            return Objects.equals(op, hashInst.op) &&
+                    Objects.equals(lhs, hashInst.lhs) &&
+                    Objects.equals(rhs, hashInst.rhs);
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return Objects.hash(op, lhs, rhs);
+        }
     }
 
     public CSE(IRRoot irRoot)

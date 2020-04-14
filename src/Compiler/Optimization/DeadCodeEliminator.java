@@ -21,13 +21,13 @@ public class DeadCodeEliminator extends Pass
     @Override
     public boolean run()
     {
-        changed = false;
+        boolean isChanged = false;
         for (Function function : irRoot.getFunctionMap().values())
         {
             resolveDefUseChain(function);
-            changed |= aggressiveDeadCodeElimination(function);
+            isChanged |= aggressiveDeadCodeElimination(function);
         }
-        return changed;
+        return isChanged;
     }
 
     private boolean aggressiveDeadCodeElimination(Function function)

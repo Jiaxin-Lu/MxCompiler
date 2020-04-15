@@ -204,6 +204,7 @@ public class SCCP extends Pass
     }
     void evaluate(Call inst)
     {
+        //TODO : Consider builtin function
         if (inst.getOriginRegister() != null)
             markMultiDefined(inst.getOriginRegister());
     }

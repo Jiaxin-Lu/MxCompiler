@@ -288,7 +288,7 @@ public class SCCP extends Pass
     {
         if (inst instanceof Binary)
         {
-            int result = 0;
+            int result;
             switch (((Binary) inst).getOp())
             {
                 case MUL:
@@ -331,7 +331,7 @@ public class SCCP extends Pass
             return new Immediate(result);
         } else if (inst instanceof Unary)
         {
-            int result = 0;
+            int result;
             switch (((Unary) inst).getOp())
             {
                 case NOT:
@@ -346,7 +346,7 @@ public class SCCP extends Pass
             return new Immediate(result);
         } else if (inst instanceof Cmp)
         {
-            int result = 0;
+            int result;
             switch (((Cmp) inst).getOp())
             {
                 case LT:

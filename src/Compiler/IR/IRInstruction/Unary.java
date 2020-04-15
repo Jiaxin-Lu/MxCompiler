@@ -14,7 +14,9 @@ public class Unary extends IRInstruction
 {
     public enum Op
     {
-        INC, DEC, NOT, NOTI, NEG, POS
+        NOT, NEG,
+        // Unused
+        INC, DEC, NOTI, POS
     }
 
     private Op op;

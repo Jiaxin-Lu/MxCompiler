@@ -82,4 +82,6 @@ public class VirtualRegister extends Register
         }
         return reg;
     }
+
+    public boolean isParameter = false;
 }

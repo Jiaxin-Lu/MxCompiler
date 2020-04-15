@@ -83,7 +83,10 @@ public class IRBuilder implements ASTVisitor
                 VirtualRegister virtualRegister = new Value(node.getId());
                 variableSymbol.setVariableOperand(virtualRegister);
                 if (currentFunction != null && node.isParameterVar())
+                {
                     currentFunction.addParameterList(virtualRegister);
+                    virtualRegister.isParameter = true;
+                }
                 if (node.getExpr() != null)
                 {
                     assign(virtualRegister, node.getExpr());

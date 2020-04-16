@@ -129,11 +129,11 @@ public class SCCP extends Pass
             if (inst instanceof Move)
             {
                 Operand src = ((Move) inst).getSrc();
-                Operand dst = ((Move) inst).getDst();
+                Register dst = (Register) ((Move) inst).getDst();
                 if (src instanceof Immediate)
                 {
                     boolean hasPhi = false;
-                    Set<IRInstruction> oldUsed = new HashSet<>(used.get(dst));
+                    Set<IRInstruction> oldUsed = new HashSet<>(used.get((dst)));
                     for (IRInstruction oldUse : oldUsed)
                     {
                         if (oldUse != inst)

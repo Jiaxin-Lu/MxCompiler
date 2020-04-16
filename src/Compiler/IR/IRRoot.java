@@ -38,6 +38,8 @@ public class IRRoot
     public Function builtinStringREQ = new Function("string.req", "__builtin_string_req");
     public Function builtinStringRT = new Function("string.rt", "__builtin_string_rt");
 
+    public int stringConstCnt = 0;
+
     public IRRoot()
     {
         addBuiltinFunction(builtinPrint);
@@ -83,6 +85,7 @@ public class IRRoot
     public void addStaticStr(StaticStr str)
     {
         staticStrList.add(str);
+        staticStringValMap.put(str.getBase(), str.getValue());
 //        staticDataList.add(str);
     }
 

@@ -19,8 +19,6 @@ public class IRBuilder implements ASTVisitor
     private Function currentFunction;
     private IRRoot irRoot = new IRRoot();
 
-    private int stringConstCnt = 0;
-
 
     public IRBuilder(GlobalScope globalScope)
     {
@@ -837,10 +835,10 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(StringConstNode node) throws SemanticError
     {
-        StaticStr staticStr = new StaticStr(new GlobalVariable("__str_const_" + (++stringConstCnt), true), node.getVal());
+        StaticStr staticStr = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), node.getVal());
         node.setResultOperand(staticStr.getBase());
         irRoot.addStaticStr(staticStr);
-        irRoot.addStaticStringVal(staticStr.getBase(), staticStr.getValue());
+//        irRoot.addStaticStringVal(staticStr.getBase(), staticStr.getValue());
     }
 
     @Override

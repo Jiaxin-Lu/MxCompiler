@@ -109,7 +109,7 @@ public class SCCP extends Pass
             {
                 inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getOriginRegister()));
                 isChanged = true;
-            } else if (operandStatus.status == operandStatus.status.CONSTANTSTR)
+            } else if (operandStatus.status == OperandStatus.Status.CONSTANTSTR)
             {
                 inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getOriginRegister()));
                 isChanged = true;
@@ -309,7 +309,7 @@ public class SCCP extends Pass
                         int pos = ((Immediate)instPosStatus.operand).getImm();
                         if (pos < irRoot.getStaticStringValMap().get(thisPointer).length())
                         {
-                            int result = (int) irRoot.getStaticStringValMap().get(thisPointer).charAt(pos);
+                            int result = irRoot.getStaticStringValMap().get(thisPointer).charAt(pos);
                             markConstant(inst.getOriginRegister(), new Immediate(result));
                         }
                     } else markMultiDefined(inst.getOriginRegister());

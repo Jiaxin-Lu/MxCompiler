@@ -50,6 +50,13 @@ public class Return extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (returnValue == oldOperand) returnValue = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (returnValue instanceof Register) returnValue = registerMap.get(returnValue);

@@ -26,5 +26,10 @@ public abstract class Memory extends Operand
         return base;
     }
 
+    public void replaceOperand(Operand oldOperand, Operand newOperand)
+    {
+        if (base == oldOperand) base = (VirtualRegister) newOperand;
+    }
+
     //TODO : everything concerning StackData!
 }

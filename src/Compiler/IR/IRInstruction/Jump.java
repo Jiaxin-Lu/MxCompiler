@@ -45,6 +45,12 @@ public class Jump extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
     }

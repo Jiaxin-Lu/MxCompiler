@@ -51,6 +51,12 @@ public class Pop extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (dst == oldOperand) dst = newOperand;
+    }
+
+    @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
         return null;

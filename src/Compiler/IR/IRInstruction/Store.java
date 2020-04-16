@@ -89,6 +89,17 @@ public class Store extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src == oldOperand) src = newOperand;
+        if (dst instanceof Register)
+        {
+            if (dst == oldOperand) dst = newOperand;
+        } else if (dst instanceof Memory) ((Memory) dst).replaceOperand(oldOperand, newOperand);
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (src instanceof Register) src = registerMap.get(src);

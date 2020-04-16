@@ -42,6 +42,13 @@ public class Push extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src == oldOperand) src = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
     }

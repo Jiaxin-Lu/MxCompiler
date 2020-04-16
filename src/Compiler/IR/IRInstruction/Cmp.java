@@ -82,6 +82,14 @@ public class Cmp extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (lhs == oldOperand) lhs = newOperand;
+        if (rhs == oldOperand) rhs = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (lhs instanceof Register) lhs = registerMap.get(lhs);

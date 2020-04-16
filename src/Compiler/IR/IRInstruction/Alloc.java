@@ -47,6 +47,13 @@ public class Alloc extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (size == oldOperand) size = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (size instanceof Register) size = registerMap.get(size);

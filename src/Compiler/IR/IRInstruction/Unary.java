@@ -78,6 +78,13 @@ public class Unary extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src == oldOperand) src = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (src instanceof Register) src = registerMap.get(src);

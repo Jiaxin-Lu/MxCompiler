@@ -97,6 +97,16 @@ public class Load extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src instanceof Register)
+        {
+            if (src == oldOperand) src = newOperand;
+        } else if (src instanceof Memory) ((Memory) src).replaceOperand(oldOperand, newOperand);
+        resolveUsedRegister();
+    }
+
+    @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
         return new Load(basicBlockMap.getOrDefault(currentBlock, currentBlock),

@@ -3,7 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,14 +125,7 @@
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
       <workItem from="1585822397408" duration="105725000" />
-      <workItem from="1586697629341" duration="55211000" />
-    </task>
-    <task id="LOCAL-00001" summary="Starting Semantic Check">
-      <created>1583430312521</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1583430312521</updated>
+      <workItem from="1586697629341" duration="56733000" />
     </task>
     <task id="LOCAL-00002" summary="Pass all the Semantic Check">
       <created>1583671101404</created>
@@ -456,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587053636197</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="In SCCP, handle builtin function and Move instruction.">
+      <created>1587053869649</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1587053869650</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,10 +547,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587053633812">
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587053868616">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587053633812" />
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587053868616" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

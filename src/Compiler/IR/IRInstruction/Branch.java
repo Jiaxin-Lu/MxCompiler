@@ -59,6 +59,13 @@ public class Branch extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (cond == oldOperand) cond = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
         if (cond instanceof  Register) cond = registerMap.get(cond);

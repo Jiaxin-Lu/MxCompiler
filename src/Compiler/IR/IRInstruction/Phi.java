@@ -89,6 +89,18 @@ public class Phi extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        for (Map.Entry<BasicBlock, Operand> entry : path.entrySet())
+        {
+            BasicBlock basicBlock = entry.getKey();
+            Operand operand = entry.getValue();
+            if (operand == oldOperand) path.put(basicBlock, newOperand);
+        }
+        resolveUsedRegister();
+    }
+
+    @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
     }

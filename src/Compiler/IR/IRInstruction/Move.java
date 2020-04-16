@@ -65,6 +65,13 @@ public class Move extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src == oldOperand) src = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
         return new Move(basicBlockMap.getOrDefault(currentBlock, currentBlock),

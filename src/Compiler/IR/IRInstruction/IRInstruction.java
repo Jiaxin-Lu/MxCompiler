@@ -124,10 +124,11 @@ public abstract class IRInstruction
 
     public abstract IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap);
 
-
     public abstract void renameUsedRegisterSSA();
 
     public abstract void renameDstRegisterSSA();
+
+    public abstract void replaceUsedRegister(Operand oldOperand, Operand newOperand);
     //TODO : A lot more!
 
 }

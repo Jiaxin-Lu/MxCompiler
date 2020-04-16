@@ -44,9 +44,7 @@ public class SCCP extends Pass
         isChanged = false;
         for (Function function : irRoot.getFunctionMap().values())
         {
-            resolveDefUseChain(function);
             sparseConditionalConstantPropagation(function);
-            resolveDefUseChain(function);
         }
         return isChanged;
     }
@@ -69,6 +67,7 @@ public class SCCP extends Pass
 
     void sparseConditionalConstantPropagation(Function function)
     {
+        resolveDefUseChain(function);
         CFGList.clear();
         SSAList.clear();
         unExecutedBlock.clear();
@@ -98,6 +97,11 @@ public class SCCP extends Pass
         {
             replaceRegisterWithConstant(basicBlock);
         }
+        resolveDefUseChain(function);
+        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            handleNewMove(basicBlock);
+        }
     }
 
     private void replaceRegisterWithConstant(BasicBlock basicBlock)
@@ -113,6 +117,60 @@ public class SCCP extends Pass
             {
                 inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getOriginRegister()));
                 isChanged = true;
+            }
+        }
+    }
+
+    //DONE : handle the new Move
+    private void handleNewMove(BasicBlock basicBlock)
+    {
+        for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+        {
+            if (inst instanceof Move)
+            {
+                Operand src = ((Move) inst).getSrc();
+                Operand dst = ((Move) inst).getDst();
+                if (src instanceof Immediate)
+                {
+                    boolean hasPhi = false;
+                    Set<IRInstruction> oldUsed = new HashSet<>(used.get(dst));
+                    for (IRInstruction oldUse : oldUsed)
+                    {
+                        if (oldUse != inst)
+                        {
+                            if (!(oldUse instanceof Phi))
+                            {
+                                isChanged = true;
+                                used.get(dst).remove(oldUse);
+                                oldUse.replaceUsedRegister(dst, src);
+                            } else hasPhi = true;
+                        }
+                    }
+                    if (!hasPhi) inst.removeThis();
+                } else if (src instanceof VirtualRegister)
+                {
+                    boolean hasPhi = false;
+                    Set<IRInstruction> oldUsed = new HashSet<>(used.get(dst));
+                    Set<IRInstruction> newUsed = used.get(src);
+                    for (IRInstruction oldUse : oldUsed)
+                    {
+                        if (oldUse != inst)
+                        {
+                            if (!(oldUse instanceof Phi))
+                            {
+                                isChanged = true;
+                                used.get(dst).remove(oldUse);
+                                oldUse.replaceUsedRegister(dst, src);
+                                newUsed.add(oldUse);
+                            } else hasPhi = true;
+                        }
+                    }
+                    if (!hasPhi)
+                    {
+                        newUsed.remove(inst);
+                        inst.removeThis();
+                    }
+                }
             }
         }
     }
@@ -526,6 +584,5 @@ public class SCCP extends Pass
         }
     }
 
-    //TODO : handle the new Move
 
 }

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +112,7 @@
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
       <workItem from="1585822397408" duration="105725000" />
-      <workItem from="1586697629341" duration="52358000" />
+      <workItem from="1586697629341" duration="54930000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Semantic Check">
       <created>1583430312521</created>
@@ -442,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587040804212</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="In SCCP, add builtin function handler.">
+      <created>1587040880601</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1587040880601</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,10 +527,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587040802526">
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587040879507">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587040802526" />
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587040879507" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

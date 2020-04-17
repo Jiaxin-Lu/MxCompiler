@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/xjun.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADeConstructor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +68,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -125,14 +112,8 @@
       <workItem from="1584883742303" duration="2854000" />
       <workItem from="1585592398809" duration="9948000" />
       <workItem from="1585822397408" duration="105725000" />
-      <workItem from="1586697629341" duration="56733000" />
-    </task>
-    <task id="LOCAL-00002" summary="Pass all the Semantic Check">
-      <created>1583671101404</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1583671101404</updated>
+      <workItem from="1586697629341" duration="58367000" />
+      <workItem from="1587058257453" duration="11292000" />
     </task>
     <task id="LOCAL-00003" summary="Pass all the Semantic Check">
       <created>1583671181158</created>
@@ -470,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587053869650</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="In SCCP, handle builtin function and Move instruction..">
+      <created>1587055397022</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1587055397022</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,7 +479,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Start building IRBuilder..." />
     <MESSAGE value="Still building IRBuilder..." />
     <MESSAGE value="Still building IRBuilder...." />
     <MESSAGE value="Still building IRBuilder....." />
@@ -516,7 +503,8 @@
     <MESSAGE value="Starting SCCP." />
     <MESSAGE value="In SCCP, add builtin function handler." />
     <MESSAGE value="In SCCP, handle builtin function and Move instruction." />
-    <option name="LAST_COMMIT_MESSAGE" value="In SCCP, handle builtin function and Move instruction." />
+    <MESSAGE value="In SCCP, handle builtin function and Move instruction.." />
+    <option name="LAST_COMMIT_MESSAGE" value="In SCCP, handle builtin function and Move instruction.." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -547,10 +535,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587053868616">
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587055395614">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587053868616" />
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587055395614" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -591,10 +579,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="408" y="109" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1584697134787" />
-    <state x="270" y="0" width="1138" height="716" key="SettingsEditor" timestamp="1586184125177">
+    <state x="270" y="0" width="1138" height="716" key="SettingsEditor" timestamp="1587058286395">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1586184125177" />
+    <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587058286395" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1586717471849">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

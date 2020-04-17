@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/xjun.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADeConstructor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSADeConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADeConstructor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,14 +112,7 @@
       <workItem from="1585592398809" duration="9948000" />
       <workItem from="1585822397408" duration="105725000" />
       <workItem from="1586697629341" duration="58367000" />
-      <workItem from="1587058257453" duration="11292000" />
-    </task>
-    <task id="LOCAL-00003" summary="Pass all the Semantic Check">
-      <created>1583671181158</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1583671181158</updated>
+      <workItem from="1587058257453" duration="13920000" />
     </task>
     <task id="LOCAL-00004" summary="Add UnusedEliminator">
       <created>1583778490592</created>
@@ -458,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587055397022</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Start SSADeConstructor.">
+      <created>1587133460502</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1587133460503</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,7 +478,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Still building IRBuilder..." />
     <MESSAGE value="Still building IRBuilder...." />
     <MESSAGE value="Still building IRBuilder....." />
     <MESSAGE value="Still building IRBuilder......" />
@@ -504,7 +502,8 @@
     <MESSAGE value="In SCCP, add builtin function handler." />
     <MESSAGE value="In SCCP, handle builtin function and Move instruction." />
     <MESSAGE value="In SCCP, handle builtin function and Move instruction.." />
-    <option name="LAST_COMMIT_MESSAGE" value="In SCCP, handle builtin function and Move instruction.." />
+    <MESSAGE value="Start SSADeConstructor." />
+    <option name="LAST_COMMIT_MESSAGE" value="Start SSADeConstructor." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -535,10 +534,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587055395614">
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587154483531">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587055395614" />
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587154483531" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -583,10 +582,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587058286395" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1586717471849">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587142080565">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586717471849" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587142080565" />
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1582036372627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -15,10 +15,10 @@ public class GlobalVariableResolver
 {
     private IRRoot irRoot;
 
-//    public GlobalVariableResolver(IRRoot irRoot)
-//    {
-//        this.irRoot = irRoot;
-//    }
+    public GlobalVariableResolver(IRRoot irRoot)
+    {
+        this.irRoot = irRoot;
+    }
 
     public void run()
     {

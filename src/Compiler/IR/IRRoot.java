@@ -2,10 +2,7 @@ package Compiler.IR;
 
 import Compiler.IR.Operand.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IRRoot
 {
@@ -132,6 +129,33 @@ public class IRRoot
     public List<StaticStr> getStaticStrList()
     {
         return staticStrList;
+    }
+
+    public void updateRecursiveCallee()
+    {
+        for (Function function : functionMap.values())
+        {
+            function.recursiveCallee.clear();
+        }
+        boolean isChanged = true;
+        while (isChanged)
+        {
+            isChanged = false;
+            for (Function function : functionMap.values())
+            {
+                Set<Function> newRecursiveCallee = new HashSet<>(function.callee);
+                for (Function f : function.callee)
+                {
+                    newRecursiveCallee.addAll(f.recursiveCallee);
+                }
+                if (!newRecursiveCallee.equals(function.recursiveCallee))
+                {
+                    function.recursiveCallee.clear();
+                    function.recursiveCallee.addAll(newRecursiveCallee);
+                    isChanged = true;
+                }
+            }
+        }
     }
     //TODO: maybe something more when later!
 }

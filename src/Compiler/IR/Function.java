@@ -1,6 +1,7 @@
 package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
+import Compiler.IR.Operand.GlobalVariable;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.Value;
 import Compiler.IR.Operand.VirtualRegister;
@@ -184,12 +185,34 @@ public class Function
         visitor.visit(this);
     }
 
+    //Callee
+    public Set<Function> callee = new HashSet<>();
+    public Set<Function> recursiveCallee = new HashSet<>();
+
+    public void updateCallee()
+    {
+        callee.clear();
+        for (BasicBlock basicBlock : getPreOrderBlockList())
+        {
+            for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            {
+                if (inst instanceof Call)
+                    callee.add(((Call) inst).getFunction());
+            }
+        }
+    }
+
+    //Global Variable
+    public Set<GlobalVariable> defGlobalVariable = new HashSet<>();
+    public Map<GlobalVariable, VirtualRegister> usedTempGlobalVariable = new HashMap<>();
+    public Set<GlobalVariable> recursiveDefGlobalVariable = new HashSet<>();
+    public Set<GlobalVariable> recursiveUsedGlobalVariable = new HashSet<>();
 
     // SSA
     public Set<VirtualRegister> globals = new HashSet<>();
     public List<Call> callInstructionList = new LinkedList<>();
 
-    //Unused
+    //Unused Function
     public boolean isUnused = false;
 
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.

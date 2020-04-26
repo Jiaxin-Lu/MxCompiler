@@ -67,6 +67,12 @@ public class IRBuilder implements ASTVisitor
             if ((declNode instanceof FuncDeclNode) || (declNode instanceof ClassDeclNode))
                 declNode.accept(this);
         }
+
+        for (Function function : irRoot.getFunctionMap().values())
+        {
+            function.updateCallee();
+        }
+        irRoot.updateRecursiveCallee();
     }
 
     //Decl

@@ -16,6 +16,11 @@ public class GlobalVariable extends Value
         this.isString = isString;
     }
 
+    public boolean isString()
+    {
+        return isString;
+    }
+
     @Override
     public void accept(IRVisitor visitor)
     {

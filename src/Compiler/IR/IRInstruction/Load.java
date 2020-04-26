@@ -3,6 +3,7 @@ package Compiler.IR.IRInstruction;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.*;
+import Compiler.Utils.Width;
 
 import java.util.Map;
 
@@ -10,26 +11,30 @@ public class Load extends IRInstruction
 {
     private Operand src;
     private Operand dst;
-    private boolean isGlobal;
+    private boolean forGlobal;
 
     private int size;
     private int offset;
 
-    public Load(BasicBlock basicBlock, Operand src, Operand dst)
-    {
-        super(basicBlock);
-        this.src = src;
-        this.dst = dst;
-        this.isGlobal = false;
-        resolveUsedRegister();
-    }
+//    public Load(BasicBlock basicBlock, Operand src, Operand dst)
+//    {
+//        super(basicBlock);
+//        this.src = src;
+//        this.dst = dst;
+//        this.forGlobal = false;
+//        this.size = Width.regWidth;
+//        this.offset = 0;
+//        resolveUsedRegister();
+//    }
 
-    public Load(BasicBlock basicBlock, Operand src, Operand dst, boolean isGlobal)
+    public Load(BasicBlock basicBlock, Operand src, Operand dst, boolean forGlobal)
     {
         super(basicBlock);
         this.src = src;
         this.dst = dst;
-        this.isGlobal = isGlobal;
+        this.forGlobal = forGlobal;
+        this.size = Width.regWidth;
+        this.offset = 0;
         resolveUsedRegister();
     }
 
@@ -38,7 +43,7 @@ public class Load extends IRInstruction
         super(basicBlock);
         this.src = src;
         this.dst = dst;
-        this.isGlobal = false;
+        this.forGlobal = false;
         this.size = size;
         this.offset = offset;
         resolveUsedRegister();
@@ -54,9 +59,9 @@ public class Load extends IRInstruction
         return dst;
     }
 
-    public boolean isGlobal()
+    public boolean isForGlobal()
     {
-        return isGlobal;
+        return forGlobal;
     }
 
     public int getSize()

@@ -114,14 +114,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="15262000" />
-    </task>
-    <task id="LOCAL-00006" summary="Pass all Semantic Check">
-      <created>1584088555943</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1584088555943</updated>
+      <workItem from="1587904814623" duration="15873000" />
     </task>
     <task id="LOCAL-00007" summary="IR Package is hard!!!">
       <created>1584130472672</created>
@@ -459,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587927622213</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Add GlobalVariableResolver..">
+      <created>1587927640265</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1587927640265</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

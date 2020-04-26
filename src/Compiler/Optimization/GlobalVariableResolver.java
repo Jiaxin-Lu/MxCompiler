@@ -53,7 +53,7 @@ public class GlobalVariableResolver
         }
     }
 
-    private VirtualRegister getTempGlobal(GlobalVariable register, Map<GlobalVariable, VirtualRegister> usedTempGlobalVariable)
+    private VirtualRegister getTempGlobalVariable(GlobalVariable register, Map<GlobalVariable, VirtualRegister> usedTempGlobalVariable)
     {
         VirtualRegister tempGlobal = usedTempGlobalVariable.get(register);
         if (tempGlobal == null)
@@ -81,21 +81,23 @@ public class GlobalVariableResolver
                     for (Register register : usedRegister)
                     {
                         if (register instanceof GlobalVariable && !((GlobalVariable)register).isString())
-                            renameMap.put(register, getTempGlobal((GlobalVariable) register, function.usedTempGlobalVariable));
+                            renameMap.put(register, getTempGlobalVariable((GlobalVariable) register,
+                                    function.usedTempGlobalVariable));
                         else renameMap.put(register, register);
                     }
                     inst.setUsedRegister(renameMap);
                 }
                 if (defRegister instanceof GlobalVariable && !((GlobalVariable)defRegister).isString())
                 {
-                    inst.setOriginRegister(getTempGlobal((GlobalVariable) defRegister, function.usedTempGlobalVariable));
+                    inst.setOriginRegister(getTempGlobalVariable((GlobalVariable) defRegister, function.usedTempGlobalVariable));
                     function.defGlobalVariable.add((GlobalVariable) defRegister);
                 }
             }
         }
         for (Map.Entry<GlobalVariable, VirtualRegister> entry : function.usedTempGlobalVariable.entrySet())
         {
-            function.getEntryBlock().addInst2Head(new Load(function.getEntryBlock(), entry.getKey(), entry.getValue(), true));
+            function.getEntryBlock().addInst2Head(new Load(function.getEntryBlock(),
+                    entry.getKey(), entry.getValue(), true));
         }
     }
 

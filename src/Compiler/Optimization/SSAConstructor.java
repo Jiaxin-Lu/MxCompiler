@@ -13,7 +13,7 @@ import java.util.*;
 
 public class SSAConstructor extends Pass
 {
-    SSAConstructor(IRRoot irRoot)
+    public SSAConstructor(IRRoot irRoot)
     {
         super(irRoot);
     }

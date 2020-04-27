@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSADeConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,14 +118,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="15873000" />
-    </task>
-    <task id="LOCAL-00007" summary="IR Package is hard!!!">
-      <created>1584130472672</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1584130472672</updated>
+      <workItem from="1587904814623" duration="20189000" />
     </task>
     <task id="LOCAL-00008" summary="Did A SMALL PART OF IR package.">
       <created>1584296869358</created>
@@ -459,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587927640265</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Add GlobalVariableResolver..">
+      <created>1587945267141</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1587945267141</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,18 +532,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1584792365852" />
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587918805300">
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587971277583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1587918805300" />
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1587971277583" />
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583309386921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587927639198">
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1587971375805">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587927639198" />
+    <state x="243" y="7" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587971375805" />
     <state x="549" y="153" key="FileChooserDialogImpl" timestamp="1586184122691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

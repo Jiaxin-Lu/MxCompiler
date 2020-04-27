@@ -8,7 +8,7 @@ import java.util.*;
 
 public class DominatorTreeConstructor extends Pass
 {
-    DominatorTreeConstructor(IRRoot irRoot)
+    public DominatorTreeConstructor(IRRoot irRoot)
     {
         super(irRoot);
     }
@@ -21,12 +21,18 @@ public class DominatorTreeConstructor extends Pass
             computeDominatorTree(function);
             computeDominanceFrontier(function);
         }
+        return false;
+    }
+
+    public boolean run(boolean isPost)
+    {
+        if (!isPost) return run();
         for (Function function : irRoot.getFunctionMap().values())
         {
             computePostDominatorTree(function);
             computePostDominanceFrontier(function);
         }
-        return true;
+        return false;
     }
 
     public void computeDominatorTree(Function function)

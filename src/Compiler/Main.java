@@ -6,6 +6,7 @@ import Compiler.IR.IRBuilder;
 import Compiler.IR.IRPrinter;
 import Compiler.IR.IRRoot;
 import Compiler.IR.LLIRInterpreter.LLIRInterpreter;
+import Compiler.Optimization.*;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
@@ -76,11 +77,45 @@ public class Main
                     new DataInputStream(System.in), new PrintStream(System.out));
             llirInterpreter.run();
 
+            GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
+            globalVariableResolver.run();
+
+            optimize(irRoot);
+
         } catch (Exception exception)
         {
             exception.printStackTrace();
             System.err.println(exception.getMessage());
             throw new RuntimeException();
         }
+    }
+
+    private static void optimize(IRRoot irRoot)
+    {
+        CFGSimplifier cfgSimplifier = new CFGSimplifier(irRoot);
+        DominatorTreeConstructor dominatorTreeConstructor = new DominatorTreeConstructor(irRoot);
+        SSAConstructor ssaConstructor = new SSAConstructor(irRoot);
+        UnusedFunctionEliminator unusedFunctionEliminator = new UnusedFunctionEliminator(irRoot);
+        CSE commonSubExpressionEliminator = new CSE(irRoot);
+        DeadCodeEliminator deadCodeEliminator = new DeadCodeEliminator(irRoot);
+        SCCP sccp = new SCCP(irRoot);
+        SSADestructor ssaDestructor = new SSADestructor(irRoot);
+
+        cfgSimplifier.run();
+        dominatorTreeConstructor.run();
+        ssaConstructor.run();
+        boolean changed = true;
+        while (changed)
+        {
+            changed = commonSubExpressionEliminator.run();
+            changed |= sccp.run();
+            changed |= cfgSimplifier.run();
+            dominatorTreeConstructor.run(true);
+            changed |= deadCodeEliminator.run();
+            changed |= cfgSimplifier.run();
+            changed |= unusedFunctionEliminator.run();
+        }
+        ssaDestructor.run();
+        cfgSimplifier.run();
     }
 }

@@ -11,7 +11,7 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.*;
 
-public class SSADeConstructor extends Pass
+public class SSADestructor extends Pass
 {
     static class CopiedInst
     {
@@ -26,7 +26,7 @@ public class SSADeConstructor extends Pass
 
     private Map<BasicBlock, List<CopiedInst>> parallelCopy = new HashMap<>();
 
-    public SSADeConstructor(IRRoot irRoot)
+    public SSADestructor(IRRoot irRoot)
     {
         super(irRoot);
     }

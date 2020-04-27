@@ -32,6 +32,19 @@ public class CFGSimplifier extends Pass
         return isChanged;
     }
 
+    public boolean run(boolean remove)
+    {
+        boolean isChanged = false;
+        for (Function function : irRoot.getFunctionMap().values())
+        {
+            isChanged |= removeBranch(function);
+            isChanged |= removeSingleBranchBlock(function);
+            isChanged |= removePhiWithSingleBranch(function);
+            isChanged |= removeUnreachableBlock(function);
+        }
+        return isChanged;
+    }
+
     public boolean removeBranch(Function function)
     {
         boolean isChanged = false;

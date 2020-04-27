@@ -109,6 +109,9 @@ public class DominatorTreeConstructor extends Pass
         for (BasicBlock basicBlock : basicBlocks)
         {
             basicBlock.DominanceFrontier = new HashSet<>();
+        }
+        for (BasicBlock basicBlock : basicBlocks)
+        {
             if (basicBlock.getPredecessors().size() >= 2)
             {
                 for (BasicBlock predecessor : basicBlock.getPredecessors())
@@ -126,14 +129,16 @@ public class DominatorTreeConstructor extends Pass
 
     public void computePostDominatorTree(Function function)
     {
-        List<BasicBlock> preOrderList = new LinkedList<>(function.getPreOrderBlockList());
-        preOrderList.remove(function.getExitBlock());
+        function.calcReverseCFGPostOrderBlockList();
+        List<BasicBlock> basicBlockList = new LinkedList<>(function.getPreOrderBlockList());
+        Collections.reverse(basicBlockList);
+        basicBlockList.remove(function.getExitBlock());
         function.getExitBlock().postIDOM = function.getExitBlock();
         boolean isChanged = true;
         while (isChanged)
         {
             isChanged = false;
-            for (BasicBlock basicBlock : preOrderList)
+            for (BasicBlock basicBlock : basicBlockList)
             {
                 BasicBlock newIDOM = null;
                 for (BasicBlock successor : basicBlock.getSuccessors())
@@ -158,7 +163,7 @@ public class DominatorTreeConstructor extends Pass
         {
             basicBlock.PostDominatorTreeSuccessor = new HashSet<>();
         }
-        for (BasicBlock basicBlock : preOrderList)
+        for (BasicBlock basicBlock : basicBlockList)
         {
             basicBlock.postIDOM.PostDominatorTreeSuccessor.add(basicBlock);
         }
@@ -170,14 +175,18 @@ public class DominatorTreeConstructor extends Pass
         BasicBlock figure2 = basicBlock2;
         while (figure2 != figure1)
         {
-            while (figure1.preOrderIndex < figure2.preOrderIndex) figure1 = figure1.postIDOM;
-            while (figure2.preOrderIndex < figure1.preOrderIndex) figure2 = figure2.postIDOM;
+            while (figure1.reverseCFGPostOrderIndex < figure2.reverseCFGPostOrderIndex) figure1 = figure1.postIDOM;
+            while (figure2.reverseCFGPostOrderIndex < figure1.reverseCFGPostOrderIndex) figure2 = figure2.postIDOM;
         }
         return figure1;
     }
 
     public void computePostDominanceFrontier(Function function)
     {
+        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            basicBlock.PostDominanceFrontier = new HashSet<>();
+        }
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             if (basicBlock.getSuccessors().size() >= 2)

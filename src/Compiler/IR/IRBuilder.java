@@ -88,8 +88,8 @@ public class IRBuilder implements ASTVisitor
                 variableSymbol.setVariableOperand(virtualRegister);
                 if (currentFunction != null && node.isParameterVar())
                 {
-                    currentFunction.addParameterList(virtualRegister);
                     virtualRegister.isParameter = true;
+                    currentFunction.addParameterList(virtualRegister);
                 }
                 if (node.getExpr() != null)
                 {

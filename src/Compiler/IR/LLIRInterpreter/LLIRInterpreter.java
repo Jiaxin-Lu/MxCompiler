@@ -295,7 +295,7 @@ public class LLIRInterpreter {
         return Integer.parseInt(name);
     }
 
-    private void readGlobalVariable()
+    private void readGlobalVariable() throws RuntimeError
     {
         if (!line.startsWith("@")) throw new RuntimeException("global variable should start with @!");
         if (line.contains("=")) //readGlobalString
@@ -319,6 +319,12 @@ public class LLIRInterpreter {
             register.value = 0;
             register.timestamp = 0;
             globalRegisters.put(name, register);
+
+            int size = 8;
+            registerWrite(name, heapTop);
+            for (int i = 0; i < size; ++i) memory.put(heapTop + i, (byte) 0);
+            heapTop += size;
+            heapTop += (int) (Math.random() * 4096);
         }
     }
 
@@ -656,7 +662,7 @@ public class LLIRInterpreter {
             br.close();
             if (isSSAMode) perfromSSACheck();
             isReady = true;
-        } catch (SemanticError e) {
+        } catch (SemanticError | RuntimeError e) {
             System.err.println("Semantic Error");
             System.err.println("    " + e.getMessage());
             exitcode = -1;

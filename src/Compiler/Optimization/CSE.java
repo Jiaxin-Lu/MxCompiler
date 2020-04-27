@@ -71,7 +71,10 @@ public class CSE extends Pass
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             if (!visitedBlock.contains(basicBlock))
+            {
+                expressionMap.clear();
                 isChanged |= commonSubexpressionElimination(basicBlock);
+            }
         }
         return isChanged;
     }

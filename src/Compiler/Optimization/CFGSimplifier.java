@@ -26,6 +26,7 @@ public class CFGSimplifier extends Pass
         for (Function function : irRoot.getFunctionMap().values())
         {
             isChanged |= removeBranch(function);
+            isChanged |= removeSingleBranchBlock(function);
             isChanged |= removeUnreachableBlock(function);
         }
         return isChanged;

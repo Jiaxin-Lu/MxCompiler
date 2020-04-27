@@ -98,7 +98,7 @@ public class Call extends IRInstruction
     @Override
     public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
     {
-        for (int i = 0; i < parameterList.size(); i++)
+        for (int i = 0; i < parameterList.size(); ++i)
         {
             Operand parameter = parameterList.get(i);
             if (parameter == oldOperand)
@@ -114,8 +114,12 @@ public class Call extends IRInstruction
         for (int i = 0; i < parameterList.size(); ++i)
         {
             Operand parameter = parameterList.get(i);
-            if (parameter instanceof Register) parameterList.set(i, registerMap.get(parameter));
+            if (parameter instanceof Register)
+            {
+                parameterList.set(i, registerMap.get(parameter));
+            }
         }
+        if (pointer instanceof Register) pointer = registerMap.get(pointer);
         resolveUsedRegister();
     }
 

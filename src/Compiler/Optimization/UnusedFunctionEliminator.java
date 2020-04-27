@@ -24,6 +24,7 @@ public class UnusedFunctionEliminator extends Pass
     public boolean run()
     {
         Function initFunction = irRoot.getFunctionMap().get("_init_");
+        functionSet.clear();
         getUsedFunc(initFunction);
         boolean isChanged = false;
         for (Function function :irRoot.getFunctionMap().values())

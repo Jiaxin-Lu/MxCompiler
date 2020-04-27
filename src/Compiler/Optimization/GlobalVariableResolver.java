@@ -81,8 +81,10 @@ public class GlobalVariableResolver
                     for (Register register : usedRegister)
                     {
                         if (register instanceof GlobalVariable && !((GlobalVariable)register).isString())
+                        {
                             renameMap.put(register, getTempGlobalVariable((GlobalVariable) register,
                                     function.usedTempGlobalVariable));
+                        }
                         else renameMap.put(register, register);
                     }
                     inst.setUsedRegister(renameMap);

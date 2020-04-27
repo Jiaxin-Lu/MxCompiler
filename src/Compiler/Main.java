@@ -68,19 +68,13 @@ public class Main
             irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
 
-            PrintStream printStream = new PrintStream("irOutput.ir");
-            IRPrinter irPrinter = new IRPrinter(printStream);
-            irPrinter.visit(irRoot);
-
-            InputStream irInterpreterIn = new FileInputStream("irOutput.ir");
-            LLIRInterpreter llirInterpreter = new LLIRInterpreter(irInterpreterIn, false,
-                    new DataInputStream(System.in), new PrintStream(System.out));
-            llirInterpreter.run();
-
             GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
             globalVariableResolver.run();
+            printIR(irRoot, "oldIrOutput.ir", false);
 
             optimize(irRoot);
+
+            printIR(irRoot, "irOutput.ir", true);
 
         } catch (Exception exception)
         {
@@ -90,7 +84,22 @@ public class Main
         }
     }
 
-    private static void optimize(IRRoot irRoot)
+    private static void printIR(IRRoot irRoot, String fileName, boolean checkIR) throws IOException
+    {
+        PrintStream printStream = new PrintStream(fileName);
+        IRPrinter irPrinter = new IRPrinter(printStream);
+        irPrinter.visit(irRoot);
+
+        if (checkIR)
+        {
+            InputStream irInterpreterIn = new FileInputStream(fileName);
+            LLIRInterpreter llirInterpreter = new LLIRInterpreter(irInterpreterIn, false,
+                    new DataInputStream(System.in), new PrintStream(System.out));
+            llirInterpreter.run();
+        }
+    }
+
+    private static void optimize(IRRoot irRoot) throws IOException
     {
         CFGSimplifier cfgSimplifier = new CFGSimplifier(irRoot);
         DominatorTreeConstructor dominatorTreeConstructor = new DominatorTreeConstructor(irRoot);
@@ -102,18 +111,28 @@ public class Main
         SSADestructor ssaDestructor = new SSADestructor(irRoot);
 
         cfgSimplifier.run();
+
         dominatorTreeConstructor.run();
+        System.out.println("Dominator Tree Construct complete!");
         ssaConstructor.run();
+        printIR(irRoot, "ssaIROutput.ir", false);
+        System.out.println("SSA Construct complete!");
         boolean changed = true;
         while (changed)
         {
             changed = commonSubExpressionEliminator.run();
+            System.out.println("CSE complete!");
             changed |= sccp.run();
+            System.out.println("SCCP complete!");
             changed |= cfgSimplifier.run();
+            System.out.println("Dead code Eliminator...");
             dominatorTreeConstructor.run(true);
+            System.out.println("Dead code Eliminator...");
             changed |= deadCodeEliminator.run();
+            System.out.println("Dead code Eliminator complete!");
             changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
+            System.out.println("Unused Function Eliminator complete!");
         }
         ssaDestructor.run();
         cfgSimplifier.run();

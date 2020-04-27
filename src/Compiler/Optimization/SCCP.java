@@ -455,7 +455,7 @@ public class SCCP extends Pass
             status = new OperandStatus(operand, OperandStatus.Status.CONSTANT);
         else if (operand instanceof GlobalVariable && irRoot.getStaticStringValMap().get(operand) != null)
             status = new OperandStatus(operand, OperandStatus.Status.CONSTANTSTR);
-        else if (((VirtualRegister)operand).isParameter)
+        else if (operand instanceof VirtualRegister && ((VirtualRegister)operand).isParameter)
             status = new OperandStatus(operand, OperandStatus.Status.MULTIDEFINED);
         else status = new OperandStatus(operand, OperandStatus.Status.UNDEFINED);
         valueLattice.put(operand, status);

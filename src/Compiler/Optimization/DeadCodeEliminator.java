@@ -45,6 +45,7 @@ public class DeadCodeEliminator extends Pass
     private void mark(Function function)
     {
         Set<IRInstruction> workList = new HashSet<>();
+        markList.clear();
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())

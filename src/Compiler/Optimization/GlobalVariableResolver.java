@@ -58,7 +58,7 @@ public class GlobalVariableResolver
         VirtualRegister tempGlobal = usedTempGlobalVariable.get(register);
         if (tempGlobal == null)
         {
-            tempGlobal = new Value(register.getName());
+            tempGlobal = new VirtualRegister(register.getName());
             usedTempGlobalVariable.put(register, tempGlobal);
         }
         return tempGlobal;

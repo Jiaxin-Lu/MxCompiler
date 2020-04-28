@@ -28,10 +28,10 @@ public class VirtualRegister extends Register
     @Override
     public void accept(IRVisitor visitor)
     {
-        if (SSAReg)
-            visitor.visit(original);
-        else
-            visitor.visit(this);
+//        if (SSAReg)
+//            visitor.visit(original);
+//        else
+        visitor.visit(this);
     }
 
     // SSA

@@ -2,6 +2,7 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
+import Compiler.IR.IRInstruction.Binary;
 import Compiler.IR.IRInstruction.Call;
 import Compiler.IR.IRInstruction.IRInstruction;
 import Compiler.IR.IRInstruction.Phi;
@@ -133,8 +134,6 @@ public class SSAConstructor extends Pass
             call.getParameterList().removeAll(Collections.singleton(null));
         }
     }
-
-    private Register regRes = null;
 
     private void setBackParameters(Function function)
     {

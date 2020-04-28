@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="optimize CFGSimplifier.">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Alloc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Binary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Cmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/IRInstruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Jump.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Phi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Pop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Push.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Return.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Unary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/Pass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/UnusedFunctionEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/UnusedFunctionEliminator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,14 +123,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="57736000" />
-    </task>
-    <task id="LOCAL-00012" summary="Start building IRBuilder...">
-      <created>1584557035443</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1584557035443</updated>
+      <workItem from="1587904814623" duration="65254000" />
     </task>
     <task id="LOCAL-00013" summary="Start building IRBuilder...">
       <created>1584560786559</created>
@@ -486,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588021643313</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="fix bugs in GlobalVariableResolver.">
+      <created>1588075916622</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1588075916622</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,7 +489,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Still building IRBuilder........." />
     <MESSAGE value="Still Building IRBuilder and IRPrinter!" />
     <MESSAGE value="IRPrinter and IRInterpreter." />
     <MESSAGE value="IRPrinter and IRInterpreter.." />
@@ -532,7 +513,8 @@
     <MESSAGE value="Combine Optimizers." />
     <MESSAGE value="Combine Optimizers and fix bugs." />
     <MESSAGE value="optimize CFGSimplifier." />
-    <option name="LAST_COMMIT_MESSAGE" value="optimize CFGSimplifier." />
+    <MESSAGE value="fix bugs in GlobalVariableResolver." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs in GlobalVariableResolver." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -551,10 +533,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="620" y="97" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1582459743671" />
-    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1584792365852">
+    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588095737520">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1584792365852" />
+    <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1588095737520" />
     <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587971277583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -563,10 +545,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588071082337">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588075914254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588071082337" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588075914254" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -575,22 +557,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586184122691" />
-    <state width="1493" height="227" key="GridCell.Tab.0.bottom" timestamp="1588075879234">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588096140184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="227" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588075879234" />
-    <state width="1493" height="227" key="GridCell.Tab.0.center" timestamp="1588075879234">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588096140184" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588096140184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="227" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588075879234" />
-    <state width="1493" height="227" key="GridCell.Tab.0.left" timestamp="1588075879234">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588096140184" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588096140184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="227" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588075879234" />
-    <state width="1493" height="227" key="GridCell.Tab.0.right" timestamp="1588075879234">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588096140184" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588096140184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="227" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588075879234" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588096140184" />
     <state width="1493" height="218" key="GridCell.Tab.1.bottom" timestamp="1586171338729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

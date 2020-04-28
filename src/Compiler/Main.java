@@ -71,7 +71,7 @@ public class Main
 
             GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
             globalVariableResolver.run();
-            printIR(irRoot, "oldIrOutput.ir", true);
+            printIR(irRoot, "oldIrOutput.ir", false);
 
             optimize(irRoot);
 
@@ -116,25 +116,25 @@ public class Main
         dominatorTreeConstructor.run();
         System.out.println("Dominator Tree Construct complete!");
         ssaConstructor.run();
-        printIR(irRoot, "ssaIROutput.ir", false);
         System.out.println("SSA Construct complete!");
         boolean changed = true;
         while (changed)
         {
             changed = commonSubExpressionEliminator.run();
             System.out.println("CSE complete!");
-            changed |= sccp.run();
-            System.out.println("SCCP complete!");
             changed |= cfgSimplifier.run();
             System.out.println("Dead code Eliminator...");
             dominatorTreeConstructor.run(true);
             System.out.println("Dead code Eliminator...");
             changed |= deadCodeEliminator.run();
             System.out.println("Dead code Eliminator complete!");
+            changed |= sccp.run();
+            System.out.println("SCCP complete!");
             changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
             System.out.println("Unused Function Eliminator complete!");
         }
+        printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();
         cfgSimplifier.run(true);
     }

@@ -12,10 +12,12 @@ public class IRPrinter implements IRVisitor
 {
     private PrintStream output;
 
-    private Map<Operand, String> virtualRegisterMap= new HashMap<>();
+    private Map<VirtualRegister, String> virtualRegisterMap= new HashMap<>();
     private Map<BasicBlock, String> basicBlockMap = new HashMap<>();
     private Map<String, Integer> virtualRegisterIDMap = new HashMap<>();
     private Map<String, Integer> basicBlockIDMap = new HashMap<>();
+
+    public boolean debugTag = false;
 
     public IRPrinter(PrintStream output)
     {

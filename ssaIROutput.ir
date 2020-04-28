@@ -18,61 +18,51 @@
 
 func random {
 %random.entry:
-    $Q_2 = load 8 @Q 0
-    $A_2 = load 8 @A 0
-    $seed_2 = load 8 @seed 0
     $M_2 = load 8 @M 0
+    $seed_2 = load 8 @seed 0
+    $Q_2 = load 8 @Q 0
     $R_2 = load 8 @R 0
+    $A_2 = load 8 @A 0
     $_virtual_register = mod $seed_2 $Q_2
     $_virtual_register_2 = mul $A_2 $_virtual_register
     $_virtual_register_3 = div $seed_2 $Q_2
     $_virtual_register_4 = mul $R_2 $_virtual_register_3
     $_virtual_register_5 = sub $_virtual_register_2 $_virtual_register_4
-    $tempseed = move $_virtual_register_5
-    $_virtual_register_6 = sge $tempseed 0
+    $_virtual_register_6 = sge $_virtual_register_5 0
     br $_virtual_register_6 %random._if_then %random._if_else
 %random._if_else:
-    $_virtual_register_7 = add $tempseed $M_2
-    $seed_2 = move $_virtual_register_7
+    $_virtual_register_7 = add $_virtual_register_5 $M_2
+    $seed_3 = move $_virtual_register_7
     jump %random._if_merge
 %random._if_merge:
-    $seed_2 = phi random._if_else $seed_2 random._if_then $seed_2 
-    $_virtual_register_8 = move $seed_2
-    store 8 @seed $seed_2 0
-    ret $_virtual_register_8
+    $seed_4 = phi random._if_else $seed_3 random._if_then $seed_5 
+    store 8 @seed $seed_4 0
+    ret $seed_4
 %random._if_then:
-    $seed_2 = move $tempseed
+    $seed_5 = move $_virtual_register_5
     jump %random._if_merge
 }
 
 void initialize $val {
 %initialize.entry:
-    $seed_3 = load 8 @seed 0
-    $seed_3 = move $val
-    store 8 @seed $seed_3 0
+    $seed_6 = load 8 @seed 0
+    store 8 @seed $val 0
     ret 
 }
 
 void swap $x $y {
 %swap.entry:
     $a_2 = load 8 @a 0
-    $_virtual_register_9 = mul $x 8
-    $_virtual_register_10 = add $_virtual_register_9 8
-    $_virtual_register_11 = add $_virtual_register_10 $a_2
-    $_virtual_register_12 = load 8 $_virtual_register_11 0
-    $temp = move $_virtual_register_12
-    $_virtual_register_13 = mul $x 8
-    $_virtual_register_14 = add $_virtual_register_13 8
-    $_virtual_register_15 = add $_virtual_register_14 $a_2
-    $_virtual_register_16 = mul $y 8
-    $_virtual_register_17 = add $_virtual_register_16 8
-    $_virtual_register_18 = add $_virtual_register_17 $a_2
-    $_virtual_register_19 = load 8 $_virtual_register_18 0
-    store 8 $_virtual_register_15 $_virtual_register_19 0
-    $_virtual_register_20 = mul $y 8
-    $_virtual_register_21 = add $_virtual_register_20 8
-    $_virtual_register_22 = add $_virtual_register_21 $a_2
-    store 8 $_virtual_register_22 $temp 0
+    $_virtual_register_8 = mul $x 8
+    $_virtual_register_9 = add $_virtual_register_8 8
+    $_virtual_register_10 = add $_virtual_register_9 $a_2
+    $_virtual_register_11 = load 8 $_virtual_register_10 0
+    $_virtual_register_12 = mul $y 8
+    $_virtual_register_13 = add $_virtual_register_12 8
+    $_virtual_register_14 = add $_virtual_register_13 $a_2
+    $_virtual_register_15 = load 8 $_virtual_register_14 0
+    store 8 $_virtual_register_10 $_virtual_register_15 0
+    store 8 $_virtual_register_14 $_virtual_register_11 0
     ret 
 }
 
@@ -81,54 +71,51 @@ func pd $x_2 {
     $h_2 = load 8 @h 0
     jump %pd._for_cond
 %pd._for_cond:
-    $h_2 = phi pd.entry $h_2 pd._for_step $h_2 
-    $_virtual_register_23 = sle $h_2 $x_2
-    br $_virtual_register_23 %pd._for_body %pd._for_merge
+    $h_3 = phi pd.entry $h_2 pd._for_step $h_4 
+    $_virtual_register_16 = sle $h_3 $x_2
+    br $_virtual_register_16 %pd._for_body %pd._for_merge
 %pd._for_merge:
-    $_virtual_register_24 = move 0
-    $returnVal = move $_virtual_register_24
+    $returnVal = move 0
     jump %pd.exit
 %pd.exit:
-    $returnVal = phi pd._for_merge $returnVal pd._if_then $returnVal 
-    store 8 @h $h_2 0
-    ret $returnVal
+    $returnVal_2 = phi pd._for_merge $returnVal pd._if_then $returnVal_3 
+    store 8 @h $h_3 0
+    ret $returnVal_2
 %pd._for_body:
-    $_virtual_register_25 = add $h_2 1
-    $_virtual_register_26 = mul $h_2 $_virtual_register_25
-    $_virtual_register_27 = div $_virtual_register_26 2
-    $_virtual_register_28 = seq $x_2 $_virtual_register_27
-    br $_virtual_register_28 %pd._if_then %pd._for_step
+    $_virtual_register_17 = add $h_3 1
+    $_virtual_register_18 = mul $h_3 $_virtual_register_17
+    $_virtual_register_19 = div $_virtual_register_18 2
+    $_virtual_register_20 = seq $x_2 $_virtual_register_19
+    br $_virtual_register_20 %pd._if_then %pd._for_step
 %pd._if_then:
-    $_virtual_register_29 = move 1
-    $returnVal = move $_virtual_register_29
+    $returnVal_3 = move 1
     jump %pd.exit
 %pd._for_step:
-    $h_2 = add $h_2 1
+    $h_4 = move $_virtual_register_17
     jump %pd._for_cond
 }
 
 void show {
 %show.entry:
-    $a_3 = load 8 @a 0
     $now_2 = load 8 @now 0
-    $i = move 0
+    $a_3 = load 8 @a 0
     $i = move 0
     jump %show._for_cond
 %show._for_cond:
-    $i = phi show.entry $i show._for_step $i 
-    $_virtual_register_30 = slt $i $now_2
-    br $_virtual_register_30 %show._for_body %show._for_merge
+    $i_2 = phi show.entry $i show._for_step $i_3 
+    $_virtual_register_21 = slt $i_2 $now_2
+    br $_virtual_register_21 %show._for_body %show._for_merge
 %show._for_body:
-    $_virtual_register_31 = mul $i 8
-    $_virtual_register_32 = add $_virtual_register_31 8
-    $_virtual_register_33 = add $_virtual_register_32 $a_3
-    $_virtual_register_34 = load 8 $_virtual_register_33 0
-    $_virtual_register_35 = call toString $_virtual_register_34 
-    $_virtual_register_36 = call string.add $_virtual_register_35 @__str_const_1 
-    call print $_virtual_register_36 
+    $_virtual_register_22 = mul $i_2 8
+    $_virtual_register_23 = add $_virtual_register_22 8
+    $_virtual_register_24 = add $_virtual_register_23 $a_3
+    $_virtual_register_25 = load 8 $_virtual_register_24 0
+    $_virtual_register_26 = call toString $_virtual_register_25 
+    $_virtual_register_27 = call string.add $_virtual_register_26 @__str_const_1 
+    call print $_virtual_register_27 
     jump %show._for_step
 %show._for_step:
-    $i = add $i 1
+    $i_3 = add $i_2 1
     jump %show._for_cond
 %show._for_merge:
     call println @__str_const_2 
@@ -137,403 +124,345 @@ void show {
 
 func win {
 %win.entry:
-    $a_4 = load 8 @a 0
+    $h_5 = load 8 @h 0
     $now_3 = load 8 @now 0
-    $h_3 = load 8 @h 0
-    $i_2 = move 0
-    $j = move 0
-    $_virtual_register_37 = mul 100 8
-    $_virtual_register_37 = add $_virtual_register_37 8
-    $_virtual_register_38 = alloc $_virtual_register_37
-    store 8 $_virtual_register_38 100 0
-    $b = move $_virtual_register_38
-    $temp_2 = move 0
-    $_virtual_register_39 = sne $now_3 $h_3
-    br $_virtual_register_39 %win._if_then %win._if_merge
+    $a_4 = load 8 @a 0
+    $_virtual_register_28 = alloc 808
+    store 8 $_virtual_register_28 100 0
+    $_virtual_register_29 = sne $now_3 $h_5
+    br $_virtual_register_29 %win._if_then %win._if_merge
 %win._if_then:
-    $_virtual_register_40 = move 0
-    $returnVal_2 = move $_virtual_register_40
+    $returnVal_4 = move 0
     jump %win.exit
 %win.exit:
-    $i_2 = phi win._if_then $i_2 win._for_merge $i_2 win._if_then_2 $i_2 
-    $j = phi win._if_then $j win._for_merge $j win._if_then_2 $j 
-    $returnVal_2 = phi win._if_then $returnVal_2 win._for_merge $returnVal_2 win._if_then_2 $returnVal_2 
-    ret $returnVal_2
+    $returnVal_5 = phi win._if_then $returnVal_4 win._for_merge $returnVal_6 win._if_then_2 $returnVal_7 
+    ret $returnVal_5
 %win._if_merge:
     $j = move 0
     jump %win._for_cond
 %win._for_cond:
-    $j = phi win._if_merge $j win._for_step $j 
-    $_virtual_register_41 = slt $j $now_3
-    br $_virtual_register_41 %win._for_body %win._for_merge_2
+    $j_2 = phi win._if_merge $j win._for_step $j_3 
+    $_virtual_register_30 = slt $j_2 $now_3
+    br $_virtual_register_30 %win._for_body %win._for_merge_2
 %win._for_body:
-    $_virtual_register_42 = mul $j 8
-    $_virtual_register_43 = add $_virtual_register_42 8
-    $_virtual_register_44 = add $_virtual_register_43 $b
-    $_virtual_register_45 = mul $j 8
-    $_virtual_register_46 = add $_virtual_register_45 8
-    $_virtual_register_47 = add $_virtual_register_46 $a_4
-    $_virtual_register_48 = load 8 $_virtual_register_47 0
-    store 8 $_virtual_register_44 $_virtual_register_48 0
+    $_virtual_register_31 = mul $j_2 8
+    $_virtual_register_32 = add $_virtual_register_31 8
+    $_virtual_register_33 = add $_virtual_register_32 $_virtual_register_28
+    $_virtual_register_34 = add $_virtual_register_32 $a_4
+    $_virtual_register_35 = load 8 $_virtual_register_34 0
+    store 8 $_virtual_register_33 $_virtual_register_35 0
     jump %win._for_step
 %win._for_step:
-    $j = add $j 1
+    $j_3 = add $j_2 1
     jump %win._for_cond
 %win._for_merge_2:
-    $i_2 = move 0
+    $i_4 = move 0
     jump %win._for_cond_2
 %win._for_cond_2:
-    $i_2 = phi win._for_merge_2 $i_2 win._for_step_2 $i_2 
-    $j = phi win._for_merge_2 $j win._for_step_2 $j 
-    $_virtual_register_49 = sub $now_3 1
-    $_virtual_register_50 = slt $i_2 $_virtual_register_49
-    br $_virtual_register_50 %win._for_body_2 %win._for_merge_3
+    $i_5 = phi win._for_merge_2 $i_4 win._for_step_2 $i_6 
+    $_virtual_register_36 = sub $now_3 1
+    $_virtual_register_37 = slt $i_5 $_virtual_register_36
+    br $_virtual_register_37 %win._for_body_2 %win._for_merge_3
 %win._for_body_2:
-    $_virtual_register_51 = add $i_2 1
-    $j = move $_virtual_register_51
+    $_virtual_register_38 = add $i_5 1
+    $j_4 = move $_virtual_register_38
     jump %win._for_cond_3
 %win._for_cond_3:
-    $j = phi win._for_body_2 $j win._for_step_3 $j 
-    $_virtual_register_52 = slt $j $now_3
-    br $_virtual_register_52 %win._for_body_3 %win._for_step_2
+    $j_5 = phi win._for_body_2 $j_4 win._for_step_3 $j_6 
+    $_virtual_register_39 = slt $j_5 $now_3
+    br $_virtual_register_39 %win._for_body_3 %win._for_step_2
 %win._for_step_2:
-    $i_2 = add $i_2 1
+    $i_6 = add $i_5 1
     jump %win._for_cond_2
 %win._for_body_3:
-    $_virtual_register_53 = mul $i_2 8
-    $_virtual_register_54 = add $_virtual_register_53 8
-    $_virtual_register_55 = add $_virtual_register_54 $b
-    $_virtual_register_56 = mul $j 8
-    $_virtual_register_57 = add $_virtual_register_56 8
-    $_virtual_register_58 = add $_virtual_register_57 $b
-    $_virtual_register_59 = load 8 $_virtual_register_55 0
-    $_virtual_register_60 = load 8 $_virtual_register_58 0
-    $_virtual_register_61 = sgt $_virtual_register_59 $_virtual_register_60
-    br $_virtual_register_61 %win._if_then_3 %win._for_step_3
+    $_virtual_register_40 = mul $i_5 8
+    $_virtual_register_41 = add $_virtual_register_40 8
+    $_virtual_register_42 = add $_virtual_register_41 $_virtual_register_28
+    $_virtual_register_43 = mul $j_5 8
+    $_virtual_register_44 = add $_virtual_register_43 8
+    $_virtual_register_45 = add $_virtual_register_44 $_virtual_register_28
+    $_virtual_register_46 = load 8 $_virtual_register_42 0
+    $_virtual_register_47 = load 8 $_virtual_register_45 0
+    $_virtual_register_48 = sgt $_virtual_register_46 $_virtual_register_47
+    br $_virtual_register_48 %win._if_then_3 %win._for_step_3
 %win._if_then_3:
-    $_virtual_register_62 = mul $i_2 8
-    $_virtual_register_63 = add $_virtual_register_62 8
-    $_virtual_register_64 = add $_virtual_register_63 $b
-    $_virtual_register_65 = load 8 $_virtual_register_64 0
-    $temp_2 = move $_virtual_register_65
-    $_virtual_register_66 = mul $i_2 8
-    $_virtual_register_67 = add $_virtual_register_66 8
-    $_virtual_register_68 = add $_virtual_register_67 $b
-    $_virtual_register_69 = mul $j 8
-    $_virtual_register_70 = add $_virtual_register_69 8
-    $_virtual_register_71 = add $_virtual_register_70 $b
-    $_virtual_register_72 = load 8 $_virtual_register_71 0
-    store 8 $_virtual_register_68 $_virtual_register_72 0
-    $_virtual_register_73 = mul $j 8
-    $_virtual_register_74 = add $_virtual_register_73 8
-    $_virtual_register_75 = add $_virtual_register_74 $b
-    store 8 $_virtual_register_75 $temp_2 0
+    $_virtual_register_49 = load 8 $_virtual_register_42 0
+    $_virtual_register_50 = load 8 $_virtual_register_45 0
+    store 8 $_virtual_register_42 $_virtual_register_50 0
+    store 8 $_virtual_register_45 $_virtual_register_49 0
     jump %win._for_step_3
 %win._for_step_3:
-    $j = add $j 1
+    $j_6 = add $j_5 1
     jump %win._for_cond_3
 %win._for_merge_3:
-    $i_2 = move 0
+    $i_7 = move 0
     jump %win._for_cond_4
 %win._for_cond_4:
-    $i_2 = phi win._for_merge_3 $i_2 win._for_step_4 $i_2 
-    $_virtual_register_76 = slt $i_2 $now_3
-    br $_virtual_register_76 %win._for_body_4 %win._for_merge
+    $i_8 = phi win._for_merge_3 $i_7 win._for_step_4 $i_9 
+    $_virtual_register_51 = slt $i_8 $now_3
+    br $_virtual_register_51 %win._for_body_4 %win._for_merge
 %win._for_merge:
-    $_virtual_register_77 = move 1
-    $returnVal_2 = move $_virtual_register_77
+    $returnVal_6 = move 1
     jump %win.exit
 %win._for_body_4:
-    $_virtual_register_78 = mul $i_2 8
-    $_virtual_register_79 = add $_virtual_register_78 8
-    $_virtual_register_80 = add $_virtual_register_79 $b
-    $_virtual_register_81 = add $i_2 1
-    $_virtual_register_82 = load 8 $_virtual_register_80 0
-    $_virtual_register_83 = sne $_virtual_register_82 $_virtual_register_81
-    br $_virtual_register_83 %win._if_then_2 %win._for_step_4
+    $_virtual_register_52 = mul $i_8 8
+    $_virtual_register_53 = add $_virtual_register_52 8
+    $_virtual_register_54 = add $_virtual_register_53 $_virtual_register_28
+    $_virtual_register_55 = add $i_8 1
+    $_virtual_register_56 = load 8 $_virtual_register_54 0
+    $_virtual_register_57 = sne $_virtual_register_56 $_virtual_register_55
+    br $_virtual_register_57 %win._if_then_2 %win._for_step_4
 %win._for_step_4:
-    $i_2 = add $i_2 1
+    $i_9 = move $_virtual_register_55
     jump %win._for_cond_4
 %win._if_then_2:
-    $_virtual_register_84 = move 0
-    $returnVal_2 = move $_virtual_register_84
+    $returnVal_7 = move 0
     jump %win.exit
 }
 
 void merge {
 %merge.entry:
-    $a_5 = load 8 @a 0
     $now_4 = load 8 @now 0
-    $i_3 = move 0
-    $i_3 = move 0
+    $a_5 = load 8 @a 0
+    $i_10 = move 0
     jump %merge._for_cond
 %merge._for_cond:
-    $i_3 = phi merge.entry $i_3 merge._for_step $i_3 
-    $j_2 = phi merge.entry undef merge._for_step $j_2 
-    $_virtual_register_85 = slt $i_3 $now_4
-    br $_virtual_register_85 %merge._for_body %merge._for_merge
+    $i_11 = phi merge.entry $i_10 merge._for_step $i_12 
+    $_virtual_register_58 = slt $i_11 $now_4
+    br $_virtual_register_58 %merge._for_body %merge._for_merge
 %merge._for_body:
-    $_virtual_register_86 = mul $i_3 8
-    $_virtual_register_87 = add $_virtual_register_86 8
-    $_virtual_register_88 = add $_virtual_register_87 $a_5
-    $_virtual_register_89 = load 8 $_virtual_register_88 0
-    $_virtual_register_90 = seq $_virtual_register_89 0
-    br $_virtual_register_90 %merge._if_then %merge._for_step
+    $_virtual_register_59 = mul $i_11 8
+    $_virtual_register_60 = add $_virtual_register_59 8
+    $_virtual_register_61 = add $_virtual_register_60 $a_5
+    $_virtual_register_62 = load 8 $_virtual_register_61 0
+    $_virtual_register_63 = seq $_virtual_register_62 0
+    br $_virtual_register_63 %merge._if_then %merge._for_step
 %merge._if_then:
-    $j_2 = move 0
-    $_virtual_register_91 = add $i_3 1
-    $j_2 = move $_virtual_register_91
+    $_virtual_register_64 = add $i_11 1
+    $j_7 = move $_virtual_register_64
     jump %merge._for_cond_2
 %merge._for_cond_2:
-    $j_2 = phi merge._if_then $j_2 merge._for_step_2 $j_2 
-    $_virtual_register_92 = slt $j_2 $now_4
-    br $_virtual_register_92 %merge._for_body_2 %merge._for_step
+    $j_8 = phi merge._if_then $j_7 merge._for_step_2 $j_9 
+    $_virtual_register_65 = slt $j_8 $now_4
+    br $_virtual_register_65 %merge._for_body_2 %merge._for_step
 %merge._for_body_2:
-    $_virtual_register_93 = mul $j_2 8
-    $_virtual_register_94 = add $_virtual_register_93 8
-    $_virtual_register_95 = add $_virtual_register_94 $a_5
-    $_virtual_register_96 = load 8 $_virtual_register_95 0
-    $_virtual_register_97 = sne $_virtual_register_96 0
-    br $_virtual_register_97 %merge._if_then_2 %merge._for_step_2
+    $_virtual_register_66 = mul $j_8 8
+    $_virtual_register_67 = add $_virtual_register_66 8
+    $_virtual_register_68 = add $_virtual_register_67 $a_5
+    $_virtual_register_69 = load 8 $_virtual_register_68 0
+    $_virtual_register_70 = sne $_virtual_register_69 0
+    br $_virtual_register_70 %merge._if_then_2 %merge._for_step_2
 %merge._if_then_2:
-    call swap $i_3 $j_2 
+    call swap $i_11 $j_8 
     jump %merge._for_step
 %merge._for_step:
-    $j_2 = phi merge._for_body $j_2 merge._for_cond_2 $j_2 merge._if_then_2 $j_2 
-    $i_3 = add $i_3 1
+    $i_12 = add $i_11 1
     jump %merge._for_cond
 %merge._for_step_2:
-    $j_2 = add $j_2 1
+    $j_9 = add $j_8 1
     jump %merge._for_cond_2
 %merge._for_merge:
-    $i_3 = move 0
+    $i_13 = move 0
     jump %merge._for_cond_3
 %merge._for_cond_3:
-    $i_3 = phi merge._for_merge $i_3 merge._for_step_3 $i_3 
-    $_virtual_register_98 = slt $i_3 $now_4
-    br $_virtual_register_98 %merge._for_body_3 %merge._for_merge_2
+    $i_14 = phi merge._for_merge $i_13 merge._for_step_3 $i_15 
+    $_virtual_register_71 = slt $i_14 $now_4
+    br $_virtual_register_71 %merge._for_body_3 %merge._for_merge_2
 %merge._for_merge_2:
-    $now_4 = phi merge._for_cond_3 $now_4 merge._if_then_3 $now_4 
-    store 8 @now $now_4 0
+    $now_5 = phi merge._for_cond_3 $now_4 merge._if_then_3 $now_6 
+    store 8 @now $now_5 0
     ret 
 %merge._for_body_3:
-    $_virtual_register_99 = mul $i_3 8
-    $_virtual_register_100 = add $_virtual_register_99 8
-    $_virtual_register_101 = add $_virtual_register_100 $a_5
-    $_virtual_register_102 = load 8 $_virtual_register_101 0
-    $_virtual_register_103 = seq $_virtual_register_102 0
-    br $_virtual_register_103 %merge._if_then_3 %merge._for_step_3
+    $_virtual_register_72 = mul $i_14 8
+    $_virtual_register_73 = add $_virtual_register_72 8
+    $_virtual_register_74 = add $_virtual_register_73 $a_5
+    $_virtual_register_75 = load 8 $_virtual_register_74 0
+    $_virtual_register_76 = seq $_virtual_register_75 0
+    br $_virtual_register_76 %merge._if_then_3 %merge._for_step_3
 %merge._if_then_3:
-    $now_4 = move $i_3
+    $now_6 = move $i_14
     jump %merge._for_merge_2
 %merge._for_step_3:
-    $i_3 = add $i_3 1
+    $i_15 = add $i_14 1
     jump %merge._for_cond_3
 }
 
 void move {
 %move.entry:
+    $now_7 = load 8 @now 0
     $a_6 = load 8 @a 0
-    $now_5 = load 8 @now 0
-    $i_4 = move 0
+    $i_16 = move 0
     jump %move._for_cond
 %move._for_cond:
-    $i_4 = phi move.entry $i_4 move._for_body $i_4 
-    $_virtual_register_104 = slt $i_4 $now_5
-    br $_virtual_register_104 %move._for_body %move._for_merge
+    $i_17 = phi move.entry $i_16 move._for_body $i_18 
+    $_virtual_register_77 = slt $i_17 $now_7
+    br $_virtual_register_77 %move._for_body %move._for_merge
 %move._for_body:
-    $_virtual_register_105 = mul $i_4 8
-    $_virtual_register_106 = add $_virtual_register_105 8
-    $_virtual_register_107 = add $_virtual_register_106 $a_6
-    $_virtual_register_108 = load 8 $_virtual_register_107 0
-    $_virtual_register_109 = sub $_virtual_register_108 1
-    store 8 $_virtual_register_107 $_virtual_register_109 0
-    $_virtual_register_110 = add $i_4 1
-    $i_4 = move $_virtual_register_110
+    $_virtual_register_78 = mul $i_17 8
+    $_virtual_register_79 = add $_virtual_register_78 8
+    $_virtual_register_80 = add $_virtual_register_79 $a_6
+    $_virtual_register_81 = load 8 $_virtual_register_80 0
+    $_virtual_register_82 = sub $_virtual_register_81 1
+    store 8 $_virtual_register_80 $_virtual_register_82 0
+    $_virtual_register_83 = add $i_17 1
+    $i_18 = move $_virtual_register_83
     jump %move._for_cond
 %move._for_merge:
-    $_virtual_register_111 = mul $now_5 8
-    $_virtual_register_112 = add $_virtual_register_111 8
-    $_virtual_register_113 = add $_virtual_register_112 $a_6
-    store 8 $_virtual_register_113 $now_5 0
-    $_virtual_register_114 = move $now_5
-    $now_5 = add $now_5 1
-    store 8 @now $now_5 0
+    $_virtual_register_84 = mul $now_7 8
+    $_virtual_register_85 = add $_virtual_register_84 8
+    $_virtual_register_86 = add $_virtual_register_85 $a_6
+    store 8 $_virtual_register_86 $now_7 0
+    $now_8 = add $now_7 1
+    store 8 @now $now_8 0
     ret 
 }
 
 func main {
 %main.entry:
-    $Q_3 = load 8 @Q 0
-    $A_3 = load 8 @A 0
-    $a_7 = load 8 @a 0
-    $now_6 = load 8 @now 0
-    $n_2 = load 8 @n 0
-    $h_4 = load 8 @h 0
     $M_3 = load 8 @M 0
+    $h_6 = load 8 @h 0
+    $n_2 = load 8 @n 0
+    $now_9 = load 8 @now 0
+    $Q_3 = load 8 @Q 0
     $R_3 = load 8 @R 0
-    $i_5 = move 0
-    $temp_3 = move 0
+    $a_7 = load 8 @a 0
+    $A_3 = load 8 @A 0
+    $i_19 = move 0
+    $temp = move 0
     $count = move 0
-    $_virtual_register_115 = mul 3 7
-    $_virtual_register_116 = mul $_virtual_register_115 10
-    $n_2 = move $_virtual_register_116
-    $h_4 = move 0
-    $_virtual_register_117 = mul 100 8
-    $_virtual_register_117 = add $_virtual_register_117 8
-    $_virtual_register_118 = alloc $_virtual_register_117
-    store 8 $_virtual_register_118 100 0
-    $a_7 = move $_virtual_register_118
-    $_virtual_register_119 = div $M_3 $A_3
-    $Q_3 = move $_virtual_register_119
-    $_virtual_register_120 = mod $M_3 $A_3
-    $R_3 = move $_virtual_register_120
-    store 8 @h $h_4 0
-    $_virtual_register_121 = call pd $n_2 
-    $h_4 = load 8 @h 0
-    br $_virtual_register_121 %main._if_merge %main._if_then
+    $_virtual_register_87 = alloc 808
+    store 8 $_virtual_register_87 100 0
+    $_virtual_register_88 = div $M_3 $A_3
+    $_virtual_register_89 = mod $M_3 $A_3
+    store 8 @h 0 0
+    $_virtual_register_90 = call pd 210 
+    $h_7 = load 8 @h 0
+    br $_virtual_register_90 %main._if_merge %main._if_then
 %main._if_then:
     call println @__str_const_3 
-    $_virtual_register_122 = move 1
-    $returnVal_3 = move $_virtual_register_122
+    $returnVal_8 = move 1
     jump %main.exit
 %main.exit:
-    $i_5 = phi main._if_then $i_5 main._while_merge $i_5 
-    $now_6 = phi main._if_then $now_6 main._while_merge $now_6 
-    $temp_3 = phi main._if_then $temp_3 main._while_merge $temp_3 
-    $count = phi main._if_then $count main._while_merge $count 
-    $returnVal_3 = phi main._if_then $returnVal_3 main._while_merge $returnVal_3 
-    store 8 @R $R_3 0
-    store 8 @h $h_4 0
-    store 8 @n $n_2 0
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
-    store 8 @Q $Q_3 0
-    ret $returnVal_3
+    $returnVal_9 = phi main._if_then $returnVal_8 main._while_merge $returnVal_10 
+    $now_10 = phi main._if_then $now_9 main._while_merge $now_11 
+    store 8 @a $_virtual_register_87 0
+    store 8 @R $_virtual_register_89 0
+    store 8 @Q $_virtual_register_88 0
+    store 8 @now $now_10 0
+    store 8 @n 210 0
+    store 8 @h $h_7 0
+    ret $returnVal_9
 %main._if_merge:
     call println @__str_const_4 
     call initialize 3654898 
-    store 8 @R $R_3 0
-    store 8 @Q $Q_3 0
-    $_virtual_register_123 = call random 
-    $_virtual_register_124 = mod $_virtual_register_123 10
-    $_virtual_register_125 = add $_virtual_register_124 1
-    $now_6 = move $_virtual_register_125
-    $_virtual_register_126 = call toString $now_6 
-    call println $_virtual_register_126 
+    store 8 @R $_virtual_register_89 0
+    store 8 @Q $_virtual_register_88 0
+    $_virtual_register_91 = call random 
+    $_virtual_register_92 = mod $_virtual_register_91 10
+    $_virtual_register_93 = add $_virtual_register_92 1
+    $_virtual_register_94 = call toString $_virtual_register_93 
+    call println $_virtual_register_94 
     jump %main._for_cond
 %main._for_cond:
-    $i_5 = phi main._if_merge $i_5 main._for_step $i_5 
-    $temp_3 = phi main._if_merge $temp_3 main._for_step $temp_3 
-    $_virtual_register_127 = sub $now_6 1
-    $_virtual_register_128 = slt $i_5 $_virtual_register_127
-    br $_virtual_register_128 %main._for_body %main._for_merge
+    $i_20 = phi main._if_merge $i_19 main._for_step $i_21 
+    $temp_2 = phi main._if_merge $temp main._for_step $temp_3 
+    $_virtual_register_95 = sub $_virtual_register_93 1
+    $_virtual_register_96 = slt $i_20 $_virtual_register_95
+    br $_virtual_register_96 %main._for_body %main._for_merge
 %main._for_merge:
-    $_virtual_register_129 = sub $now_6 1
-    $_virtual_register_130 = mul $_virtual_register_129 8
-    $_virtual_register_131 = add $_virtual_register_130 8
-    $_virtual_register_132 = add $_virtual_register_131 $a_7
-    $_virtual_register_133 = sub $n_2 $temp_3
-    store 8 $_virtual_register_132 $_virtual_register_133 0
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
+    $_virtual_register_97 = mul $_virtual_register_95 8
+    $_virtual_register_98 = add $_virtual_register_97 8
+    $_virtual_register_99 = add $_virtual_register_98 $_virtual_register_87
+    $_virtual_register_100 = sub 210 $temp_2
+    store 8 $_virtual_register_99 $_virtual_register_100 0
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $_virtual_register_93 0
     call show 
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $_virtual_register_93 0
     call merge 
-    $now_6 = load 8 @now 0
+    $now_12 = load 8 @now 0
     jump %main._while_cond
 %main._while_cond:
-    $now_6 = phi main._for_merge $now_6 main._while_body $now_6 
-    $count = phi main._for_merge $count main._while_body $count 
-    store 8 @h $h_4 0
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
-    $_virtual_register_134 = call win 
-    br $_virtual_register_134 %main._while_merge %main._while_body
+    $count_2 = phi main._for_merge $count main._while_body $count_3 
+    $now_11 = phi main._for_merge $now_12 main._while_body $now_13 
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $now_11 0
+    store 8 @h $h_7 0
+    $_virtual_register_101 = call win 
+    br $_virtual_register_101 %main._while_merge %main._while_body
 %main._while_merge:
-    $_virtual_register_135 = call toString $count 
-    $_virtual_register_136 = call string.add @__str_const_7 $_virtual_register_135 
-    $_virtual_register_137 = call string.add $_virtual_register_136 @__str_const_8 
-    call println $_virtual_register_137 
-    $_virtual_register_138 = move 0
-    $returnVal_3 = move $_virtual_register_138
+    $_virtual_register_102 = call toString $count_2 
+    $_virtual_register_103 = call string.add @__str_const_7 $_virtual_register_102 
+    $_virtual_register_104 = call string.add $_virtual_register_103 @__str_const_8 
+    call println $_virtual_register_104 
+    $returnVal_10 = move 0
     jump %main.exit
 %main._while_body:
-    $count = add $count 1
-    $_virtual_register_139 = call toString $count 
-    $_virtual_register_140 = call string.add @__str_const_5 $_virtual_register_139 
-    $_virtual_register_141 = call string.add $_virtual_register_140 @__str_const_6 
-    call println $_virtual_register_141 
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
+    $count_3 = add $count_2 1
+    $_virtual_register_105 = call toString $count_3 
+    $_virtual_register_106 = call string.add @__str_const_5 $_virtual_register_105 
+    $_virtual_register_107 = call string.add $_virtual_register_106 @__str_const_6 
+    call println $_virtual_register_107 
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $now_11 0
     call move 
-    $now_6 = load 8 @now 0
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
+    $now_14 = load 8 @now 0
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $now_14 0
     call merge 
-    $now_6 = load 8 @now 0
-    store 8 @now $now_6 0
-    store 8 @a $a_7 0
+    $now_13 = load 8 @now 0
+    store 8 @a $_virtual_register_87 0
+    store 8 @now $now_13 0
     call show 
     jump %main._while_cond
 %main._for_body:
-    $_virtual_register_142 = mul $i_5 8
-    $_virtual_register_143 = add $_virtual_register_142 8
-    $_virtual_register_144 = add $_virtual_register_143 $a_7
-    store 8 @R $R_3 0
-    store 8 @Q $Q_3 0
-    $_virtual_register_145 = call random 
-    $_virtual_register_146 = mod $_virtual_register_145 10
-    $_virtual_register_147 = add $_virtual_register_146 1
-    store 8 $_virtual_register_144 $_virtual_register_147 0
+    $_virtual_register_108 = mul $i_20 8
+    $_virtual_register_109 = add $_virtual_register_108 8
+    $_virtual_register_110 = add $_virtual_register_109 $_virtual_register_87
+    store 8 @R $_virtual_register_89 0
+    store 8 @Q $_virtual_register_88 0
+    $_virtual_register_111 = call random 
+    $_virtual_register_112 = mod $_virtual_register_111 10
+    $_virtual_register_113 = add $_virtual_register_112 1
+    store 8 $_virtual_register_110 $_virtual_register_113 0
     jump %main._while_cond_2
 %main._while_cond_2:
-    $_virtual_register_148 = mul $i_5 8
-    $_virtual_register_149 = add $_virtual_register_148 8
-    $_virtual_register_150 = add $_virtual_register_149 $a_7
-    $_virtual_register_151 = load 8 $_virtual_register_150 0
-    $_virtual_register_152 = add $_virtual_register_151 $temp_3
-    $_virtual_register_153 = sgt $_virtual_register_152 $n_2
-    br $_virtual_register_153 %main._while_body_2 %main._while_merge_2
+    $_virtual_register_114 = mul $i_20 8
+    $_virtual_register_115 = add $_virtual_register_114 8
+    $_virtual_register_116 = add $_virtual_register_115 $_virtual_register_87
+    $_virtual_register_117 = load 8 $_virtual_register_116 0
+    $_virtual_register_118 = add $_virtual_register_117 $temp_2
+    $_virtual_register_119 = sgt $_virtual_register_118 210
+    br $_virtual_register_119 %main._while_body_2 %main._while_merge_2
 %main._while_body_2:
-    $_virtual_register_154 = mul $i_5 8
-    $_virtual_register_155 = add $_virtual_register_154 8
-    $_virtual_register_156 = add $_virtual_register_155 $a_7
-    store 8 @R $R_3 0
-    store 8 @Q $Q_3 0
-    $_virtual_register_157 = call random 
-    $_virtual_register_158 = mod $_virtual_register_157 10
-    $_virtual_register_159 = add $_virtual_register_158 1
-    store 8 $_virtual_register_156 $_virtual_register_159 0
+    store 8 @R $_virtual_register_89 0
+    store 8 @Q $_virtual_register_88 0
+    $_virtual_register_120 = call random 
+    $_virtual_register_121 = mod $_virtual_register_120 10
+    $_virtual_register_122 = add $_virtual_register_121 1
+    store 8 $_virtual_register_116 $_virtual_register_122 0
     jump %main._while_cond_2
 %main._while_merge_2:
-    $_virtual_register_160 = mul $i_5 8
-    $_virtual_register_161 = add $_virtual_register_160 8
-    $_virtual_register_162 = add $_virtual_register_161 $a_7
-    $_virtual_register_163 = load 8 $_virtual_register_162 0
-    $_virtual_register_164 = add $temp_3 $_virtual_register_163
-    $temp_3 = move $_virtual_register_164
+    $_virtual_register_123 = load 8 $_virtual_register_116 0
+    $_virtual_register_124 = add $temp_2 $_virtual_register_123
+    $temp_3 = move $_virtual_register_124
     jump %main._for_step
 %main._for_step:
-    $i_5 = add $i_5 1
+    $i_21 = add $i_20 1
     jump %main._for_cond
 }
 
 func _init_ {
 %_init_.entry:
-    $A_4 = load 8 @A 0
-    $seed_4 = load 8 @seed 0
     $M_4 = load 8 @M 0
-    $A_4 = move 48271
-    $M_4 = move 2147483647
-    $seed_4 = move 1
-    store 8 @M $M_4 0
-    store 8 @seed $seed_4 0
-    store 8 @A $A_4 0
-    $_virtual_register_165 = call main 
-    $seed_4 = load 8 @seed 0
-    $_virtual_register_166 = move $_virtual_register_165
-    ret $_virtual_register_166
+    $seed_7 = load 8 @seed 0
+    $A_4 = load 8 @A 0
+    store 8 @A 48271 0
+    store 8 @seed 1 0
+    store 8 @M 2147483647 0
+    $_virtual_register_125 = call main 
+    $seed_8 = load 8 @seed 0
+    ret $_virtual_register_125
 }
 

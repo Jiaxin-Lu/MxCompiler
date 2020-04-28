@@ -67,14 +67,15 @@ public class Main
             IRBuilder irBuilder = new IRBuilder(globalScope);
             irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
+            System.out.println("Finish IRBuild.");
 
             GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
             globalVariableResolver.run();
-            printIR(irRoot, "oldIrOutput.ir", false);
+            printIR(irRoot, "oldIrOutput.ir", true);
 
             optimize(irRoot);
 
-            printIR(irRoot, "irOutput.ir", true);
+            printIR(irRoot, "irOutput.ir", false);
 
         } catch (Exception exception)
         {
@@ -135,6 +136,6 @@ public class Main
             System.out.println("Unused Function Eliminator complete!");
         }
         ssaDestructor.run();
-        cfgSimplifier.run();
+        cfgSimplifier.run(true);
     }
 }

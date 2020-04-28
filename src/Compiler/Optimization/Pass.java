@@ -38,7 +38,7 @@ public abstract class Pass
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
-                Register defReg = inst.getOriginRegister();
+                Register defReg = inst.getDefRegister();
                 if (defReg != null)
                 {
                     def.put(defReg, inst);

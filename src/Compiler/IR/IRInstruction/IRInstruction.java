@@ -118,9 +118,9 @@ public abstract class IRInstruction
         return usedRegister;
     }
 
-    public abstract Register getOriginRegister();
+    public abstract Register getDefRegister();
 
-    public abstract void setOriginRegister(Register register);
+    public abstract void setDefRegister(Register register);
 
     public abstract IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap);
 

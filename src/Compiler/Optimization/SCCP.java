@@ -108,14 +108,14 @@ public class SCCP extends Pass
     {
         for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
         {
-            OperandStatus operandStatus = getStatus(inst.getOriginRegister());
+            OperandStatus operandStatus = getStatus(inst.getDefRegister());
             if (operandStatus.status == OperandStatus.Status.CONSTANT)
             {
-                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getOriginRegister()));
+                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getDefRegister()));
                 isChanged = true;
             } else if (operandStatus.status == OperandStatus.Status.CONSTANTSTR)
             {
-                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getOriginRegister()));
+                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getDefRegister()));
                 isChanged = true;
             }
         }
@@ -214,11 +214,11 @@ public class SCCP extends Pass
             Immediate resultImm = foldConstant(inst , (Immediate)lhsStatus.operand, (Immediate)rhsStatus.operand);
             if (resultImm != null)
             {
-                markConstant(inst.getOriginRegister(), resultImm);
+                markConstant(inst.getDefRegister(), resultImm);
             }
         } else if (lhsStatus.status == OperandStatus.Status.MULTIDEFINED || rhsStatus.status == OperandStatus.Status.MULTIDEFINED)
         {
-            markMultiDefined(inst.getOriginRegister());
+            markMultiDefined(inst.getDefRegister());
         }
     }
     void evaluate(Cmp inst)
@@ -231,10 +231,10 @@ public class SCCP extends Pass
         {
             Immediate resultImm = foldConstant(inst , (Immediate)lhsStatus.operand, (Immediate)rhsStatus.operand);
             if (resultImm != null)
-                markConstant(inst.getOriginRegister(), resultImm);
+                markConstant(inst.getDefRegister(), resultImm);
         } else if (lhsStatus.status == OperandStatus.Status.MULTIDEFINED || rhsStatus.status == OperandStatus.Status.MULTIDEFINED)
         {
-            markMultiDefined(inst.getOriginRegister());
+            markMultiDefined(inst.getDefRegister());
         }
     }
     void evaluate(Unary inst)
@@ -246,20 +246,20 @@ public class SCCP extends Pass
             Immediate resultImm = foldConstant(inst, (Immediate)srcStatus.operand, null);
             if (resultImm != null)
             {
-                markConstant(inst.getOriginRegister(), resultImm);
+                markConstant(inst.getDefRegister(), resultImm);
             }
         } else if (srcStatus.status == OperandStatus.Status.MULTIDEFINED)
         {
-            markMultiDefined(inst.getOriginRegister());
+            markMultiDefined(inst.getDefRegister());
         }
     }
     void evaluate(Load inst)
     {
-        markMultiDefined(inst.getOriginRegister());
+        markMultiDefined(inst.getDefRegister());
     }
     void evaluate(Alloc inst)
     {
-        markMultiDefined(inst.getOriginRegister());
+        markMultiDefined(inst.getDefRegister());
     }
     void evaluate(Call inst)
     {
@@ -280,50 +280,50 @@ public class SCCP extends Pass
                     String result = irRoot.getStaticStringValMap().get(lhs) + irRoot.getStaticStringValMap().get(rhs);
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                     irRoot.addStaticStr(strResult);
-                    markConstantStr(inst.getOriginRegister(), (GlobalVariable) strResult.getBase());
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringLT)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) < 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringLEQ)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) <= 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringREQ)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) >= 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringRT)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) > 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringEQ)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) == 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringNEQ)
             {
                 if (lhs != null && rhs != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(lhs).compareTo(irRoot.getStaticStringValMap().get(rhs)) != 0 ? 1 : 0;
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinToString)
             {
                 OperandStatus instStr = getStatus(inst.getParameterList().get(0));
@@ -332,8 +332,8 @@ public class SCCP extends Pass
                     String result = String.valueOf(((Immediate)instStr.operand).getImm());
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                     irRoot.addStaticStr(strResult);
-                    markConstantStr(inst.getOriginRegister(), (GlobalVariable) strResult.getBase());
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringSubstring)
             {
                 if (thisPointer != null)
@@ -347,16 +347,16 @@ public class SCCP extends Pass
                         String result = irRoot.getStaticStringValMap().get(thisPointer).substring(l, r);
                         StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                         irRoot.addStaticStr(strResult);
-                        markConstantStr(inst.getOriginRegister(), (GlobalVariable) strResult.getBase());
-                    } else markMultiDefined(inst.getOriginRegister());
-                } else markMultiDefined(inst.getOriginRegister());
+                        markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
+                    } else markMultiDefined(inst.getDefRegister());
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringLength)
             {
                 if (thisPointer != null)
                 {
                     int result = irRoot.getStaticStringValMap().get(thisPointer).length();
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringOrd)
             {
                 if (thisPointer != null)
@@ -368,10 +368,10 @@ public class SCCP extends Pass
                         if (pos < irRoot.getStaticStringValMap().get(thisPointer).length())
                         {
                             int result = irRoot.getStaticStringValMap().get(thisPointer).charAt(pos);
-                            markConstant(inst.getOriginRegister(), new Immediate(result));
+                            markConstant(inst.getDefRegister(), new Immediate(result));
                         }
-                    } else markMultiDefined(inst.getOriginRegister());
-                } else markMultiDefined(inst.getOriginRegister());
+                    } else markMultiDefined(inst.getDefRegister());
+                } else markMultiDefined(inst.getDefRegister());
             } else if (function == irRoot.builtinStringParseInt)
             {
                 if (thisPointer != null)
@@ -386,11 +386,11 @@ public class SCCP extends Pass
                             result = result * 10 + c - '0';
                         } else break;
                     }
-                    markConstant(inst.getOriginRegister(), new Immediate(result));
-                } else markMultiDefined(inst.getOriginRegister());
+                    markConstant(inst.getDefRegister(), new Immediate(result));
+                } else markMultiDefined(inst.getDefRegister());
             }
-        } else if (inst.getOriginRegister() != null)
-            markMultiDefined(inst.getOriginRegister());
+        } else if (inst.getDefRegister() != null)
+            markMultiDefined(inst.getDefRegister());
     }
     void evaluate(Branch inst)
     {
@@ -427,7 +427,7 @@ public class SCCP extends Pass
             OperandStatus status = getStatus(operand);
             if (status.status == OperandStatus.Status.MULTIDEFINED)
             {
-                markMultiDefined(inst.getOriginRegister());
+                markMultiDefined(inst.getDefRegister());
                 return;
             } else if (status.status == OperandStatus.Status.CONSTANT)
             {
@@ -435,7 +435,7 @@ public class SCCP extends Pass
                 {
                     if (constImm.getImm() != ((Immediate)status.operand).getImm())
                     {
-                        markMultiDefined(inst.getOriginRegister());
+                        markMultiDefined(inst.getDefRegister());
                         return;
                     }
                 } else {
@@ -444,7 +444,7 @@ public class SCCP extends Pass
             }
         }
         if (constImm != null)
-            markConstant(inst.getOriginRegister(), constImm);
+            markConstant(inst.getDefRegister(), constImm);
     }
     OperandStatus getStatus(Operand operand)
     {

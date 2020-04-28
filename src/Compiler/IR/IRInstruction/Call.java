@@ -70,13 +70,13 @@ public class Call extends IRInstruction
     }
 
     @Override
-    public Register getOriginRegister()
+    public Register getDefRegister()
     {
         return (Register) dst;
     }
 
     @Override
-    public void setOriginRegister(Register register)
+    public void setDefRegister(Register register)
     {
         if (dst != null)
         {

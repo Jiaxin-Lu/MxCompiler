@@ -32,13 +32,13 @@ public class Return extends IRInstruction
     }
 
     @Override
-    public Register getOriginRegister()
+    public Register getDefRegister()
     {
         return null;
     }
 
     @Override
-    public void setOriginRegister(Register register)
+    public void setDefRegister(Register register)
     {
     }
 

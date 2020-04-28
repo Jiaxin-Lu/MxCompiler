@@ -73,7 +73,7 @@ public class GlobalVariableResolver
                 if ((inst instanceof Load && ((Load) inst).isForGlobal()) ||
                         (inst instanceof Store && ((Store) inst).isGlobal()))
                     continue;
-                Register defRegister = inst.getOriginRegister();
+                Register defRegister = inst.getDefRegister();
                 List<Register> usedRegister = inst.getUsedRegister();
                 if (!usedRegister.isEmpty())
                 {
@@ -91,7 +91,7 @@ public class GlobalVariableResolver
                 }
                 if (defRegister instanceof GlobalVariable && !((GlobalVariable)defRegister).isString())
                 {
-                    inst.setOriginRegister(getTempGlobalVariable((GlobalVariable) defRegister, function.usedTempGlobalVariable));
+                    inst.setDefRegister(getTempGlobalVariable((GlobalVariable) defRegister, function.usedTempGlobalVariable));
                     function.defGlobalVariable.add((GlobalVariable) defRegister);
                 }
             }
@@ -128,7 +128,7 @@ public class GlobalVariableResolver
                         reloadSet.retainAll(usedGlobalVariable);
                         for (GlobalVariable globalVariable : reloadSet)
                         {
-                            inst.addPrevInst(new Load(basicBlock,
+                            inst.addNextInst(new Load(basicBlock,
                                     globalVariable, function.usedTempGlobalVariable.get(globalVariable), true));
                         }
                     }

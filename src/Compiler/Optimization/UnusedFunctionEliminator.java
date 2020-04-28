@@ -27,14 +27,20 @@ public class UnusedFunctionEliminator extends Pass
         functionSet.clear();
         getUsedFunc(initFunction);
         boolean isChanged = false;
+
+        Set<Function> removedFunction = new HashSet<>();
         for (Function function :irRoot.getFunctionMap().values())
         {
             if (!functionSet.contains(function))
             {
                 function.isUnused = true;
-                irRoot.removeFunction(function);
+                removedFunction.add(function);
                 isChanged = true; //necessary?
             }
+        }
+        for (Function function : removedFunction)
+        {
+            irRoot.removeFunction(function);
         }
         return isChanged;
     }

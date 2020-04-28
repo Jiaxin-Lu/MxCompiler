@@ -2,7 +2,6 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.Binary;
 import Compiler.IR.IRInstruction.Call;
 import Compiler.IR.IRInstruction.IRInstruction;
 import Compiler.IR.IRInstruction.Phi;
@@ -42,7 +41,7 @@ public class SSAConstructor extends Pass
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
                 List<Register> usedRegister = inst.getUsedRegister();
-                Register originRegister = inst.getOriginRegister();
+                Register originRegister = inst.getDefRegister();
                 for (Register register : usedRegister)
                 {
                     if (register instanceof VirtualRegister)
@@ -185,9 +184,9 @@ public class SSAConstructor extends Pass
 
         for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
         {
-            if (inst.getOriginRegister() != null)
+            if (inst.getDefRegister() != null)
             {
-                ((VirtualRegister)inst.getOriginRegister()).getOriginal().stack.pop();
+                ((VirtualRegister)inst.getDefRegister()).getOriginal().stack.pop();
             }
         }
     }

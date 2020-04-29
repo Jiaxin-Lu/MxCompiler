@@ -2,10 +2,7 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.Binary;
-import Compiler.IR.IRInstruction.Call;
-import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.Phi;
+import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;

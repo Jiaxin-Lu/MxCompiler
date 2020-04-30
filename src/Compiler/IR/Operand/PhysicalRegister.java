@@ -2,6 +2,11 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 public class PhysicalRegister extends Register
 {
     public boolean isCallerSave;
@@ -40,6 +45,10 @@ public class PhysicalRegister extends Register
     public static final PhysicalRegister r14 = new PhysicalRegister("r14", "r14b", false, true, true);
     public static final PhysicalRegister r15 = new PhysicalRegister("r15", "r15b", false, true, true);
 
+    public static final Set<PhysicalRegister> callerSaveRegisters = new HashSet<>();
+    public static final Set<PhysicalRegister> calleeSaveRegisters = new HashSet<>();
+    public static final List<PhysicalRegister> argumentRegisters = new LinkedList<>();
+    public static final List<PhysicalRegister> allRegisters = new LinkedList<>();
 
     public static final VirtualRegister vrax = new VirtualRegister("vrax", rax);
     public static final VirtualRegister vrcx = new VirtualRegister("vrcx", rcx);
@@ -57,6 +66,55 @@ public class PhysicalRegister extends Register
     public static final VirtualRegister vr13 = new VirtualRegister("vr13", r13);
     public static final VirtualRegister vr14 = new VirtualRegister("vr14", r14);
     public static final VirtualRegister vr15 = new VirtualRegister("vr15", r15);
+
+    public static final Set<VirtualRegister> callerSaveVirtualRegisters = new HashSet<>();
+    public static final Set<VirtualRegister> calleeSaveVirtualRegisters = new HashSet<>();
+    public static final List<VirtualRegister> argumentVirtualRegisters = new LinkedList<>();
+    public static final List<VirtualRegister> allVirtualRegisters = new LinkedList<>();
+
+    static
+    {
+        argumentVirtualRegisters.add(vrdi);
+        argumentVirtualRegisters.add(vrsi);
+        argumentVirtualRegisters.add(vrdx);
+        argumentVirtualRegisters.add(vrcx);
+        argumentVirtualRegisters.add(vr8);
+        argumentVirtualRegisters.add(vr9);
+        for (VirtualRegister reg : argumentVirtualRegisters)
+        {
+            argumentRegisters.add(reg.color);
+        }
+        allVirtualRegisters.add(vrax);
+        allVirtualRegisters.add(vrcx);
+        allVirtualRegisters.add(vrdx);
+        allVirtualRegisters.add(vrbx);
+        allVirtualRegisters.add(vrsi);
+        allVirtualRegisters.add(vrdi);
+        allVirtualRegisters.add(vrsp);
+        allVirtualRegisters.add(vrbp);
+        allVirtualRegisters.add(vr8);
+        allVirtualRegisters.add(vr9);
+        allVirtualRegisters.add(vr10);
+        allVirtualRegisters.add(vr11);
+        allVirtualRegisters.add(vr12);
+        allVirtualRegisters.add(vr13);
+        allVirtualRegisters.add(vr14);
+        allVirtualRegisters.add(vr15);
+        for (VirtualRegister reg : allVirtualRegisters)
+        {
+            allRegisters.add(reg.color);
+            if (reg.color.isCallerSave)
+            {
+                callerSaveVirtualRegisters.add(reg);
+                callerSaveRegisters.add(reg.color);
+            } else
+            {
+                calleeSaveVirtualRegisters.add(reg);
+                calleeSaveRegisters.add(reg.color);
+            }
+        }
+    }
+
     @Override
     public void accept(IRVisitor visitor)
     {

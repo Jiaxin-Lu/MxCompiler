@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Backend/regInBinaryProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSAConstructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/VirtualRegister.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,14 +118,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="67377000" />
-    </task>
-    <task id="LOCAL-00014" summary="Still building IRBuilder...">
-      <created>1584641533560</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1584641533561</updated>
+      <workItem from="1587904814623" duration="73082000" />
     </task>
     <task id="LOCAL-00015" summary="Still building IRBuilder....">
       <created>1584735340246</created>
@@ -460,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588096345262</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="fixing bugs...">
+      <created>1588163446441</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1588163446441</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,10 +540,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588096343746">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588163444303">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588096343746" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588163444303" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

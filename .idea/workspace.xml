@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/StackData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StackData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,14 +117,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="73547000" />
-    </task>
-    <task id="LOCAL-00016" summary="Still building IRBuilder.....">
-      <created>1584815255086</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1584815255086</updated>
+      <workItem from="1587904814623" duration="76325000" />
     </task>
     <task id="LOCAL-00017" summary="Still building IRBuilder......">
       <created>1584823227328</created>
@@ -460,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588271153089</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="add PhysicalRegister.">
+      <created>1588271628172</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1588271628173</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +483,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="IRPrinter and IRInterpreter.." />
     <MESSAGE value="IRPrinter and IRInterpreter..." />
     <MESSAGE value="IR seems to star working! Add new files &amp; moving forward!" />
     <MESSAGE value="Starting CFGSimplifier." />
@@ -506,7 +507,8 @@
     <MESSAGE value="fix bugs in GlobalVariableResolver." />
     <MESSAGE value="fixing bugs..." />
     <MESSAGE value="Process registers in Binary." />
-    <option name="LAST_COMMIT_MESSAGE" value="Process registers in Binary." />
+    <MESSAGE value="add PhysicalRegister." />
+    <option name="LAST_COMMIT_MESSAGE" value="add PhysicalRegister." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -537,10 +539,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588271151559">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588271626940">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588271151559" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588271626940" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -597,10 +599,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1582036372627" />
-    <state x="499" y="190" key="extract.method.dialog" timestamp="1582546608154">
+    <state x="499" y="190" key="extract.method.dialog" timestamp="1588274155657">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="190" key="extract.method.dialog/0.0.1536.824@0.0.1536.824" timestamp="1582546608154" />
+    <state x="499" y="190" key="extract.method.dialog/0.0.1536.824@0.0.1536.824" timestamp="1588274155657" />
     <state x="178" y="22" key="new project wizard" timestamp="1584697075492">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

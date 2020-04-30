@@ -10,6 +10,10 @@ public class StackData extends Memory
     {
         super(base);
     }
+    public StackData(VirtualRegister base, Register index, Immediate scale, Immediate offset)
+    {
+        super(base, index, scale, offset);
+    }
 
     @Override
     public void accept(IRVisitor visitor)

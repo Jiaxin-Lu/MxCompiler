@@ -8,7 +8,7 @@ public abstract class Memory extends Operand
     private Register base = null;
     private List<VirtualRegister> usedRegister = new ArrayList<>();
 
-    public Memory(VirtualRegister base)
+    public Memory(Register base)
     {
         super(base.getName());
         this.base = base;
@@ -24,7 +24,7 @@ public abstract class Memory extends Operand
     private Immediate scale = new Immediate(0);
     private Immediate offset = new Immediate(0);
 
-    public Memory(VirtualRegister base, Register index, Immediate scale, Immediate offset)
+    public Memory(Register base, Register index, Immediate scale, Immediate offset)
     {
         super(base.getName());
         this.base = base;

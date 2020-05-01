@@ -4,6 +4,10 @@
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Call.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Load.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/Store.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/Memory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/StackData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/StackData.java" afterDir="false" />
     </list>
@@ -117,14 +121,7 @@
       <workItem from="1586697629341" duration="58367000" />
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
-      <workItem from="1587904814623" duration="76325000" />
-    </task>
-    <task id="LOCAL-00017" summary="Still building IRBuilder......">
-      <created>1584823227328</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1584823227329</updated>
+      <workItem from="1587904814623" duration="79555000" />
     </task>
     <task id="LOCAL-00018" summary="Still building IRBuilder......">
       <created>1584823310414</created>
@@ -462,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588271628173</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Process registers in function.">
+      <created>1588274358436</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1588274358436</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +487,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="IRPrinter and IRInterpreter..." />
     <MESSAGE value="IR seems to star working! Add new files &amp; moving forward!" />
     <MESSAGE value="Starting CFGSimplifier." />
     <MESSAGE value="DominatorTreeConstructor!" />
@@ -508,7 +511,8 @@
     <MESSAGE value="fixing bugs..." />
     <MESSAGE value="Process registers in Binary." />
     <MESSAGE value="add PhysicalRegister." />
-    <option name="LAST_COMMIT_MESSAGE" value="add PhysicalRegister." />
+    <MESSAGE value="Process registers in function." />
+    <option name="LAST_COMMIT_MESSAGE" value="Process registers in function." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583666870795">
@@ -539,10 +543,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588271626940">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588274357350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588271626940" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588274357350" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

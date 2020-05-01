@@ -215,5 +215,27 @@ public class Function
     //Unused Function
     public boolean isUnused = false;
 
+    //All Parameter
+    private List<Register> allParameterList = new ArrayList<>();
+
+    public List<Register> getAllParameterList()
+    {
+        allParameterList.clear();
+        if (inClassThis != null) allParameterList.add(inClassThis);
+        allParameterList.addAll(parameterList);
+        return allParameterList;
+    }
+    public int calcAllParameterSize()
+    {
+        return getAllParameterList().size();
+    }
+
+    //call Arguments
+    public int callArgumentSize;
+    public void calcCallArgumentSize(int size)
+    {
+        callArgumentSize = Math.max(callArgumentSize, size);
+    }
+
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

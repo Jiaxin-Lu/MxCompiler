@@ -12,7 +12,7 @@ import java.util.Map;
 public class Call extends IRInstruction
 {
     private Function function;
-    private List<Operand> parameterList = new LinkedList<>();
+    private LinkedList<Operand> parameterList = new LinkedList<>();
     private Operand dst;
 
     private Operand pointer;
@@ -24,7 +24,7 @@ public class Call extends IRInstruction
         this.dst = dst;
         resolveUsedRegister();
     }
-    public Call(BasicBlock basicBlock, Function function, Operand dst, List<Operand> parameterList)
+    public Call(BasicBlock basicBlock, Function function, Operand dst, LinkedList<Operand> parameterList)
     {
         super(basicBlock);
         this.function = function;
@@ -49,7 +49,7 @@ public class Call extends IRInstruction
         this.pointer = pointer;
     }
 
-    public List<Operand> getParameterList()
+    public LinkedList<Operand> getParameterList()
     {
         return parameterList;
     }
@@ -126,7 +126,7 @@ public class Call extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        List<Operand> newParameterList = new LinkedList<>();
+        LinkedList<Operand> newParameterList = new LinkedList<>();
         for (Operand parameter : parameterList)
         {
             newParameterList.add(registerMap.getOrDefault(parameter, parameter));

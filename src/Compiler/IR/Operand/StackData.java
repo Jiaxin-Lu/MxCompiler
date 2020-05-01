@@ -6,11 +6,11 @@ public class StackData extends Memory
 {
 
     //TODO : much more to add
-    public StackData(VirtualRegister base)
+    public StackData(Register base)
     {
         super(base);
     }
-    public StackData(VirtualRegister base, Register index, Immediate scale, Immediate offset)
+    public StackData(Register base, Register index, Immediate scale, Immediate offset)
     {
         super(base, index, scale, offset);
     }

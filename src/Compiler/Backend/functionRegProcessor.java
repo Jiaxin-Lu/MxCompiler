@@ -8,6 +8,7 @@ import Compiler.IR.Operand.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import static Compiler.IR.Operand.PhysicalRegister.*;
 
@@ -46,7 +47,7 @@ public class functionRegProcessor
             {
                 StackData mem = new StackData(vrbp, null, new Immediate(0), new Immediate(8 * i + 8));
                 function.getEntryBlock().headInst.addPrevInst(new Load(function.getEntryBlock(),
-                        mem, parameterList.get(i), false));
+                        mem, parameterList.get(i)));
             }
         }
     }
@@ -71,8 +72,34 @@ public class functionRegProcessor
                 {
                     if (((Call) inst).getFunction() == irRoot.builtinStringLength)
                     {
-                        //todo
+                        StackData mem = new StackData((Register) ((Call)inst).getPointer(), null, new Immediate(0), new Immediate(0));
+                        inst.replaceInst(new Load(basicBlock, mem, ((Call)inst).getDst()));
                         continue;
+                    }
+                    function.calcCallArgumentSize(((Call) inst).getFunction().calcAllParameterSize());
+                    int registerLimit = ((Call) inst).getPointer() == null ? 6 : 5;
+                    while (((Call) inst).getParameterList().size() > registerLimit)
+                    {
+                        StackData mem = new StackData(vrsp, null, new Immediate(0),
+                                new Immediate((((Call) inst).getParameterList().size() - registerLimit) * 8));
+                        inst.addPrevInst(new Store(basicBlock, ((Call) inst).getParameterList().removeLast(), mem));
+                    }
+
+                    if (((Call) inst).getPointer() != null)
+                    {
+                        inst.addPrevInst(new Move(basicBlock, ((Call) inst).getPointer(), argumentVirtualRegisters.get(0)));
+                        ((Call) inst).setPointer(argumentVirtualRegisters.get(0));
+                    }
+                    for (int i = 0, j = ((Call) inst).getPointer() == null ? 0 : 1; i < ((Call) inst).getParameterList().size(); i++, j++)
+                    {
+                        inst.addPrevInst(new Move(basicBlock, ((Call) inst).getParameterList().get(i), argumentVirtualRegisters.get(j)));
+                        ((Call) inst).getParameterList().set(i, argumentVirtualRegisters.get(j));
+                    }
+                    inst.resolveUsedRegister();
+                    if (((Call) inst).getDst() != null)
+                    {
+                        inst.addNextInst(new Move(basicBlock, vrax, ((Call) inst).getDst()));
+                        ((Call) inst).setDst(vrax);
                     }
                 } else if (inst instanceof Binary)
                 {
@@ -109,8 +136,8 @@ public class functionRegProcessor
                 } else if (inst instanceof Alloc)
                 {
                     inst.addPrevInst(new Move(basicBlock, ((Alloc) inst).getSize(), vrdi));
-                    inst.addNextInst(new Move(basicBlock, vrax, ((Alloc) inst).getDst()));;
-                    ((Alloc) inst).setSize(vrdi);;
+                    inst.addNextInst(new Move(basicBlock, vrax, ((Alloc) inst).getDst()));
+                    ((Alloc) inst).setSize(vrdi);
                     ((Alloc) inst).setDst(vrax);
                 }
             }

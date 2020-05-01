@@ -16,16 +16,17 @@ public class Store extends IRInstruction
     private int size;
     private int offset;
 
-//    public Store(BasicBlock basicBlock, Operand src, Operand dst)
-//    {
-//        super(basicBlock);
-//        this.src = src;
-//        this.dst = dst;
-//        this.isGlobal = false;
-//        this.size = Width.regWidth;
-//        this.offset = 0;
-//        resolveUsedRegister();
-//    }
+    public Store(BasicBlock basicBlock, Operand src, Operand dst)
+    {
+        super(basicBlock);
+        this.src = src;
+        this.dst = dst;
+        this.isGlobal = false;
+        this.size = Width.regWidth;
+        this.offset = 0;
+        resolveUsedRegister();
+    }
+
     public Store(BasicBlock basicBlock, Operand src, Operand dst, boolean isGlobal)
     {
         super(basicBlock);

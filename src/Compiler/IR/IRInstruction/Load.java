@@ -16,16 +16,16 @@ public class Load extends IRInstruction
     private int size;
     private int offset;
 
-//    public Load(BasicBlock basicBlock, Operand src, Operand dst)
-//    {
-//        super(basicBlock);
-//        this.src = src;
-//        this.dst = dst;
-//        this.forGlobal = false;
-//        this.size = Width.regWidth;
-//        this.offset = 0;
-//        resolveUsedRegister();
-//    }
+    public Load(BasicBlock basicBlock, Operand src, Operand dst)
+    {
+        super(basicBlock);
+        this.src = src;
+        this.dst = dst;
+        this.forGlobal = false;
+        this.size = Width.regWidth;
+        this.offset = 0;
+        resolveUsedRegister();
+    }
 
     public Load(BasicBlock basicBlock, Operand src, Operand dst, boolean forGlobal)
     {

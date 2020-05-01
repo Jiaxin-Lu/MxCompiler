@@ -107,6 +107,7 @@ public class SSADestructor extends Pass
         VirtualRegister n = new Value("_fresh_variable_");
         pred.put(n, null);
         for (CopiedInst inst : parallelCopy.get(basicBlock))
+        if (inst.src instanceof VirtualRegister)
         {
             loc.put(inst.dst, null);
             pred.put((VirtualRegister) inst.src, null);

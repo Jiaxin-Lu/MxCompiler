@@ -8,7 +8,6 @@ import Compiler.IR.Operand.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 import static Compiler.IR.Operand.PhysicalRegister.*;
 

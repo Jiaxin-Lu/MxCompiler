@@ -237,5 +237,12 @@ public class Function
         callArgumentSize = Math.max(callArgumentSize, size);
     }
 
+    //Loop Analysis
+    public Set<BasicBlock> loopHeader = new HashSet<>();
+    public Map<BasicBlock, Set<BasicBlock>> loopBacker = new HashMap<>();
+    public Map<BasicBlock, Set<BasicBlock>> belongLoopHeader = new HashMap<>();
+    public Map<BasicBlock, Set<BasicBlock>> loopGroup = new HashMap<>();
+    public Map<BasicBlock, Set<BasicBlock>> loopExit = new HashMap<>();
+
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

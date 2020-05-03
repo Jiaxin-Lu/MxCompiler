@@ -6,6 +6,8 @@ import Compiler.IR.Operand.*;
 
 import java.util.Map;
 
+import static Compiler.IR.Operand.PhysicalRegister.*;
+
 public class Alloc extends IRInstruction
 {
     private Operand dst;
@@ -100,5 +102,17 @@ public class Alloc extends IRInstruction
         {
             dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
         }
+    }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable))) used.add((VirtualRegister) size);
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+        def.addAll(callerSaveVirtualRegisters);
+        def.remove(vrsp);
+        def.remove(vrbp);
     }
 }

@@ -136,6 +136,16 @@ public class Binary extends IRInstruction
         }
     }
 
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((lhs instanceof VirtualRegister) && (!(lhs instanceof GlobalVariable))) used.add((VirtualRegister) lhs);
+        if ((rhs instanceof VirtualRegister) && (!(rhs instanceof GlobalVariable))) used.add((VirtualRegister) rhs);
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+    }
+
     //CSE
     public Operand preDst = null;
 

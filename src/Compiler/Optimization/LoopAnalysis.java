@@ -10,10 +10,10 @@ public class LoopAnalysis extends Pass
 {
     private DominatorTreeConstructor dominatorTreeConstructor;
 
-    public LoopAnalysis(IRRoot irRoot, DominatorTreeConstructor dominatorTreeConstructor)
+    public LoopAnalysis(IRRoot irRoot)
     {
         super(irRoot);
-        this.dominatorTreeConstructor = dominatorTreeConstructor;
+        this.dominatorTreeConstructor = new DominatorTreeConstructor(irRoot);
     }
 
     private void init(Function function)

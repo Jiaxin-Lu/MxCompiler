@@ -141,4 +141,14 @@ public class Store extends IRInstruction
     public void renameDstRegisterSSA()
     {
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) used.add((VirtualRegister) dst);
+        else if (dst instanceof Memory) used.addAll(((Memory) dst).getUsedRegister());
+    }
 }

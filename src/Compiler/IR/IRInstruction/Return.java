@@ -89,4 +89,12 @@ public class Return extends IRInstruction
     {
 
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((returnValue instanceof VirtualRegister) && (!(returnValue instanceof GlobalVariable))) used.add((VirtualRegister) returnValue);
+    }
 }

@@ -79,4 +79,11 @@ public class Jump extends IRInstruction
     {
         
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+    }
 }

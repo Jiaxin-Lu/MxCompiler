@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static Compiler.IR.Operand.PhysicalRegister.*;
+
 public class Call extends IRInstruction
 {
     private Function function;
@@ -166,5 +168,20 @@ public class Call extends IRInstruction
         {
             dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
         }
+    }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((pointer instanceof VirtualRegister) && (!(pointer instanceof GlobalVariable))) used.add((VirtualRegister) pointer);
+        for (Operand parameter : parameterList)
+        {
+            if ((parameter instanceof VirtualRegister) && !(parameter instanceof GlobalVariable)) used.add((VirtualRegister) parameter);
+        }
+        if ((dst != null) && (dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+        def.addAll(callerSaveVirtualRegisters);
+        def.remove(vrsp);
     }
 }

@@ -109,4 +109,12 @@ public class Branch extends IRInstruction
             cond = ((VirtualRegister) cond).getSSARegister(((VirtualRegister) cond).stack.peek());
         resolveUsedRegister();
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((cond instanceof VirtualRegister) && (!(cond instanceof GlobalVariable))) used.add((VirtualRegister) cond);
+    }
 }

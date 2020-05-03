@@ -384,8 +384,8 @@ func main {
     $now_12 = load 8 @now 0
     jump %main._while_cond
 %main._while_cond:
-    $count_2 = phi main._for_merge $count main._while_body $count_3 
     $now_11 = phi main._for_merge $now_12 main._while_body $now_13 
+    $count_2 = phi main._for_merge $count main._while_body $count_3 
     store 8 @a $_virtual_register_87 0
     store 8 @now $now_11 0
     store 8 @h $h_7 0

@@ -128,4 +128,11 @@ public class Phi extends IRInstruction
     {
 
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+    }
 }

@@ -76,4 +76,11 @@ public class Push extends IRInstruction
     {
 
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+    }
 }

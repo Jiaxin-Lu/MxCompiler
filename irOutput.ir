@@ -180,73 +180,73 @@ func win {
     $_virtual_register_36 = sub $now_3 1
     $_virtual_register_37 = slt $i_5 $_virtual_register_36
     br $_virtual_register_37 %win._for_body_2 %win._for_merge_2
-%win._for_merge_2:
-    $i_6 = move 0
-    $i_7 = move $i_6
-    $_fresh_variable__13 = move $i_7
+%win._for_body_2:
+    $_virtual_register_38 = add $i_5 1
+    $j_4 = move $_virtual_register_38
+    $j_5 = move $j_4
+    $_fresh_variable__13 = move $j_5
     jump %win._for_cond_3
 %win._for_cond_3:
-    $_virtual_register_38 = slt $i_7 $now_3
-    br $_virtual_register_38 %win._for_body_3 %win._for_merge_3
+    $_virtual_register_39 = slt $j_5 $now_3
+    br $_virtual_register_39 %win._for_body_3 %win._for_step_2
+%win._for_step_2:
+    $i_6 = add $i_5 1
+    $i_5 = move $i_6
+    $_fresh_variable__14 = move $i_5
+    jump %win._for_cond_2
+%win._for_body_3:
+    $_virtual_register_40 = mul $i_5 8
+    $_virtual_register_41 = add $_virtual_register_40 8
+    $_virtual_register_42 = add $_virtual_register_41 $_virtual_register_28
+    $_virtual_register_43 = mul $j_5 8
+    $_virtual_register_44 = add $_virtual_register_43 8
+    $_virtual_register_45 = add $_virtual_register_44 $_virtual_register_28
+    $_virtual_register_46 = load 8 $_virtual_register_42 0
+    $_virtual_register_47 = load 8 $_virtual_register_45 0
+    $_virtual_register_48 = sgt $_virtual_register_46 $_virtual_register_47
+    br $_virtual_register_48 %win._if_then_2 %win._for_step_3
+%win._if_then_2:
+    $_virtual_register_49 = load 8 $_virtual_register_42 0
+    $_virtual_register_50 = load 8 $_virtual_register_45 0
+    store 8 $_virtual_register_42 $_virtual_register_50 0
+    store 8 $_virtual_register_45 $_virtual_register_49 0
+    jump %win._for_step_3
+%win._for_step_3:
+    $j_6 = add $j_5 1
+    $j_5 = move $j_6
+    $_fresh_variable__15 = move $j_5
+    jump %win._for_cond_3
+%win._for_merge_2:
+    $i_7 = move 0
+    $i_8 = move $i_7
+    $_fresh_variable__16 = move $i_8
+    jump %win._for_cond_4
+%win._for_cond_4:
+    $_virtual_register_51 = slt $i_8 $now_3
+    br $_virtual_register_51 %win._for_body_4 %win._for_merge_3
 %win._for_merge_3:
     $returnVal_6 = move 1
     $returnVal_5 = move $returnVal_6
-    $_fresh_variable__14 = move $returnVal_5
+    $_fresh_variable__17 = move $returnVal_5
     jump %win.exit
-%win._for_body_3:
-    $_virtual_register_39 = mul $i_7 8
-    $_virtual_register_40 = add $_virtual_register_39 8
-    $_virtual_register_41 = add $_virtual_register_40 $_virtual_register_28
-    $_virtual_register_42 = add $i_7 1
-    $_virtual_register_43 = load 8 $_virtual_register_41 0
-    $_virtual_register_44 = sne $_virtual_register_43 $_virtual_register_42
-    br $_virtual_register_44 %win._if_then_2 %win._for_step_2
-%win._for_step_2:
-    $i_8 = move $_virtual_register_42
-    $i_7 = move $i_8
-    $_fresh_variable__15 = move $i_7
-    jump %win._for_cond_3
-%win._if_then_2:
+%win._for_body_4:
+    $_virtual_register_52 = mul $i_8 8
+    $_virtual_register_53 = add $_virtual_register_52 8
+    $_virtual_register_54 = add $_virtual_register_53 $_virtual_register_28
+    $_virtual_register_55 = add $i_8 1
+    $_virtual_register_56 = load 8 $_virtual_register_54 0
+    $_virtual_register_57 = sne $_virtual_register_56 $_virtual_register_55
+    br $_virtual_register_57 %win._if_then_3 %win._for_step_4
+%win._for_step_4:
+    $i_9 = move $_virtual_register_55
+    $i_8 = move $i_9
+    $_fresh_variable__18 = move $i_8
+    jump %win._for_cond_4
+%win._if_then_3:
     $returnVal_7 = move 0
     $returnVal_5 = move $returnVal_7
-    $_fresh_variable__16 = move $returnVal_5
+    $_fresh_variable__19 = move $returnVal_5
     jump %win.exit
-%win._for_body_2:
-    $_virtual_register_45 = add $i_5 1
-    $j_4 = move $_virtual_register_45
-    $j_5 = move $j_4
-    $_fresh_variable__17 = move $j_5
-    jump %win._for_cond_4
-%win._for_cond_4:
-    $_virtual_register_46 = slt $j_5 $now_3
-    br $_virtual_register_46 %win._for_body_4 %win._for_step_3
-%win._for_step_3:
-    $i_9 = add $i_5 1
-    $i_5 = move $i_9
-    $_fresh_variable__18 = move $i_5
-    jump %win._for_cond_2
-%win._for_body_4:
-    $_virtual_register_47 = mul $i_5 8
-    $_virtual_register_48 = add $_virtual_register_47 8
-    $_virtual_register_49 = add $_virtual_register_48 $_virtual_register_28
-    $_virtual_register_50 = mul $j_5 8
-    $_virtual_register_51 = add $_virtual_register_50 8
-    $_virtual_register_52 = add $_virtual_register_51 $_virtual_register_28
-    $_virtual_register_53 = load 8 $_virtual_register_49 0
-    $_virtual_register_54 = load 8 $_virtual_register_52 0
-    $_virtual_register_55 = sgt $_virtual_register_53 $_virtual_register_54
-    br $_virtual_register_55 %win._if_then_3 %win._for_step_4
-%win._if_then_3:
-    $_virtual_register_56 = load 8 $_virtual_register_49 0
-    $_virtual_register_57 = load 8 $_virtual_register_52 0
-    store 8 $_virtual_register_49 $_virtual_register_57 0
-    store 8 $_virtual_register_52 $_virtual_register_56 0
-    jump %win._for_step_4
-%win._for_step_4:
-    $j_6 = add $j_5 1
-    $j_5 = move $j_6
-    $_fresh_variable__19 = move $j_5
-    jump %win._for_cond_4
 }
 
 void merge {
@@ -434,11 +434,11 @@ func main {
     store 8 @now $_virtual_register_93 0
     call merge 
     $now_11 = load 8 @now 0
-    $count_2 = move $count
     $now_12 = move $now_11
-    $_fresh_variable__32 = move $count_2
-    $count_2 = move $count_2
+    $count_2 = move $count
     $_fresh_variable__32 = move $now_12
+    $now_12 = move $now_12
+    $_fresh_variable__32 = move $count_2
     jump %main._while_cond
 %main._while_cond:
     store 8 @a $_virtual_register_87 0
@@ -475,11 +475,11 @@ func main {
     store 8 @a $_virtual_register_87 0
     store 8 @now $now_14 0
     call show 
-    $count_2 = move $count_3
     $now_12 = move $now_14
-    $_fresh_variable__34 = move $count_2
-    $count_2 = move $count_2
+    $count_2 = move $count_3
     $_fresh_variable__34 = move $now_12
+    $now_12 = move $now_12
+    $_fresh_variable__34 = move $count_2
     jump %main._while_cond
 %main._for_body:
     $_virtual_register_108 = mul $i_20 8

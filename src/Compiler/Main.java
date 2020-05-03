@@ -122,14 +122,17 @@ public class Main
         {
             changed = commonSubExpressionEliminator.run();
             System.out.println("CSE complete!");
+
             changed |= cfgSimplifier.run();
             System.out.println("Dead code Eliminator...");
             dominatorTreeConstructor.run(true);
             System.out.println("Dead code Eliminator...");
             changed |= deadCodeEliminator.run();
             System.out.println("Dead code Eliminator complete!");
+
             changed |= sccp.run();
             System.out.println("SCCP complete!");
+
             changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
             System.out.println("Unused Function Eliminator complete!");

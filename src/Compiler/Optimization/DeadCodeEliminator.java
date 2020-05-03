@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class DeadCodeEliminator extends Pass
 {
-    Set<IRInstruction> markList = new HashSet<>();
+    private Set<IRInstruction> markList = new HashSet<>();
 
     public DeadCodeEliminator(IRRoot irRoot)
     {

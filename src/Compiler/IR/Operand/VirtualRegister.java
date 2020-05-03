@@ -86,6 +86,7 @@ public class VirtualRegister extends Register
     public boolean isParameter = false;
 
     //Register Allocation
+    public double spillPriority;
     public PhysicalRegister color = null;
 
     public VirtualRegister(String name, PhysicalRegister color)

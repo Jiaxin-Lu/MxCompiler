@@ -100,4 +100,13 @@ public class Move extends IRInstruction
             dst = ((VirtualRegister) dst).getSSARegister(((VirtualRegister) dst).SSANewID());
         }
     }
+
+    @Override
+    public void calcDefUse()
+    {
+        used.clear();
+        def.clear();
+        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
+        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+    }
 }

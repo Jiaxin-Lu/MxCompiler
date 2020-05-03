@@ -3,9 +3,7 @@ package Compiler.IR.IRInstruction;
 import Compiler.IR.*;
 import Compiler.IR.Operand.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class IRInstruction
 {
@@ -129,6 +127,15 @@ public abstract class IRInstruction
     public abstract void renameDstRegisterSSA();
 
     public abstract void replaceUsedRegister(Operand oldOperand, Operand newOperand);
+
+    //Liveness Analysis
+    public Set<VirtualRegister> used = new HashSet<>();
+    public Set<VirtualRegister> def = new HashSet<>();
+    public Set<VirtualRegister> liveIn = new HashSet<>();
+    public Set<VirtualRegister> liveOut = new HashSet<>();
+
+    public abstract void calcDefUse();
+
     //TODO : A lot more!
 
 }

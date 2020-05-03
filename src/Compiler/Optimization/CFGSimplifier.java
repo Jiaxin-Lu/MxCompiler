@@ -27,7 +27,7 @@ public class CFGSimplifier extends Pass
         {
             isChanged |= removeBranch(function);
             isChanged |= removeSingleBranchBlock(function);
-//            isChanged |= removePhiWithSingleBranch(function);
+            isChanged |= removePhiWithSingleBranch(function);
             isChanged |= removeUnreachableBlock(function);
         }
         return isChanged;

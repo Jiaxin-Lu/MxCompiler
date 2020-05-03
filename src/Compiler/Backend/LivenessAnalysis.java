@@ -11,19 +11,16 @@ import java.util.Set;
 
 public class LivenessAnalysis
 {
-    private IRRoot irRoot;
-    public LivenessAnalysis(IRRoot irRoot)
+    private Function function;
+    public LivenessAnalysis(Function function)
     {
-        this.irRoot = irRoot;
+        this.function = function;
     }
 
     public void run()
     {
-        for (Function function : irRoot.getFunctionMap().values())
-        {
-            calcDefUse(function);
-            solveLiveness(function);
-        }
+        calcDefUse(function);
+        solveLiveness(function);
     }
 
     private void calcDefUse(Function function)

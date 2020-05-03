@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.BasicBlock;
+import Compiler.IR.IRInstruction.Move;
 import Compiler.IR.IRVisitor;
 
 import java.util.*;
@@ -88,10 +89,24 @@ public class VirtualRegister extends Register
     //Register Allocation
     public double spillPriority;
     public PhysicalRegister color = null;
+    public StackData spillAddr = null;
+    public VirtualRegister alias;
 
     public VirtualRegister(String name, PhysicalRegister color)
     {
         super(name);
         this.color = color;
+    }
+
+    public Set<Move> moveList = new HashSet<>();
+    public Set<VirtualRegister> adjList = new HashSet<>();
+    public int degree;
+
+    public void clearAllocInfo()
+    {
+        moveList.clear();
+        adjList.clear();
+        alias = null;
+        spillAddr = null;
     }
 }

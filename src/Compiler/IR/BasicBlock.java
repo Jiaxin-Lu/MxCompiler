@@ -1,6 +1,7 @@
 package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
+import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -215,6 +216,12 @@ public class BasicBlock
     {
         visitor.visit(this);
     }
+
+    //Liveness Analysis
+    public Set<VirtualRegister> used = new HashSet<>();
+    public Set<VirtualRegister> def = new HashSet<>();
+    public Set<VirtualRegister> liveIn = new HashSet<>();
+    public Set<VirtualRegister> liveOut = new HashSet<>();
 
     //TODO : A lot more!
 }

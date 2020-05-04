@@ -244,5 +244,8 @@ public class Function
     public Map<BasicBlock, Set<BasicBlock>> loopGroup = new HashMap<>();
     public Map<BasicBlock, Set<BasicBlock>> loopExit = new HashMap<>();
 
+    //Register Allocation
+    public int spillCnt = 0;
+
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

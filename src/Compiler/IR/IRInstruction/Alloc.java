@@ -115,4 +115,16 @@ public class Alloc extends IRInstruction
         def.remove(vrsp);
         def.remove(vrbp);
     }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (dst == oldReg) dst = newReg;
+    }
+
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (size == oldReg) size = newReg;
+    }
 }

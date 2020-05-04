@@ -101,6 +101,7 @@ public class VirtualRegister extends Register
     public Set<Move> moveList = new HashSet<>();
     public Set<VirtualRegister> adjList = new HashSet<>();
     public int degree;
+    public boolean addSpill = false;
 
     public void clearAllocInfo()
     {

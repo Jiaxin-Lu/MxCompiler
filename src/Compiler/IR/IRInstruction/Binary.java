@@ -146,6 +146,19 @@ public class Binary extends IRInstruction
         if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
     }
 
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (lhs == oldReg) lhs = newReg;
+        if (rhs == oldReg) rhs = newReg;
+    }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (dst == oldReg) dst = newReg;
+    }
+
     //CSE
     public Operand preDst = null;
 

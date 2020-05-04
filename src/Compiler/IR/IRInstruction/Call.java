@@ -184,4 +184,21 @@ public class Call extends IRInstruction
         def.addAll(callerSaveVirtualRegisters);
         def.remove(vrsp);
     }
+
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (pointer == oldReg) pointer = newReg;
+        for (int i = 0; i < parameterList.size(); i++)
+        {
+            Operand parameter = parameterList.get(i);
+            if (parameter == oldReg) parameterList.set(i, newReg);
+        }
+    }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+
+    }
 }

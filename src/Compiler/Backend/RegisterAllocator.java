@@ -4,14 +4,9 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
-import Compiler.IR.Operand.GlobalVariable;
-import Compiler.IR.Operand.PhysicalRegister;
-import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IR.Operand.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 import static Compiler.IR.Operand.PhysicalRegister.*;
 
@@ -85,7 +80,22 @@ public class RegisterAllocator
 
     private void init()
     {
-        //TODO : CLEAR EVERYTHING
+        initial.clear();
+        simplifyWorkList.clear();
+        freezeWorkList.clear();
+        spillWorkList.clear();
+        spilledNodes.clear();
+        coalescedNodes.clear();
+        coloredNodes.clear();
+        selectStack.clear();
+
+        workListMoves.clear();
+        activeMoves.clear();
+        coalescedMoves.clear();
+        constrainedMoves.clear();
+        frozenMoves.clear();
+
+        adjSet.clear();
     }
 
     public void allocate(Function function)
@@ -321,21 +331,213 @@ public class RegisterAllocator
 
     private void Coalesce()
     {
+        Move m = workListMoves.iterator().next();
+        VirtualRegister x = getAlias((VirtualRegister) m.getDst());
+        VirtualRegister y = getAlias((VirtualRegister) m.getSrc());
+        VirtualRegister u, v;
+        if (preColored.contains(y))
+        {
+            u = y;
+            v = x;
+        } else
+        {
+            u = x;
+            v = y;
+        }
+        workListMoves.remove(m);
+        if (u == v)
+        {
+            coalescedMoves.add(m);
+            addWorkList(u);
+        } else if (preColored.contains(v) || adjSet.contains(new Edge(u, v)))
+        {
+            constrainedMoves.add(m);
+            addWorkList(u);
+            addWorkList(v);
+        } else
+        {
+            boolean cond1 = preColored.contains(u);
+            for (VirtualRegister t : adjacent(v))
+            {
+                cond1 &= OK(t, u);
+            }
+            boolean cond2 = !preColored.contains(u);
+            Set<VirtualRegister> tmpSet = adjacent(u);
+            tmpSet.addAll(adjacent(v));
+            cond2 &= conservative(tmpSet);
+            if (cond1 || cond2)
+            {
+                coalescedMoves.add(m);
+                combine(u, v);
+                addWorkList(u);
+            } else
+                activeMoves.add(m);
+        }
+    }
+
+    private void combine(VirtualRegister u, VirtualRegister v)
+    {
+        if (freezeWorkList.contains(v))
+            freezeWorkList.remove(v);
+        else spillWorkList.remove(v);
+        coalescedNodes.add(v);
+        v.alias = u;
+        u.moveList.addAll(v.moveList);
+        Set<VirtualRegister> tmpSet = new HashSet<>();
+        tmpSet.add(v);
+        enableMoves(tmpSet);
+        for (VirtualRegister t : adjacent(v))
+        {
+            addEdge(t, u);
+            decrementDegree(t);
+        }
+        if (u.degree >= K  && freezeWorkList.contains(u))
+        {
+            freezeWorkList.remove(u);
+            spillWorkList.add(u);
+        }
+    }
+
+    private VirtualRegister getAlias(VirtualRegister n)
+    {
+        if (coalescedNodes.contains(n))
+            return n.alias = getAlias(n.alias);
+        else return n.alias;
     }
 
     private void Freeze()
     {
+        VirtualRegister u = freezeWorkList.iterator().next();
+        freezeWorkList.remove(u);
+        simplifyWorkList.add(u);
+        freezeMoves(u);
+    }
+
+    private void freezeMoves(VirtualRegister u)
+    {
+        for (Move m : nodeMoves(u))
+        {
+            VirtualRegister x = (VirtualRegister) m.getDst();
+            VirtualRegister y = (VirtualRegister) m.getSrc();
+            VirtualRegister v = getAlias(y) == getAlias(u) ? getAlias(x) : getAlias(y);
+            activeMoves.remove(m);
+            frozenMoves.add(m);
+            if (freezeWorkList.contains(v) && nodeMoves(v).isEmpty())
+            {
+                freezeWorkList.remove(v);
+                simplifyWorkList.add(v);
+            }
+        }
     }
 
     private void SelectSpill()
     {
+        Iterator<VirtualRegister> iterator = spillWorkList.iterator();
+        VirtualRegister m = iterator.next();
+        while (m.addSpill && iterator.hasNext()) m = iterator.next();
+        iterator = spillWorkList.iterator();
+        VirtualRegister reg;
+        while (iterator.hasNext())
+        {
+            reg = iterator.next();
+            if (!reg.addSpill && reg.spillPriority < m.spillPriority)
+                m = reg;
+        }
+
+        spillWorkList.remove(m);
+        simplifyWorkList.add(m);
+        freezeMoves(m);
     }
 
     private void assignColors()
     {
+        while (!selectStack.isEmpty())
+        {
+            VirtualRegister n = selectStack.pop();
+            Set<PhysicalRegister> okColors = new HashSet<>(colors);
+            for (VirtualRegister w : n.adjList)
+            {
+                VirtualRegister wA = getAlias(w);
+                if (coloredNodes.contains(wA) || preColored.contains(wA))
+                    okColors.remove(wA.color);
+            }
+            if (okColors.isEmpty())
+                spilledNodes.add(n);
+            else
+            {
+                coloredNodes.add(n);
+                //first select callee save
+                PhysicalRegister color1 = okColors.iterator().next();
+                okColors.retainAll(calleeSaveRegisters);
+                PhysicalRegister color2 = null;
+                if (!okColors.isEmpty()) color2 = okColors.iterator().next();
+                n.color = color2 == null ? color1 : color2;
+            }
+        }
+        for (VirtualRegister n : coalescedNodes)
+        {
+            n.color = getAlias(n).color;
+        }
     }
 
     private void rewriteProgram(Function function)
     {
+        for (VirtualRegister v : spilledNodes)
+        {
+            v.spillAddr = new StackData(vrbp, null,
+                    new Immediate(0), new Immediate(-(++function.spillCnt)*8));
+        }
+        for (VirtualRegister v : coalescedNodes)
+        {
+            getAlias(v);
+        }
+        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            {
+                for (VirtualRegister use : inst.used)
+                    if (use.spillAddr != null)
+                    {
+                        if (inst.def.contains(use))
+                        {
+                            Value tmp = new Value("_spill_");
+                            tmp.addSpill = true;
+                            inst.addPrevInst(new Load(basicBlock, use.spillAddr, tmp));
+                            inst.addNextInst(new Store(basicBlock, tmp, use.spillAddr));
+                            inst.replaceUsed(use, tmp);
+                            inst.replaceDef(use, tmp);
+                        } else if (inst instanceof Move &&
+                                ((Move) inst).getSrc() == use &&
+                                ((VirtualRegister) ((Move) inst).getDst()).spillAddr == null)
+                        {
+                            inst.replaceInst(new Load(basicBlock, use.spillAddr, ((Move) inst).getDst()));
+                        } else
+                        {
+                            Value tmp = new Value("_spill_");
+                            tmp.addSpill = true;
+                            inst.addPrevInst(new Load(basicBlock, use.spillAddr, tmp));
+                            inst.replaceUsed(use, tmp);
+                        }
+                    }
+                for (VirtualRegister def : inst.def)
+                    if (inst.used.contains(def))
+                    {
+                        if (inst instanceof Move)
+                        {
+                            if (((Move) inst).getSrc() instanceof VirtualRegister &&
+                            ((VirtualRegister) ((Move) inst).getSrc()).spillAddr == null)
+                            {
+                                inst.replaceInst(new Store(basicBlock, ((Move) inst).getSrc(), def.spillAddr));
+                                continue;
+                            }
+                        }
+                        Value tmp = new Value("_spill_");
+                        tmp.addSpill = true;
+                        inst.addNextInst(new Store(basicBlock, tmp, def.spillAddr));
+                        inst.replaceDef(def, tmp);
+                    }
+                inst.calcDefUse();
+            }
+        }
     }
 }

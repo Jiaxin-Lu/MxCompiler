@@ -150,4 +150,25 @@ public class Load extends IRInstruction
         else if (src instanceof Memory) used.addAll(((Memory) src).getUsedRegister());
         if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
     }
+
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (src instanceof VirtualRegister)
+        {
+            if (src == oldReg) src = newReg;
+        } else if (src instanceof Memory)
+        {
+            ((Memory) src).replaceOperand(oldReg, newReg);
+        }
+    }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (dst instanceof VirtualRegister)
+        {
+            if (dst == oldReg) dst = newReg;
+        }
+    }
 }

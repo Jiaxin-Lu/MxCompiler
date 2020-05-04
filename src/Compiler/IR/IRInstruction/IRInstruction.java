@@ -136,6 +136,9 @@ public abstract class IRInstruction
 
     public abstract void calcDefUse();
 
+    public abstract void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg);
+    public abstract void replaceDef(VirtualRegister oldReg, VirtualRegister newReg);
+
     //TODO : A lot more!
 
 }

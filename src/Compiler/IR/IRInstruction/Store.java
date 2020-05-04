@@ -151,4 +151,24 @@ public class Store extends IRInstruction
         if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) used.add((VirtualRegister) dst);
         else if (dst instanceof Memory) used.addAll(((Memory) dst).getUsedRegister());
     }
+
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (src instanceof VirtualRegister)
+        {
+            if (src == oldReg) src = newReg;
+        }
+        if (dst instanceof VirtualRegister)
+        {
+            if (dst == oldReg) dst = newReg;
+        } else if (dst instanceof Memory)
+            ((Memory) dst).replaceOperand(oldReg, newReg);
+    }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+
+    }
 }

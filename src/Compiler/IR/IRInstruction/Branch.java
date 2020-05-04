@@ -117,4 +117,16 @@ public class Branch extends IRInstruction
         def.clear();
         if ((cond instanceof VirtualRegister) && (!(cond instanceof GlobalVariable))) used.add((VirtualRegister) cond);
     }
+
+    @Override
+    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+        if (cond == oldReg) cond = newReg;
+    }
+
+    @Override
+    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+    {
+
+    }
 }

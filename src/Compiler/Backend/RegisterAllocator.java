@@ -12,7 +12,7 @@ import static Compiler.IR.Operand.PhysicalRegister.*;
 
 public class RegisterAllocator
 {
-    private class Edge
+    private static class Edge
     {
         VirtualRegister u, v;
         public Edge(VirtualRegister u, VirtualRegister v)

@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/FunctionRegProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/peephole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/regInBinaryProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegInBinaryProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/spillPriorityProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,21 +117,7 @@
       <workItem from="1587716736390" duration="633000" />
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
-      <workItem from="1588674991699" duration="4203000" />
-    </task>
-    <task id="LOCAL-00027" summary="Still Building IRBuilder and IRPrinter!">
-      <created>1585940836435</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1585940836435</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Still Building IRBuilder and IRPrinter!">
-      <created>1585941355023</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1585941355023</updated>
+      <workItem from="1588674991699" duration="5031000" />
     </task>
     <task id="LOCAL-00029" summary="IRPrinter and IRInterpreter.">
       <created>1585998675319</created>
@@ -466,7 +448,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588622102267</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="still on register allocation...">
+      <created>1588690746215</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1588690746216</updated>
+    </task>
+    <task id="LOCAL-00077" summary="add Peephole">
+      <created>1588690762166</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1588690762166</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,8 +483,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Starting DeadCodeEliminator.." />
-    <MESSAGE value="Starting CSE." />
     <MESSAGE value="Starting UnusedFunctionEliminator." />
     <MESSAGE value="Starting SCCP." />
     <MESSAGE value="In SCCP, add builtin function handler." />
@@ -512,7 +506,9 @@
     <MESSAGE value="still working on RegisterAllocator.." />
     <MESSAGE value="still working on RegisterAllocator..." />
     <MESSAGE value="add peephole" />
-    <option name="LAST_COMMIT_MESSAGE" value="add peephole" />
+    <MESSAGE value="still on register allocation..." />
+    <MESSAGE value="add Peephole" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Peephole" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -547,10 +543,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588690744590">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588690761210">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588690744590" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588690761210" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

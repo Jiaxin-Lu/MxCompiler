@@ -40,7 +40,13 @@ public class Peephole
                 {
                     if (((Store) prevInst).getDst() == ((Load) inst).getSrc())
                     {
-                        inst.replaceInst(new Move(basicBlock, ((Store) prevInst).getSrc(), ((Load) inst).getDst()));
+                        if (((Store) prevInst).getSrc() != ((Load) inst).getDst())
+                        {
+                            inst.replaceInst(new Move(basicBlock, ((Store) prevInst).getSrc(), ((Load) inst).getDst()));
+                        } else
+                        {
+                            inst.removeThis();
+                        }
                         prevInst.removeThis();
                     }
                 }

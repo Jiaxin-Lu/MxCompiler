@@ -7,12 +7,12 @@ import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Optimization.LoopAnalysis;
 
-public class spillPriorityProcessor
+public class SpillPriorityProcessor
 {
     private LoopAnalysis loopAnalysis;
     private IRRoot irRoot;
 
-    public spillPriorityProcessor(IRRoot irRoot)
+    public SpillPriorityProcessor(IRRoot irRoot)
     {
         this.irRoot = irRoot;
         loopAnalysis = new LoopAnalysis(irRoot);

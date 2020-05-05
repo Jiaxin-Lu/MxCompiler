@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Backend/peephole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/functionRegProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/FunctionRegProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/peephole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/regInBinaryProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegInBinaryProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/spillPriorityProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,14 +120,8 @@
       <workItem from="1587058257453" duration="17261000" />
       <workItem from="1587716736390" duration="633000" />
       <workItem from="1587904814623" duration="83719000" />
-      <workItem from="1588437231886" duration="36659000" />
-    </task>
-    <task id="LOCAL-00026" summary="Still Building IRBuilder and IRPrinter!">
-      <created>1585936241817</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1585936241817</updated>
+      <workItem from="1588437231886" duration="37295000" />
+      <workItem from="1588674991699" duration="4203000" />
     </task>
     <task id="LOCAL-00027" summary="Still Building IRBuilder and IRPrinter!">
       <created>1585940836435</created>
@@ -461,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588617334550</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="add peephole">
+      <created>1588622102266</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1588622102267</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +487,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Starting DeadCodeEliminator." />
     <MESSAGE value="Starting DeadCodeEliminator.." />
     <MESSAGE value="Starting CSE." />
     <MESSAGE value="Starting UnusedFunctionEliminator." />
@@ -507,7 +511,8 @@
     <MESSAGE value="Start RegisterAllocator." />
     <MESSAGE value="still working on RegisterAllocator.." />
     <MESSAGE value="still working on RegisterAllocator..." />
-    <option name="LAST_COMMIT_MESSAGE" value="still working on RegisterAllocator..." />
+    <MESSAGE value="add peephole" />
+    <option name="LAST_COMMIT_MESSAGE" value="add peephole" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -542,10 +547,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588617333646">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588622101343">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588617333646" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588622101343" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -554,22 +559,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588096476281" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588356977640">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588668341283">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588356977640" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588356977640">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588668341283" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588668341282">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588356977640" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588356977640">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588668341282" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588668341282">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588356977640" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588356977640">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588668341282" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588668341283">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588356977640" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588668341283" />
     <state width="1493" height="218" key="GridCell.Tab.1.bottom" timestamp="1586171338729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -594,10 +599,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587058286395" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1588096373489">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1588622118538">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588096373489" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588622118538" />
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1582036372627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

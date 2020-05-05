@@ -11,11 +11,11 @@ import java.util.List;
 
 import static Compiler.IR.Operand.PhysicalRegister.*;
 
-public class functionRegProcessor
+public class FunctionRegProcessor
 {
     private IRRoot irRoot;
 
-    public functionRegProcessor(IRRoot irRoot)
+    public FunctionRegProcessor(IRRoot irRoot)
     {
         this.irRoot = irRoot;
     }

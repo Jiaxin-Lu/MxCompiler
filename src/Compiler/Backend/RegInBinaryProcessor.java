@@ -7,11 +7,11 @@ import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Value;
 
-public class regInBinaryProcessor
+public class RegInBinaryProcessor
 {
     private IRRoot irRoot;
 
-    public regInBinaryProcessor(IRRoot irRoot)
+    public RegInBinaryProcessor(IRRoot irRoot)
     {
         this.irRoot = irRoot;
     }

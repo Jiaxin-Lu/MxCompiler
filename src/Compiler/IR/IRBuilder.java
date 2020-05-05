@@ -246,11 +246,6 @@ public class IRBuilder implements ASTVisitor
             node.getExpr().setAfterBodyBlock(elseBlock);
         }
         node.getExpr().accept(this);
-//        if (node.getExpr() instanceof BoolConstNode)
-//        {
-//            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
-//                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
-//        }
 
         currentBlock = thenBlock;
         node.getThenStmt().accept(this);
@@ -315,12 +310,6 @@ public class IRBuilder implements ASTVisitor
             node.getCond().setBodyBlock(bodyBlock);
             node.getCond().setAfterBodyBlock(mergeBlock);
             node.getCond().accept(this);
-
-//            if (node.getCond() instanceof BoolConstNode)
-//            {
-//                currentBlock.endThis(new Branch(currentBlock, node.getCond().getResultOperand(),
-//                        node.getCond().getBodyBlock(), node.getCond().getAfterBodyBlock()));
-//            }
         }
 
         currentBlock = bodyBlock;
@@ -353,12 +342,6 @@ public class IRBuilder implements ASTVisitor
         node.getExpr().setBodyBlock(bodyBlock);
         node.getExpr().setAfterBodyBlock(mergeBlock);
         node.getExpr().accept(this);
-
-//        if (node.getExpr() instanceof BoolConstNode)
-//        {
-//            currentBlock.endThis(new Branch(currentBlock, node.getExpr().getResultOperand(),
-//                    node.getExpr().getBodyBlock(), node.getExpr().getAfterBodyBlock()));
-//        }
 
         currentBlock = bodyBlock;
         node.getStatement().accept(this);

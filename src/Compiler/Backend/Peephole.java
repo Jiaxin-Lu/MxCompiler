@@ -11,10 +11,10 @@ import Compiler.IR.Operand.PhysicalRegister;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 
-public class peephole
+public class Peephole
 {
     private IRRoot irRoot;
-    public peephole(IRRoot irRoot)
+    public Peephole(IRRoot irRoot)
     {
         this.irRoot = irRoot;
     }

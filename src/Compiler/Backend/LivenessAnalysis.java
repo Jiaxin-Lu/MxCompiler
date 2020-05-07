@@ -1,18 +1,17 @@
 package Compiler.Backend;
 
-import Compiler.IR.BasicBlock;
-import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRRoot;
-import Compiler.IR.Operand.VirtualRegister;
+import Compiler.RISCV.RVBasicBlock;
+import Compiler.RISCV.RVFunction;
+import Compiler.RISCV.RVInstruction.RVInstruction;
+import Compiler.RISCV.RVOperand.RVRegister;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class LivenessAnalysis
 {
-    private Function function;
-    public LivenessAnalysis(Function function)
+    private RVFunction function;
+    public LivenessAnalysis(RVFunction function)
     {
         this.function = function;
     }
@@ -23,18 +22,18 @@ public class LivenessAnalysis
         solveLiveness(function);
     }
 
-    private void calcDefUse(Function function)
+    private void calcDefUse(RVFunction function)
     {
-        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
             basicBlock.used.clear();
             basicBlock.def.clear();
             basicBlock.liveIn.clear();
             basicBlock.liveOut.clear();
-            for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            for (RVInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
                 inst.calcDefUse();
-                for (VirtualRegister use : inst.used)
+                for (RVRegister use : inst.used)
                 {
                     if (!basicBlock.def.contains(use))
                         basicBlock.used.add(use);
@@ -44,21 +43,21 @@ public class LivenessAnalysis
         }
     }
 
-    private void solveLiveness(Function function)
+    private void solveLiveness(RVFunction function)
     {
         boolean isChanged = true;
         while (isChanged)
         {
             isChanged = false;
-            for (BasicBlock basicBlock : function.getPreOrderBlockList())
+            for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
             {
-                Set<VirtualRegister> tmpIn = new HashSet<>(basicBlock.liveIn);
-                Set<VirtualRegister> tmpOut = new HashSet<>(basicBlock.liveOut);
+                Set<RVRegister> tmpIn = new HashSet<>(basicBlock.liveIn);
+                Set<RVRegister> tmpOut = new HashSet<>(basicBlock.liveOut);
                 basicBlock.liveOut.removeAll(basicBlock.def);
                 basicBlock.liveIn = basicBlock.used;
                 basicBlock.liveIn.addAll(basicBlock.liveOut);
                 basicBlock.liveOut.clear();
-                for (BasicBlock successor : basicBlock.getSuccessors())
+                for (RVBasicBlock successor : basicBlock.getSuccessors())
                 {
                     basicBlock.liveOut.addAll(successor.liveIn);
                 }

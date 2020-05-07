@@ -9,8 +9,19 @@ import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Memory;
 import Compiler.IR.Operand.Register;
 
+import java.io.PrintStream;
+
 public class AsmPrinter implements IRVisitor
 {
+    private PrintStream output;
+    private IRRoot irRoot;
+
+    public AsmPrinter(IRRoot irRoot, PrintStream output)
+    {
+        this.irRoot = irRoot;
+        this.output = output;
+    }
+
     @Override
     public void visit(IRRoot irRoot)
     {}

@@ -2,8 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Backend/AsmPrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVBasicBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/CMPz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Call.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstJ.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstJr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstR.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Load.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/RVInstruction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/GlobalVariable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/Immediate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/PhysicalRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVOperand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/StackData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/StaticStr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/VirtualRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVRoot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/xjun.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/xjun.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/AsmPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/AsmPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/FunctionRegProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/FunctionRegProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/LivenessAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/LivenessAnalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreterREADME.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreterREADME.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/Operand/PhysicalRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +108,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Compiler.RISCV.RVInstruction" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
@@ -117,14 +160,7 @@
       <workItem from="1587716736390" duration="633000" />
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
-      <workItem from="1588674991699" duration="5616000" />
-    </task>
-    <task id="LOCAL-00030" summary="IRPrinter and IRInterpreter..">
-      <created>1586023469376</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1586023469376</updated>
+      <workItem from="1588674991699" duration="42753000" />
     </task>
     <task id="LOCAL-00031" summary="IRPrinter and IRInterpreter..">
       <created>1586024317550</created>
@@ -462,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588709279008</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="add printer">
+      <created>1588709851722</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1588709851722</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +526,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Starting SCCP." />
     <MESSAGE value="In SCCP, add builtin function handler." />
     <MESSAGE value="In SCCP, handle builtin function and Move instruction." />
     <MESSAGE value="In SCCP, handle builtin function and Move instruction.." />
@@ -508,7 +550,8 @@
     <MESSAGE value="still on register allocation..." />
     <MESSAGE value="add Peephole" />
     <MESSAGE value="change Peephole" />
-    <option name="LAST_COMMIT_MESSAGE" value="change Peephole" />
+    <MESSAGE value="add printer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add printer" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -523,10 +566,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="508" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1583484739939" />
-    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1584870925817">
+    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1588869669786">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1584870925817" />
+    <state x="574" y="121" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588869669786" />
     <state x="620" y="97" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1582459743671">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -535,18 +578,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="296" width="439" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1588095737520" />
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587971277583">
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1588842211494">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1587971277583" />
+    <state x="516" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1588842211494" />
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588816898151">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1588816898151" />
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583309386921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588709278078">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1588709850925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588709278078" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588709850925" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -555,22 +602,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588096476281" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588668341283">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588842212892">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588668341283" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588668341282">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588842212892" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588842212892">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588668341282" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588668341282">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588842212892" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588842212892">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588668341282" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588668341283">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588842212892" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588842212892">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588668341283" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588842212892" />
     <state width="1493" height="218" key="GridCell.Tab.1.bottom" timestamp="1586171338729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -591,10 +638,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="408" y="109" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1584697134787" />
-    <state x="270" y="0" width="1138" height="716" key="SettingsEditor" timestamp="1587058286395">
+    <state x="270" y="0" width="1138" height="716" key="SettingsEditor" timestamp="1588789541207">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587058286395" />
+    <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588789541207" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1588622118538">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -611,9 +658,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="178" y="22" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1584697075492" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1588448039591">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1588816277302">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1588448039591" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1588816277302" />
   </component>
 </project>

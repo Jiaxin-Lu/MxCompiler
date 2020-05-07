@@ -7,6 +7,9 @@ import java.util.*;
 
 /**
  * Created by abcdabcd987 on 2016-04-23.
+ * Add support for builtin functions
+ * Add support for data input and output
+ * Add support for global variables, allocate when define
  */
 public class LLIRInterpreter {
     private static class Instruction {

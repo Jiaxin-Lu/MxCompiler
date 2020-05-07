@@ -52,25 +52,25 @@ Return true if the virtual machine is terminated by an exception.
 
 In SSA Mode,
 
-- A register can only be defined once statically (not dynamically).
-- A `phi` node must have source register for all possible incoming blocks.
-- A source register in a `phi` node can take a special value `undef`, which says any value is acceptable in that context.
+- A RVRegister can only be defined once statically (not dynamically).
+- A `phi` node must have source RVRegister for all possible incoming blocks.
+- A source RVRegister in a `phi` node can take a special value `undef`, which says any value is acceptable in that context.
 - All `phi` nodes should be placed in the front of a block, i.e., `phi` nodes are forbidden in the middle of a block.
 
 ## Brief Introduction to VM
 
-- All registers are 32-bit integer register.
+- All registers are 32-bit integer RVRegister.
 - All integers are signed integer.
-- Functions do not share any register.
+- Functions do not share any RVRegister.
 - Will terminate if memory access violation occurs.
 - Will terminate if arithmetic error occurs.
-- Will terminate if you try to read a register that has no value.
+- Will terminate if you try to read a RVRegister that has no value.
 - Execution starts at `main` function.
 - A random padding `(< 4KB)` is added after `alloc` in order to help detect memory access violation.
 
 ## Instruction Set
 
-You can guess the meaning from their names. All register except `$dest` and `$reg*` can be replaced by immediate number. `$reg*` can also be replaced by `undef`.
+You can guess the meaning from their names. All RVRegister except `$dest` and `$reg*` can be replaced by immediate number. `$reg*` can also be replaced by `undef`.
 
 ```
 Jump Instruction:

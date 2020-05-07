@@ -75,7 +75,7 @@ public class Main
 
             optimize(irRoot);
 
-            printIR(irRoot, "irOutput.ir", false);
+            printIR(irRoot, "irOutput.ir", true);
 
         } catch (Exception exception)
         {

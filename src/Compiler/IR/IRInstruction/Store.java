@@ -142,33 +142,33 @@ public class Store extends IRInstruction
     {
     }
 
-    @Override
-    public void calcDefUse()
-    {
-        used.clear();
-        def.clear();
-        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
-        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) used.add((VirtualRegister) dst);
-        else if (dst instanceof Memory) used.addAll(((Memory) dst).getUsedRegister());
-    }
-
-    @Override
-    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-        if (src instanceof VirtualRegister)
-        {
-            if (src == oldReg) src = newReg;
-        }
-        if (dst instanceof VirtualRegister)
-        {
-            if (dst == oldReg) dst = newReg;
-        } else if (dst instanceof Memory)
-            ((Memory) dst).replaceOperand(oldReg, newReg);
-    }
-
-    @Override
-    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-
-    }
+//    @Override
+//    public void calcDefUse()
+//    {
+//        used.clear();
+//        def.clear();
+//        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
+//        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) used.add((VirtualRegister) dst);
+//        else if (dst instanceof Memory) used.addAll(((Memory) dst).getUsedRegister());
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (src instanceof VirtualRegister)
+//        {
+//            if (src == oldReg) src = newReg;
+//        }
+//        if (dst instanceof VirtualRegister)
+//        {
+//            if (dst == oldReg) dst = newReg;
+//        } else if (dst instanceof Memory)
+//            ((Memory) dst).replaceOperand(oldReg, newReg);
+//    }
+//
+//    @Override
+//    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//
+//    }
 }

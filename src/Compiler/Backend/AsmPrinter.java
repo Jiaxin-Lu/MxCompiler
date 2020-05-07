@@ -1,85 +1,132 @@
 package Compiler.Backend;
 
-import Compiler.IR.BasicBlock;
-import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.*;
-import Compiler.IR.IRRoot;
-import Compiler.IR.IRVisitor;
-import Compiler.IR.Operand.Immediate;
-import Compiler.IR.Operand.Memory;
-import Compiler.IR.Operand.Register;
+import Compiler.RISCV.RVBasicBlock;
+import Compiler.RISCV.RVFunction;
+import Compiler.RISCV.RVInstruction.*;
+import Compiler.RISCV.RVOperand.GlobalVariable;
+import Compiler.RISCV.RVOperand.RVOperand;
+import Compiler.RISCV.RVOperand.StaticStr;
+import Compiler.RISCV.RVRoot;
+import Compiler.RISCV.RVVisitor;
 
 import java.io.PrintStream;
 
-public class AsmPrinter implements IRVisitor
+public class AsmPrinter implements RVVisitor
 {
     private PrintStream output;
-    private IRRoot irRoot;
+    private RVRoot rvRoot;
 
-    public AsmPrinter(IRRoot irRoot, PrintStream output)
+    public AsmPrinter(RVRoot rvRoot, PrintStream output)
     {
-        this.irRoot = irRoot;
+        this.rvRoot = rvRoot;
         this.output = output;
     }
 
     @Override
-    public void visit(IRRoot irRoot)
-    {}
+    public void visit(RVRoot rvRoot)
+    {
+
+    }
+
     @Override
-    public void visit(Function function)
-    {}
+    public void visit(RVFunction function)
+    {
+
+    }
+
     @Override
-    public void visit(BasicBlock basicBlock)
-    {}
+    public void visit(RVBasicBlock basicBlock)
+    {
+
+    }
+
     @Override
-    public void visit(Alloc inst)
-    {}
+    public void visit(RVOperand operand)
+    {
+
+    }
+
     @Override
-    public void visit(Branch inst)
-    {}
+    public void visit(GlobalVariable globalVariable)
+    {
+
+    }
+
     @Override
-    public void visit(Binary inst)
-    {}
-    @Override
-    public void visit(Unary inst)
-    {}
+    public void visit(StaticStr staticStr)
+    {
+
+    }
+
     @Override
     public void visit(Call inst)
-    {}
+    {
+
+    }
+
     @Override
-    public void visit(Move inst)
-    {}
+    public void visit(CMPz inst)
+    {
+
+    }
+
+    @Override
+    public void visit(Branch inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstI inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstJ inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstJr inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstLi inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstLui inst)
+    {
+
+    }
+
+    @Override
+    public void visit(InstR inst)
+    {
+
+    }
+
     @Override
     public void visit(Load inst)
-    {}
+    {
+
+    }
+
     @Override
     public void visit(Store inst)
-    {}
+    {
+
+    }
+
     @Override
-    public void visit(Cmp inst)
-    {}
-    @Override
-    public void visit(Phi inst)
-    {}
-    @Override
-    public void visit(Push inst)
-    {}
-    @Override
-    public void visit(Pop inst)
-    {}
-    @Override
-    public void visit(Jump inst)
-    {}
-    @Override
-    public void visit(Return inst)
-    {}
-    @Override
-    public void visit(Register register)
-    {}
-    @Override
-    public void visit(Immediate immediate)
-    {}
-    @Override
-    public void visit(Memory memory)
-    {}
+    public void visit(Move inst)
+    {
+
+    }
 }

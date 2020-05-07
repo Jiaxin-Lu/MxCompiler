@@ -134,10 +134,10 @@ public abstract class IRInstruction
     public Set<VirtualRegister> liveIn = new HashSet<>();
     public Set<VirtualRegister> liveOut = new HashSet<>();
 
-    public abstract void calcDefUse();
-
-    public abstract void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg);
-    public abstract void replaceDef(VirtualRegister oldReg, VirtualRegister newReg);
+//    public abstract void calcDefUse();
+//
+//    public abstract void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg);
+//    public abstract void replaceDef(VirtualRegister oldReg, VirtualRegister newReg);
 
     //TODO : A lot more!
 

@@ -104,27 +104,25 @@ public class Alloc extends IRInstruction
         }
     }
 
-    @Override
-    public void calcDefUse()
-    {
-        used.clear();
-        def.clear();
-        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable))) used.add((VirtualRegister) size);
-        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
-        def.addAll(callerSaveVirtualRegisters);
-        def.remove(vrsp);
-        def.remove(vrbp);
-    }
-
-    @Override
-    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-        if (dst == oldReg) dst = newReg;
-    }
-
-    @Override
-    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-        if (size == oldReg) size = newReg;
-    }
+//    @Override
+//    public void calcDefUse()
+//    {
+//        used.clear();
+//        def.clear();
+//        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable))) used.add((VirtualRegister) size);
+//        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+//        def.addAll(callerSaveVirtualRegisters);
+//    }
+//
+//    @Override
+//    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (dst == oldReg) dst = newReg;
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (size == oldReg) size = newReg;
+//    }
 }

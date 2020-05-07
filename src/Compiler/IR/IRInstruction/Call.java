@@ -170,35 +170,35 @@ public class Call extends IRInstruction
         }
     }
 
-    @Override
-    public void calcDefUse()
-    {
-        used.clear();
-        def.clear();
-        if ((pointer instanceof VirtualRegister) && (!(pointer instanceof GlobalVariable))) used.add((VirtualRegister) pointer);
-        for (Operand parameter : parameterList)
-        {
-            if ((parameter instanceof VirtualRegister) && !(parameter instanceof GlobalVariable)) used.add((VirtualRegister) parameter);
-        }
-        if ((dst != null) && (dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
-        def.addAll(callerSaveVirtualRegisters);
-        def.remove(vrsp);
-    }
-
-    @Override
-    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-        if (pointer == oldReg) pointer = newReg;
-        for (int i = 0; i < parameterList.size(); i++)
-        {
-            Operand parameter = parameterList.get(i);
-            if (parameter == oldReg) parameterList.set(i, newReg);
-        }
-    }
-
-    @Override
-    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-
-    }
+//    @Override
+//    public void calcDefUse()
+//    {
+//        used.clear();
+//        def.clear();
+//        if ((pointer instanceof VirtualRegister) && (!(pointer instanceof GlobalVariable))) used.add((VirtualRegister) pointer);
+//        for (Operand parameter : parameterList)
+//        {
+//            if ((parameter instanceof VirtualRegister) && !(parameter instanceof GlobalVariable)) used.add((VirtualRegister) parameter);
+//        }
+//        if ((dst != null) && (dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+//        def.addAll(callerSaveVirtualRegisters);
+//        def.remove(vrsp);
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (pointer == oldReg) pointer = newReg;
+//        for (int i = 0; i < parameterList.size(); i++)
+//        {
+//            Operand parameter = parameterList.get(i);
+//            if (parameter == oldReg) parameterList.set(i, newReg);
+//        }
+//    }
+//
+//    @Override
+//    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//
+//    }
 }

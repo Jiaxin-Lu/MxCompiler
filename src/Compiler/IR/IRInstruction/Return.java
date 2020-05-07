@@ -90,23 +90,23 @@ public class Return extends IRInstruction
 
     }
 
-    @Override
-    public void calcDefUse()
-    {
-        used.clear();
-        def.clear();
-        if ((returnValue instanceof VirtualRegister) && (!(returnValue instanceof GlobalVariable))) used.add((VirtualRegister) returnValue);
-    }
-
-    @Override
-    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-        if (returnValue == oldReg) returnValue = newReg;
-    }
-
-    @Override
-    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-
-    }
+//    @Override
+//    public void calcDefUse()
+//    {
+//        used.clear();
+//        def.clear();
+//        if ((returnValue instanceof VirtualRegister) && (!(returnValue instanceof GlobalVariable))) used.add((VirtualRegister) returnValue);
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (returnValue == oldReg) returnValue = newReg;
+//    }
+//
+//    @Override
+//    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//
+//    }
 }

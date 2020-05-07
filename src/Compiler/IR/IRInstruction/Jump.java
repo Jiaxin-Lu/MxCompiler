@@ -81,22 +81,22 @@ public class Jump extends IRInstruction
         
     }
 
-    @Override
-    public void calcDefUse()
-    {
-        used.clear();
-        def.clear();
-    }
-
-    @Override
-    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-
-    }
-
-    @Override
-    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-    {
-
-    }
+//    @Override
+//    public void calcDefUse()
+//    {
+//        used.clear();
+//        def.clear();
+//    }
+//
+//    @Override
+//    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//
+//    }
 }

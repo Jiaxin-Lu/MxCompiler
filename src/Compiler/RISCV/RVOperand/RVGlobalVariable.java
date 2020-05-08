@@ -3,10 +3,10 @@ package Compiler.RISCV.RVOperand;
 import Compiler.IR.Operand.Operand;
 import Compiler.RISCV.RVVisitor;
 
-public class GlobalVariable extends RVOperand
+public class RVGlobalVariable extends RVOperand
 {
     private RVOperand value;
-    public GlobalVariable(String name)
+    public RVGlobalVariable(String name)
     {
         super(name);
     }

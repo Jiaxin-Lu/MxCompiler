@@ -1,11 +1,11 @@
 package Compiler.RISCV.RVOperand;
 
-public class Address extends Immediate
+public class Address extends RVImmediate
 {
-    private PhysicalRegister reg; // %hi %lo
-    private GlobalVariable var;
+    private RVPhysicalRegister reg; // %hi %lo
+    private RVGlobalVariable var;
 
-    public Address(PhysicalRegister reg, GlobalVariable var)
+    public Address(RVPhysicalRegister reg, RVGlobalVariable var)
     {
         super(0);
         this.reg = reg;

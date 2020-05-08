@@ -1,8 +1,8 @@
 package Compiler.RISCV;
 
 
-import Compiler.RISCV.RVOperand.GlobalVariable;
-import Compiler.RISCV.RVOperand.StaticStr;
+import Compiler.RISCV.RVOperand.RVGlobalVariable;
+import Compiler.RISCV.RVOperand.RVStaticStr;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,8 +12,8 @@ import java.util.Map;
 public class RVRoot
 {
     private Map<String, RVFunction> functionMap = new LinkedHashMap<>();
-    private List<GlobalVariable> globalVariableList = new ArrayList<>();
-    private List<StaticStr> staticStrList = new ArrayList<>();
+    private List<RVGlobalVariable> globalVariableList = new ArrayList<>();
+    private List<RVStaticStr> staticStrList = new ArrayList<>();
 
     public RVRoot()
     {
@@ -24,12 +24,12 @@ public class RVRoot
         return functionMap;
     }
 
-    public List<GlobalVariable> getGlobalVariableList()
+    public List<RVGlobalVariable> getGlobalVariableList()
     {
         return globalVariableList;
     }
 
-    public List<StaticStr> getStaticStrList()
+    public List<RVStaticStr> getStaticStrList()
     {
         return staticStrList;
     }
@@ -39,13 +39,13 @@ public class RVRoot
         functionMap.put(function.getName(), function);
     }
 
-    public void addStaticStr(StaticStr str)
+    public void addStaticStr(RVStaticStr str)
     {
         staticStrList.add(str);
     }
-    public void addGlobalVariable(GlobalVariable globalVariable)
+    public void addGlobalVariable(RVGlobalVariable RVGlobalVariable)
     {
-        globalVariableList.add(globalVariable);
+        globalVariableList.add(RVGlobalVariable);
     }
 
     public void accept(RVVisitor visitor)

@@ -2,11 +2,11 @@ package Compiler.RISCV.RVOperand;
 
 import Compiler.RISCV.RVVisitor;
 
-public class Immediate extends RVOperand
+public class RVImmediate extends RVOperand
 {
     private int imm;
 
-    public Immediate(int imm)
+    public RVImmediate(int imm)
     {
         this.imm = imm;
     }

@@ -2,12 +2,10 @@ package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVFunction;
-import Compiler.RISCV.RVOperand.PhysicalRegister;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
-import static Compiler.RISCV.RVOperand.PhysicalRegister.*;
+import static Compiler.RISCV.RVOperand.RVPhysicalRegister.*;
 
 public class Call extends RVInstruction
 {

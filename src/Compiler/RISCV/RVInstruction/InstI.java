@@ -1,9 +1,8 @@
 package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
-import Compiler.RISCV.RVOperand.Immediate;
+import Compiler.RISCV.RVOperand.RVImmediate;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
 public class InstI extends RVInstruction
@@ -29,9 +28,9 @@ public class InstI extends RVInstruction
     private Op op;
     private RVRegister rd;
     private RVRegister rs;
-    private Immediate imm;
+    private RVImmediate imm;
 
-    public InstI(RVBasicBlock basicBlock, Op op, RVRegister rd, RVRegister rs, Immediate imm)
+    public InstI(RVBasicBlock basicBlock, Op op, RVRegister rd, RVRegister rs, RVImmediate imm)
     {
         super(basicBlock);
         this.op = op;
@@ -56,7 +55,7 @@ public class InstI extends RVInstruction
         return rs;
     }
 
-    public Immediate getImm()
+    public RVImmediate getImm()
     {
         return imm;
     }

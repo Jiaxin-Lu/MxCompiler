@@ -2,13 +2,13 @@ package Compiler.RISCV.RVOperand;
 
 import java.util.*;
 
-public class PhysicalRegister extends RVRegister
+public class RVPhysicalRegister extends RVRegister
 {
     public boolean isCallerSave = false;
     public boolean isCalleeSave = false;
 
-    public PhysicalRegister() {}
-    public PhysicalRegister(String name)
+    public RVPhysicalRegister() {}
+    public RVPhysicalRegister(String name)
     {
         super(name);
         this.color = this;
@@ -38,28 +38,29 @@ public class PhysicalRegister extends RVRegister
             "a0", "a1", "a2", "a3", "a4", "a5", "a6", "a7",
     };
 
-    public static final Map<String, PhysicalRegister> callerSaveRegisters = new LinkedHashMap<>();
-    public static final Map<String, PhysicalRegister> calleeSaveRegisters = new LinkedHashMap<>();
-    public static final Map<String, PhysicalRegister> argumentRegisters = new LinkedHashMap<>();
-    public static final Map<String, PhysicalRegister> allocatableRegisters = new LinkedHashMap<>();
-    public static final Map<String, PhysicalRegister> allRegisters = new LinkedHashMap<>();
+    public static final Map<String, RVPhysicalRegister> callerSaveRegisters = new LinkedHashMap<>();
+    public static final Map<String, RVPhysicalRegister> calleeSaveRegisters = new LinkedHashMap<>();
+    public static final Map<String, RVPhysicalRegister> argumentRegisters = new LinkedHashMap<>();
+    public static final Map<String, RVPhysicalRegister> allocatableRegisters = new LinkedHashMap<>();
+    public static final Map<String, RVPhysicalRegister> allRegisters = new LinkedHashMap<>();
 
-    public static final Set<VirtualRegister> callerSaveVirtualRegisters = new HashSet<>();
-    public static final Set<VirtualRegister> calleeSaveVirtualRegisters = new HashSet<>();
-    public static final List<VirtualRegister> argumentVirtualRegisters = new LinkedList<>();
-    public static final Map<String, VirtualRegister> allVirtualRegisters = new LinkedHashMap<>();
+    public static final Set<RVVirtualRegister> callerSaveVirtualRegisters = new HashSet<>();
+    public static final Set<RVVirtualRegister> calleeSaveVirtualRegisters = new HashSet<>();
+    public static final List<RVVirtualRegister> argumentVirtualRegisters = new LinkedList<>();
+    public static final Map<String, RVVirtualRegister> allVirtualRegisters = new LinkedHashMap<>();
 
-    public static final VirtualRegister vzero;
-    public static final VirtualRegister vra;
-
+    public static final RVVirtualRegister vzero;
+    public static final RVVirtualRegister vra;
+    public static final RVPhysicalRegister hi = new RVPhysicalRegister("%hi");
+    public static final RVPhysicalRegister lo = new RVPhysicalRegister("%lo");
 
     static
     {
         for (String name : physicalRegisterNames)
         {
-            allRegisters.put(name, new PhysicalRegister(name));
-            VirtualRegister virtualRegister = new VirtualRegister("v" + name, allRegisters.get(name));
-            allVirtualRegisters.put(name, virtualRegister);
+            allRegisters.put(name, new RVPhysicalRegister(name));
+            RVVirtualRegister RVVirtualRegister = new RVVirtualRegister("v" + name, allRegisters.get(name));
+            allVirtualRegisters.put(name, RVVirtualRegister);
         }
 
         for (String name : calleeSaveRegisterNames)

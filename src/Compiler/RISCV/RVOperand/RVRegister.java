@@ -21,11 +21,11 @@ public abstract class RVRegister extends RVOperand
 
     //Register Allocation
     public double spillPriority;
-    public PhysicalRegister color = null;
+    public RVPhysicalRegister color = null;
     public StackData spillAddr = null;
     public RVRegister alias;
 
-    public RVRegister(String name, PhysicalRegister color)
+    public RVRegister(String name, RVPhysicalRegister color)
     {
         super(name);
         this.color = color;

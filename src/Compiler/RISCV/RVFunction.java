@@ -1,22 +1,24 @@
 package Compiler.RISCV;
 
 import Compiler.RISCV.RVInstruction.Call;
+import Compiler.RISCV.RVInstruction.InstI;
 import Compiler.RISCV.RVInstruction.RVInstruction;
+import Compiler.RISCV.RVOperand.RVImmediate;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
+import Compiler.RISCV.RVOperand.RVVirtualRegister;
+import Compiler.RISCV.RVOperand.StackData;
 
 import java.util.*;
+
+import static Compiler.RISCV.RVOperand.RVPhysicalRegister.allRegisters;
 
 public class RVFunction
 {
     private String name;
-    private String builtinName;
     private RVBasicBlock entryBlock = new RVBasicBlock(this, "entry");
     private RVBasicBlock exitBlock = new RVBasicBlock(this, "exit");
     private List<RVRegister> parameterList = new ArrayList<>();
-    private List<RVBasicBlock> preOrderBlockList = null;
-    private List<RVBasicBlock> postOrderBlockList = null;
-    private Set<RVBasicBlock> dfsVisit = null;
+    private List<RVBasicBlock> preOrderBlockList = new ArrayList<>();
     private RVRegister inClassThis = null;
 
     private List<RVBasicBlock> reverseCFGPostOrderBlockList = null;
@@ -24,17 +26,6 @@ public class RVFunction
     public RVFunction(String name)
     {
         this.name = name;
-    }
-
-    public RVFunction(String name, String builtinName)
-    {
-        this.name = name;
-        this.builtinName = builtinName;
-    }
-
-    public String getBuiltinName()
-    {
-        return builtinName;
     }
 
     public String getName()
@@ -79,7 +70,7 @@ public class RVFunction
 
     public void setInClassThis()
     {
-        this.inClassThis = new VirtualRegister("this");
+        this.inClassThis = new RVVirtualRegister("this");
     }
 
     public void setInClassThis(RVRegister inClassThis)
@@ -94,80 +85,14 @@ public class RVFunction
 
     public List<RVBasicBlock> getPreOrderBlockList()
     {
-        if (preOrderBlockList == null)
-            calcPreOrderBlockList();
         return preOrderBlockList;
     }
-    public void calcPreOrderBlockList()
-    {
-        preOrderBlockList = new ArrayList<>();
-        dfsVisit = new HashSet<>();
-        dfsBasicBlock(entryBlock);
-        for (int i = preOrderBlockList.size() - 1; i >= 0; --i)
-        {
-            preOrderBlockList.get(i).postOrderIndex = preOrderBlockList.size() - i;
-        }
-    }
 
-    public List<RVBasicBlock> getPostOrderBlockList()
+    public void addBlockList(RVBasicBlock basicBlock)
     {
-        if (postOrderBlockList == null)
-        {
-            postOrderBlockList = new ArrayList<>();
-            postOrderBlockList.addAll(getPreOrderBlockList());
-            Collections.reverse(postOrderBlockList);
-        }
-        for (int i = 0; i < postOrderBlockList.size(); ++i)
-            postOrderBlockList.get(i).postOrderIndex = i;
-        return postOrderBlockList;
-    }
-
-    public void dfsBasicBlock(RVBasicBlock basicBlock)
-    {
-        basicBlock.preOrderIndex = preOrderBlockList.size();
         preOrderBlockList.add(basicBlock);
-        dfsVisit.add(basicBlock);
-        for (RVBasicBlock successor : basicBlock.getSuccessors())
-        {
-            if (!dfsVisit.contains(successor))
-            {
-                successor.dfsFatherBlock = basicBlock;
-                dfsBasicBlock(successor);
-            }
-        }
     }
 
-    public List<RVBasicBlock> getReverseCFGPostOrderBlockList()
-    {
-        if (reverseCFGPostOrderBlockList == null) calcReverseCFGPostOrderBlockList();
-        return reverseCFGPostOrderBlockList;
-    }
-
-    public void calcReverseCFGPostOrderBlockList()
-    {
-        reverseCFGPostOrderBlockList = new LinkedList<>();
-        dfsVisit = new HashSet<>();
-        reverseCFGPostOrderDFS(exitBlock);
-        for (int i = 0; i < reverseCFGPostOrderBlockList.size(); ++i)
-            reverseCFGPostOrderBlockList.get(i).reverseCFGPostOrderIndex = i;
-    }
-
-    public void reverseCFGPostOrderDFS(RVBasicBlock basicBlock)
-    {
-        dfsVisit.add(basicBlock);
-        for (RVBasicBlock predecessor : basicBlock.getPredecessors())
-            if (!dfsVisit.contains(predecessor))
-            {
-                reverseCFGPostOrderDFS(predecessor);
-            }
-        reverseCFGPostOrderBlockList.add(basicBlock);
-    }
-
-
-    public boolean canReach(RVBasicBlock basicBlock)
-    {
-        return dfsVisit.contains(basicBlock);
-    }
     public void accept(RVVisitor visitor)
     {
         visitor.visit(this);
@@ -194,11 +119,12 @@ public class RVFunction
     public boolean isUnused = false;
 
     //All Parameter
-    private List<RVRegister> allParameterList = new ArrayList<>();
+    private List<RVRegister> allParameterList = null;
 
     public List<RVRegister> getAllParameterList()
     {
-        allParameterList.clear();
+        if (allParameterList != null) return allParameterList;
+        allParameterList = new ArrayList<>();
         if (inClassThis != null) allParameterList.add(inClassThis);
         allParameterList.addAll(parameterList);
         return allParameterList;
@@ -208,11 +134,46 @@ public class RVFunction
         return getAllParameterList().size();
     }
 
-    //call Arguments
-    public int callArgumentSize;
-    public void calcCallArgumentSize(int size)
+    //RVRegister
+    public List<RVRegister> registerList = new ArrayList<>();
+    public RVVirtualRegister addRegister(String name)
     {
-        callArgumentSize = Math.max(callArgumentSize, size);
+        RVVirtualRegister reg = new RVVirtualRegister(name + "_" + registerList.size());
+        registerList.add(reg);
+        return reg;
+    }
+
+    //RVStack Slot
+    private List< List<StackData> > callStackSlot = new ArrayList<>();
+    private List<StackData> spillStackSlot = new ArrayList<>();
+
+    public void addCallStackSlot(List<StackData> slot)
+    {
+        callStackSlot.add(slot);
+    }
+
+    public void addSpillStackSlot(StackData slot)
+    {
+        spillStackSlot.add(slot);
+    }
+
+    public int stackSlotAlloc()
+    {
+        int maxCallArguments = 0;
+        for (List<StackData> slot : callStackSlot)
+        {
+            maxCallArguments = Math.max(maxCallArguments, slot.size());
+        }
+        int size = maxCallArguments + spillStackSlot.size();
+        size = (size + 3) / 4 * 4;
+        if (size > 0)
+        {
+            RVInstruction inst = new InstI(entryBlock, InstI.Op.addi, allRegisters.get("sp"), allRegisters.get("sp"), new RVImmediate(-size*4));
+            entryBlock.headInst.addPrevInst(inst);
+            inst = new InstI(exitBlock, InstI.Op.addi, allRegisters.get("sp"), allRegisters.get("sp"), new RVImmediate(size * 4));
+            exitBlock.tailInst.addPrevInst(inst);
+        }
+        return size;
     }
 
     //Loop Analysis

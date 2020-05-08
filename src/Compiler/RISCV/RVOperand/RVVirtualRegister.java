@@ -1,16 +1,16 @@
 package Compiler.RISCV.RVOperand;
 
-public class VirtualRegister extends RVRegister
+public class RVVirtualRegister extends RVRegister
 {
-    public VirtualRegister(){}
-    public VirtualRegister(String name)
+    public RVVirtualRegister(){}
+    public RVVirtualRegister(String name)
     {
         super(name);
     }
 
     public boolean isParameter = false;
 
-    public VirtualRegister(String name, PhysicalRegister color)
+    public RVVirtualRegister(String name, RVPhysicalRegister color)
     {
         super(name, color);
     }

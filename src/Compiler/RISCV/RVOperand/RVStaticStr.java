@@ -2,10 +2,10 @@ package Compiler.RISCV.RVOperand;
 
 import Compiler.RISCV.RVVisitor;
 
-public class StaticStr extends GlobalVariable
+public class RVStaticStr extends RVGlobalVariable
 {
     private String string;
-    public StaticStr(String name, String str)
+    public RVStaticStr(String name, String str)
     {
         super(name);
         this.string = str;

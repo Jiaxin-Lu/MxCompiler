@@ -1,10 +1,10 @@
 package Compiler.RISCV;
 
-import Compiler.RISCV.RVInstruction.Branch;
+import Compiler.RISCV.RVInstruction.InstB;
 import Compiler.RISCV.RVInstruction.InstJ;
+import Compiler.RISCV.RVInstruction.InstJr;
 import Compiler.RISCV.RVInstruction.RVInstruction;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -121,9 +121,9 @@ public class RVBasicBlock
         isEnded = false;
         if (!(tailInst == null))
         {
-            if (tailInst instanceof Branch)
+            if (tailInst instanceof InstB)
             {
-                removeSuccessor(((Branch) tailInst).getDst());
+                removeSuccessor(((InstB) tailInst).getDst());
             } else if (tailInst instanceof InstJ)
             {
                 removeSuccessor(((InstJ) tailInst).getDst());
@@ -141,9 +141,12 @@ public class RVBasicBlock
         if (instruction instanceof InstJ)
         {
             addBasicBlock(((InstJ) instruction).getDst());
-        } else if (instruction instanceof Branch)
+        } else if (instruction instanceof InstB)
         {
-            addBasicBlock(((Branch) instruction).getDst());
+            addBasicBlock(((InstB) instruction).getDst());
+        } else if (instruction instanceof InstJr)
+        {
+            //actually ret
         }
         isEnded = true;
     }

@@ -2,10 +2,9 @@ package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
-public class Branch extends RVInstruction
+public class InstB extends RVInstruction
 {
     public enum Op
     {
@@ -28,7 +27,7 @@ public class Branch extends RVInstruction
     private RVRegister rt;
     private RVBasicBlock dst;
 
-    public Branch(RVBasicBlock basicBlock, Op op, RVRegister rs, RVRegister rt, RVBasicBlock dst)
+    public InstB(RVBasicBlock basicBlock, Op op, RVRegister rs, RVRegister rt, RVBasicBlock dst)
     {
         super(basicBlock);
         this.op = op;

@@ -4,13 +4,13 @@ import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVFunction;
 import Compiler.RISCV.RVInstruction.Move;
 import Compiler.RISCV.RVInstruction.RVInstruction;
-import Compiler.RISCV.RVOperand.PhysicalRegister;
+import Compiler.RISCV.RVOperand.RVPhysicalRegister;
 import Compiler.RISCV.RVOperand.RVRegister;
 import Compiler.RISCV.RVRoot;
 
 import java.util.*;
 
-import static Compiler.RISCV.RVOperand.PhysicalRegister.*;
+import static Compiler.RISCV.RVOperand.RVPhysicalRegister.*;
 
 public class RegisterAllocator
 {
@@ -53,7 +53,7 @@ public class RegisterAllocator
 
     private Stack<RVRegister> selectStack = new Stack<>();
 
-    private Set<PhysicalRegister> colors = new HashSet<>();
+    private Set<RVPhysicalRegister> colors = new HashSet<>();
 
     private Set<Move> workListMoves = new HashSet<>();
     private Set<Move> activeMoves = new HashSet<>();
@@ -434,7 +434,7 @@ public class RegisterAllocator
         while (!selectStack.isEmpty())
         {
             RVRegister n = selectStack.pop();
-            Set<PhysicalRegister> okColors = new HashSet<>(colors);
+            Set<RVPhysicalRegister> okColors = new HashSet<>(colors);
             for (RVRegister w : n.adjList)
             {
                 RVRegister wA = getAlias(w);
@@ -447,9 +447,9 @@ public class RegisterAllocator
             {
                 coloredNodes.add(n);
                 //first select callee save
-                PhysicalRegister color1 = okColors.iterator().next();
+                RVPhysicalRegister color1 = okColors.iterator().next();
                 okColors.retainAll(calleeSaveRegisters.values());
-                PhysicalRegister color2 = null;
+                RVPhysicalRegister color2 = null;
                 if (!okColors.isEmpty()) color2 = okColors.iterator().next();
                 n.color = color2 == null ? color1 : color2;
             }

@@ -2,19 +2,18 @@ package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
 public class Move extends RVInstruction
 {
-    private RVRegister rs;
     private RVRegister rd;
+    private RVRegister rs;
 
-    public Move(RVBasicBlock basicBlock, RVRegister rs, RVRegister rd)
+    public Move(RVBasicBlock basicBlock, RVRegister rd, RVRegister rs)
     {
         super(basicBlock);
-        this.rs = rs;
         this.rd = rd;
+        this.rs = rs;
         calcDefUse();
     }
 

@@ -3,9 +3,9 @@ package Compiler.Backend;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.Load;
-import Compiler.IR.IRInstruction.Move;
-import Compiler.IR.IRInstruction.Store;
+import Compiler.IR.IRInstruction.LoadInst;
+import Compiler.IR.IRInstruction.MoveInst;
+import Compiler.IR.IRInstruction.StoreInst;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.PhysicalRegister;
 import Compiler.IR.Operand.Register;
@@ -33,16 +33,16 @@ public class Peephole
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             for (IRInstruction inst = basicBlock.headInst.getNextInst(); inst != null; inst = inst.getNextInst())
-            if (inst instanceof Load)
+            if (inst instanceof LoadInst)
             {
                 IRInstruction prevInst = inst.getPrevInst();
-                if (prevInst instanceof Store)
+                if (prevInst instanceof StoreInst)
                 {
-                    if (((Store) prevInst).getDst() == ((Load) inst).getSrc())
+                    if (((StoreInst) prevInst).getDst() == ((LoadInst) inst).getSrc())
                     {
-                        if (((Store) prevInst).getSrc() != ((Load) inst).getDst())
+                        if (((StoreInst) prevInst).getSrc() != ((LoadInst) inst).getDst())
                         {
-                            inst.replaceInst(new Move(basicBlock, ((Store) prevInst).getSrc(), ((Load) inst).getDst()));
+                            inst.replaceInst(new MoveInst(basicBlock, ((StoreInst) prevInst).getSrc(), ((LoadInst) inst).getDst()));
                         } else
                         {
                             inst.removeThis();
@@ -59,19 +59,19 @@ public class Peephole
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
-            if (inst instanceof Move)
-                if (((Move) inst).getDst() instanceof Register && ((Move) inst).getSrc() instanceof Register)
+            if (inst instanceof MoveInst)
+                if (((MoveInst) inst).getDst() instanceof Register && ((MoveInst) inst).getSrc() instanceof Register)
                 {
                     PhysicalRegister reg1 = null;
                     PhysicalRegister reg2 = null;
-                    if (((Move) inst).getSrc() instanceof VirtualRegister)
-                        reg1 = ((VirtualRegister) ((Move) inst).getSrc()).color;
-                    else if (((Move) inst).getSrc() instanceof PhysicalRegister)
-                        reg1 = (PhysicalRegister) ((Move) inst).getSrc();
-                    if (((Move) inst).getDst() instanceof VirtualRegister)
-                        reg2 = ((VirtualRegister) ((Move) inst).getDst()).color;
-                    else if (((Move) inst).getDst() instanceof PhysicalRegister)
-                        reg2 = (PhysicalRegister) ((Move) inst).getDst();
+                    if (((MoveInst) inst).getSrc() instanceof VirtualRegister)
+                        reg1 = ((VirtualRegister) ((MoveInst) inst).getSrc()).color;
+                    else if (((MoveInst) inst).getSrc() instanceof PhysicalRegister)
+                        reg1 = (PhysicalRegister) ((MoveInst) inst).getSrc();
+                    if (((MoveInst) inst).getDst() instanceof VirtualRegister)
+                        reg2 = ((VirtualRegister) ((MoveInst) inst).getDst()).color;
+                    else if (((MoveInst) inst).getDst() instanceof PhysicalRegister)
+                        reg2 = (PhysicalRegister) ((MoveInst) inst).getDst();
                     if (reg1 != null && reg2 != null)
                         if (reg1 == reg2)
                             inst.removeThis();

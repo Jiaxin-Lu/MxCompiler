@@ -8,9 +8,17 @@ public class Store extends RVInstruction
 {
     private RVRegister rd;
     private RVOperand dst;
-    private Immediate imm;
+    private RVImmediate imm;
 
-    public Store(RVBasicBlock basicBlock, RVRegister rd, RVOperand dst, Immediate imm)
+    public Store(RVBasicBlock basicBlock, RVRegister rd, RVOperand dst)
+    {
+        super(basicBlock);
+        this.rd = rd;
+        this.dst = dst;
+        calcDefUse();
+    }
+
+    public Store(RVBasicBlock basicBlock, RVRegister rd, RVOperand dst, RVImmediate imm)
     {
         super(basicBlock);
         this.rd = rd;
@@ -29,7 +37,7 @@ public class Store extends RVInstruction
         return dst;
     }
 
-    public Immediate getImm()
+    public RVImmediate getImm()
     {
         return imm;
     }

@@ -8,9 +8,9 @@ public class Load extends RVInstruction
 {
     private RVRegister rd;
     private RVOperand src;
-    private Immediate imm;
+    private RVImmediate imm;
 
-    public Load(RVBasicBlock basicBlock, RVRegister rd, RVRegister src, Immediate imm)
+    public Load(RVBasicBlock basicBlock, RVRegister rd, RVRegister src, RVImmediate imm)
     {
         super(basicBlock);
         this.rd = rd;
@@ -42,7 +42,7 @@ public class Load extends RVInstruction
         else return null;
     }
 
-    public Immediate getImm()
+    public RVImmediate getImm()
     {
         return imm;
     }

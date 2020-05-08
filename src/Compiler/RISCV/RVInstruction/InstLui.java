@@ -1,17 +1,16 @@
 package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
-import Compiler.RISCV.RVOperand.Immediate;
+import Compiler.RISCV.RVOperand.RVImmediate;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
 public class InstLui extends RVInstruction
 {
     private RVRegister rd;
-    private Immediate imm;
+    private RVImmediate imm;
 
-    public InstLui(RVBasicBlock basicBlock, RVRegister rd, Immediate imm)
+    public InstLui(RVBasicBlock basicBlock, RVRegister rd, RVImmediate imm)
     {
         super(basicBlock);
         this.rd = rd;
@@ -24,7 +23,7 @@ public class InstLui extends RVInstruction
         return rd;
     }
 
-    public Immediate getImm()
+    public RVImmediate getImm()
     {
         return imm;
     }

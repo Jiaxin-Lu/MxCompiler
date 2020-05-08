@@ -2,7 +2,6 @@ package Compiler.RISCV.RVInstruction;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVOperand.RVRegister;
-import Compiler.RISCV.RVOperand.VirtualRegister;
 import Compiler.RISCV.RVVisitor;
 
 public class CMPz extends RVInstruction

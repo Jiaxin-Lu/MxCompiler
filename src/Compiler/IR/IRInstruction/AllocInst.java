@@ -2,40 +2,62 @@ package Compiler.IR.IRInstruction;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.IRVisitor;
-import Compiler.IR.Operand.GlobalVariable;
-import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IR.Operand.*;
 
 import java.util.Map;
 
-public class Move extends IRInstruction
+public class AllocInst extends IRInstruction
 {
-    private Operand src;
     private Operand dst;
-
-    public Move(BasicBlock basicBlock, Operand src, Operand dst)
+    private Operand size;
+    public AllocInst(BasicBlock basicBlock, Operand size, Operand dst)
     {
         super(basicBlock);
-        this.src = src;
         this.dst = dst;
+        this.size = size;
         resolveUsedRegister();
     }
 
-    public Operand getSrc()
+    public Operand getSize()
     {
-        return src;
-    }
-
-    public void setSrc(Operand src)
-    {
-        this.src = src;
-        resolveUsedRegister();
+        return size;
     }
 
     public Operand getDst()
     {
         return dst;
+    }
+
+    public void setSize(Operand size)
+    {
+        this.size = size;
+        resolveUsedRegister();
+    }
+
+    public void setDst(Operand dst)
+    {
+        this.dst = dst;
+    }
+
+    @Override
+    public void resolveUsedRegister()
+    {
+        usedRegister.clear();
+        if (size instanceof Register) usedRegister.add((Register) size);
+    }
+
+    @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (size == oldOperand) size = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
+    public void setUsedRegister(Map<Register, Register> registerMap)
+    {
+        if (size instanceof Register) size = registerMap.get(size);
+        resolveUsedRegister();
     }
 
     @Override
@@ -51,31 +73,10 @@ public class Move extends IRInstruction
     }
 
     @Override
-    public void resolveUsedRegister()
-    {
-        usedRegister.clear();
-        if (src instanceof Register) usedRegister.add((Register) src);
-    }
-
-    @Override
-    public void setUsedRegister(Map<Register, Register> registerMap)
-    {
-        if (src instanceof Register) src = registerMap.get(src);
-        resolveUsedRegister();
-    }
-
-    @Override
-    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
-    {
-        if (src == oldOperand) src = newOperand;
-        resolveUsedRegister();
-    }
-
-    @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Move(basicBlockMap.getOrDefault(currentBlock, currentBlock),
-                registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst));
+        return new AllocInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+                registerMap.getOrDefault(size, size), registerMap.getOrDefault(dst, dst));
     }
 
     @Override
@@ -87,8 +88,8 @@ public class Move extends IRInstruction
     @Override
     public void renameUsedRegisterSSA()
     {
-        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable)))
-            src = ((VirtualRegister) src).getSSARegister(((VirtualRegister) src).stack.peek());
+        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable)))
+            size = ((VirtualRegister) size).getSSARegister(((VirtualRegister) size).stack.peek());
         resolveUsedRegister();
     }
 
@@ -106,8 +107,9 @@ public class Move extends IRInstruction
 //    {
 //        used.clear();
 //        def.clear();
-//        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
+//        if ((size instanceof VirtualRegister) && (!(size instanceof GlobalVariable))) used.add((VirtualRegister) size);
 //        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
+//        def.addAll(callerSaveVirtualRegisters);
 //    }
 //
 //    @Override
@@ -119,6 +121,6 @@ public class Move extends IRInstruction
 //    @Override
 //    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
 //    {
-//        if (src == oldReg) src = newReg;
+//        if (size == oldReg) size = newReg;
 //    }
 }

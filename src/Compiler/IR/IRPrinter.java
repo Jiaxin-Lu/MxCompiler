@@ -2,7 +2,6 @@ package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.*;
-import Compiler.Utils.Width;
 
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -141,7 +140,7 @@ public class IRPrinter implements IRVisitor
         }
     }
     @Override
-    public void visit(Alloc inst)
+    public void visit(AllocInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -150,14 +149,14 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Branch inst)
+    public void visit(BranchInst inst)
     {
         output.print("    br ");
         inst.getCond().accept(this);
         output.println(" %" + getBasicBlockID(inst.getThenBlock()) + " %" + getBasicBlockID(inst.getElseBlock()));
     }
     @Override
-    public void visit(Binary inst)
+    public void visit(BinaryInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -202,7 +201,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Unary inst)
+    public void visit(UnaryInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -221,7 +220,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Call inst)
+    public void visit(CallInst inst)
     {
         output.print("    ");
         if (inst.getDst() != null)
@@ -243,7 +242,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Move inst)
+    public void visit(MoveInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -252,7 +251,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Load inst)
+    public void visit(LoadInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -262,7 +261,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Store inst)
+    public void visit(StoreInst inst)
     {
         output.print("    store " + inst.getSize() + " "); //regWidth
         inst.getDst().accept(this);
@@ -272,7 +271,7 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Cmp inst)
+    public void visit(CmpInst inst)
     {
         output.print("    ");
         inst.getDst().accept(this);
@@ -337,12 +336,12 @@ public class IRPrinter implements IRVisitor
         //won't access
     }
     @Override
-    public void visit(Jump inst)
+    public void visit(JumpInst inst)
     {
         output.println("    jump " + "%" + getBasicBlockID(inst.getDstBlock()));
     }
     @Override
-    public void visit(Return inst)
+    public void visit(ReturnInst inst)
     {
         output.print("    ret ");
         if (inst.getReturnValue() != null)

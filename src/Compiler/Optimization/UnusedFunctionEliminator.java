@@ -2,7 +2,7 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.Call;
+import Compiler.IR.IRInstruction.CallInst;
 import Compiler.IR.IRInstruction.IRInstruction;
 import Compiler.IR.IRRoot;
 
@@ -57,9 +57,9 @@ public class UnusedFunctionEliminator extends Pass
             {
                 for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
                 {
-                    if (inst instanceof Call)
+                    if (inst instanceof CallInst)
                     {
-                        Function callee = ((Call) inst).getFunction();
+                        Function callee = ((CallInst) inst).getFunction();
                         if (!functionSet.contains(callee))
                         {
                             functionSet.add(callee);

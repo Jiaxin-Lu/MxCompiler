@@ -103,7 +103,7 @@ public class SSAConstructor extends Pass
             } else
             {
                 function.setInClassThis(null);
-                for (Call call : function.callInstructionList)
+                for (CallInst call : function.callInstructionList)
                 {
                     call.setPointer(null);
                 }
@@ -118,7 +118,7 @@ public class SSAConstructor extends Pass
                 function.getParameterList().set(i, parameter.getSSARegister(parameter.SSANewID()));
             } else
             {
-                for (Call call : function.callInstructionList)
+                for (CallInst call : function.callInstructionList)
                 {
                     call.getParameterList().set(i, null);
                 }
@@ -126,7 +126,7 @@ public class SSAConstructor extends Pass
             }
         }
         function.getParameterList().removeAll(Collections.singleton(null));
-        for (Call call : function.callInstructionList)
+        for (CallInst call : function.callInstructionList)
         {
             call.getParameterList().removeAll(Collections.singleton(null));
         }

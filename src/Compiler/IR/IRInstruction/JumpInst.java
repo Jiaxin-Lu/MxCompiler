@@ -4,14 +4,13 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-public class Jump extends IRInstruction
+public class JumpInst extends IRInstruction
 {
     private BasicBlock dstBlock;
-    public Jump(BasicBlock basicBlock, BasicBlock dstBlock)
+    public JumpInst(BasicBlock basicBlock, BasicBlock dstBlock)
     {
         super(basicBlock);
         this.dstBlock = dstBlock;
@@ -59,7 +58,7 @@ public class Jump extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Jump(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+        return new JumpInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 basicBlockMap.getOrDefault(dstBlock, dstBlock));
     }
 

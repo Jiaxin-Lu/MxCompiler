@@ -4,7 +4,6 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,7 +44,7 @@ public class Phi extends IRInstruction
         path.remove(basicBlock);
         if (path.size() == 1)
         {
-            IRInstruction instruction = new Move(currentBlock, path.values().iterator().next(), dst);
+            IRInstruction instruction = new MoveInst(currentBlock, path.values().iterator().next(), dst);
             replaceInst(instruction);
             if (this == currentBlock.headInst) currentBlock.headInst = instruction;
             if (this == currentBlock.tailInst) currentBlock.tailInst = instruction;
@@ -54,7 +53,7 @@ public class Phi extends IRInstruction
 
     public void eliminateSinglePath()
     {
-        IRInstruction instruction = new Move(currentBlock, path.values().iterator().next(), dst);
+        IRInstruction instruction = new MoveInst(currentBlock, path.values().iterator().next(), dst);
         replaceInst(instruction);
         if (this == currentBlock.headInst) currentBlock.headInst = instruction;
         if (this == currentBlock.tailInst) currentBlock.tailInst = instruction;

@@ -38,8 +38,8 @@ public class DeadCodeEliminator extends Pass
 
     private boolean isCritical(IRInstruction inst)
     {
-        return !(inst instanceof Branch || inst instanceof Jump || inst instanceof Move ||
-                inst instanceof Binary || inst instanceof Unary || inst instanceof Cmp || inst instanceof Phi);
+        return !(inst instanceof BranchInst || inst instanceof JumpInst || inst instanceof MoveInst ||
+                inst instanceof BinaryInst || inst instanceof UnaryInst || inst instanceof CmpInst || inst instanceof Phi);
     }
 
     private void mark(Function function)
@@ -93,12 +93,12 @@ public class DeadCodeEliminator extends Pass
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             if (!markList.contains(inst))
             {
-                if (inst instanceof Branch)
+                if (inst instanceof BranchInst)
                 {
                     isChanged = true;
                     basicBlock.removeTailInst();
-                    basicBlock.endThis(new Jump(basicBlock, basicBlock.postIDOM));
-                } else if (!(inst instanceof Jump))
+                    basicBlock.endThis(new JumpInst(basicBlock, basicBlock.postIDOM));
+                } else if (!(inst instanceof JumpInst))
                 {
                     isChanged = true;
                     inst.removeThis();

@@ -1,7 +1,9 @@
 int main()
 {
-int a = getInt();
-if (a == 1 || a == 2 || a == 3)
-print("yes");
+bool a = true;
+bool b = false;
+bool c = a && b;
+if (!c)
+print(yes);
 return 0;
 }

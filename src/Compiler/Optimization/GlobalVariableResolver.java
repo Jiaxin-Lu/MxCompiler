@@ -6,7 +6,6 @@ import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.GlobalVariable;
 import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.Value;
 import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.*;
@@ -44,10 +43,10 @@ public class GlobalVariableResolver
         for (Function function : irRoot.getFunctionMap().values())
         if (function != irRoot.getFunctionMap().get("_init_"))
         {
-            Return ret = function.getReturnList().get(0);
+            ReturnInst ret = function.getReturnList().get(0);
             for (GlobalVariable globalVariable : function.defGlobalVariable)
             {
-                ret.addPrevInst(new Store(ret.getCurrentBlock(), function.usedTempGlobalVariable.get(globalVariable),
+                ret.addPrevInst(new StoreInst(ret.getCurrentBlock(), function.usedTempGlobalVariable.get(globalVariable),
                         globalVariable, true));
             }
         }
@@ -70,8 +69,8 @@ public class GlobalVariableResolver
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
-                if ((inst instanceof Load && ((Load) inst).isForGlobal()) ||
-                        (inst instanceof Store && ((Store) inst).isGlobal()))
+                if ((inst instanceof LoadInst && ((LoadInst) inst).isForGlobal()) ||
+                        (inst instanceof StoreInst && ((StoreInst) inst).isGlobal()))
                     continue;
                 Register defRegister = inst.getDefRegister();
                 List<Register> usedRegister = inst.getUsedRegister();
@@ -98,7 +97,7 @@ public class GlobalVariableResolver
         }
         for (Map.Entry<GlobalVariable, VirtualRegister> entry : function.usedTempGlobalVariable.entrySet())
         {
-            function.getEntryBlock().addInst2Head(new Load(function.getEntryBlock(),
+            function.getEntryBlock().addInst2Head(new LoadInst(function.getEntryBlock(),
                     entry.getKey(), entry.getValue(), true));
         }
     }
@@ -110,14 +109,14 @@ public class GlobalVariableResolver
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
-                if (inst instanceof Call)
+                if (inst instanceof CallInst)
                 {
-                    Function callFunc = ((Call) inst).getFunction();
+                    Function callFunc = ((CallInst) inst).getFunction();
                     for (GlobalVariable defGlobalVariable : function.defGlobalVariable)
                     {
                         if (callFunc.recursiveUsedGlobalVariable.contains(defGlobalVariable))
                         {
-                            inst.addPrevInst(new Store(basicBlock,
+                            inst.addPrevInst(new StoreInst(basicBlock,
                                     function.usedTempGlobalVariable.get(defGlobalVariable), defGlobalVariable, true));
                         }
                     }
@@ -128,7 +127,7 @@ public class GlobalVariableResolver
                         reloadSet.retainAll(usedGlobalVariable);
                         for (GlobalVariable globalVariable : reloadSet)
                         {
-                            inst.addNextInst(new Load(basicBlock,
+                            inst.addNextInst(new LoadInst(basicBlock,
                                     globalVariable, function.usedTempGlobalVariable.get(globalVariable), true));
                         }
                     }

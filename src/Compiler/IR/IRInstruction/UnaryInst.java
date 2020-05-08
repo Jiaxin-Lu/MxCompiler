@@ -9,45 +9,42 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-public class Cmp extends IRInstruction
+
+public class UnaryInst extends IRInstruction
 {
     public enum Op
     {
-        LEQ, REQ, LT, RT, EQ, NEQ
+        NOT, NEG,
+        // Unused
+        INC, DEC, NOTI, POS
     }
+
     private Op op;
-    private Operand lhs, rhs;
+    private Operand src;
     private Operand dst;
 
-    public Cmp(BasicBlock basicBlock, Op op, Operand lhs, Operand rhs, Operand dst)
+    public UnaryInst(BasicBlock basicBlock, Op op, Operand src, Operand dst)
     {
         super(basicBlock);
         this.op = op;
-        this.lhs = lhs;
-        this.rhs = rhs;
+        this.src = src;
         this.dst = dst;
         resolveUsedRegister();
     }
 
-    public Operand getLhs()
+    public Op getOp()
     {
-        return lhs;
+        return op;
     }
 
-    public void setLhs(Operand lhs)
+    public Operand getSrc()
     {
-        this.lhs = lhs;
-        resolveUsedRegister();
+        return src;
     }
 
-    public Operand getRhs()
+    public void setSrc(Operand src)
     {
-        return rhs;
-    }
-
-    public void setRhs(Operand rhs)
-    {
-        this.rhs = rhs;
+        this.src = src;
         resolveUsedRegister();
     }
 
@@ -56,9 +53,9 @@ public class Cmp extends IRInstruction
         return dst;
     }
 
-    public Op getOp()
+    public void setDst(Operand dst)
     {
-        return op;
+        this.dst = dst;
     }
 
     @Override
@@ -70,39 +67,35 @@ public class Cmp extends IRInstruction
     @Override
     public void setDefRegister(Register register)
     {
-        dst = register;
+        this.dst = register;
     }
 
     @Override
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (lhs instanceof Register) usedRegister.add((Register) lhs);
-        if (rhs instanceof Register) usedRegister.add((Register) rhs);
+        if (src instanceof Register) usedRegister.add((Register)src);
     }
 
     @Override
     public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
     {
-        if (lhs == oldOperand) lhs = newOperand;
-        if (rhs == oldOperand) rhs = newOperand;
+        if (src == oldOperand) src = newOperand;
         resolveUsedRegister();
     }
 
     @Override
     public void setUsedRegister(Map<Register, Register> registerMap)
     {
-        if (lhs instanceof Register) lhs = registerMap.get(lhs);
-        if (rhs instanceof Register) rhs = registerMap.get(rhs);
+        if (src instanceof Register) src = registerMap.get(src);
         resolveUsedRegister();
     }
 
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Cmp(basicBlockMap.getOrDefault(currentBlock, currentBlock), op,
-                registerMap.getOrDefault(lhs, lhs), registerMap.getOrDefault(rhs, rhs),
-                registerMap.getOrDefault(dst, dst));
+        return new UnaryInst(basicBlockMap.getOrDefault(currentBlock, currentBlock), op,
+                registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst));
     }
 
     @Override
@@ -114,10 +107,8 @@ public class Cmp extends IRInstruction
     @Override
     public void renameUsedRegisterSSA()
     {
-        if ((lhs instanceof VirtualRegister) && (!(lhs instanceof GlobalVariable)))
-            lhs = ((VirtualRegister) lhs).getSSARegister(((VirtualRegister) lhs).stack.peek());
-        if ((rhs instanceof VirtualRegister) && (!(rhs instanceof GlobalVariable)))
-            rhs = ((VirtualRegister) rhs).getSSARegister(((VirtualRegister) rhs).stack.peek());
+        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable)))
+            src = ((VirtualRegister) src).getSSARegister(((VirtualRegister) src).stack.peek());
         resolveUsedRegister();
     }
 
@@ -135,16 +126,14 @@ public class Cmp extends IRInstruction
 //    {
 //        used.clear();
 //        def.clear();
-//        if ((lhs instanceof VirtualRegister) && (!(lhs instanceof GlobalVariable))) used.add((VirtualRegister) lhs);
-//        if ((rhs instanceof VirtualRegister) && (!(rhs instanceof GlobalVariable))) used.add((VirtualRegister) rhs);
+//        if ((src instanceof VirtualRegister) && (!(src instanceof GlobalVariable))) used.add((VirtualRegister) src);
 //        if ((dst instanceof VirtualRegister) && (!(dst instanceof GlobalVariable))) def.add((VirtualRegister) dst);
 //    }
 //
 //    @Override
 //    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
 //    {
-//        if (lhs == oldReg) lhs = newReg;
-//        if (rhs == oldReg) rhs = newReg;
+//        if (src == oldReg) src = newReg;
 //    }
 //
 //    @Override
@@ -152,12 +141,4 @@ public class Cmp extends IRInstruction
 //    {
 //        if (dst == oldReg) dst = newReg;
 //    }
-
-    //CSE
-    public Operand preDst = null;
-
-    public boolean isCommutative()
-    {
-        return (op == Op.EQ || op == Op.NEQ);
-    }
 }

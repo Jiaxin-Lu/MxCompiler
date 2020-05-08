@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
+import Compiler.RISCV.RVOperand.RVStaticStr;
 
 public class StaticStr extends Memory
 {
@@ -15,6 +16,8 @@ public class StaticStr extends Memory
     {
         return value;
     }
+
+    public RVStaticStr rvStaticStr;
 
     @Override
     public void accept(IRVisitor visitor)

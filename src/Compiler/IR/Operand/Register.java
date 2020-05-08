@@ -1,5 +1,7 @@
 package Compiler.IR.Operand;
 
+import Compiler.RISCV.RVOperand.RVRegister;
+
 public abstract class Register extends Operand
 {
     public Register() {}
@@ -7,4 +9,6 @@ public abstract class Register extends Operand
     {
         super(name);
     }
+
+    public RVRegister rvRegister = null;
 }

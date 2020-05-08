@@ -7,7 +7,7 @@ import Compiler.Utils.Width;
 
 import java.util.Map;
 
-public class Load extends IRInstruction
+public class LoadInst extends IRInstruction
 {
     private Operand src;
     private Operand dst;
@@ -16,7 +16,7 @@ public class Load extends IRInstruction
     private int size;
     private int offset;
 
-    public Load(BasicBlock basicBlock, Operand src, Operand dst)
+    public LoadInst(BasicBlock basicBlock, Operand src, Operand dst)
     {
         super(basicBlock);
         this.src = src;
@@ -27,7 +27,7 @@ public class Load extends IRInstruction
         resolveUsedRegister();
     }
 
-    public Load(BasicBlock basicBlock, Operand src, Operand dst, boolean forGlobal)
+    public LoadInst(BasicBlock basicBlock, Operand src, Operand dst, boolean forGlobal)
     {
         super(basicBlock);
         this.src = src;
@@ -38,7 +38,7 @@ public class Load extends IRInstruction
         resolveUsedRegister();
     }
 
-    public Load(BasicBlock basicBlock, Operand src, Operand dst, int size, int offset)
+    public LoadInst(BasicBlock basicBlock, Operand src, Operand dst, int size, int offset)
     {
         super(basicBlock);
         this.src = src;
@@ -114,7 +114,7 @@ public class Load extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Load(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+        return new LoadInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst), size, offset);
     }
 

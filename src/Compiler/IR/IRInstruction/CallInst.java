@@ -6,12 +6,9 @@ import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.*;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import static Compiler.IR.Operand.PhysicalRegister.*;
-
-public class Call extends IRInstruction
+public class CallInst extends IRInstruction
 {
     private Function function;
     private LinkedList<Operand> parameterList = new LinkedList<>();
@@ -19,14 +16,14 @@ public class Call extends IRInstruction
 
     private Operand pointer;
 
-    public Call(BasicBlock basicBlock, Function function, Operand dst)
+    public CallInst(BasicBlock basicBlock, Function function, Operand dst)
     {
         super(basicBlock);
         this.function = function;
         this.dst = dst;
         resolveUsedRegister();
     }
-    public Call(BasicBlock basicBlock, Function function, Operand dst, LinkedList<Operand> parameterList)
+    public CallInst(BasicBlock basicBlock, Function function, Operand dst, LinkedList<Operand> parameterList)
     {
         super(basicBlock);
         this.function = function;
@@ -69,6 +66,18 @@ public class Call extends IRInstruction
     public void setDst(Operand dst)
     {
         this.dst = dst;
+    }
+
+    private LinkedList<Operand> allParameterList = null;
+
+    public LinkedList<Operand> getAllParameterList()
+    {
+        if (allParameterList != null) return allParameterList;
+        allParameterList = new LinkedList<>();
+        if (pointer != null)
+            allParameterList.add(pointer);
+        allParameterList.addAll(parameterList);
+        return allParameterList;
     }
 
     @Override
@@ -133,7 +142,7 @@ public class Call extends IRInstruction
         {
             newParameterList.add(registerMap.getOrDefault(parameter, parameter));
         }
-        Call call = new Call(basicBlockMap.getOrDefault(currentBlock, currentBlock), function,
+        CallInst call = new CallInst(basicBlockMap.getOrDefault(currentBlock, currentBlock), function,
                 registerMap.getOrDefault(dst, dst), newParameterList);
         call.setPointer(registerMap.getOrDefault(pointer, pointer));
         return call;

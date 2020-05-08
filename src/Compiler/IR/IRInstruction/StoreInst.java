@@ -7,7 +7,7 @@ import Compiler.Utils.Width;
 
 import java.util.Map;
 
-public class Store extends IRInstruction
+public class StoreInst extends IRInstruction
 {
     private Operand src;
     private Operand dst;
@@ -16,7 +16,7 @@ public class Store extends IRInstruction
     private int size;
     private int offset;
 
-    public Store(BasicBlock basicBlock, Operand src, Operand dst)
+    public StoreInst(BasicBlock basicBlock, Operand src, Operand dst)
     {
         super(basicBlock);
         this.src = src;
@@ -27,7 +27,7 @@ public class Store extends IRInstruction
         resolveUsedRegister();
     }
 
-    public Store(BasicBlock basicBlock, Operand src, Operand dst, boolean isGlobal)
+    public StoreInst(BasicBlock basicBlock, Operand src, Operand dst, boolean isGlobal)
     {
         super(basicBlock);
         this.src = src;
@@ -38,7 +38,7 @@ public class Store extends IRInstruction
         resolveUsedRegister();
     }
 
-    public Store(BasicBlock basicBlock, Operand src, Operand dst, int size, int offset)
+    public StoreInst(BasicBlock basicBlock, Operand src, Operand dst, int size, int offset)
     {
         super(basicBlock);
         this.src = src;
@@ -116,7 +116,7 @@ public class Store extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Store(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+        return new StoreInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst), size, offset);
     }
 

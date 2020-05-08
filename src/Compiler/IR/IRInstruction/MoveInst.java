@@ -9,32 +9,17 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-
-public class Unary extends IRInstruction
+public class MoveInst extends IRInstruction
 {
-    public enum Op
-    {
-        NOT, NEG,
-        // Unused
-        INC, DEC, NOTI, POS
-    }
-
-    private Op op;
     private Operand src;
     private Operand dst;
 
-    public Unary(BasicBlock basicBlock, Op op, Operand src, Operand dst)
+    public MoveInst(BasicBlock basicBlock, Operand src, Operand dst)
     {
         super(basicBlock);
-        this.op = op;
         this.src = src;
         this.dst = dst;
         resolveUsedRegister();
-    }
-
-    public Op getOp()
-    {
-        return op;
     }
 
     public Operand getSrc()
@@ -53,11 +38,6 @@ public class Unary extends IRInstruction
         return dst;
     }
 
-    public void setDst(Operand dst)
-    {
-        this.dst = dst;
-    }
-
     @Override
     public Register getDefRegister()
     {
@@ -74,14 +54,7 @@ public class Unary extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (src instanceof Register) usedRegister.add((Register)src);
-    }
-
-    @Override
-    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
-    {
-        if (src == oldOperand) src = newOperand;
-        resolveUsedRegister();
+        if (src instanceof Register) usedRegister.add((Register) src);
     }
 
     @Override
@@ -92,9 +65,16 @@ public class Unary extends IRInstruction
     }
 
     @Override
+    public void replaceUsedRegister(Operand oldOperand, Operand newOperand)
+    {
+        if (src == oldOperand) src = newOperand;
+        resolveUsedRegister();
+    }
+
+    @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Unary(basicBlockMap.getOrDefault(currentBlock, currentBlock), op,
+        return new MoveInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 registerMap.getOrDefault(src, src), registerMap.getOrDefault(dst, dst));
     }
 
@@ -131,14 +111,14 @@ public class Unary extends IRInstruction
 //    }
 //
 //    @Override
-//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
-//    {
-//        if (src == oldReg) src = newReg;
-//    }
-//
-//    @Override
 //    public void replaceDef(VirtualRegister oldReg, VirtualRegister newReg)
 //    {
 //        if (dst == oldReg) dst = newReg;
+//    }
+//
+//    @Override
+//    public void replaceUsed(VirtualRegister oldReg, VirtualRegister newReg)
+//    {
+//        if (src == oldReg) src = newReg;
 //    }
 }

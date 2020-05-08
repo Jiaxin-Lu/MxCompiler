@@ -2,10 +2,10 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.Binary;
-import Compiler.IR.IRInstruction.Cmp;
+import Compiler.IR.IRInstruction.BinaryInst;
+import Compiler.IR.IRInstruction.CmpInst;
 import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.Move;
+import Compiler.IR.IRInstruction.MoveInst;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
@@ -84,42 +84,42 @@ public class CSE extends Pass
         boolean isChanged = false;
         for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
         {
-            if (inst instanceof Binary)
+            if (inst instanceof BinaryInst)
             {
-                HashInst bin = new HashInst(((Binary) inst).getOp().toString(), ((Binary) inst).getLhs(), ((Binary) inst).getRhs());
+                HashInst bin = new HashInst(((BinaryInst) inst).getOp().toString(), ((BinaryInst) inst).getLhs(), ((BinaryInst) inst).getRhs());
                 Operand dst = expressionMap.get(bin);
                 if (dst != null)
                 {
                     isChanged = true;
-                    ((Binary) inst).preDst = dst;
-                    inst.replaceInst(new Move(basicBlock, dst, ((Binary) inst).getDst()));
+                    ((BinaryInst) inst).preDst = dst;
+                    inst.replaceInst(new MoveInst(basicBlock, dst, ((BinaryInst) inst).getDst()));
                 } else
                 {
-                    ((Binary) inst).preDst = null;
-                    expressionMap.put(bin, ((Binary) inst).getDst());
-                    if (((Binary)inst).isCommutative())
+                    ((BinaryInst) inst).preDst = null;
+                    expressionMap.put(bin, ((BinaryInst) inst).getDst());
+                    if (((BinaryInst)inst).isCommutative())
                     {
-                        HashInst bin2 = new HashInst(((Binary) inst).getOp().toString(), ((Binary) inst).getRhs(), ((Binary) inst).getLhs());
-                        expressionMap.put(bin2, ((Binary) inst).getDst());
+                        HashInst bin2 = new HashInst(((BinaryInst) inst).getOp().toString(), ((BinaryInst) inst).getRhs(), ((BinaryInst) inst).getLhs());
+                        expressionMap.put(bin2, ((BinaryInst) inst).getDst());
                     }
                 }
-            } else if (inst instanceof Cmp)
+            } else if (inst instanceof CmpInst)
             {
-                HashInst cmp = new HashInst(((Cmp) inst).getOp().toString(), ((Cmp) inst).getLhs(), ((Cmp) inst).getRhs());
+                HashInst cmp = new HashInst(((CmpInst) inst).getOp().toString(), ((CmpInst) inst).getLhs(), ((CmpInst) inst).getRhs());
                 Operand dst = expressionMap.get(cmp);
                 if (dst != null)
                 {
                     isChanged = true;
-                    ((Cmp) inst).preDst = dst;
-                    inst.replaceInst(new Move(basicBlock, dst, ((Cmp) inst).getDst()));
+                    ((CmpInst) inst).preDst = dst;
+                    inst.replaceInst(new MoveInst(basicBlock, dst, ((CmpInst) inst).getDst()));
                 } else
                 {
-                    ((Cmp) inst).preDst = null;
-                    expressionMap.put(cmp, ((Cmp) inst).getDst());
-                    if (((Cmp) inst).isCommutative())
+                    ((CmpInst) inst).preDst = null;
+                    expressionMap.put(cmp, ((CmpInst) inst).getDst());
+                    if (((CmpInst) inst).isCommutative())
                     {
-                        HashInst cmp2 = new HashInst(((Cmp) inst).getOp().toString(), ((Cmp) inst).getRhs(), ((Cmp) inst).getLhs());
-                        expressionMap.put(cmp2, ((Cmp) inst).getDst());
+                        HashInst cmp2 = new HashInst(((CmpInst) inst).getOp().toString(), ((CmpInst) inst).getRhs(), ((CmpInst) inst).getLhs());
+                        expressionMap.put(cmp2, ((CmpInst) inst).getDst());
                     }
                 }
             }
@@ -131,22 +131,22 @@ public class CSE extends Pass
         }
         for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
         {
-            if (inst instanceof Binary)
+            if (inst instanceof BinaryInst)
             {
-                HashInst bin = new HashInst(((Binary) inst).getOp().toString(), ((Binary) inst).getLhs(), ((Binary) inst).getRhs());
+                HashInst bin = new HashInst(((BinaryInst) inst).getOp().toString(), ((BinaryInst) inst).getLhs(), ((BinaryInst) inst).getRhs());
                 expressionMap.remove(bin);
-                if (((Binary) inst).isCommutative())
+                if (((BinaryInst) inst).isCommutative())
                 {
-                    HashInst bin2 = new HashInst(((Binary) inst).getOp().toString(), ((Binary) inst).getRhs(), ((Binary) inst).getLhs());
+                    HashInst bin2 = new HashInst(((BinaryInst) inst).getOp().toString(), ((BinaryInst) inst).getRhs(), ((BinaryInst) inst).getLhs());
                     expressionMap.remove(bin2);
                 }
-            } else if (inst instanceof Cmp)
+            } else if (inst instanceof CmpInst)
             {
-                HashInst cmp = new HashInst(((Cmp) inst).getOp().toString(), ((Cmp) inst).getLhs(), ((Cmp) inst).getRhs());
+                HashInst cmp = new HashInst(((CmpInst) inst).getOp().toString(), ((CmpInst) inst).getLhs(), ((CmpInst) inst).getRhs());
                 expressionMap.remove(cmp);
-                if (((Cmp) inst).isCommutative())
+                if (((CmpInst) inst).isCommutative())
                 {
-                    HashInst cmp2 = new HashInst(((Cmp) inst).getOp().toString(), ((Cmp) inst).getRhs(), ((Cmp) inst).getLhs());
+                    HashInst cmp2 = new HashInst(((CmpInst) inst).getOp().toString(), ((CmpInst) inst).getRhs(), ((CmpInst) inst).getLhs());
                     expressionMap.remove(cmp2);
                 }
             }

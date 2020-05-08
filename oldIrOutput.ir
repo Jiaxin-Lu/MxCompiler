@@ -1,29 +1,52 @@
-@__str_const_1 = "yes"
+
+void A.Constructor $this {
+%A.Constructor.entry:
+    $_virtual_register = add $this 0
+    store 8 $_virtual_register 0 0
+    ret 
+}
+
+void A.change $this_2 $t {
+%A.change.entry:
+    $_virtual_register_2 = add $this_2 0
+    store 8 $_virtual_register_2 $t 0
+    ret 
+}
+
+void B.Constructor $this_3 {
+%B.Constructor.entry:
+    $_virtual_register_3 = add $this_3 0
+    store 8 $_virtual_register_3 0 0
+    ret 
+}
+
+void B.change $this_4 $t_2 {
+%B.change.entry:
+    $_virtual_register_4 = add $this_4 0
+    store 8 $_virtual_register_4 $t_2 0
+    ret 
+}
 
 func main {
 %main.entry:
-    $_virtual_register = call getInt 
-    $a = move $_virtual_register
-    $_virtual_register_2 = seq $a 1
-    br $_virtual_register_2 %main._if_then %main._lhs_or_else
-%main._if_then:
-    call print @__str_const_1 
-    jump %main._if_merge
-%main._if_merge:
-    $_virtual_register_3 = move 0
-    ret $_virtual_register_3
-%main._lhs_or_else:
-    $_virtual_register_4 = seq $a 2
-    br $_virtual_register_4 %main._if_then %main._lhs_or_else_2
-%main._lhs_or_else_2:
-    $_virtual_register_5 = seq $a 3
-    br $_virtual_register_5 %main._if_then %main._if_merge
+    $_virtual_register_5 = alloc 8
+    call A.Constructor $_virtual_register_5 
+    $a = move $_virtual_register_5
+    call A.change $a 2 
+    $_virtual_register_6 = alloc 8
+    call B.Constructor $_virtual_register_6 
+    $b = move $_virtual_register_6
+    $_virtual_register_7 = add $b 0
+    $_virtual_register_8 = load 8 $_virtual_register_7 0
+    call printInt $_virtual_register_8 
+    $_virtual_register_9 = move 0
+    ret $_virtual_register_9
 }
 
 func _init_ {
 %_init_.entry:
-    $_virtual_register_6 = call main 
-    $_virtual_register_7 = move $_virtual_register_6
-    ret $_virtual_register_7
+    $_virtual_register_10 = call main 
+    $_virtual_register_11 = move $_virtual_register_10
+    ret $_virtual_register_11
 }
 

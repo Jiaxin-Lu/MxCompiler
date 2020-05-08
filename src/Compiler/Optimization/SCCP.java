@@ -111,11 +111,11 @@ public class SCCP extends Pass
             OperandStatus operandStatus = getStatus(inst.getDefRegister());
             if (operandStatus.status == OperandStatus.Status.CONSTANT)
             {
-                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getDefRegister()));
+                inst.replaceInst(new MoveInst(basicBlock, operandStatus.operand, inst.getDefRegister()));
                 isChanged = true;
             } else if (operandStatus.status == OperandStatus.Status.CONSTANTSTR)
             {
-                inst.replaceInst(new Move(basicBlock, operandStatus.operand, inst.getDefRegister()));
+                inst.replaceInst(new MoveInst(basicBlock, operandStatus.operand, inst.getDefRegister()));
                 isChanged = true;
             }
         }
@@ -126,10 +126,10 @@ public class SCCP extends Pass
     {
         for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
         {
-            if (inst instanceof Move)
+            if (inst instanceof MoveInst)
             {
-                Operand src = ((Move) inst).getSrc();
-                Register dst = (Register) ((Move) inst).getDst();
+                Operand src = ((MoveInst) inst).getSrc();
+                Register dst = (Register) ((MoveInst) inst).getDst();
                 if (src instanceof Immediate)
                 {
                     boolean hasPhi = false;
@@ -177,33 +177,33 @@ public class SCCP extends Pass
 
     void evaluateInst(IRInstruction inst)
     {
-        if (inst instanceof Binary)
+        if (inst instanceof BinaryInst)
         {
-            evaluate((Binary) inst);
-        } else if (inst instanceof Cmp)
+            evaluate((BinaryInst) inst);
+        } else if (inst instanceof CmpInst)
         {
-            evaluate((Cmp) inst);
-        } else if (inst instanceof Unary)
+            evaluate((CmpInst) inst);
+        } else if (inst instanceof UnaryInst)
         {
-            evaluate((Unary) inst);
-        } else if (inst instanceof Load)
+            evaluate((UnaryInst) inst);
+        } else if (inst instanceof LoadInst)
         {
-            evaluate((Load) inst);
-        } else if (inst instanceof Alloc)
+            evaluate((LoadInst) inst);
+        } else if (inst instanceof AllocInst)
         {
-            evaluate((Alloc) inst);
-        } else if (inst instanceof Call)
+            evaluate((AllocInst) inst);
+        } else if (inst instanceof CallInst)
         {
-            evaluate((Call) inst);
-        } else if (inst instanceof Branch)
+            evaluate((CallInst) inst);
+        } else if (inst instanceof BranchInst)
         {
-            evaluate((Branch) inst);
+            evaluate((BranchInst) inst);
         } else if (inst instanceof Phi)
         {
             evaluate((Phi) inst);
         }
     }
-    void evaluate(Binary inst)
+    void evaluate(BinaryInst inst)
     {
         Operand lhs = inst.getLhs();
         OperandStatus lhsStatus = getStatus(lhs);
@@ -221,7 +221,7 @@ public class SCCP extends Pass
             markMultiDefined(inst.getDefRegister());
         }
     }
-    void evaluate(Cmp inst)
+    void evaluate(CmpInst inst)
     {
         Operand lhs = inst.getLhs();
         Operand rhs = inst.getRhs();
@@ -237,7 +237,7 @@ public class SCCP extends Pass
             markMultiDefined(inst.getDefRegister());
         }
     }
-    void evaluate(Unary inst)
+    void evaluate(UnaryInst inst)
     {
         Operand src = inst.getSrc();
         OperandStatus srcStatus = getStatus(src);
@@ -253,15 +253,15 @@ public class SCCP extends Pass
             markMultiDefined(inst.getDefRegister());
         }
     }
-    void evaluate(Load inst)
+    void evaluate(LoadInst inst)
     {
         markMultiDefined(inst.getDefRegister());
     }
-    void evaluate(Alloc inst)
+    void evaluate(AllocInst inst)
     {
         markMultiDefined(inst.getDefRegister());
     }
-    void evaluate(Call inst)
+    void evaluate(CallInst inst)
     {
         //DONE : Consider builtin function
         if (inst.getFunction().getBuiltinName() != null)
@@ -392,7 +392,7 @@ public class SCCP extends Pass
         } else if (inst.getDefRegister() != null)
             markMultiDefined(inst.getDefRegister());
     }
-    void evaluate(Branch inst)
+    void evaluate(BranchInst inst)
     {
         if (inst.getCond() == null)
             markUnExecuted(inst.getThenBlock());
@@ -473,10 +473,10 @@ public class SCCP extends Pass
 
     private Immediate foldConstant(IRInstruction inst, Immediate lhs, Immediate rhs)
     {
-        if (inst instanceof Binary)
+        if (inst instanceof BinaryInst)
         {
             int result;
-            switch (((Binary) inst).getOp())
+            switch (((BinaryInst) inst).getOp())
             {
                 case MUL:
                     result = lhs.getImm() * rhs.getImm();
@@ -516,10 +516,10 @@ public class SCCP extends Pass
                     return null;
             }
             return new Immediate(result);
-        } else if (inst instanceof Unary)
+        } else if (inst instanceof UnaryInst)
         {
             int result;
-            switch (((Unary) inst).getOp())
+            switch (((UnaryInst) inst).getOp())
             {
                 case NOT:
                     result = ~lhs.getImm();
@@ -531,10 +531,10 @@ public class SCCP extends Pass
                     return null;
             }
             return new Immediate(result);
-        } else if (inst instanceof Cmp)
+        } else if (inst instanceof CmpInst)
         {
             int result;
-            switch (((Cmp) inst).getOp())
+            switch (((CmpInst) inst).getOp())
             {
                 case LT:
                     result = lhs.getImm() < rhs.getImm() ? 1 : 0;

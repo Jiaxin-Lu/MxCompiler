@@ -2,9 +2,9 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.Branch;
+import Compiler.IR.IRInstruction.BranchInst;
 import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.Jump;
+import Compiler.IR.IRInstruction.JumpInst;
 import Compiler.IR.IRInstruction.Phi;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Immediate;
@@ -50,20 +50,20 @@ public class CFGSimplifier extends Pass
         boolean isChanged = false;
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
-            if (basicBlock.tailInst instanceof Branch)
+            if (basicBlock.tailInst instanceof BranchInst)
             {
-                Branch branch = (Branch) basicBlock.tailInst;
+                BranchInst branch = (BranchInst) basicBlock.tailInst;
                 if (branch.getThenBlock() == branch.getElseBlock())
                 {
                     isChanged = true;
-                    branch.replaceInst(new Jump(basicBlock, branch.getThenBlock()));
+                    branch.replaceInst(new JumpInst(basicBlock, branch.getThenBlock()));
                 } else if (branch.getCond() instanceof Immediate)
                 {
                     isChanged = true;
                     int cond = ((Immediate)branch.getCond()).getImm();
                     BasicBlock target = (cond == 1) ? branch.getThenBlock() : branch.getElseBlock();
                     BasicBlock removed = (cond == 0) ? branch.getThenBlock() : branch.getElseBlock();
-                    branch.replaceInst(new Jump(basicBlock, target));
+                    branch.replaceInst(new JumpInst(basicBlock, target));
                     removed.removePhiUnusedBlock(basicBlock);
                     basicBlock.getSuccessors().remove(removed);
                     removed.getPredecessors().remove(basicBlock);
@@ -122,23 +122,23 @@ public class CFGSimplifier extends Pass
         {
             if (basicBlock != function.getEntryBlock())
             {
-                if (basicBlock.headInst == basicBlock.tailInst && basicBlock.headInst instanceof Jump)
+                if (basicBlock.headInst == basicBlock.tailInst && basicBlock.headInst instanceof JumpInst)
                 {
                     isChanged = true;
-                    BasicBlock target = ((Jump) basicBlock.headInst).getDstBlock();
+                    BasicBlock target = ((JumpInst) basicBlock.headInst).getDstBlock();
                     target.getPredecessors().remove(basicBlock);
                     for (BasicBlock predecessor : basicBlock.getPredecessors())
                     {
                         predecessor.getSuccessors().remove(basicBlock);
                         predecessor.getSuccessors().add(target);
                         target.getPredecessors().add(predecessor);
-                        if (predecessor.tailInst instanceof Jump)
+                        if (predecessor.tailInst instanceof JumpInst)
                         {
-                            ((Jump) predecessor.tailInst).setDstBlock(target);
+                            ((JumpInst) predecessor.tailInst).setDstBlock(target);
                         }
-                        if (predecessor.tailInst instanceof Branch)
+                        if (predecessor.tailInst instanceof BranchInst)
                         {
-                            ((Branch) predecessor.tailInst).replaceTargetBlock(basicBlock, target);
+                            ((BranchInst) predecessor.tailInst).replaceTargetBlock(basicBlock, target);
                         }
                     }
                 }

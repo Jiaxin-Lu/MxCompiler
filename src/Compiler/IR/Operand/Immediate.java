@@ -5,6 +5,7 @@ import Compiler.IR.IRVisitor;
 public class Immediate extends Operand
 {
     private int imm;
+    private boolean isBool = false;
 
     public Immediate(int imm)
     {
@@ -14,6 +15,16 @@ public class Immediate extends Operand
     public int getImm()
     {
         return imm;
+    }
+
+    public void setBool()
+    {
+        isBool = true;
+    }
+
+    public boolean isBool()
+    {
+        return isBool;
     }
 
     @Override

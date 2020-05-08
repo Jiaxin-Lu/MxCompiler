@@ -9,11 +9,11 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-public class Return extends IRInstruction
+public class ReturnInst extends IRInstruction
 {
     private Operand returnValue;
 
-    public Return(BasicBlock basicBlock, Operand returnValue)
+    public ReturnInst(BasicBlock basicBlock, Operand returnValue)
     {
         super(basicBlock);
         this.returnValue = returnValue;
@@ -66,7 +66,7 @@ public class Return extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Return(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+        return new ReturnInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 registerMap.getOrDefault(returnValue, returnValue));
     }
 

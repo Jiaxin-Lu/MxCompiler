@@ -1,7 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.BasicBlock;
-import Compiler.IR.IRInstruction.Move;
+import Compiler.IR.IRInstruction.MoveInst;
 import Compiler.IR.IRVisitor;
 
 import java.util.*;
@@ -98,7 +98,7 @@ public class VirtualRegister extends Register
         this.color = color;
     }
 
-    public Set<Move> moveList = new HashSet<>();
+    public Set<MoveInst> moveList = new HashSet<>();
     public Set<VirtualRegister> adjList = new HashSet<>();
     public int degree;
     public boolean addSpill = false;

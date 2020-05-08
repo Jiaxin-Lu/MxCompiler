@@ -1,10 +1,8 @@
 package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
-import Compiler.IR.Operand.GlobalVariable;
-import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.Value;
-import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IR.Operand.*;
+import Compiler.RISCV.RVFunction;
 
 import java.util.*;
 
@@ -14,7 +12,7 @@ public class Function
     private String builtinName;
     private BasicBlock entryBlock = new BasicBlock(this, "entry");
     private BasicBlock exitBlock = new BasicBlock(this, "exit");
-    private List<Return> returnList = new ArrayList<>();
+    private List<ReturnInst> returnList = new ArrayList<>();
     private List<Register> parameterList = new ArrayList<>();
     private List<BasicBlock> preOrderBlockList = null;
     private List<BasicBlock> postOrderBlockList = null;
@@ -44,7 +42,7 @@ public class Function
         return name;
     }
 
-    public void addReturnList(Return returnInst)
+    public void addReturnList(ReturnInst returnInst)
     {
         returnList.add(returnInst);
     }
@@ -54,7 +52,7 @@ public class Function
         parameterList.add(parameter);
     }
 
-    public List<Return> getReturnList()
+    public List<ReturnInst> getReturnList()
     {
         return returnList;
     }
@@ -196,8 +194,8 @@ public class Function
         {
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
-                if (inst instanceof Call)
-                    callee.add(((Call) inst).getFunction());
+                if (inst instanceof CallInst)
+                    callee.add(((CallInst) inst).getFunction());
             }
         }
     }
@@ -210,7 +208,7 @@ public class Function
 
     // SSA
     public Set<VirtualRegister> globals = new HashSet<>();
-    public List<Call> callInstructionList = new LinkedList<>();
+    public List<CallInst> callInstructionList = new LinkedList<>();
 
     //Unused Function
     public boolean isUnused = false;
@@ -246,6 +244,9 @@ public class Function
 
     //Register Allocation
     public int spillCnt = 0;
+
+    //RVFunction
+    public RVFunction rvFunction;
 
     //TODO : MAYBE A LOT MORE BUT I DON'T KNOW NOW.
 }

@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
+import Compiler.RISCV.RVOperand.RVGlobalVariable;
 
 public class GlobalVariable extends Value
 {
@@ -20,6 +21,8 @@ public class GlobalVariable extends Value
     {
         return isString;
     }
+
+    public RVGlobalVariable rvGlobalVariable;
 
     @Override
     public void accept(IRVisitor visitor)

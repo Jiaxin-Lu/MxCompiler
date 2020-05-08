@@ -9,18 +9,17 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-public class Binary extends IRInstruction
+public class CmpInst extends IRInstruction
 {
     public enum Op
     {
-        MUL, DIV, MOD, ADD, SUB, SHL, SHR, AND, XOR, OR
+        LEQ, REQ, LT, RT, EQ, NEQ
     }
-
     private Op op;
     private Operand lhs, rhs;
     private Operand dst;
 
-    public Binary(BasicBlock basicBlock, Op op, Operand lhs, Operand rhs, Operand dst)
+    public CmpInst(BasicBlock basicBlock, Op op, Operand lhs, Operand rhs, Operand dst)
     {
         super(basicBlock);
         this.op = op;
@@ -28,11 +27,6 @@ public class Binary extends IRInstruction
         this.rhs = rhs;
         this.dst = dst;
         resolveUsedRegister();
-    }
-
-    public Op getOp()
-    {
-        return op;
     }
 
     public Operand getLhs()
@@ -62,9 +56,9 @@ public class Binary extends IRInstruction
         return dst;
     }
 
-    public void setDst(Operand dst)
+    public Op getOp()
     {
-        this.dst = dst;
+        return op;
     }
 
     @Override
@@ -76,7 +70,7 @@ public class Binary extends IRInstruction
     @Override
     public void setDefRegister(Register register)
     {
-        this.dst = register;
+        dst = register;
     }
 
     @Override
@@ -106,7 +100,7 @@ public class Binary extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Binary(basicBlockMap.getOrDefault(currentBlock, currentBlock), op,
+        return new CmpInst(basicBlockMap.getOrDefault(currentBlock, currentBlock), op,
                 registerMap.getOrDefault(lhs, lhs), registerMap.getOrDefault(rhs, rhs),
                 registerMap.getOrDefault(dst, dst));
     }
@@ -164,6 +158,6 @@ public class Binary extends IRInstruction
 
     public boolean isCommutative()
     {
-        return (op == Op.MUL || op == Op.ADD || op == Op.AND || op == Op.OR || op == Op.XOR);
+        return (op == Op.EQ || op == Op.NEQ);
     }
 }

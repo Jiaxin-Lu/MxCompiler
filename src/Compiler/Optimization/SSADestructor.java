@@ -59,8 +59,8 @@ public class SSADestructor extends Pass
                 if (predecessor.getSuccessors().size() > 1)
                 {
                     BasicBlock basicBlockCopy = new BasicBlock(function, "_parallel_copy_");
-                    basicBlockCopy.endThis(new Jump(basicBlockCopy, basicBlock));
-                    ((Branch) predecessor.tailInst).replaceTargetBlock(basicBlock, basicBlockCopy);
+                    basicBlockCopy.endThis(new JumpInst(basicBlockCopy, basicBlock));
+                    ((BranchInst) predecessor.tailInst).replaceTargetBlock(basicBlock, basicBlockCopy);
                     predecessor.getSuccessors().remove(basicBlock);
                     predecessor.getSuccessors().add(basicBlockCopy);
 
@@ -131,14 +131,14 @@ public class SSADestructor extends Pass
                 VirtualRegister b = ready.poll();
                 VirtualRegister a = pred.get(b);
                 VirtualRegister c = loc.get(a);
-                basicBlock.tailInst.addPrevInst(new Move(basicBlock, c, b));
+                basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, c, b));
                 loc.put(a, b);
                 if (a == c && pred.get(a) != null) ready.offer(a);
             }
             VirtualRegister b = todo.poll();
             if (b == loc.get(pred.get(b)))
             {
-                basicBlock.tailInst.addPrevInst(new Move(basicBlock, b, n));
+                basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, b, n));
                 loc.put(b, n);
                 ready.offer(b);
             }
@@ -146,7 +146,7 @@ public class SSADestructor extends Pass
         for (CopiedInst inst : parallelCopy.get(basicBlock))
         if (inst.src instanceof Immediate)
         {
-            basicBlock.tailInst.addPrevInst(new Move(basicBlock, inst.src, inst.dst));
+            basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, inst.src, inst.dst));
         }
     }
 }

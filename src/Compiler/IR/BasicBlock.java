@@ -2,6 +2,7 @@ package Compiler.IR;
 
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.Operand.VirtualRegister;
+import Compiler.RISCV.RVBasicBlock;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -118,16 +119,16 @@ public class BasicBlock
         isEnded = false;
         if (!(tailInst == null))
         {
-            if (tailInst instanceof Branch)
+            if (tailInst instanceof BranchInst)
             {
-                removeSuccessor(((Branch) tailInst).getThenBlock());
-                removeSuccessor(((Branch) tailInst).getElseBlock());
-            } else if (tailInst instanceof Jump)
+                removeSuccessor(((BranchInst) tailInst).getThenBlock());
+                removeSuccessor(((BranchInst) tailInst).getElseBlock());
+            } else if (tailInst instanceof JumpInst)
             {
-                removeSuccessor(((Jump) tailInst).getDstBlock());
-            } else if (tailInst instanceof Return)
+                removeSuccessor(((JumpInst) tailInst).getDstBlock());
+            } else if (tailInst instanceof ReturnInst)
             {
-                function.getReturnList().remove((Return)tailInst);
+                function.getReturnList().remove((ReturnInst)tailInst);
             }
             tailInst = tailInst.getPrevInst();
             if (tailInst != null) tailInst.setNextInst(null);
@@ -139,16 +140,16 @@ public class BasicBlock
     {
         if (isEnded) return;
         addInst2Tail(instruction);
-        if (instruction instanceof Branch)
+        if (instruction instanceof BranchInst)
         {
-            addBasicBlock(((Branch) instruction).getThenBlock());
-            addBasicBlock(((Branch) instruction).getElseBlock());
-        } else if (instruction instanceof Jump)
+            addBasicBlock(((BranchInst) instruction).getThenBlock());
+            addBasicBlock(((BranchInst) instruction).getElseBlock());
+        } else if (instruction instanceof JumpInst)
         {
-            addBasicBlock(((Jump) instruction).getDstBlock());
-        } else if (instruction instanceof Return)
+            addBasicBlock(((JumpInst) instruction).getDstBlock());
+        } else if (instruction instanceof ReturnInst)
         {
-            function.addReturnList((Return) instruction);
+            function.addReturnList((ReturnInst) instruction);
         }
         isEnded = true;
     }
@@ -222,6 +223,8 @@ public class BasicBlock
     public Set<VirtualRegister> def = new HashSet<>();
     public Set<VirtualRegister> liveIn = new HashSet<>();
     public Set<VirtualRegister> liveOut = new HashSet<>();
+
+    public RVBasicBlock rvBasicBlock;
 
     //TODO : A lot more!
 }

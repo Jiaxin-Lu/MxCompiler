@@ -9,13 +9,13 @@ import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Map;
 
-public class Branch extends IRInstruction
+public class BranchInst extends IRInstruction
 {
     private Operand cond;
     private BasicBlock thenBlock;
     private BasicBlock elseBlock;
 
-    public Branch(BasicBlock basicBlock, Operand cond, BasicBlock thenBlock, BasicBlock elseBlock)
+    public BranchInst(BasicBlock basicBlock, Operand cond, BasicBlock thenBlock, BasicBlock elseBlock)
     {
         super(basicBlock);
         this.cond = cond;
@@ -85,7 +85,7 @@ public class Branch extends IRInstruction
     @Override
     public IRInstruction copyInst(Map<BasicBlock, BasicBlock> basicBlockMap, Map<Operand, Operand> registerMap)
     {
-        return new Branch(basicBlockMap.getOrDefault(currentBlock, currentBlock),
+        return new BranchInst(basicBlockMap.getOrDefault(currentBlock, currentBlock),
                 registerMap.getOrDefault(cond, cond),
                 basicBlockMap.getOrDefault(thenBlock, thenBlock), basicBlockMap.getOrDefault(elseBlock, elseBlock));
     }

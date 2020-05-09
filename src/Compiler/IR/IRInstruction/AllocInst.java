@@ -43,7 +43,11 @@ public class AllocInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (size instanceof Register) usedRegister.add((Register) size);
+        if (size instanceof Register)
+        {
+            usedRegister.add((Register) size);
+            ((Register) size).addUsedInst(this);
+        }
     }
 
     @Override

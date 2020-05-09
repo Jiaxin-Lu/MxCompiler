@@ -54,7 +54,11 @@ public class MoveInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (src instanceof Register) usedRegister.add((Register) src);
+        if (src instanceof Register)
+        {
+            usedRegister.add((Register) src);
+            ((Register) src).addUsedInst(this);
+        }
     }
 
     @Override

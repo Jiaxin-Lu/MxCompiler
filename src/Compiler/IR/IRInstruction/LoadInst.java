@@ -90,8 +90,16 @@ public class LoadInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (src instanceof Register) usedRegister.add((Register) src);
-        else if (src instanceof Memory) usedRegister.addAll(((Memory)src).getUsedRegister());
+        if (src instanceof Register)
+        {
+            usedRegister.add((Register) src);
+            ((Register) src).addUsedInst(this);
+        }
+        else if (src instanceof Memory)
+        {
+            usedRegister.addAll(((Memory)src).getUsedRegister());
+            ((Register) ((Memory)src).getUsedRegister()).addUsedInst(this);
+        }
     }
 
     @Override

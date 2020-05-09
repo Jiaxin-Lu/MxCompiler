@@ -323,7 +323,7 @@ public class LLIRInterpreter {
             register.timestamp = 0;
             globalRegisters.put(name, register);
 
-            int size = 8;
+            int size = 4;
             registerWrite(name, heapTop);
             for (int i = 0; i < size; ++i) memory.put(heapTop + i, (byte) 0);
             heapTop += size;

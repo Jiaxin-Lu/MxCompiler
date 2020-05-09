@@ -77,8 +77,16 @@ public class CmpInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (lhs instanceof Register) usedRegister.add((Register) lhs);
-        if (rhs instanceof Register) usedRegister.add((Register) rhs);
+        if (lhs instanceof Register)
+        {
+            usedRegister.add((Register) lhs);
+            ((Register) lhs).addUsedInst(this);
+        }
+        if (rhs instanceof Register)
+        {
+            usedRegister.add((Register) rhs);
+            ((Register) rhs).addUsedInst(this);
+        }
     }
 
     @Override

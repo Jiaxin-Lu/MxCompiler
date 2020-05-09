@@ -184,7 +184,20 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(BranchInst inst)
     {
-
+        if (inst.getCond() == null)
+        {
+            currentBlock.addInst2Tail(new InstJ(currentBlock, inst.getThenBlock().rvBasicBlock));
+        } else {
+            RVInstruction instruction = inst.getRvInstB();
+            if (instruction != null)
+            {
+                instruction.setCurrentBlock(currentBlock);
+                currentBlock.addInst2Tail(instruction);
+            } else {
+                currentBlock.addInst2Tail(new InstB(currentBlock, InstB.Op.bne,
+                        getRegister(inst.getCond()), allRegisters.get("zero"), inst.getThenBlock().rvBasicBlock));
+            }
+        }
     }
 
     @Override
@@ -238,6 +251,12 @@ public class InstructionSelector implements IRVisitor
         switch (inst.getOp())
         {
             case ADD:
+                if (lhs instanceof Immediate && !(rhs instanceof Immediate))
+                {
+                    Operand tmp = lhs;
+                    lhs = rhs;
+                    rhs = tmp;
+                }
                 if (rhs instanceof Immediate)
                 {
                     if (canBeImm(((Immediate) rhs).getImm()))
@@ -248,19 +267,7 @@ public class InstructionSelector implements IRVisitor
                         currentBlock.addInst2Tail(new InstR(currentBlock, opR,
                                 dstRV, getRegister(lhs), getRegister(rhs)));
                     }
-                } else if (lhs instanceof Immediate)
-                {
-                    if (canBeImm(((Immediate) lhs).getImm()))
-                    {
-                        currentBlock.addInst2Tail(new InstI(currentBlock, opI,
-                                dstRV, getRegister(rhs), new RVImmediate(((Immediate) lhs).getImm())));
-                    } else
-                    {
-                        currentBlock.addInst2Tail(new InstR(currentBlock, opR,
-                                dstRV, getRegister(lhs), getRegister(rhs)));
-                    }
-                } else
-                {
+                } else {
                     currentBlock.addInst2Tail(new InstR(currentBlock, opR,
                             dstRV, getRegister(lhs), getRegister(rhs)));
                 }
@@ -286,31 +293,53 @@ public class InstructionSelector implements IRVisitor
             case DIV:
             case MOD:
                 currentBlock.addInst2Tail(new InstR(currentBlock, opR, dstRV, getRegister(lhs), getRegister(rhs)));
-                opR = InstR.Op.rem;
                 break;
             case SHL:
-                opI = InstI.Op.slli;
-                opR = InstR.Op.sll;
-                break;
             case SHR:
-                opI = InstI.Op.srai;
-                opR = InstR.Op.sra;
+                if (rhs instanceof Immediate)
+                {
+                    int rhsImm = ((Immediate) rhs).getImm();
+                    if (canBeSHAMT(rhsImm))
+                    {
+                        currentBlock.addInst2Tail(new InstI(currentBlock, opI,
+                                dstRV, getRegister(lhs), new RVImmediate(rhsImm)));
+                    } else{
+                        currentBlock.addInst2Tail(new InstR(currentBlock, opR,
+                                dstRV, getRegister(lhs), getRegister(rhs)));
+                    }
+                } else {
+                    currentBlock.addInst2Tail(new InstR(currentBlock, opR,
+                            dstRV, getRegister(lhs), getRegister(rhs)));
+                }
                 break;
             case AND:
-                opI = InstI.Op.andi;
-                opR = InstR.Op.and;
-                break;
             case OR:
-                opI = InstI.Op.ori;
-                opR = InstR.Op.or;
-                break;
             case XOR:
-                opI = InstI.Op.xori;
-                opR = InstR.Op.xor;
+                if (lhs instanceof Immediate && !(rhs instanceof Immediate))
+                {
+                    Operand tmp = lhs;
+                    lhs = rhs;
+                    rhs = tmp;
+                }
+                if (rhs instanceof Immediate)
+                {
+                    int rhsImm = ((Immediate) rhs).getImm();
+                    if (canBeImm(rhsImm))
+                    {
+                        currentBlock.addInst2Tail(new InstI(currentBlock, opI,
+                                dstRV, getRegister(lhs), new RVImmediate(rhsImm)));
+                    } else {
+                        currentBlock.addInst2Tail(new InstR(currentBlock, opR,
+                                dstRV, getRegister(lhs), getRegister(rhs)));
+                    }
+                } else
+                {
+                    currentBlock.addInst2Tail(new InstR(currentBlock, opR,
+                            dstRV, getRegister(lhs), getRegister(rhs)));
+                }
                 break;
             default: break;
         }
-
     }
 
     @Override
@@ -374,7 +403,17 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(LoadInst inst)
     {
+        Operand src = inst.getSrc(), dst = inst.getDst();
+        if (src instanceof GlobalVariable)
+        {
 
+        } else if (src instanceof StaticStr)
+        {
+
+        } else
+        {
+            currentBlock.addInst2Tail(new Load(currentBlock, getRegister(dst), getRegister(src), new RVImmediate(0)));
+        }
     }
 
     @Override
@@ -386,7 +425,139 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(CmpInst inst)
     {
+        if (handleCmpWithBranch(inst)) return;
+        Register dst = (Register) inst.getDst();
+        Operand lhs = inst.getLhs(), rhs = inst.getRhs();
+        switch (inst.getOp())
+        {
+            case EQ:
+            case NEQ:
+            {
+                RVRegister dstRV = getRegister(dst);
+                if (lhs instanceof Immediate && ((Immediate) lhs).isNull())
+                {
+                    currentBlock.addInst2Tail(new CMPz(currentBlock,
+                            inst.getOp() == CmpInst.Op.EQ ? CMPz.Op.seqz : CMPz.Op.snez, dstRV, getRegister(rhs)));
+                } else if (rhs instanceof Immediate && ((Immediate) rhs).isNull()) {
+                    currentBlock.addInst2Tail(new CMPz(currentBlock,
+                            inst.getOp() == CmpInst.Op.EQ ? CMPz.Op.seqz : CMPz.Op.snez, dstRV, getRegister(lhs)));
+                } else {
+                    if (lhs instanceof Immediate && !(rhs instanceof Immediate))
+                    {
+                        Operand tmp = lhs;
+                        lhs = rhs;
+                        rhs = tmp;
+                    }
+                    RVVirtualRegister xorRV = (RVVirtualRegister) getRegister(dst);
+                    if (rhs instanceof Immediate)
+                    {
+                        int rhsImm = ((Immediate) rhs).getImm();
+                        if (canBeImm(rhsImm))
+                        {
+                            currentBlock.addInst2Tail(new InstI(currentBlock,
+                                    InstI.Op.xori, xorRV, getRegister(lhs), new RVImmediate(rhsImm)));
+                        } else {
+                            currentBlock.addInst2Tail(new InstR(currentBlock,
+                                    InstR.Op.xor, xorRV, getRegister(lhs), getRegister(rhs)));
+                        }
+                    } else {
+                        currentBlock.addInst2Tail(new InstR(currentBlock,
+                                InstR.Op.xor, xorRV, getRegister(lhs), getRegister(rhs)));
+                    }
+                    currentBlock.addInst2Tail(new CMPz(currentBlock,
+                            inst.getOp() == CmpInst.Op.EQ ? CMPz.Op.seqz : CMPz.Op.snez, dstRV, xorRV));
+                }
+                break;
+            }
+            case LT:
+            case REQ:
+            {
+                RVRegister dstRV = getRegister(dst);
+                if (rhs instanceof Immediate)
+                {
+                    int rhsImm = ((Immediate) rhs).getImm();
+                    if (canBeImm(rhsImm))
+                    {
+                        currentBlock.addInst2Tail(new InstI(currentBlock,
+                                InstI.Op.slti, dstRV, getRegister(lhs), new RVImmediate(rhsImm)));
+                    } else {
+                        currentBlock.addInst2Tail(new InstR(currentBlock,
+                                InstR.Op.slt, dstRV, getRegister(lhs), getRegister(rhs)));
+                    }
+                } else {
+                    currentBlock.addInst2Tail(new InstR(currentBlock,
+                            InstR.Op.slt, dstRV, getRegister(lhs), getRegister(rhs)));
+                }
+                if (inst.getOp() == CmpInst.Op.REQ)
+                {
+                    RVRegister xorRV = getRegister(dst);
+                    currentBlock.addInst2Tail(new InstI(currentBlock,
+                            InstI.Op.xori, xorRV, dstRV, new RVImmediate(1)));
+                }
+                break;
+            }
+            case LEQ:
+            case RT:
+            {
+                RVRegister dstRV = getRegister(dst);
+                if (lhs instanceof Immediate)
+                {
+                    int lhsImm = ((Immediate) lhs).getImm();
+                    if (canBeImm(lhsImm))
+                    {
+                        currentBlock.addInst2Tail(new InstI(currentBlock,
+                                InstI.Op.slti, dstRV, getRegister(rhs), new RVImmediate(lhsImm)));
+                    } else {
+                        currentBlock.addInst2Tail(new InstR(currentBlock,
+                                InstR.Op.slt, dstRV, getRegister(rhs), getRegister(lhs)));
+                    }
+                } else {
+                    currentBlock.addInst2Tail(new InstR(currentBlock,
+                            InstR.Op.slt, dstRV, getRegister(rhs), getRegister(lhs)));
+                }
+                if (inst.getOp() == CmpInst.Op.LEQ)
+                {
+                    RVRegister xorRV = getRegister(dst);
+                    currentBlock.addInst2Tail(new InstI(currentBlock,
+                            InstI.Op.xori, xorRV, dstRV, new RVImmediate(1)));
+                }
+                break;
+            }
+            default: break;
+        }
+    }
 
+    private boolean handleCmpWithBranch(CmpInst inst)
+    {
+        Register reg = (Register) inst.getDst();
+        for (IRInstruction instruction : reg.getUsedInst())
+        {
+            if (!(instruction instanceof BranchInst)) return false;
+        }
+        Operand lhs = inst.getLhs(), rhs = inst.getRhs();
+        InstB.Op op = null;
+        switch (inst.getOp())
+        {
+            case EQ:
+                op = InstB.Op.beq; break;
+            case NEQ:
+                op = InstB.Op.bne; break;
+            case LT:
+                op = InstB.Op.blt; break;
+            case LEQ:
+                op = InstB.Op.ble; break;
+            case REQ:
+                op = InstB.Op.bge; break;
+            case RT:
+                op = InstB.Op.bgt; break;
+            default: break;
+        }
+        for (IRInstruction instruction : reg.getUsedInst())
+        {
+            ((BranchInst) instruction).setRvInstB(new InstB(currentBlock, op, getRegister(lhs), getRegister(rhs),
+                    ((BranchInst) instruction).getThenBlock().rvBasicBlock));
+        }
+        return true;
     }
 
     @Override
@@ -410,7 +581,7 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(JumpInst inst)
     {
-        currentBlock.endThis(new InstJ(currentBlock, inst.getDstBlock().rvBasicBlock));
+        currentBlock.addInst2Tail(new InstJ(currentBlock, inst.getDstBlock().rvBasicBlock));
     }
 
     @Override
@@ -431,7 +602,7 @@ public class InstructionSelector implements IRVisitor
         }
         currentBlock.addInst2Tail(new Move(currentBlock,
                 allRegisters.get("ra"), calleeSavedInFunction[12]));
-        currentBlock.endThis(new InstJr(currentBlock, allRegisters.get("ra")));
+        currentBlock.addInst2Tail(new InstJr(currentBlock, allRegisters.get("ra")));
     }
 
     @Override

@@ -114,6 +114,13 @@ public class RVBasicBlock
             tailInst.setNextInst(instruction);
             tailInst = instruction;
         }
+        if (instruction instanceof InstJ)
+        {
+            addBasicBlock(((InstJ) instruction).getDst());
+        } else if (instruction instanceof InstB)
+        {
+            addBasicBlock(((InstB) instruction).getDst());
+        }
     }
 
     public void removeTailInst()
@@ -132,23 +139,6 @@ public class RVBasicBlock
             if (tailInst != null) tailInst.setNextInst(null);
             else headInst = null;
         }
-    }
-
-    public void endThis(RVInstruction instruction)
-    {
-        if (isEnded) return;
-        addInst2Tail(instruction);
-        if (instruction instanceof InstJ)
-        {
-            addBasicBlock(((InstJ) instruction).getDst());
-        } else if (instruction instanceof InstB)
-        {
-            addBasicBlock(((InstB) instruction).getDst());
-        } else if (instruction instanceof InstJr)
-        {
-            //actually ret
-        }
-        isEnded = true;
     }
 
     public void removeThis()

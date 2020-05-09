@@ -6,6 +6,7 @@ public class Immediate extends Operand
 {
     private int imm;
     private boolean isBool = false;
+    private boolean isNull = false;
 
     public Immediate(int imm)
     {
@@ -25,6 +26,16 @@ public class Immediate extends Operand
     public boolean isBool()
     {
         return isBool;
+    }
+
+    public void setNull()
+    {
+        isNull = true;
+    }
+
+    public boolean isNull()
+    {
+        return isNull;
     }
 
     @Override

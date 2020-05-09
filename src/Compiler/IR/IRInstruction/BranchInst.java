@@ -6,6 +6,8 @@ import Compiler.IR.Operand.GlobalVariable;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
+import Compiler.RISCV.RVInstruction.InstB;
+import Compiler.RISCV.RVInstruction.RVInstruction;
 
 import java.util.Map;
 
@@ -14,6 +16,9 @@ public class BranchInst extends IRInstruction
     private Operand cond;
     private BasicBlock thenBlock;
     private BasicBlock elseBlock;
+
+    //Instruction Selection
+    private InstB rvInstB = null;
 
     public BranchInst(BasicBlock basicBlock, Operand cond, BasicBlock thenBlock, BasicBlock elseBlock)
     {
@@ -51,11 +56,25 @@ public class BranchInst extends IRInstruction
         else this.elseBlock = targetBlock;
     }
 
+    public void setRvInstB(InstB rvInstB)
+    {
+        this.rvInstB = rvInstB;
+    }
+
+    public RVInstruction getRvInstB()
+    {
+        return rvInstB;
+    }
+
     @Override
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (cond instanceof Register) usedRegister.add((Register) cond);
+        if (cond instanceof Register)
+        {
+            usedRegister.add((Register) cond);
+            ((Register) cond).addUsedInst(this);
+        }
     }
 
     @Override

@@ -557,7 +557,9 @@ public class SCCP extends Pass
                 default:
                     return null;
             }
-            return new Immediate(result);
+            Immediate imm = new Immediate(result);
+            imm.setBool();
+            return imm;
         }
         return null;
     }

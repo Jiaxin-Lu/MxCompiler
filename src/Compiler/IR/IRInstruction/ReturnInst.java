@@ -46,7 +46,11 @@ public class ReturnInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (returnValue instanceof Register) usedRegister.add((Register) returnValue);
+        if (returnValue instanceof Register)
+        {
+            usedRegister.add((Register) returnValue);
+            ((Register) returnValue).addUsedInst(this);
+        }
     }
 
     @Override

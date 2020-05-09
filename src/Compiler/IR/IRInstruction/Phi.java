@@ -84,7 +84,11 @@ public class Phi extends IRInstruction
         for (Map.Entry<BasicBlock, Operand> entry : path.entrySet())
         {
             Operand operand = entry.getValue();
-            if (operand instanceof Register) usedRegister.add((Register) operand);
+            if (operand instanceof Register)
+            {
+                usedRegister.add((Register) operand);
+                ((Register) operand).addUsedInst(this);
+            }
         }
     }
 

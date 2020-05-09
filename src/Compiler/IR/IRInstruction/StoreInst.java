@@ -89,9 +89,20 @@ public class StoreInst extends IRInstruction
     public void resolveUsedRegister()
     {
         usedRegister.clear();
-        if (src instanceof Register) usedRegister.add((Register) src);
-        if (dst instanceof Register) usedRegister.add((Register) dst);
-        else if (dst instanceof Memory) usedRegister.addAll(((Memory)dst).getUsedRegister());
+        if (src instanceof Register)
+        {
+            usedRegister.add((Register) src);
+            ((Register) src).addUsedInst(this);
+        }
+        if (dst instanceof Register)
+        {
+            usedRegister.add((Register) dst);
+            ((Register) dst).addUsedInst(this);
+        }
+        else if (dst instanceof Memory) {
+            usedRegister.addAll(((Memory)dst).getUsedRegister());
+            ((Register) ((Memory) dst).getUsedRegister()).addUsedInst(this);
+        }
     }
 
     @Override

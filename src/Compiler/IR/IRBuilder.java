@@ -818,7 +818,9 @@ public class IRBuilder implements ASTVisitor
     @Override
     public void visit(NullConstNode node) throws SemanticError
     {
-        node.setResultOperand(new Immediate(0));
+        Immediate imm = new Immediate(0);
+        imm.setNull();
+        node.setResultOperand(imm);
     }
 
     @Override

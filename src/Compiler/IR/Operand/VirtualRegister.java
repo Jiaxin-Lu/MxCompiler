@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.BasicBlock;
+import Compiler.IR.IRInstruction.IRInstruction;
 import Compiler.IR.IRInstruction.MoveInst;
 import Compiler.IR.IRVisitor;
 

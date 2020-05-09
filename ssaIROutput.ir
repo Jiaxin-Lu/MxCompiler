@@ -1,41 +1,52 @@
-
-void A.Constructor $this {
-%A.Constructor.entry:
-    $_virtual_register = add $this 0
-    store 8 $_virtual_register 0 0
-    ret 
-}
-
-void A.change $this_2 $t {
-%A.change.entry:
-    $_virtual_register_2 = add $this_2 0
-    store 8 $_virtual_register_2 $t 0
-    ret 
-}
-
-void B.Constructor $this_3 {
-%B.Constructor.entry:
-    $_virtual_register_3 = add $this_3 0
-    store 8 $_virtual_register_3 0 0
-    ret 
-}
+@a
+@b
 
 func main {
 %main.entry:
-    $_virtual_register_4 = alloc 8
-    call A.Constructor $_virtual_register_4 
-    call A.change $_virtual_register_4 2 
-    $_virtual_register_5 = alloc 8
-    call B.Constructor $_virtual_register_5 
-    $_virtual_register_6 = add $_virtual_register_5 0
-    $_virtual_register_7 = load 8 $_virtual_register_6 0
-    call printInt $_virtual_register_7 
+    $a_2 = load 4 @a 0
+    $b_2 = load 4 @b 0
+    $_virtual_register = add 8 $b_2
+    store 4 $_virtual_register 1 0
+    $_virtual_register_2 = add 4 $a_2
+    $_virtual_register_3 = load 4 $_virtual_register_2 0
+    $_virtual_register_4 = add 8 $_virtual_register_3
+    $_virtual_register_5 = load 4 $_virtual_register 0
+    store 4 $_virtual_register_4 $_virtual_register_5 0
+    $_virtual_register_6 = load 4 $_virtual_register_2 0
+    $_virtual_register_7 = add 8 $_virtual_register_6
+    $_virtual_register_8 = load 4 $_virtual_register_7 0
+    call printInt $_virtual_register_8 
     ret 0
 }
 
 func _init_ {
 %_init_.entry:
-    $_virtual_register_8 = call main 
-    ret $_virtual_register_8
+    $a_3 = load 4 @a 0
+    $b_3 = load 4 @b 0
+    $_virtual_register_9 = alloc 44
+    store 4 $_virtual_register_9 10 0
+    $_virtual_register_10 = add $_virtual_register_9 4
+    $_virtual_register_11 = add $_virtual_register_9 44
+    jump %_init_._array_loop_cond
+%_init_._array_loop_cond:
+    $_virtual_register_12 = phi _init_.entry $_virtual_register_10 _init_._array_loop_step $_virtual_register_13 
+    $_virtual_register_14 = slt $_virtual_register_12 $_virtual_register_11
+    br $_virtual_register_14 %_init_._array_loop_body %_init_._array_loop_merge
+%_init_._array_loop_body:
+    $_virtual_register_15 = alloc 44
+    store 4 $_virtual_register_15 10 0
+    store 4 $_virtual_register_12 $_virtual_register_15 0
+    jump %_init_._array_loop_step
+%_init_._array_loop_step:
+    $_virtual_register_16 = add $_virtual_register_12 4
+    $_virtual_register_13 = move $_virtual_register_16
+    jump %_init_._array_loop_cond
+%_init_._array_loop_merge:
+    $_virtual_register_17 = alloc 44
+    store 4 $_virtual_register_17 10 0
+    store 4 @b $_virtual_register_17 0
+    store 4 @a $_virtual_register_9 0
+    $_virtual_register_18 = call main 
+    ret $_virtual_register_18
 }
 

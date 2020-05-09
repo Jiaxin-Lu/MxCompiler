@@ -101,9 +101,17 @@ public class CallInst extends IRInstruction
         usedRegister.clear();
         for (Operand parameter : parameterList)
         {
-            if (parameter instanceof Register) usedRegister.add((Register) parameter);
+            if (parameter instanceof Register)
+            {
+                usedRegister.add((Register) parameter);
+                ((Register) parameter).addUsedInst(this);
+            }
         }
-        if (pointer instanceof Register) usedRegister.add((Register) pointer);
+        if (pointer instanceof Register)
+        {
+            usedRegister.add((Register) pointer);
+            ((Register) pointer).addUsedInst(this);
+        }
     }
 
     @Override

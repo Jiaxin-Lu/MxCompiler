@@ -1,9 +1,10 @@
+int[][] a= new int[10][10];
+int[] b = new int[10];
+
 int main()
 {
-bool a = true;
-bool b = false;
-bool c = a && b;
-if (!c)
-print(yes);
+b[1] = 1;
+a[0][1] = b[1];
+printInt(a[0][1]);
 return 0;
 }

@@ -485,6 +485,7 @@ public class RegisterAllocator
                 inst.calcDefUse();
                 for (RVRegister use : inst.used)
                 {
+                    //TODO : some move can be optimized!
                     if (use.spillAddr != null)
                     {
                         RVRegister spill = function.addRegister("spill_" + use.getName());

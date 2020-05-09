@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/InstructionSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/InstructionSelector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVRegister.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,14 +122,7 @@
       <workItem from="1587716736390" duration="633000" />
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
-      <workItem from="1588674991699" duration="94733000" />
-    </task>
-    <task id="LOCAL-00042" summary="Starting CSE.">
-      <created>1586886960206</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1586886960207</updated>
+      <workItem from="1588674991699" duration="94801000" />
     </task>
     <task id="LOCAL-00043" summary="Starting UnusedFunctionEliminator.">
       <created>1586889326716</created>
@@ -471,7 +460,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589052582731</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="on RegisterAllocator...">
+      <created>1589058305506</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1589058305507</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +488,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fix bugs in GlobalVariableResolver." />
     <MESSAGE value="fixing bugs..." />
     <MESSAGE value="Process registers in Binary." />
     <MESSAGE value="add PhysicalRegister." />
@@ -517,7 +512,8 @@
     <MESSAGE value="on InstructionSelector..." />
     <MESSAGE value="on InstructionSelector...." />
     <MESSAGE value="on InstructionSelector....." />
-    <option name="LAST_COMMIT_MESSAGE" value="on InstructionSelector....." />
+    <MESSAGE value="on RegisterAllocator..." />
+    <option name="LAST_COMMIT_MESSAGE" value="on RegisterAllocator..." />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -556,10 +552,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589052580530">
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589058304349">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589052580530" />
+    <state x="312" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589058304349" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

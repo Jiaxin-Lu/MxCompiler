@@ -34,7 +34,7 @@ public abstract class RVRegister extends RVOperand
     public Set<Move> moveList = new HashSet<>();
     public Set<RVRegister> adjList = new HashSet<>();
     public int degree;
-    public boolean addSpill = false;
+    public boolean addForSpill = false;
 
     public void clearAllocInfo()
     {

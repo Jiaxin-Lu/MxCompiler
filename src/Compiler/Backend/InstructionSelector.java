@@ -123,6 +123,17 @@ public class InstructionSelector implements IRVisitor
         {
             function.accept(this);
         }
+        for (RVFunction function : rvRoot.getFunctionMap().values())
+        {
+            if (function.getName().equals("main"))
+            {
+                function.setName("_main");
+            }
+            if (function.getName().equals("_init_"))
+            {
+                function.setName("main");
+            }
+        }
     }
 
     @Override
@@ -160,7 +171,7 @@ public class InstructionSelector implements IRVisitor
         for (int i = 8; i < parameterList.size(); ++ i)
         {
             currentBlock.addInst2Tail(new Load(currentBlock,
-                    getRegister(parameterList.get(i)), new StackData((i-8) * 4, 2)));
+                    getRegister(parameterList.get(i)), new StackData((i-8) * Width.regWidth, 2)));
         }
 
         //block
@@ -385,7 +396,7 @@ public class InstructionSelector implements IRVisitor
         List<StackData> stackSlot = new ArrayList<>();
         for (int i = 8; i < parameterList.size(); ++i)
         {
-            StackData stackData = new StackData((i-8) * Width.regWidth);
+            StackData stackData = new StackData((i-8) * Width.regWidth, 0);
             currentBlock.addInst2Tail(new Store(currentBlock,
                     getRegister(parameterList.get(i)), stackData));
             stackSlot.add(stackData);

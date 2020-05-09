@@ -2,11 +2,12 @@ package Compiler.Backend;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVFunction;
-import Compiler.RISCV.RVInstruction.Move;
-import Compiler.RISCV.RVInstruction.RVInstruction;
+import Compiler.RISCV.RVInstruction.*;
 import Compiler.RISCV.RVOperand.RVPhysicalRegister;
 import Compiler.RISCV.RVOperand.RVRegister;
+import Compiler.RISCV.RVOperand.StackData;
 import Compiler.RISCV.RVRoot;
+import Compiler.Utils.Width;
 
 import java.util.*;
 
@@ -62,6 +63,8 @@ public class RegisterAllocator
     private Set<Move> frozenMoves = new HashSet<>();
 
     private Set<Edge> adjSet = new HashSet<>();
+
+    private static final int MAX_DEG = 0x3f3f3f3f;
 
     public RegisterAllocator(RVRoot rvRoot)
     {
@@ -131,6 +134,7 @@ public class RegisterAllocator
                 isChanged = true;
                 rewriteProgram(function);
             }
+            allocateStackSlot(function);
         }
     }
 
@@ -152,7 +156,7 @@ public class RegisterAllocator
         for (RVRegister virtualRegister : preColored)
         {
             virtualRegister.clearAllocInfo();
-            virtualRegister.degree = 0x3f3f3f3f;
+            virtualRegister.degree = MAX_DEG;
         }
         for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
@@ -172,16 +176,21 @@ public class RegisterAllocator
                     }
                     workListMoves.add((Move) inst);
                 }
-                live.addAll(inst.def);
+                Set<RVRegister> defs = new HashSet<>(inst.def);
+                if (inst instanceof Call)
+                {
+                    defs.addAll(callerSaveRegisters.values());
+                }
+                live.addAll(defs);
                 // TODO : should we add zero?
-                for (RVRegister def : inst.def)
+                for (RVRegister def : defs)
                 {
                     for (RVRegister l : live)
                     {
                         addEdge(def, l);
                     }
                 }
-                live.removeAll(inst.def);
+                live.removeAll(defs);
                 live.addAll(inst.used);
             }
         }
@@ -414,13 +423,13 @@ public class RegisterAllocator
     {
         Iterator<RVRegister> iterator = spillWorkList.iterator();
         RVRegister m = iterator.next();
-        while (m.addSpill && iterator.hasNext()) m = iterator.next();
+        while (m.addForSpill && iterator.hasNext()) m = iterator.next();
         iterator = spillWorkList.iterator();
         RVRegister reg;
         while (iterator.hasNext())
         {
             reg = iterator.next();
-            if (!reg.addSpill && reg.spillPriority < m.spillPriority)
+            if (!reg.addForSpill && reg.spillPriority < m.spillPriority)
                 m = reg;
         }
 
@@ -463,62 +472,80 @@ public class RegisterAllocator
     private void rewriteProgram(RVFunction function)
     {
         //TODO
-//        for (RVRegister v : spilledNodes)
-//        {
-//            v.spillAddr = new StackData(vrbp, null,
-//                    new Immediate(0), new Immediate(-(++function.spillCnt)*8));
-//        }
-//        for (RVRegister v : coalescedNodes)
-//        {
-//            getAlias(v);
-//        }
-//        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
-//        {
-//            for (RVInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
-//            {
-//                for (RVRegister use : inst.used)
-//                    if (use.spillAddr != null)
-//                    {
-//                        if (inst.def.contains(use))
-//                        {
-//                            Value tmp = new Value("_spill_");
-//                            tmp.addSpill = true;
-//                            inst.addPrevInst(new Load(basicBlock, use.spillAddr, tmp));
-//                            inst.addNextInst(new Store(basicBlock, tmp, use.spillAddr));
-//                            inst.replaceUsed(use, tmp);
-//                            inst.replaceDef(use, tmp);
-//                        } else if (inst instanceof Move &&
-//                                ((Move) inst).getSrc() == use &&
-//                                ((RVRegister) ((Move) inst).getDst()).spillAddr == null)
-//                        {
-//                            inst.replaceInst(new Load(basicBlock, use.spillAddr, ((Move) inst).getDst()));
-//                        } else
-//                        {
-//                            Value tmp = new Value("_spill_");
-//                            tmp.addSpill = true;
-//                            inst.addPrevInst(new Load(basicBlock, use.spillAddr, tmp));
-//                            inst.replaceUsed(use, tmp);
-//                        }
-//                    }
-//                for (RVRegister def : inst.def)
-//                    if (inst.used.contains(def))
-//                    {
-//                        if (inst instanceof Move)
-//                        {
-//                            if (((Move) inst).getSrc() instanceof RVRegister &&
-//                            ((RVRegister) ((Move) inst).getSrc()).spillAddr == null)
-//                            {
-//                                inst.replaceInst(new Store(basicBlock, ((Move) inst).getSrc(), def.spillAddr));
-//                                continue;
-//                            }
-//                        }
-//                        Value tmp = new Value("_spill_");
-//                        tmp.addSpill = true;
-//                        inst.addNextInst(new Store(basicBlock, tmp, def.spillAddr));
-//                        inst.replaceDef(def, tmp);
-//                    }
-//                inst.calcDefUse();
-//            }
-//        }
+        for (RVRegister reg : spilledNodes)
+        {
+            StackData stackData = new StackData();
+            reg.spillAddr = stackData;
+            function.addSpillStackSlot(stackData);
+        }
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            for (RVInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            {
+                inst.calcDefUse();
+                for (RVRegister use : inst.used)
+                {
+                    if (use.spillAddr != null)
+                    {
+                        RVRegister spill = function.addRegister("spill_" + use.getName());
+                        spill.addForSpill = true;
+                        inst.addPrevInst(new Load(basicBlock, spill, use.spillAddr));
+                        inst.replaceUsed(use, spill);
+                    }
+                }
+                for (RVRegister def : inst.def)
+                {
+                    if (def.spillAddr != null)
+                    {
+                        RVRegister spill = function.addRegister("spill_" + def.getName());
+                        spill.addForSpill = true;
+                        inst.addNextInst(new Store(basicBlock, spill, def.spillAddr));
+                        inst.replaceDef(def, spill);
+                    }
+                }
+            }
+        }
+    }
+    private void allocateStackSlot(RVFunction function)
+    {
+        int size = function.stackSlotAlloc();
+        int cnt = 1;
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            for (RVInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            {
+                if (inst instanceof Load)
+                {
+                    StackData stackData = ((Load) inst).getStackSrc();
+                    if (stackData != null)
+                    {
+                        if (stackData.getType() == 1)
+                        {
+                            stackData.addIndex((size - cnt) * Width.regWidth);
+                            ++cnt;
+                        } else if (stackData.getType() == 2)
+                        {
+                            stackData.addIndex(size);
+                        }
+                    }
+
+                } else if (inst instanceof Store)
+                {
+                    StackData stackData = ((Store) inst).getStackDst();
+                    if (stackData != null)
+                    {
+                        if (stackData.getType() == 1)
+                        {
+                            stackData.addIndex((size - cnt) * Width.regWidth);
+                            ++cnt;
+                        } else if (stackData.getType() == 2)
+                        {
+                            stackData.addIndex(size);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

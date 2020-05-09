@@ -4,6 +4,8 @@ import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVOperand.*;
 import Compiler.RISCV.RVVisitor;
 
+import java.util.Stack;
+
 public class Store extends RVInstruction
 {
     private RVRegister rd;
@@ -40,6 +42,13 @@ public class Store extends RVInstruction
     public RVImmediate getImm()
     {
         return imm;
+    }
+
+    public StackData getStackDst()
+    {
+        if (dst instanceof StackData)
+            return (StackData) dst;
+        else return null;
     }
 
     @Override

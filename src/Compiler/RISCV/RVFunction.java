@@ -33,6 +33,11 @@ public class RVFunction
         return name;
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
     public void addParameterList(RVRegister parameter)
     {
         parameterList.add(parameter);

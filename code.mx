@@ -1,10 +1,8 @@
-int[][] a= new int[10][10];
-int[] b = new int[10];
+int[] a = new int[10];
 
 int main()
 {
-b[1] = 1;
-a[0][1] = b[1];
-printInt(a[0][1]);
+a[0] = 1;
+printInt(a[0]);
 return 0;
 }

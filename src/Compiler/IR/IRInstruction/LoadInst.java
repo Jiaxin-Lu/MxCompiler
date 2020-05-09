@@ -74,6 +74,11 @@ public class LoadInst extends IRInstruction
         return offset;
     }
 
+    public void setGlobalPtr(Pointer globalPtr)
+    {
+        this.src = globalPtr;
+    }
+
     @Override
     public Register getDefRegister()
     {

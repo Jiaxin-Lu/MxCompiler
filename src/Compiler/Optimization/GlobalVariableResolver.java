@@ -4,9 +4,8 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
-import Compiler.IR.Operand.GlobalVariable;
-import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IR.Operand.*;
+import Compiler.Utils.Width;
 
 import java.util.*;
 
@@ -52,6 +51,32 @@ public class GlobalVariableResolver
         }
     }
 
+    public void allocGlobalVariable()
+    {
+        Function initFunction = irRoot.getFunctionMap().get("_init_");
+        BasicBlock entryInit = initFunction.getEntryBlock();
+        for (GlobalVariable globalVariable : irRoot.getGlobalVariableList())
+        {
+            entryInit.addInst2Head(new AllocInst(entryInit, new Immediate(Width.regWidth), globalVariable));
+        }
+//        for (Function function : irRoot.getFunctionMap().values())
+//        {
+//            for (BasicBlock basicBlock : function.getPreOrderBlockList())
+//            {
+//                for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+//                {
+//                    if (inst instanceof LoadInst && ((LoadInst) inst).isForGlobal())
+//                    {
+//                        ((LoadInst) inst).setGlobalPtr(((GlobalVariable) ((LoadInst) inst).getSrc()).getGlobalPtr());
+//                    } else if (inst instanceof StoreInst && ((StoreInst) inst).isForGlobal())
+//                    {
+//                        ((StoreInst) inst).setGlobalPtr(((GlobalVariable) ((StoreInst) inst).getDst()).getGlobalPtr());
+//                    }
+//                }
+//            }
+//        }
+    }
+
     private VirtualRegister getTempGlobalVariable(GlobalVariable register, Map<GlobalVariable, VirtualRegister> usedTempGlobalVariable)
     {
         VirtualRegister tempGlobal = usedTempGlobalVariable.get(register);
@@ -70,7 +95,7 @@ public class GlobalVariableResolver
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             {
                 if ((inst instanceof LoadInst && ((LoadInst) inst).isForGlobal()) ||
-                        (inst instanceof StoreInst && ((StoreInst) inst).isGlobal()))
+                        (inst instanceof StoreInst && ((StoreInst) inst).isForGlobal()))
                     continue;
                 Register defRegister = inst.getDefRegister();
                 List<Register> usedRegister = inst.getUsedRegister();

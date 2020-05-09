@@ -75,7 +75,9 @@ public class Main
 
             optimize(irRoot);
 
+            globalVariableResolver.allocGlobalVariable();
             printIR(irRoot, "irOutput.ir", true);
+//            printIR(irRoot, "globalOutput.ir", true);
 
         } catch (Exception exception)
         {

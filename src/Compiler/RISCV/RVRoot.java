@@ -1,6 +1,7 @@
 package Compiler.RISCV;
 
 
+import Compiler.IR.Function;
 import Compiler.RISCV.RVOperand.RVGlobalVariable;
 import Compiler.RISCV.RVOperand.RVStaticStr;
 
@@ -14,6 +15,8 @@ public class RVRoot
     private Map<String, RVFunction> functionMap = new LinkedHashMap<>();
     private List<RVGlobalVariable> globalVariableList = new ArrayList<>();
     private List<RVStaticStr> staticStrList = new ArrayList<>();
+
+    public RVFunction rvMalloc = new RVFunction("malloc");
 
     public RVRoot()
     {

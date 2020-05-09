@@ -22,6 +22,18 @@ public class GlobalVariable extends Value
         return isString;
     }
 
+    private Pointer globalPtr = null;
+
+    public void setGlobalPtr(Pointer globalPtr)
+    {
+        this.globalPtr = globalPtr;
+    }
+
+    public Pointer getGlobalPtr()
+    {
+        return globalPtr;
+    }
+
     public RVGlobalVariable rvGlobalVariable;
 
     @Override

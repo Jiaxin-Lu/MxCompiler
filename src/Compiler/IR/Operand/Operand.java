@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.IR.IRVisitor;
+import Compiler.RISCV.RVOperand.RVRegister;
 
 public abstract class Operand
 {

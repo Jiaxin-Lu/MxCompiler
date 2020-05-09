@@ -11,7 +11,7 @@ public class StoreInst extends IRInstruction
 {
     private Operand src;
     private Operand dst;
-    private boolean isGlobal;
+    private boolean forGlobal;
 
     private int size;
     private int offset;
@@ -21,18 +21,18 @@ public class StoreInst extends IRInstruction
         super(basicBlock);
         this.src = src;
         this.dst = dst;
-        this.isGlobal = false;
+        this.forGlobal = false;
         this.size = Width.regWidth;
         this.offset = 0;
         resolveUsedRegister();
     }
 
-    public StoreInst(BasicBlock basicBlock, Operand src, Operand dst, boolean isGlobal)
+    public StoreInst(BasicBlock basicBlock, Operand src, Operand dst, boolean forGlobal)
     {
         super(basicBlock);
         this.src = src;
         this.dst = dst;
-        this.isGlobal = isGlobal;
+        this.forGlobal = forGlobal;
         this.size = Width.regWidth;
         this.offset = 0;
         resolveUsedRegister();
@@ -45,7 +45,7 @@ public class StoreInst extends IRInstruction
         this.dst = dst;
         this.size = size;
         this.offset = offset;
-        this.isGlobal = false;
+        this.forGlobal = false;
         resolveUsedRegister();
     }
 
@@ -59,9 +59,14 @@ public class StoreInst extends IRInstruction
         return dst;
     }
 
-    public boolean isGlobal()
+    public boolean isForGlobal()
     {
-        return isGlobal;
+        return forGlobal;
+    }
+
+    public void setGlobalPtr(Pointer globalPtr)
+    {
+        this.dst = globalPtr;
     }
 
     public int getSize()

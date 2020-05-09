@@ -1,5 +1,6 @@
 package Compiler.Backend;
 
+import Compiler.AST.BinaryExprNode;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.*;
@@ -14,6 +15,7 @@ import Compiler.RISCV.*;
 import Compiler.RISCV.RVInstruction.*;
 import Compiler.RISCV.RVOperand.*;
 import Compiler.RISCV.RVOperand.StackData;
+import Compiler.Utils.Width;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -86,6 +88,7 @@ public class InstructionSelector implements IRVisitor
             }
         } else if (operand instanceof Memory) //static Str
         {
+            assert false;
             RVRegister reg = ((Memory) operand).getBase().rvRegister;
             if (reg != null) return reg;
             reg = currentFunction.addRegister(operand.getName());
@@ -178,7 +181,11 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(AllocInst inst)
     {
-        //do nothing
+        //call malloc
+        currentBlock.addInst2Tail(new Move(currentBlock, getRegister(inst.getSize()), allRegisters.get("a0")));
+        currentBlock.addInst2Tail(new Call(currentBlock, rvRoot.rvMalloc, 1));
+        if (inst.getDst() != null)
+            currentBlock.addInst2Tail(new Move(currentBlock, allRegisters.get("a0"), getRegister(inst.getDst())));
     }
 
     @Override
@@ -378,7 +385,7 @@ public class InstructionSelector implements IRVisitor
         List<StackData> stackSlot = new ArrayList<>();
         for (int i = 8; i < parameterList.size(); ++i)
         {
-            StackData stackData = new StackData((i-8) * 4);
+            StackData stackData = new StackData((i-8) * Width.regWidth);
             currentBlock.addInst2Tail(new Store(currentBlock,
                     getRegister(parameterList.get(i)), stackData));
             stackSlot.add(stackData);
@@ -406,10 +413,12 @@ public class InstructionSelector implements IRVisitor
         Operand src = inst.getSrc(), dst = inst.getDst();
         if (src instanceof GlobalVariable)
         {
-
+            //dst = load global
+            currentBlock.addInst2Tail(new Load(currentBlock, getRegister(dst), getRegister(src), new RVImmediate(0)));
         } else if (src instanceof StaticStr)
         {
-
+            assert false;
+            //shouldn't happen
         } else
         {
             currentBlock.addInst2Tail(new Load(currentBlock, getRegister(dst), getRegister(src), new RVImmediate(0)));
@@ -419,7 +428,17 @@ public class InstructionSelector implements IRVisitor
     @Override
     public void visit(StoreInst inst)
     {
-
+        Operand src = inst.getSrc(), dst = inst.getDst();
+        if (dst instanceof GlobalVariable)
+        {
+            currentBlock.addInst2Tail(new Store(currentBlock, getRegister(src), getRegister(dst), new RVImmediate(0)));
+        } else if (dst instanceof StaticStr)
+        {
+            assert false;
+            //shouldn't happen
+        } else {
+            currentBlock.addInst2Tail(new Store(currentBlock, getRegister(src), getRegister(dst), new RVImmediate(0)));
+        }
     }
 
     @Override

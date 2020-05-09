@@ -13,8 +13,8 @@ public interface RVVisitor
     void visit(RVBasicBlock basicBlock);
 
     void visit(RVOperand operand);
-    void visit(RVGlobalVariable RVGlobalVariable);
-    void visit(RVStaticStr RVStaticStr);
+    void visit(RVGlobalVariable rvGlobalVariable);
+    void visit(RVStaticStr rvStaticStr);
 
     void visit(Call inst);
     void visit(CMPz inst);
@@ -22,6 +22,7 @@ public interface RVVisitor
     void visit(InstI inst);
     void visit(InstJ inst);
     void visit(InstJr inst);
+    void visit(InstLa inst);
     void visit(InstLi inst);
     void visit(InstLui inst);
     void visit(InstR inst);

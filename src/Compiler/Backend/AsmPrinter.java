@@ -88,23 +88,25 @@ public class AsmPrinter implements RVVisitor
     }
 
     @Override
-    public void visit(RVGlobalVariable RVGlobalVariable)
+    public void visit(RVGlobalVariable rvGlobalVariable)
     {
-        output.println(indent + ".globl\t" + RVGlobalVariable);
-        output.println(indent + ".p2align\t2");
-        output.println(RVGlobalVariable + ":");
-        if (RVGlobalVariable.getValue() != null)
-            output.println(indent + ".word\t" + RVGlobalVariable.getValue());
-        else output.println(indent + ".word\t0");
+        output.println(indent + ".globl\t" + rvGlobalVariable);
+        output.println(rvGlobalVariable + ":");
+        output.println(".zero\t4");
+//        output.println(indent + ".p2align\t2");
+//        output.println(RVGlobalVariable + ":");
+//        if (RVGlobalVariable.getValue() != null)
+//            output.println(indent + ".word\t" + RVGlobalVariable.getValue());
+//        else output.println(indent + ".word\t0");
         output.println();
     }
 
     @Override
-    public void visit(RVStaticStr RVStaticStr)
+    public void visit(RVStaticStr rvStaticStr)
     {
-        output.println(indent + ".globl\t" + RVStaticStr);
-        output.println(RVStaticStr + ":");
-        output.println(indent + ".asciz\t" + RVStaticStr.getString());
+        output.println(indent + ".globl\t" + rvStaticStr);
+        output.println(rvStaticStr + ":");
+        output.println(indent + ".string\t" + rvStaticStr.getString());
         output.println();
     }
 
@@ -140,6 +142,12 @@ public class AsmPrinter implements RVVisitor
 
     @Override
     public void visit(InstJr inst)
+    {
+        output.println(inst);
+    }
+
+    @Override
+    public void visit(InstLa inst)
     {
         output.println(inst);
     }

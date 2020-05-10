@@ -18,6 +18,7 @@ public class RVVirtualRegister extends RVRegister
     @Override
     public String toString()
     {
-        return color.getName();
+        if (isGlobal) return name;
+        else return color.getName();
     }
 }

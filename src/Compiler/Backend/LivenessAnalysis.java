@@ -51,18 +51,21 @@ public class LivenessAnalysis
             isChanged = false;
             for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
             {
-                Set<RVRegister> tmpIn = new HashSet<>(basicBlock.liveIn);
-                Set<RVRegister> tmpOut = new HashSet<>(basicBlock.liveOut);
-                basicBlock.liveOut.removeAll(basicBlock.def);
-                basicBlock.liveIn = basicBlock.used;
-                basicBlock.liveIn.addAll(basicBlock.liveOut);
-                basicBlock.liveOut.clear();
+                Set<RVRegister> newOut = new HashSet<>();
+                Set<RVRegister> newIn = new HashSet<>(basicBlock.used);
+                Set<RVRegister> tmpSet = new HashSet<>(basicBlock.liveOut);
+                tmpSet.removeAll(basicBlock.def);
+                newIn.addAll(tmpSet);
                 for (RVBasicBlock successor : basicBlock.getSuccessors())
                 {
-                    basicBlock.liveOut.addAll(successor.liveIn);
+                    newOut.addAll(successor.liveIn);
                 }
-                if (!(basicBlock.liveIn.equals(tmpIn) && basicBlock.liveOut.equals(tmpOut)))
+                if (!(basicBlock.liveIn.equals(newIn) && basicBlock.liveOut.equals(newOut)))
+                {
                     isChanged = true;
+                    basicBlock.liveIn = newIn;
+                    basicBlock.liveOut = newOut;
+                }
             }
         }
     }

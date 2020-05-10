@@ -27,10 +27,10 @@ _main:
 	mv		s9_10,s9
 	mv		s10_11,s10
 	mv		s11_12,s11
-	lw		b_13,0(b_14)
-	lw		a_15,0(a_16)
-	add		null_17,a_15,b_13
-	mv		a0,null_17
+	lw		b_13,0(b)
+	lw		a_14,0(a)
+	add		null_15,a_14,b_13
+	mv		a0,null_15
 	call	__builtin_printInt
 	mv		a0,zero
 	mv		s11,s11_12
@@ -66,19 +66,19 @@ main:
 	mv		s10_11,s10
 	mv		s11_12,s11
 	li		imm_13,4
-	mv		imm_13,a0
+	mv		a0,imm_13
 	call	malloc
-	mv		a0,b_14
+	mv		b,a0
 	li		imm_14,4
-	mv		imm_14,a0
+	mv		a0,imm_14
 	call	malloc
-	mv		a0,a_16
-	lw		b_15,0(b_14)
-	lw		a_16,0(a_16)
+	mv		a,a0
+	lw		b_15,0(b)
+	lw		a_16,0(a)
 	li		imm_17,1
-	sw		imm_17,0(a_16)
+	sw		imm_17,0(a)
 	li		imm_18,2
-	sw		imm_18,0(b_14)
+	sw		imm_18,0(b)
 	call	_main
 	mv		null_19,a0
 	mv		a0,null_19

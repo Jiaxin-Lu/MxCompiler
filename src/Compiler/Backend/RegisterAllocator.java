@@ -140,6 +140,7 @@ public class RegisterAllocator
                 {
                     System.out.println(spilledNode.getName());
                     assert !(spilledNode instanceof RVPhysicalRegister);
+                    assert !(spilledNode.isGlobal);
                 }
                 System.out.println("---");
                 isChanged = true;
@@ -174,7 +175,7 @@ public class RegisterAllocator
             Set<RVRegister> live = new HashSet<>(basicBlock.liveOut);
             for (RVInstruction inst = basicBlock.tailInst; inst != null; inst = inst.getPrevInst())
             {
-                if (inst instanceof Move)
+                if (inst instanceof Move && !((Move) inst).getSrc().isGlobal)
                 {
                     live.removeAll(inst.used);
                     for (RVRegister reg : inst.used)
@@ -473,12 +474,19 @@ public class RegisterAllocator
                 RVPhysicalRegister color2 = null;
                 if (!okColors.isEmpty()) color2 = okColors.iterator().next();
                 n.color = color2 == null ? color1 : color2;
+                //== DEBUG ==
+                System.out.println("assign : " + n.getName() + " to " + n.color.getName());
+                //== DEBUG ==
             }
         }
         for (RVRegister n : coalescedNodes)
         {
             assert !(n instanceof RVPhysicalRegister);
-            RVPhysicalRegister color = getAlias(n).color;
+            RVRegister m = getAlias(n);
+            RVPhysicalRegister color = m.color;
+            //== DEBUG ==
+            System.out.println("coalescedNodes : " + m.getName() + " " + n.getName());
+            //== DEBUG ==
             assert color != null;
             n.color = color;
         }

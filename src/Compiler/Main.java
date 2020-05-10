@@ -106,7 +106,7 @@ public class Main
             peephole.run();
             System.out.println("peephole optimize complete!");
 
-            AsmPrinter asmPrinter = new AsmPrinter(rvRoot, new PrintStream("code.s"));
+            AsmPrinter asmPrinter = new AsmPrinter(rvRoot, new PrintStream("output.s"));
             asmPrinter.run();
         } catch (Exception exception)
         {

@@ -19,6 +19,8 @@ public abstract class RVRegister extends RVOperand
         return color == null ? name : color.getName();
     }
 
+    public boolean isGlobal = false;
+
     //Register Allocation
     public double spillPriority;
     public RVPhysicalRegister color = null;

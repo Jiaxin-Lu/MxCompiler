@@ -57,7 +57,7 @@ public class Store extends RVInstruction
         def.clear();
         used.clear();
         used.add(rd);
-        if (dst instanceof RVRegister) used.add((RVRegister) dst);
+        if (dst instanceof RVRegister && !((RVRegister) dst).isGlobal) used.add((RVRegister) dst);
     }
 
     @Override

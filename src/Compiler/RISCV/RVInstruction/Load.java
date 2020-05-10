@@ -52,7 +52,7 @@ public class Load extends RVInstruction
     {
         def.clear();
         used.clear();
-        if (src instanceof RVRegister) used.add((RVRegister) src);
+        if (src instanceof RVRegister && !((RVRegister) src).isGlobal) used.add((RVRegister) src);
         def.add(rd);
     }
 

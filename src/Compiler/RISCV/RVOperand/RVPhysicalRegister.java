@@ -60,8 +60,10 @@ public class RVPhysicalRegister extends RVRegister
     {
         for (String name : physicalRegisterNames)
         {
-            allRegisters.put(name, new RVPhysicalRegister(name));
-            RVVirtualRegister RVVirtualRegister = new RVVirtualRegister("v" + name, allRegisters.get(name));
+            RVPhysicalRegister physicalRegister = new RVPhysicalRegister(name);
+            physicalRegister.color = physicalRegister;
+            allRegisters.put(name, physicalRegister);
+//            RVVirtualRegister RVVirtualRegister = new RVVirtualRegister("v" + name, allRegisters.get(name));
 //            allVirtualRegisters.put(name, RVVirtualRegister);
         }
 

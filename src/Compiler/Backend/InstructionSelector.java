@@ -102,6 +102,8 @@ public class InstructionSelector implements IRVisitor
         {
             RVGlobalVariable rvGlobalVariable = new RVGlobalVariable(globalVariable.getName());
             globalVariable.rvGlobalVariable = rvGlobalVariable;
+            globalVariable.rvRegister = new RVVirtualRegister(globalVariable.getName());
+            globalVariable.rvRegister.isGlobal = true;
             rvRoot.addGlobalVariable(rvGlobalVariable);
         }
         for (StaticStr staticStr : irRoot.getStaticStrList())
@@ -196,10 +198,10 @@ public class InstructionSelector implements IRVisitor
     public void visit(AllocInst inst)
     {
         //call malloc
-        currentBlock.addInst2Tail(new Move(currentBlock, getRegister(inst.getSize()), allRegisters.get("a0")));
+        currentBlock.addInst2Tail(new Move(currentBlock, allRegisters.get("a0"), getRegister(inst.getSize())));
         currentBlock.addInst2Tail(new Call(currentBlock, rvRoot.rvMalloc, 1));
         if (inst.getDst() != null)
-            currentBlock.addInst2Tail(new Move(currentBlock, allRegisters.get("a0"), getRegister(inst.getDst())));
+            currentBlock.addInst2Tail(new Move(currentBlock, getRegister(inst.getDst()), allRegisters.get("a0")));
     }
 
     @Override

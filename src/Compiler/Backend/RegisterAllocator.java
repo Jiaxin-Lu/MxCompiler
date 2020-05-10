@@ -134,8 +134,8 @@ public class RegisterAllocator
                 isChanged = true;
                 rewriteProgram(function);
             }
-            allocateStackSlot(function);
         }
+        allocateStackSlot(function);
     }
 
     private void build(RVFunction function)
@@ -547,6 +547,5 @@ public class RegisterAllocator
                 }
             }
         }
-
     }
 }

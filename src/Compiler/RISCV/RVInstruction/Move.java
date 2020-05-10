@@ -9,6 +9,8 @@ public class Move extends RVInstruction
     private RVRegister rd;
     private RVRegister rs;
 
+    //rd = rs
+
     public Move(RVBasicBlock basicBlock, RVRegister rd, RVRegister rs)
     {
         super(basicBlock);

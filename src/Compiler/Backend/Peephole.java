@@ -1,81 +1,85 @@
 package Compiler.Backend;
 
-import Compiler.IR.BasicBlock;
-import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.LoadInst;
-import Compiler.IR.IRInstruction.MoveInst;
-import Compiler.IR.IRInstruction.StoreInst;
-import Compiler.IR.IRRoot;
-import Compiler.IR.Operand.PhysicalRegister;
-import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
+
+import Compiler.RISCV.RVBasicBlock;
+import Compiler.RISCV.RVFunction;
+import Compiler.RISCV.RVInstruction.Load;
+import Compiler.RISCV.RVInstruction.Move;
+import Compiler.RISCV.RVInstruction.RVInstruction;
+import Compiler.RISCV.RVInstruction.Store;
+import Compiler.RISCV.RVOperand.RVPhysicalRegister;
+import Compiler.RISCV.RVOperand.RVRegister;
+import Compiler.RISCV.RVOperand.RVVirtualRegister;
+import Compiler.RISCV.RVRoot;
 
 public class Peephole
 {
-    private IRRoot irRoot;
-    public Peephole(IRRoot irRoot)
+    private RVRoot rvRoot;
+    public Peephole(RVRoot rvRoot)
     {
-        this.irRoot = irRoot;
+        this.rvRoot = rvRoot;
     }
 
     public void run()
     {
-        for (Function function : irRoot.getFunctionMap().values())
+        for (RVFunction function : rvRoot.getFunctionMap().values())
         {
             removeLoadStore(function);
             removeMove(function);
         }
     }
 
-    private void removeLoadStore(Function function)
+    private void removeLoadStore(RVFunction function)
     {
-        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
-            for (IRInstruction inst = basicBlock.headInst.getNextInst(); inst != null; inst = inst.getNextInst())
-            if (inst instanceof LoadInst)
+            for (RVInstruction inst = basicBlock.headInst.getNextInst(); inst != null; inst = inst.getNextInst())
+            if (inst instanceof Load)
             {
-                IRInstruction prevInst = inst.getPrevInst();
-                if (prevInst instanceof StoreInst)
+                RVInstruction prevInst = inst.getPrevInst();
+                if (prevInst instanceof Store)
                 {
-                    if (((StoreInst) prevInst).getDst() == ((LoadInst) inst).getSrc())
+                    if (((Store) prevInst).getDst() == ((Load) inst).getSrc() &&
+                            ((Store) prevInst).getImm().getImm() == ((Load) inst).getImm().getImm())
                     {
-                        if (((StoreInst) prevInst).getSrc() != ((LoadInst) inst).getDst())
+                        if (((Store) prevInst).getRd() != ((Load) inst).getRd())
                         {
-                            inst.replaceInst(new MoveInst(basicBlock, ((StoreInst) prevInst).getSrc(), ((LoadInst) inst).getDst()));
+                            inst.replaceInst(new Move(basicBlock, ((Load) inst).getRd(), ((Store) prevInst).getRd()));
                         } else
                         {
                             inst.removeThis();
                         }
-                        prevInst.removeThis();
                     }
                 }
             }
         }
     }
 
-    private void removeMove(Function function)
+    private void removeMove(RVFunction function)
     {
-        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
-            for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
-            if (inst instanceof MoveInst)
-                if (((MoveInst) inst).getDst() instanceof Register && ((MoveInst) inst).getSrc() instanceof Register)
+            for (RVInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
+            if (inst instanceof Move)
+            {
+                if (((Move) inst).getRd() != null && ((Move) inst).getRs() != null)
                 {
-                    PhysicalRegister reg1 = null;
-                    PhysicalRegister reg2 = null;
-                    if (((MoveInst) inst).getSrc() instanceof VirtualRegister)
-                        reg1 = ((VirtualRegister) ((MoveInst) inst).getSrc()).color;
-                    else if (((MoveInst) inst).getSrc() instanceof PhysicalRegister)
-                        reg1 = (PhysicalRegister) ((MoveInst) inst).getSrc();
-                    if (((MoveInst) inst).getDst() instanceof VirtualRegister)
-                        reg2 = ((VirtualRegister) ((MoveInst) inst).getDst()).color;
-                    else if (((MoveInst) inst).getDst() instanceof PhysicalRegister)
-                        reg2 = (PhysicalRegister) ((MoveInst) inst).getDst();
-                    if (reg1 != null && reg2 != null)
-                        if (reg1 == reg2)
-                            inst.removeThis();
+                    RVPhysicalRegister reg1 = null;
+                    RVPhysicalRegister reg2 = null;
+                    if (((Move) inst).getRs() instanceof RVVirtualRegister)
+                        reg1 = ((Move) inst).getRs().color;
+                    else if (((Move) inst).getRs() instanceof RVPhysicalRegister)
+                        reg1 = (RVPhysicalRegister) ((Move) inst).getRs();
+                    if (((Move) inst).getRd() instanceof RVVirtualRegister)
+                        reg2 = ((Move) inst).getRd().color;
+                    else if (((Move) inst).getRd() instanceof RVPhysicalRegister)
+                        reg2 = (RVPhysicalRegister) ((Move) inst).getRd();
+                    if (reg2 != null && reg1 == reg2)
+                    {
+                        inst.removeThis();
+                    }
                 }
+            }
         }
     }
 }

@@ -1,8 +1,9 @@
-int[] a = new int[10];
+int a = 1;
+int b = 2;
 
 int main()
 {
-a[0] = 1;
-printInt(a[0]);
+int c = a + b;
+printInt(c);
 return 0;
 }

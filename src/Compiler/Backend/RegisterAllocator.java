@@ -69,7 +69,7 @@ public class RegisterAllocator
     public RegisterAllocator(RVRoot rvRoot)
     {
         this.rvRoot = rvRoot;
-        preColored.addAll(allVirtualRegisters.values());
+        preColored.addAll(allRegisters.values());
         colors.addAll(allocatableRegisters.values());
     }
 
@@ -106,6 +106,7 @@ public class RegisterAllocator
         boolean isChanged = true;
         while (isChanged)
         {
+//            System.out.println("here1");
             isChanged = false;
             init();
             new LivenessAnalysis(function).run();
@@ -116,21 +117,31 @@ public class RegisterAllocator
                 if (!simplifyWorkList.isEmpty())
                 {
                     Simplify();
+//                    System.out.println("here2");
                 } else if (!workListMoves.isEmpty())
                 {
                     Coalesce();
+//                    System.out.println("here3");
                 } else if (!freezeWorkList.isEmpty())
                 {
                     Freeze();
+//                    System.out.println("here4");
                 } else if (!spillWorkList.isEmpty())
                 {
                     SelectSpill();
+//                    System.out.println("here5");
                 }
             } while (!(simplifyWorkList.isEmpty() && workListMoves.isEmpty()
                     && freezeWorkList.isEmpty() && spillWorkList.isEmpty()));
             assignColors();
             if (!spilledNodes.isEmpty())
             {
+                for (RVRegister spilledNode : spilledNodes)
+                {
+                    System.out.println(spilledNode.getName());
+                    assert !(spilledNode instanceof RVPhysicalRegister);
+                }
+                System.out.println("---");
                 isChanged = true;
                 rewriteProgram(function);
             }
@@ -147,16 +158,16 @@ public class RegisterAllocator
                 initial.addAll(inst.used);
             }
         initial.removeAll(preColored);
-        for (RVRegister virtualRegister : initial)
+        for (RVRegister reg : initial)
         {
-            virtualRegister.clearAllocInfo();
-            virtualRegister.degree = 0;
-            virtualRegister.color = null;
+            reg.clearAllocInfo();
+            reg.degree = 0;
+            reg.color = null;
         }
-        for (RVRegister virtualRegister : preColored)
+        for (RVRegister reg : preColored)
         {
-            virtualRegister.clearAllocInfo();
-            virtualRegister.degree = MAX_DEG;
+            reg.clearAllocInfo();
+            reg.degree = MAX_DEG;
         }
         for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
@@ -177,10 +188,6 @@ public class RegisterAllocator
                     workListMoves.add((Move) inst);
                 }
                 Set<RVRegister> defs = new HashSet<>(inst.def);
-                if (inst instanceof Call)
-                {
-                    defs.addAll(callerSaveRegisters.values());
-                }
                 live.addAll(defs);
                 // TODO : should we add zero?
                 for (RVRegister def : defs)
@@ -219,7 +226,6 @@ public class RegisterAllocator
     {
         for (RVRegister n : initial)
         {
-            initial.remove(n);
             if (n.degree >= K)
             {
                 spillWorkList.add(n);
@@ -228,9 +234,11 @@ public class RegisterAllocator
                 freezeWorkList.add(n);
             } else
             {
+                assert !(n instanceof RVPhysicalRegister);
                 simplifyWorkList.add(n);
             }
         }
+        initial.clear();
     }
 
     private boolean moveRelated(RVRegister n)
@@ -239,9 +247,9 @@ public class RegisterAllocator
     }
 
     private Set<Move> nodeMoves(RVRegister n) {
+        Set<Move> tmpMoveList = new HashSet<>(n.moveList);
         Set<Move> tmpActiveMoves = new HashSet<>(activeMoves);
         tmpActiveMoves.addAll(workListMoves);
-        Set<Move> tmpMoveList = new HashSet<>(n.moveList);
         tmpMoveList.retainAll(tmpActiveMoves);
         return tmpMoveList;
     }
@@ -269,7 +277,7 @@ public class RegisterAllocator
         m.degree = d - 1;
         if (d == K)
         {
-            Set<RVRegister> tmp = new HashSet<>(adjacent(m));
+            Set<RVRegister> tmp = adjacent(m);
             tmp.add(m);
             enableMoves(tmp);
             spillWorkList.remove(m);
@@ -278,6 +286,7 @@ public class RegisterAllocator
                 freezeWorkList.add(m);
             } else
             {
+                assert !(m instanceof RVPhysicalRegister);
                 simplifyWorkList.add(m);
             }
         }
@@ -299,6 +308,7 @@ public class RegisterAllocator
         if ((!preColored.contains(u)) && (!moveRelated(u)) && u.degree < K)
         {
             freezeWorkList.remove(u);
+            assert !(u instanceof RVPhysicalRegister);
             simplifyWorkList.add(u);
         }
     }
@@ -391,13 +401,14 @@ public class RegisterAllocator
     {
         if (coalescedNodes.contains(n))
             return n.alias = getAlias(n.alias);
-        else return n.alias;
+        else return n;
     }
 
     private void Freeze()
     {
         RVRegister u = freezeWorkList.iterator().next();
         freezeWorkList.remove(u);
+        assert !(u instanceof RVPhysicalRegister);
         simplifyWorkList.add(u);
         freezeMoves(u);
     }
@@ -433,6 +444,7 @@ public class RegisterAllocator
                 m = reg;
         }
 
+        assert !(m.addForSpill) && !(m instanceof RVPhysicalRegister);
         spillWorkList.remove(m);
         simplifyWorkList.add(m);
         freezeMoves(m);
@@ -465,13 +477,15 @@ public class RegisterAllocator
         }
         for (RVRegister n : coalescedNodes)
         {
-            n.color = getAlias(n).color;
+            assert !(n instanceof RVPhysicalRegister);
+            RVPhysicalRegister color = getAlias(n).color;
+            assert color != null;
+            n.color = color;
         }
     }
 
     private void rewriteProgram(RVFunction function)
     {
-        //TODO
         for (RVRegister reg : spilledNodes)
         {
             StackData stackData = new StackData();

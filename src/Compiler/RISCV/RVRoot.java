@@ -13,6 +13,7 @@ import java.util.Map;
 public class RVRoot
 {
     private Map<String, RVFunction> functionMap = new LinkedHashMap<>();
+    private Map<String, RVFunction> builtinFunctionMap = new LinkedHashMap<>();
     private List<RVGlobalVariable> globalVariableList = new ArrayList<>();
     private List<RVStaticStr> staticStrList = new ArrayList<>();
 
@@ -40,6 +41,11 @@ public class RVRoot
     public void addFunction(RVFunction function)
     {
         functionMap.put(function.getName(), function);
+    }
+
+    public void addBuiltinFunction(RVFunction function)
+    {
+        builtinFunctionMap.put(function.getName(), function);
     }
 
     public void addStaticStr(RVStaticStr str)

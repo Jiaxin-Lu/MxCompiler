@@ -1,22 +1,22 @@
 @a
+@b
 
 func main {
 %main.entry:
+    $b_2 = load 4 @b 0
     $a_2 = load 4 @a 0
-    $_virtual_register = add 4 $a_2
-    store 4 $_virtual_register 1 0
-    $_virtual_register_2 = load 4 $_virtual_register 0
-    call printInt $_virtual_register_2 
+    $_virtual_register = add $a_2 $b_2
+    call printInt $_virtual_register 
     ret 0
 }
 
 func _init_ {
 %_init_.entry:
+    $b_3 = load 4 @b 0
     $a_3 = load 4 @a 0
-    $_virtual_register_3 = alloc 44
-    store 4 $_virtual_register_3 10 0
-    store 4 @a $_virtual_register_3 0
-    $_virtual_register_4 = call main 
-    ret $_virtual_register_4
+    store 4 @a 1 0
+    store 4 @b 2 0
+    $_virtual_register_2 = call main 
+    ret $_virtual_register_2
 }
 

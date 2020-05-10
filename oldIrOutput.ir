@@ -1,32 +1,27 @@
 @a
+@b
 
 func main {
 %main.entry:
+    $b_2 = load 4 @b 0
     $a_2 = load 4 @a 0
-    $_virtual_register = mul 0 4
-    $_virtual_register_2 = add $_virtual_register 4
-    $_virtual_register_3 = add $_virtual_register_2 $a_2
-    store 4 $_virtual_register_3 1 0
-    $_virtual_register_4 = mul 0 4
-    $_virtual_register_5 = add $_virtual_register_4 4
-    $_virtual_register_6 = add $_virtual_register_5 $a_2
-    $_virtual_register_7 = load 4 $_virtual_register_6 0
-    call printInt $_virtual_register_7 
-    $_virtual_register_8 = move 0
-    ret $_virtual_register_8
+    $_virtual_register = add $a_2 $b_2
+    $c = move $_virtual_register
+    call printInt $c 
+    $_virtual_register_2 = move 0
+    ret $_virtual_register_2
 }
 
 func _init_ {
 %_init_.entry:
+    $b_3 = load 4 @b 0
     $a_3 = load 4 @a 0
-    $_virtual_register_9 = mul 10 4
-    $_virtual_register_9 = add $_virtual_register_9 4
-    $_virtual_register_10 = alloc $_virtual_register_9
-    store 4 $_virtual_register_10 10 0
-    $a_3 = move $_virtual_register_10
+    $a_3 = move 1
+    $b_3 = move 2
     store 4 @a $a_3 0
-    $_virtual_register_11 = call main 
-    $_virtual_register_12 = move $_virtual_register_11
-    ret $_virtual_register_12
+    store 4 @b $b_3 0
+    $_virtual_register_3 = call main 
+    $_virtual_register_4 = move $_virtual_register_3
+    ret $_virtual_register_4
 }
 

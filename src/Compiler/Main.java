@@ -1,6 +1,7 @@
 package Compiler;
 
 import Compiler.AST.ProgramNode;
+import Compiler.Backend.*;
 import Compiler.Frontend.*;
 import Compiler.IR.IRBuilder;
 import Compiler.IR.IRPrinter;
@@ -10,6 +11,7 @@ import Compiler.Optimization.*;
 import Compiler.Parser.MxErrorListener;
 import Compiler.Parser.MxLexer;
 import Compiler.Parser.MxParser;
+import Compiler.RISCV.RVRoot;
 import Compiler.Type.GlobalScope;
 import Compiler.Utils.*;
 import org.antlr.v4.runtime.CharStreams;
@@ -47,6 +49,7 @@ public class Main
             {
                 throw new RuntimeException();
             }
+
             //Semantic
             GlobalScope globalScope = (new ScopeInitializer(ast)).getGlobalScope();
             GlobalDeclScanner globalDeclScanner = new GlobalDeclScanner(globalScope);
@@ -64,6 +67,8 @@ public class Main
             while (unusedEliminator.isEliminated)
                 unusedEliminator.visit(ast);
 
+            //ir gen
+
             IRBuilder irBuilder = new IRBuilder(globalScope);
             irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
@@ -76,9 +81,33 @@ public class Main
             optimize(irRoot);
 
             globalVariableResolver.allocGlobalVariable();
-            printIR(irRoot, "irOutput.ir", true);
-//            printIR(irRoot, "globalOutput.ir", true);
 
+            printIR(irRoot, "irOutput.ir", true);
+
+            // codegen
+            InstructionSelector instructionSelector = new InstructionSelector(irRoot);
+            instructionSelector.run();
+            RVRoot rvRoot = instructionSelector.getRvRoot();
+            System.out.println("instruction selection complete!");
+
+            //== only for debug ==
+            new InstructionSelectorPrinter(rvRoot, new PrintStream("selectInst.s")).run();
+            //== only for debug ==
+
+            new SpillPriorityProcessor(rvRoot).run();
+            System.out.println("spill priority process complete!");
+
+            RegisterAllocator registerAllocator = new RegisterAllocator(rvRoot);
+            registerAllocator.run();
+
+            System.out.println("register allocation complete!");
+
+            Peephole peephole = new Peephole(rvRoot);
+            peephole.run();
+            System.out.println("peephole optimize complete!");
+
+            AsmPrinter asmPrinter = new AsmPrinter(rvRoot, new PrintStream("code.s"));
+            asmPrinter.run();
         } catch (Exception exception)
         {
             exception.printStackTrace();

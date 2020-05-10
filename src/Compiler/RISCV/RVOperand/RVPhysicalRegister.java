@@ -1,5 +1,7 @@
 package Compiler.RISCV.RVOperand;
 
+import Compiler.RISCV.RVVisitor;
+
 import java.util.*;
 
 public class RVPhysicalRegister extends RVRegister
@@ -44,13 +46,13 @@ public class RVPhysicalRegister extends RVRegister
     public static final Map<String, RVPhysicalRegister> allocatableRegisters = new LinkedHashMap<>();
     public static final Map<String, RVPhysicalRegister> allRegisters = new LinkedHashMap<>();
 
-    public static final Set<RVVirtualRegister> callerSaveVirtualRegisters = new HashSet<>();
-    public static final Set<RVVirtualRegister> calleeSaveVirtualRegisters = new HashSet<>();
-    public static final List<RVVirtualRegister> argumentVirtualRegisters = new LinkedList<>();
-    public static final Map<String, RVVirtualRegister> allVirtualRegisters = new LinkedHashMap<>();
+//    public static final Set<RVVirtualRegister> callerSaveVirtualRegisters = new HashSet<>();
+//    public static final Set<RVVirtualRegister> calleeSaveVirtualRegisters = new HashSet<>();
+//    public static final List<RVVirtualRegister> argumentVirtualRegisters = new LinkedList<>();
+//    public static final Map<String, RVVirtualRegister> allVirtualRegisters = new LinkedHashMap<>();
 
-    public static final RVVirtualRegister vzero;
-    public static final RVVirtualRegister vra;
+//    public static final RVVirtualRegister vzero;
+//    public static final RVVirtualRegister vra;
     public static final RVPhysicalRegister hi = new RVPhysicalRegister("%hi");
     public static final RVPhysicalRegister lo = new RVPhysicalRegister("%lo");
 
@@ -60,20 +62,20 @@ public class RVPhysicalRegister extends RVRegister
         {
             allRegisters.put(name, new RVPhysicalRegister(name));
             RVVirtualRegister RVVirtualRegister = new RVVirtualRegister("v" + name, allRegisters.get(name));
-            allVirtualRegisters.put(name, RVVirtualRegister);
+//            allVirtualRegisters.put(name, RVVirtualRegister);
         }
 
         for (String name : calleeSaveRegisterNames)
         {
             allRegisters.get(name).isCalleeSave = true;
             calleeSaveRegisters.put(name, allRegisters.get(name));
-            calleeSaveVirtualRegisters.add(allVirtualRegisters.get(name));
+//            calleeSaveVirtualRegisters.add(allVirtualRegisters.get(name));
         }
         for (String name : callerSaveRegisterNames)
         {
             allRegisters.get(name).isCallerSave = true;
             callerSaveRegisters.put(name, allRegisters.get(name));
-            callerSaveVirtualRegisters.add(allVirtualRegisters.get(name));
+//            callerSaveVirtualRegisters.add(allVirtualRegisters.get(name));
         }
         for (String name : allocatableRegisterNames)
         {
@@ -82,10 +84,10 @@ public class RVPhysicalRegister extends RVRegister
         for (String name : argumentRegisterNames)
         {
             argumentRegisters.put(name, allRegisters.get(name));
-            argumentVirtualRegisters.add(allVirtualRegisters.get(name));
+//            argumentVirtualRegisters.add(allVirtualRegisters.get(name));
         }
-        vzero = allVirtualRegisters.get("zero");
-        vra = allVirtualRegisters.get("ra");
+//        vzero = allVirtualRegisters.get("zero");
+//        vra = allVirtualRegisters.get("ra");
     }
 
     @Override

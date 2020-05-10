@@ -27,7 +27,7 @@ public class CMPz extends RVInstruction
     private RVRegister rs;
     private RVRegister rd;
 
-    public CMPz(RVBasicBlock basicBlock, Op op, RVRegister rs, RVRegister rd)
+    public CMPz(RVBasicBlock basicBlock, Op op, RVRegister rd, RVRegister rs)
     {
         super(basicBlock);
         this.op = op;

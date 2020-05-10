@@ -1,6 +1,5 @@
 package Compiler.Backend;
 
-import Compiler.AST.BinaryExprNode;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.*;
@@ -17,9 +16,7 @@ import Compiler.RISCV.RVOperand.*;
 import Compiler.RISCV.RVOperand.StackData;
 import Compiler.Utils.Width;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static Compiler.RISCV.RVOperand.RVPhysicalRegister.*;
 
@@ -113,6 +110,12 @@ public class InstructionSelector implements IRVisitor
             staticStr.rvStaticStr = str;
             rvRoot.addStaticStr(str);
         }
+        for (Function function : irRoot.getBuiltinFunctions().values())
+        {
+            RVFunction rvFunction = new RVFunction(function.getBuiltinName());
+            function.rvFunction = rvFunction;
+            rvRoot.addBuiltinFunction(rvFunction);
+        }
         for (Function function : irRoot.getFunctionMap().values())
         {
             RVFunction rvFunction = new RVFunction(function.getName());
@@ -143,7 +146,7 @@ public class InstructionSelector implements IRVisitor
         //basic block
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
-            RVBasicBlock rvBasicBlock = new RVBasicBlock(currentFunction, basicBlock.getName());
+            RVBasicBlock rvBasicBlock = new RVBasicBlock(currentFunction, getBasicBlockName(basicBlock));
             basicBlock.rvBasicBlock = rvBasicBlock;
             currentFunction.addBlockList(rvBasicBlock);
         }
@@ -157,7 +160,7 @@ public class InstructionSelector implements IRVisitor
         for (int i = 0; i < 12; ++ i)
         {
             RVPhysicalRegister reg = calleeSaveRegisters.get(calleeSaveRegisterNames[i]);
-            calleeSavedInFunction[i] = currentFunction.addRegister(callerSaveRegisterNames[i]);
+            calleeSavedInFunction[i] = currentFunction.addRegister(calleeSaveRegisterNames[i]);
             currentBlock.addInst2Tail(new Move(currentBlock, calleeSavedInFunction[i], reg));
         }
 
@@ -651,5 +654,35 @@ public class InstructionSelector implements IRVisitor
     public void visit(Memory memory)
     {
         //do nothing
+    }
+
+
+
+    private Map<String, Integer> basicBlockNameID = new HashMap<>();
+    private Map<BasicBlock, String> basicBlockMap = new HashMap<>();
+
+    private String getID(String name, Map<String, Integer> idMap)
+    {
+        int nameId = idMap.getOrDefault(name, 0) + 1;
+        idMap.put(name, nameId);
+        if (nameId == 1)
+            return name;
+        else return name + '_' + nameId;
+    }
+
+    private String getBasicBlockName(BasicBlock basicBlock)
+    {
+        String id = basicBlockMap.get(basicBlock);
+        if (id == null)
+        {
+            if (basicBlock.getName() == null)
+            {
+                id = getID("_basic_block", basicBlockNameID);
+            } else {
+                id = getID(basicBlock.getName(), basicBlockNameID);
+            }
+            basicBlockMap.put(basicBlock, id);
+        }
+        return id;
     }
 }

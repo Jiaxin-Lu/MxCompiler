@@ -71,6 +71,14 @@ public class Load extends RVInstruction
     }
 
     @Override
+    public String toString()
+    {
+        if (src instanceof StackData)
+            return indent + "lw" + indent + indent + rd + "," + src;
+        else return indent + "lw" + indent + indent + rd + "," + imm + "(" + src + ")";
+    }
+
+    @Override
     public void accept(RVVisitor visitor)
     {
         visitor.visit(this);

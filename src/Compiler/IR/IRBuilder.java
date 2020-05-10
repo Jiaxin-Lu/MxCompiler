@@ -46,13 +46,13 @@ public class IRBuilder implements ASTVisitor
                 {
                     FuncDeclNode constructorDecl = ((ClassDeclNode) declNode).getConstructorDecl();
                     FunctionSymbol functionSymbol = constructorDecl.getFunctionSymbol();
-                    Function function = new Function(((ClassDeclNode) declNode).getClassSymbol().getTypeName() + ".Constructor");
+                    Function function = new Function(((ClassDeclNode) declNode).getClassSymbol().getTypeName() + "_Constructor");
                     functionSymbol.setFunction(function);
                 }
                 for (FuncDeclNode funcDeclNode : ((ClassDeclNode) declNode).getFuncDeclList())
                 {
                     FunctionSymbol functionSymbol = funcDeclNode.getFunctionSymbol();
-                    Function function = new Function(((ClassDeclNode) declNode).getClassSymbol().getTypeName() + "."
+                    Function function = new Function(((ClassDeclNode) declNode).getClassSymbol().getTypeName() + "_"
                             + functionSymbol.getTypeName());
                     functionSymbol.setFunction(function);
                 }

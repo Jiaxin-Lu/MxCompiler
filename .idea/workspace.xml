@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="fix bugs in register allocation">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,14 +123,7 @@
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
-      <workItem from="1589103190149" duration="40433000" />
-    </task>
-    <task id="LOCAL-00054" summary="Add GlobalVariableResolver.">
-      <created>1587927622213</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1587927622213</updated>
+      <workItem from="1589103190149" duration="40561000" />
     </task>
     <task id="LOCAL-00055" summary="Add GlobalVariableResolver..">
       <created>1587927640265</created>
@@ -467,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589222071184</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="add .bash files">
+      <created>1589222572862</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1589222572862</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +489,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="still working on RegisterAllocator..." />
     <MESSAGE value="add peephole" />
     <MESSAGE value="still on register allocation..." />
     <MESSAGE value="add Peephole" />
@@ -513,7 +513,8 @@
     <MESSAGE value="fix RegisterAllocator" />
     <MESSAGE value="add builtin" />
     <MESSAGE value="fix bugs in register allocation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bugs in register allocation" />
+    <MESSAGE value="add .bash files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add .bash files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -552,10 +553,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589222278842">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589222572196">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589222278842" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589222572196" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

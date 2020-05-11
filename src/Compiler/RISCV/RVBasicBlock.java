@@ -42,7 +42,7 @@ public class RVBasicBlock
 
     public String getName()
     {
-        return function.getName() + "_" + name;
+        return name;
     }
 
     public Set<RVBasicBlock> getSuccessors()

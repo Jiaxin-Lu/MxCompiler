@@ -77,7 +77,6 @@ public class InstB extends RVInstruction
     {
         if (rs == oldReg) rs = newReg;
         if (rt == oldReg) rt = newReg;
-        calcDefUse();
     }
 
     @Override

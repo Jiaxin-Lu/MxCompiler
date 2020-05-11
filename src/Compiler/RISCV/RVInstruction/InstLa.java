@@ -46,7 +46,6 @@ public class InstLa extends RVInstruction
     public void replaceDef(RVRegister oldReg, RVRegister newReg)
     {
         if (rd == oldReg) rd = newReg;
-        calcDefUse();
     }
 
     @Override

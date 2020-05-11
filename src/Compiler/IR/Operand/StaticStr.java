@@ -9,6 +9,7 @@ public class StaticStr extends Memory
     public StaticStr(VirtualRegister base, String value)
     {
         super(base);
+        base.isStrBase = true;
         this.value = value;
     }
 

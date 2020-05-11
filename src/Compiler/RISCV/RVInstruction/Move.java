@@ -52,14 +52,12 @@ public class Move extends RVInstruction
     public void replaceDef(RVRegister oldReg, RVRegister newReg)
     {
         if (rd == oldReg) rd = newReg;
-        calcDefUse();
     }
 
     @Override
     public void replaceUsed(RVRegister oldReg, RVRegister newReg)
     {
         if (rs == oldReg) rs = newReg;
-        calcDefUse();
     }
 
     @Override

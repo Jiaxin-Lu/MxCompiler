@@ -40,7 +40,7 @@ public class BasicBlock
 
     public String getName()
     {
-        return function.getName() + "." + name;
+        return function.getName() + "_" + name;
     }
 
     public Set<BasicBlock> getSuccessors()

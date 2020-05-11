@@ -65,7 +65,6 @@ public class Store extends RVInstruction
     {
         if (rd == oldReg) rd = newReg;
         if (dst instanceof RVRegister && dst == oldReg) dst = newReg;
-        calcDefUse();
     }
 
     @Override

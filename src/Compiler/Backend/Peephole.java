@@ -40,7 +40,8 @@ public class Peephole
                 if (prevInst instanceof Store)
                 {
                     if (((Store) prevInst).getDst() == ((Load) inst).getSrc() &&
-                            ((Store) prevInst).getImm().getImm() == ((Load) inst).getImm().getImm())
+                    (((Store) prevInst).getImm() == null || ((Load) inst).getImm() == null ||
+                            ((Store) prevInst).getImm().getImm() == ((Load) inst).getImm().getImm()))
                     {
                         if (((Store) prevInst).getRd() != ((Load) inst).getRd())
                         {

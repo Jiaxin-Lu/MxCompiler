@@ -60,14 +60,12 @@ public class Load extends RVInstruction
     public void replaceDef(RVRegister oldReg, RVRegister newReg)
     {
         if (rd == oldReg) rd = newReg;
-        calcDefUse();
     }
 
     @Override
     public void replaceUsed(RVRegister oldReg, RVRegister newReg)
     {
         if (src instanceof RVRegister && src == oldReg) src = newReg;
-        calcDefUse();
     }
 
     @Override

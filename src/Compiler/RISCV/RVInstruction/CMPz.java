@@ -64,14 +64,12 @@ public class CMPz extends RVInstruction
     public void replaceUsed(RVRegister oldReg, RVRegister newReg)
     {
         if (rs == oldReg) rs = newReg;
-        calcDefUse();
     }
 
     @Override
     public void replaceDef(RVRegister oldReg, RVRegister newReg)
     {
         if (rd == oldReg) rd = newReg;
-        calcDefUse();
     }
 
     @Override

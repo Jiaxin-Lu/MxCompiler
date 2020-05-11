@@ -26,7 +26,7 @@ public class Main
     {
         SyntaxErrorHandler syntaxErrorHandler = new SyntaxErrorHandler();
         InputStream inStream = new FileInputStream("code.mx");
-//        InputStream inStream = System.in;
+//        InputStream inStream = new FileInputStream("code.txt");
         try
         {
             //Syntax
@@ -80,9 +80,9 @@ public class Main
 
             optimize(irRoot);
 
-            globalVariableResolver.allocGlobalVariable();
+//            globalVariableResolver.allocGlobalVariable();
 
-            printIR(irRoot, "irOutput.ir", true);
+            printIR(irRoot, "irOutput.ir", false);
 
             // codegen
             InstructionSelector instructionSelector = new InstructionSelector(irRoot);

@@ -32,7 +32,6 @@ public class InstJr extends RVInstruction
     public void replaceUsed(RVRegister oldReg, RVRegister newReg)
     {
         if (rs == oldReg) rs = newReg;
-        calcDefUse();
     }
 
     @Override

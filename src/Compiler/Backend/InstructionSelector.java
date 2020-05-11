@@ -44,6 +44,39 @@ public class InstructionSelector implements IRVisitor
     {
         rvRoot = new RVRoot();
         visit(irRoot);
+        // == DEBUG ==
+        if (checkBlockStructure())
+        {
+            System.out.println("basic block structure right!");
+        } else
+        {
+            System.err.println("basic block structure changed!");
+        }
+    }
+
+    boolean checkBlockStructure()
+    {
+        for (Function function : irRoot.getFunctionMap().values())
+        {
+            for (BasicBlock basicBlock : function.getPreOrderBlockList())
+            {
+                for (BasicBlock successor : basicBlock.getSuccessors())
+                {
+                    if (!basicBlock.rvBasicBlock.getSuccessors().contains(successor.rvBasicBlock))
+                    {
+                        return false;
+                    }
+                }
+                for (BasicBlock predecessor : basicBlock.getPredecessors())
+                {
+                    if (!basicBlock.rvBasicBlock.getPredecessors().contains(predecessor.rvBasicBlock))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     private static final int IMM_MIN = -2048;
@@ -62,11 +95,19 @@ public class InstructionSelector implements IRVisitor
     {
         if (operand instanceof Register)
         {
-            RVRegister reg = ((Register) operand).rvRegister;
-            if (reg != null) return reg;
-            reg = currentFunction.addRegister(operand.getName());
-            ((Register) operand).rvRegister = reg;
-            return reg;
+            if (((Register) operand).isStrBase)
+            {
+                RVRegister reg = currentFunction.addRegister("str_const");
+                currentBlock.addInst2Tail(new InstLa(currentBlock, reg, ((Register) operand).rvStaticStr));
+                ((Register) operand).rvRegister = reg;
+                return reg;
+            } else {
+                RVRegister reg = ((Register) operand).rvRegister;
+                if (reg != null) return reg;
+                reg = currentFunction.addRegister(operand.getName() == null ? "vReg" : operand.getName());
+                ((Register) operand).rvRegister = reg;
+                return reg;
+            }
         } else if (operand instanceof Immediate)
         {
             int imm = ((Immediate) operand).getImm();
@@ -86,11 +127,6 @@ public class InstructionSelector implements IRVisitor
         } else if (operand instanceof Memory) //static Str
         {
             assert false;
-            RVRegister reg = ((Memory) operand).getBase().rvRegister;
-            if (reg != null) return reg;
-            reg = currentFunction.addRegister(operand.getName());
-            ((Memory) operand).getBase().rvRegister = reg;
-            return reg;
         }
         return null;
     }
@@ -110,6 +146,8 @@ public class InstructionSelector implements IRVisitor
         {
             RVStaticStr str = new RVStaticStr(staticStr.getName(), staticStr.getValue());
             staticStr.rvStaticStr = str;
+            staticStr.getBase().rvStaticStr = str;
+            staticStr.getBase().isStrBase = true;
             rvRoot.addStaticStr(str);
         }
         for (Function function : irRoot.getBuiltinFunctions().values())
@@ -150,6 +188,7 @@ public class InstructionSelector implements IRVisitor
         {
             RVBasicBlock rvBasicBlock = new RVBasicBlock(currentFunction, getBasicBlockName(basicBlock));
             basicBlock.rvBasicBlock = rvBasicBlock;
+            basicBlock.rvBasicBlock.postOrderIndex = basicBlock.postOrderIndex;
             currentFunction.addBlockList(rvBasicBlock);
         }
         currentFunction.setEntryBlock(function.getEntryBlock().rvBasicBlock);
@@ -220,6 +259,7 @@ public class InstructionSelector implements IRVisitor
                 currentBlock.addInst2Tail(new InstB(currentBlock, InstB.Op.bne,
                         getRegister(inst.getCond()), allRegisters.get("zero"), inst.getThenBlock().rvBasicBlock));
             }
+            currentBlock.addInst2Tail(new InstJ(currentBlock, inst.getElseBlock().rvBasicBlock));
         }
     }
 

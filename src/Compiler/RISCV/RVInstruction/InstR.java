@@ -73,7 +73,6 @@ public class InstR extends RVInstruction
     public void replaceDef(RVRegister oldReg, RVRegister newReg)
     {
         if (rd == oldReg) rd = newReg;
-        calcDefUse();
     }
 
     @Override
@@ -81,7 +80,6 @@ public class InstR extends RVInstruction
     {
         if (rs1 == oldReg) rs1 = newReg;
         if (rs2 == oldReg) rs2 = newReg;
-        calcDefUse();
     }
 
     @Override

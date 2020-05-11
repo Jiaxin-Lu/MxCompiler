@@ -15,8 +15,8 @@ import static Compiler.RISCV.RVOperand.RVPhysicalRegister.allRegisters;
 public class RVFunction
 {
     private String name;
-    private RVBasicBlock entryBlock = new RVBasicBlock(this, "entry");
-    private RVBasicBlock exitBlock = new RVBasicBlock(this, "exit");
+    private RVBasicBlock entryBlock;
+    private RVBasicBlock exitBlock;
     private List<RVRegister> parameterList = new ArrayList<>();
     private List<RVBasicBlock> preOrderBlockList = new ArrayList<>();
     private RVRegister inClassThis = null;

@@ -1,11 +1,15 @@
 	.data
 
+	.globl	__str_const_1
+__str_const_1:
+	.string	"no"
+
+	.globl	__str_const_2
+__str_const_2:
+	.string	"yes"
+
 	.globl	a
 a:
-	.zero	4
-
-	.globl	b
-b:
 	.zero	4
 
 
@@ -27,11 +31,15 @@ _main:
 	mv		s9_10,s9
 	mv		s10_11,s10
 	mv		s11_12,s11
-	lw		b_13,0(b)
-	lw		a_14,0(a)
-	add		null_15,a_14,b_13
+	lw		a_13,0(a)
+	mv		a0,a_13
+	call	__builtin_print
+	mv		a0,a_13
+	mv		a1,__str_const_1_14
+	call	__builtin_string_add
+	mv		null_15,a0
 	mv		a0,null_15
-	call	__builtin_printInt
+	call	__builtin_print
 	mv		a0,zero
 	mv		s11,s11_12
 	mv		s10,s10_11
@@ -68,20 +76,12 @@ main:
 	li		imm_13,4
 	mv		a0,imm_13
 	call	malloc
-	mv		b,a0
-	li		imm_14,4
-	mv		a0,imm_14
-	call	malloc
 	mv		a,a0
-	lw		b_15,0(b)
-	lw		a_16,0(a)
-	li		imm_17,1
-	sw		imm_17,0(a)
-	li		imm_18,2
-	sw		imm_18,0(b)
+	lw		a_14,0(a)
+	sw		__str_const_2_15,0(a)
 	call	_main
-	mv		null_19,a0
-	mv		a0,null_19
+	mv		null_16,a0
+	mv		a0,null_16
 	mv		s11,s11_12
 	mv		s10,s10_11
 	mv		s9,s9_10

@@ -1,11 +1,15 @@
 	.data
 
+	.globl	__str_const_1
+__str_const_1:
+	.string	"no"
+
+	.globl	__str_const_2
+__str_const_2:
+	.string	"yes"
+
 	.globl	a
 a:
-	.zero	4
-
-	.globl	b
-b:
 	.zero	4
 
 
@@ -16,11 +20,16 @@ b:
 _main:
 	addi	sp,sp,-16
 	sw		ra,12(sp)
-	lw		a7,0(b)
-	lw		a2,0(a)
-	add		a0,a2,a7
-	call	__builtin_printInt
+	sw		s0,8(sp)
+	lw		s0,0(a)
+	mv		a0,s0
+	call	__builtin_print
+	mv		a0,s0
+	lw		a1,4(sp)
+	call	__builtin_string_add
+	call	__builtin_print
 	mv		a0,zero
+	lw		s0,8(sp)
 	lw		ra,12(sp)
 	addi	sp,sp,16
 	jr		ra
@@ -33,14 +42,9 @@ main:
 	sw		ra,12(sp)
 	li		a0,4
 	call	malloc
-	li		a0,4
-	call	malloc
-	lw		a7,0(b)
-	lw		a7,0(a)
-	li		a7,1
-	sw		a7,0(a)
-	li		a7,2
-	sw		a7,0(b)
+	lw		a0,0(a)
+	lw		a0,8(sp)
+	sw		a0,0(a)
 	call	_main
 	lw		ra,12(sp)
 	addi	sp,sp,16

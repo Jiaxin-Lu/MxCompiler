@@ -1,9 +1,8 @@
-int a = 1;
-int b = 2;
-
+string a = "yes";
 int main()
 {
-int c = a + b;
-printInt(c);
+string b = "no";
+print(a);
+print(a+b);
 return 0;
 }

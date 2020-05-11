@@ -1,23 +1,21 @@
 @a
-@b
+@__str_const_1 = "no"
+@__str_const_2 = "yes"
 
 func main {
 %main.entry:
-    $b_2 = load 4 @b 0
     $a_2 = load 4 @a 0
-    $_virtual_register = add $a_2 $b_2
-    call printInt $_virtual_register 
+    call print $a_2 
+    $_virtual_register = call string.add $a_2 @__str_const_1 
+    call print $_virtual_register 
     ret 0
 }
 
 func _init_ {
 %_init_.entry:
-    @b = alloc 4
     @a = alloc 4
-    $b_3 = load 4 @b 0
     $a_3 = load 4 @a 0
-    store 4 @a 1 0
-    store 4 @b 2 0
+    store 4 @a @__str_const_2 0
     $_virtual_register_2 = call main 
     ret $_virtual_register_2
 }

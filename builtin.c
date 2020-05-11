@@ -38,30 +38,32 @@ int __builtin_getInt()
 
 char* __builtin_toString(int x)
 {
-    if (x == 0)
-    {
-        char* ptr = malloc(2);
-        ptr[0] = '0';
-        ptr[1] = '\0';
-        return ptr;
-    }
     char* ptr = malloc(12);
-    int i = 0;
-    if (x < 0)
-    {
-        ptr[i++] = '-';
-        x = -x;
-    }
-    int base = 1000000000;
-    while (base > x) 
-        base /= 10;
-    while (base > 0)
-    {
-        ptr[i++] = x / base + '0';
-        x %= base;
-        base /= 10;
-    }
-    ptr[i++] = '\0';
+    sprintf(ptr, "%d", x);
+    // if (x == 0)
+    // {
+    //     char* ptr = malloc(2);
+    //     ptr[0] = '0';
+    //     ptr[1] = '\0';
+    //     return ptr;
+    // }
+    // char* ptr = malloc(12);
+    // int i = 0;
+    // if (x < 0)
+    // {
+    //     ptr[i++] = '-';
+    //     x = -x;
+    // }
+    // int base = 1000000000;
+    // while (base > x)
+    //     base /= 10;
+    // while (base > 0)
+    // {
+    //     ptr[i++] = x / base + '0';
+    //     x %= base;
+    //     base /= 10;
+    // }
+    // ptr[i++] = '\0';
     return ptr;
 }
 

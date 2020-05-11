@@ -43,72 +43,24 @@ __builtin_getInt:
         addi    sp,sp,32
         jr      ra
 __builtin_toString:
-        addi    sp,sp,-16
-        sd      ra,8(sp)
-        sd      s0,0(sp)
-        beqz    a0,.L23
-        mv      s0,a0
+        addi    sp,sp,-32
+        sd      s1,8(sp)
+        mv      s1,a0
         li      a0,12
+        sd      ra,24(sp)
+        sd      s0,16(sp)
         call    malloc
-        mv      a1,a0
-        li      a2,0
-        bltz    s0,.L24
-.L13:
-        li      a4,1000001536
-        addi    a5,a4,-1537
-        bgt     s0,a5,.L19
-        addi    a4,a4,-1536
-        li      a3,10
-        j       .L15
-.L20:
-        mv      a4,a5
-.L15:
-        divw    a5,a4,a3
-        blt     s0,a5,.L20
-        li      a3,9
-        ble     a4,a3,.L16
-.L14:
-        add     a3,a0,a2
-        li      a6,10
-        li      a1,9
-        j       .L17
-.L21:
-        mv      a5,a4
-.L17:
-        divw    a4,s0,a5
-        addi    a3,a3,1
-        addiw   a2,a2,1
-        addiw   a4,a4,48
-        sb      a4,-1(a3)
-        remw    s0,s0,a5
-        divw    a4,a5,a6
-        bgt     a5,a1,.L21
-        add     a1,a0,a2
-.L16:
-        sb      zero,0(a1)
-        ld      ra,8(sp)
-        ld      s0,0(sp)
-        addi    sp,sp,16
+        lui     a1,%hi(.LC1)
+        mv      a2,s1
+        addi    a1,a1,%lo(.LC1)
+        mv      s0,a0
+        call    sprintf
+        mv      a0,s0
+        ld      ra,24(sp)
+        ld      s0,16(sp)
+        ld      s1,8(sp)
+        addi    sp,sp,32
         jr      ra
-.L24:
-        li      a5,45
-        subw    s0,zero,s0
-        sb      a5,0(a0)
-        addi    a1,a0,1
-        li      a2,1
-        j       .L13
-.L23:
-        li      a0,2
-        call    malloc
-        li      a5,48
-        sh      a5,0(a0)
-        ld      ra,8(sp)
-        ld      s0,0(sp)
-        addi    sp,sp,16
-        jr      ra
-.L19:
-        addi    a5,a4,-1536
-        j       .L14
 __builtin_string_length:
         addi    sp,sp,-16
         sd      ra,8(sp)

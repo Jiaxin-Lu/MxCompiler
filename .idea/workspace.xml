@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="set output.s">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVPhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVPhysicalRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/builtin.c" beforeDir="false" afterPath="$PROJECT_DIR$/builtin.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/builtin.s" beforeDir="false" afterPath="$PROJECT_DIR$/builtin.s" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,21 +124,7 @@
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
-      <workItem from="1589103190149" duration="26134000" />
-    </task>
-    <task id="LOCAL-00050" summary="In SCCP, handle builtin function and Move instruction.">
-      <created>1587053869649</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1587053869650</updated>
-    </task>
-    <task id="LOCAL-00051" summary="In SCCP, handle builtin function and Move instruction..">
-      <created>1587055397022</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1587055397022</updated>
+      <workItem from="1589103190149" duration="27402000" />
     </task>
     <task id="LOCAL-00052" summary="Start SSADeConstructor.">
       <created>1587133460502</created>
@@ -475,7 +455,21 @@
       <option name="project" value="LOCAL" />
       <updated>1589136760950</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="fix RegisterAllocator">
+      <created>1589193509975</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1589193509975</updated>
+    </task>
+    <task id="LOCAL-00100" summary="add builtin">
+      <created>1589193524325</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1589193524326</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -496,8 +490,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add LivenessAnalysis" />
-    <MESSAGE value="Start RegisterAllocator." />
     <MESSAGE value="still working on RegisterAllocator.." />
     <MESSAGE value="still working on RegisterAllocator..." />
     <MESSAGE value="add peephole" />
@@ -521,7 +513,9 @@
     <MESSAGE value="add InstructionSelectorPrinter for debug use" />
     <MESSAGE value="debug for global variables" />
     <MESSAGE value="set output.s" />
-    <option name="LAST_COMMIT_MESSAGE" value="set output.s" />
+    <MESSAGE value="fix RegisterAllocator" />
+    <MESSAGE value="add builtin" />
+    <option name="LAST_COMMIT_MESSAGE" value="add builtin" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -560,10 +554,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589193508762">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589193523382">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589193508762" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589193523382" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

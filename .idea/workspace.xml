@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="set output.s">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/InstructionSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/InstructionSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/LivenessAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/LivenessAnalysis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/RegisterAllocator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVPhysicalRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVPhysicalRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVVirtualRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVOperand/RVVirtualRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,21 +130,7 @@
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
-      <workItem from="1589103190149" duration="21140000" />
-    </task>
-    <task id="LOCAL-00048" summary="In SCCP, add builtin function handler.">
-      <created>1587040880601</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1587040880601</updated>
-    </task>
-    <task id="LOCAL-00049" summary="In SCCP, handle builtin function and Move instruction.">
-      <created>1587053636197</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1587053636197</updated>
+      <workItem from="1589103190149" duration="26134000" />
     </task>
     <task id="LOCAL-00050" summary="In SCCP, handle builtin function and Move instruction.">
       <created>1587053869649</created>
@@ -478,7 +461,21 @@
       <option name="project" value="LOCAL" />
       <updated>1589122173646</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="debug for global variables">
+      <created>1589136750548</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1589136750548</updated>
+    </task>
+    <task id="LOCAL-00098" summary="set output.s">
+      <created>1589136760950</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1589136760950</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,8 +496,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Add LoopAnalysis." />
-    <MESSAGE value="start register allocation" />
     <MESSAGE value="add LivenessAnalysis" />
     <MESSAGE value="Start RegisterAllocator." />
     <MESSAGE value="still working on RegisterAllocator.." />
@@ -524,7 +519,9 @@
     <MESSAGE value="on RegisterAllocator...." />
     <MESSAGE value="debug RegisterAllocator...." />
     <MESSAGE value="add InstructionSelectorPrinter for debug use" />
-    <option name="LAST_COMMIT_MESSAGE" value="add InstructionSelectorPrinter for debug use" />
+    <MESSAGE value="debug for global variables" />
+    <MESSAGE value="set output.s" />
+    <option name="LAST_COMMIT_MESSAGE" value="set output.s" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -563,10 +560,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589136748881">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589136967429">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589136748881" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589136967429" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -575,22 +572,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588096476281" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1589136684037">
+    <state width="1493" height="592" key="GridCell.Tab.0.bottom" timestamp="1589189266553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589136684037" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1589136684037">
+    <state width="1493" height="592" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589189266553" />
+    <state width="1493" height="592" key="GridCell.Tab.0.center" timestamp="1589189266553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589136684037" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1589136684036">
+    <state width="1493" height="592" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589189266553" />
+    <state width="1493" height="592" key="GridCell.Tab.0.left" timestamp="1589189266553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589136684036" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1589136684037">
+    <state width="1493" height="592" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589189266553" />
+    <state width="1493" height="592" key="GridCell.Tab.0.right" timestamp="1589189266553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589136684037" />
+    <state width="1493" height="592" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589189266553" />
     <state width="1493" height="218" key="GridCell.Tab.1.bottom" timestamp="1586171338729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -615,10 +612,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588789541207" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1588622118538">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1589136955042">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588622118538" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1589136955042" />
     <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1582036372627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

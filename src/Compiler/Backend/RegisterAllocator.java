@@ -138,11 +138,15 @@ public class RegisterAllocator
             {
                 for (RVRegister spilledNode : spilledNodes)
                 {
+                    //== DEBUG ==
                     System.out.println(spilledNode.getName());
+                    //== DEBUG ==
                     assert !(spilledNode instanceof RVPhysicalRegister);
                     assert !(spilledNode.isGlobal);
                 }
+                //== DEBUG ==
                 System.out.println("---");
+                //== DEBUG ==
                 isChanged = true;
                 rewriteProgram(function);
             }
@@ -475,7 +479,7 @@ public class RegisterAllocator
                 if (!okColors.isEmpty()) color2 = okColors.iterator().next();
                 n.color = color2 == null ? color1 : color2;
                 //== DEBUG ==
-                System.out.println("assign : " + n.getName() + " to " + n.color.getName());
+//                System.out.println("assign : " + n.getName() + " to " + n.color.getName());
                 //== DEBUG ==
             }
         }
@@ -485,7 +489,7 @@ public class RegisterAllocator
             RVRegister m = getAlias(n);
             RVPhysicalRegister color = m.color;
             //== DEBUG ==
-            System.out.println("coalescedNodes : " + m.getName() + " " + n.getName());
+//            System.out.println("coalescedNodes : " + m.getName() + " " + n.getName());
             //== DEBUG ==
             assert color != null;
             n.color = color;

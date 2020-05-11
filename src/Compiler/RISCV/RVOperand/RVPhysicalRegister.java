@@ -51,8 +51,6 @@ public class RVPhysicalRegister extends RVRegister
 //    public static final List<RVVirtualRegister> argumentVirtualRegisters = new LinkedList<>();
 //    public static final Map<String, RVVirtualRegister> allVirtualRegisters = new LinkedHashMap<>();
 
-//    public static final RVVirtualRegister vzero;
-//    public static final RVVirtualRegister vra;
     public static final RVPhysicalRegister hi = new RVPhysicalRegister("%hi");
     public static final RVPhysicalRegister lo = new RVPhysicalRegister("%lo");
 

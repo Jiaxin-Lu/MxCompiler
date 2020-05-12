@@ -1,308 +1,81 @@
-@reed
-@n
-@__str_const_1 = toInt: 
-@__str_const_2 = substr: 
-@__str_const_3 =  
-@__str_const_4 = 
-@__str_const_5 = BY Kipsora
-
-func rand {
-%rand_entry:
-    $reed_2 = load 4 @reed 0
-    $_virtual_register = shl $reed_2 5
-    $_virtual_register_2 = add $reed_2 $_virtual_register
-    $_virtual_register_3 = add $_virtual_register_2 1727317
-    $reed_3 = move $_virtual_register_3
-    $_virtual_register_4 = mod $_virtual_register_3 1772371
-    $_virtual_register_5 = slt $_virtual_register_4 1000
-    br $_virtual_register_5 %rand__if_then %rand__parallel_copy_
-%rand__if_then:
-    $_virtual_register_6 = add $_virtual_register_3 818277
-    $_virtual_register_7 = xor $_virtual_register_3 $_virtual_register_6
-    $_virtual_register_8 = sub $_virtual_register_3 18217
-    $_virtual_register_9 = or $_virtual_register_7 $_virtual_register_8
-    $reed_4 = move $_virtual_register_9
-    $reed_5 = move $reed_4
-    $_fresh_variable_ = move $reed_5
-    jump %rand__if_merge
-%rand__if_merge:
-    $_virtual_register_10 = and $reed_5 -268435457
-    store 4 @reed $reed_5 0
-    ret $_virtual_register_10
-%rand__parallel_copy_:
-    $reed_5 = move $reed_3
-    $_fresh_variable__2 = move $reed_5
-    jump %rand__if_merge
-}
-
-void Test_Constructor $this {
-%Test_Constructor_entry:
-    $n_2 = load 4 @n 0
-    $j = move 0
-    $_virtual_register_11 = add $this 0
-    $_virtual_register_12 = mul $n_2 4
-    $_virtual_register_13 = add $_virtual_register_12 4
-    $_virtual_register_14 = alloc $_virtual_register_13
-    store 4 $_virtual_register_14 $n_2 0
-    store 4 $_virtual_register_11 $_virtual_register_14 0
-    $i = move 0
-    $j_2 = move $j
-    $i_2 = move $i
-    $_fresh_variable__3 = move $j_2
-    $j_2 = move $j_2
-    $_fresh_variable__3 = move $i_2
-    jump %Test_Constructor__for_cond
-%Test_Constructor__for_cond:
-    $_virtual_register_15 = slt $i_2 $n_2
-    br $_virtual_register_15 %Test_Constructor__for_body %Test_Constructor__for_merge
-%Test_Constructor__for_body:
-    $_virtual_register_16 = add $this 0
-    $_virtual_register_17 = load 4 $_virtual_register_16 0
-    $_virtual_register_18 = mul $j_2 4
-    $_virtual_register_19 = add $_virtual_register_18 4
-    $_virtual_register_20 = add $_virtual_register_19 $_virtual_register_17
-    $_virtual_register_21 = mul $i_2 $i_2
-    $_virtual_register_22 = add $i_2 $_virtual_register_21
-    $_virtual_register_23 = add $_virtual_register_22 3
-    $_virtual_register_24 = or $_virtual_register_23 13
-    $_virtual_register_25 = mul $_virtual_register_24 4
-    $_virtual_register_26 = add $_virtual_register_25 4
-    $_virtual_register_27 = alloc $_virtual_register_26
-    store 4 $_virtual_register_27 $_virtual_register_24 0
-    store 4 $_virtual_register_20 $_virtual_register_27 0
-    $j_3 = move 0
-    $j_4 = move $j_3
-    $_fresh_variable__4 = move $j_4
-    jump %Test_Constructor__for_cond_2
-%Test_Constructor__for_cond_2:
-    $_virtual_register_28 = mul $i_2 $i_2
-    $_virtual_register_29 = add $i_2 $_virtual_register_28
-    $_virtual_register_30 = add $_virtual_register_29 2
-    $_virtual_register_31 = or $_virtual_register_30 13
-    $_virtual_register_32 = slt $j_4 $_virtual_register_31
-    br $_virtual_register_32 %Test_Constructor__for_body_2 %Test_Constructor__for_step
-%Test_Constructor__for_step:
-    $i_3 = add $i_2 1
-    $j_2 = move $j_4
-    $i_2 = move $i_3
-    $_fresh_variable__5 = move $j_2
-    $j_2 = move $j_2
-    $_fresh_variable__5 = move $i_2
-    jump %Test_Constructor__for_cond
-%Test_Constructor__for_body_2:
-    $_virtual_register_33 = add $this 0
-    $_virtual_register_34 = load 4 $_virtual_register_33 0
-    $_virtual_register_35 = mul $i_2 4
-    $_virtual_register_36 = add $_virtual_register_35 4
-    $_virtual_register_37 = add $_virtual_register_36 $_virtual_register_34
-    $_virtual_register_38 = load 4 $_virtual_register_37 0
-    $_virtual_register_39 = mul $j_4 4
-    $_virtual_register_40 = add $_virtual_register_39 4
-    $_virtual_register_41 = add $_virtual_register_40 $_virtual_register_38
-    $_virtual_register_42 = call rand 
-    $_virtual_register_43 = call toString $_virtual_register_42 
-    store 4 $_virtual_register_41 $_virtual_register_43 0
-    jump %Test_Constructor__for_step_2
-%Test_Constructor__for_step_2:
-    $j_5 = add $j_4 1
-    $j_4 = move $j_5
-    $_fresh_variable__6 = move $j_4
-    jump %Test_Constructor__for_cond_2
-%Test_Constructor__for_merge:
-    ret 
-}
-
-void Test_printme $this_2 {
-%Test_printme_entry:
-    $n_3 = load 4 @n 0
-    $i_4 = move 0
-    $i_5 = move $i_4
-    $_fresh_variable__7 = move $i_5
-    jump %Test_printme__for_cond
-%Test_printme__for_cond:
-    $_virtual_register_44 = slt $i_5 $n_3
-    br $_virtual_register_44 %Test_printme__for_body %Test_printme__for_merge
-%Test_printme__for_body:
-    $j_6 = move 0
-    $j_7 = move $j_6
-    $_fresh_variable__8 = move $j_7
-    jump %Test_printme__for_cond_2
-%Test_printme__for_cond_2:
-    $_virtual_register_45 = mul $i_5 $i_5
-    $_virtual_register_46 = sub $j_7 $_virtual_register_45
-    $_virtual_register_47 = add $i_5 3
-    $_virtual_register_48 = slt $_virtual_register_46 $_virtual_register_47
-    br $_virtual_register_48 %Test_printme__for_body_2 %Test_printme__for_step
-%Test_printme__for_body_2:
-    $_virtual_register_49 = add $this_2 0
-    $_virtual_register_50 = load 4 $_virtual_register_49 0
-    $_virtual_register_51 = mul $i_5 4
-    $_virtual_register_52 = add $_virtual_register_51 4
-    $_virtual_register_53 = add $_virtual_register_52 $_virtual_register_50
-    $_virtual_register_54 = load 4 $_virtual_register_53 0
-    $_virtual_register_55 = mul $j_7 4
-    $_virtual_register_56 = add $_virtual_register_55 4
-    $_virtual_register_57 = add $_virtual_register_56 $_virtual_register_54
-    $_virtual_register_58 = load 4 $_virtual_register_57 0
-    call println $_virtual_register_58 
-    $_virtual_register_59 = load 4 $_virtual_register_49 0
-    $_virtual_register_60 = add $_virtual_register_52 $_virtual_register_59
-    $_virtual_register_61 = load 4 $_virtual_register_60 0
-    $_virtual_register_62 = add $_virtual_register_56 $_virtual_register_61
-    $_virtual_register_63 = load 4 $_virtual_register_62 0
-    $_virtual_register_64 = call string.parseInt $_virtual_register_63 
-    $_virtual_register_65 = call toString $_virtual_register_64 
-    $_virtual_register_66 = call string.add @__str_const_1 $_virtual_register_65 
-    call println $_virtual_register_66 
-    $_virtual_register_67 = call rand 
-    $_virtual_register_68 = load 4 $_virtual_register_49 0
-    $_virtual_register_69 = add $_virtual_register_52 $_virtual_register_68
-    $_virtual_register_70 = load 4 $_virtual_register_69 0
-    $_virtual_register_71 = add $_virtual_register_56 $_virtual_register_70
-    $_virtual_register_72 = load 4 $_virtual_register_71 0
-    $_virtual_register_73 = call string.length $_virtual_register_72 
-    $_virtual_register_74 = mod $_virtual_register_67 $_virtual_register_73
-    $l = move $_virtual_register_74
-    $_virtual_register_75 = call rand 
-    $_virtual_register_76 = load 4 $_virtual_register_49 0
-    $_virtual_register_77 = add $_virtual_register_52 $_virtual_register_76
-    $_virtual_register_78 = load 4 $_virtual_register_77 0
-    $_virtual_register_79 = add $_virtual_register_56 $_virtual_register_78
-    $_virtual_register_80 = load 4 $_virtual_register_79 0
-    $_virtual_register_81 = call string.length $_virtual_register_80 
-    $_virtual_register_82 = mod $_virtual_register_75 $_virtual_register_81
-    $r = move $_virtual_register_82
-    $_virtual_register_83 = sgt $_virtual_register_74 $_virtual_register_82
-    br $_virtual_register_83 %Test_printme__if_then %Test_printme__parallel_copy_
-%Test_printme__parallel_copy_:
-    $l_2 = move $l
-    $r_2 = move $r
-    $_fresh_variable__9 = move $l_2
-    $l_2 = move $l_2
-    $_fresh_variable__9 = move $r_2
-    jump %Test_printme__if_merge
-%Test_printme__if_merge:
-    $_virtual_register_84 = add $this_2 0
-    $_virtual_register_85 = load 4 $_virtual_register_84 0
-    $_virtual_register_86 = mul $i_5 4
-    $_virtual_register_87 = add $_virtual_register_86 4
-    $_virtual_register_88 = add $_virtual_register_87 $_virtual_register_85
-    $_virtual_register_89 = load 4 $_virtual_register_88 0
-    $_virtual_register_90 = mul $j_7 4
-    $_virtual_register_91 = add $_virtual_register_90 4
-    $_virtual_register_92 = add $_virtual_register_91 $_virtual_register_89
-    $_virtual_register_93 = load 4 $_virtual_register_92 0
-    $_virtual_register_94 = call string.substring $_virtual_register_93 $l_2 $r_2 
-    $_virtual_register_95 = call string.add @__str_const_2 $_virtual_register_94 
-    call println $_virtual_register_95 
-    $k = move 0
-    $k_2 = move $k
-    $_fresh_variable__10 = move $k_2
-    jump %Test_printme__for_cond_3
-%Test_printme__for_cond_3:
-    $_virtual_register_96 = add $k_2 1
-    $_virtual_register_97 = add $this_2 0
-    $_virtual_register_98 = load 4 $_virtual_register_97 0
-    $_virtual_register_99 = mul $i_5 4
-    $_virtual_register_100 = add $_virtual_register_99 4
-    $_virtual_register_101 = add $_virtual_register_100 $_virtual_register_98
-    $_virtual_register_102 = load 4 $_virtual_register_101 0
-    $_virtual_register_103 = mul $j_7 4
-    $_virtual_register_104 = add $_virtual_register_103 4
-    $_virtual_register_105 = add $_virtual_register_104 $_virtual_register_102
-    $_virtual_register_106 = load 4 $_virtual_register_105 0
-    $_virtual_register_107 = call string.length $_virtual_register_106 
-    $_virtual_register_108 = add $_virtual_register_107 1
-    $_virtual_register_109 = slt $_virtual_register_96 $_virtual_register_108
-    br $_virtual_register_109 %Test_printme__for_body_3 %Test_printme__for_merge_2
-%Test_printme__for_body_3:
-    $_virtual_register_110 = load 4 $_virtual_register_97 0
-    $_virtual_register_111 = add $_virtual_register_100 $_virtual_register_110
-    $_virtual_register_112 = load 4 $_virtual_register_111 0
-    $_virtual_register_113 = add $_virtual_register_104 $_virtual_register_112
-    $_virtual_register_114 = load 4 $_virtual_register_113 0
-    $_virtual_register_115 = call string.ord $_virtual_register_114 $k_2 
-    $_virtual_register_116 = call toString $_virtual_register_115 
-    $_virtual_register_117 = call string.add $_virtual_register_116 @__str_const_3 
-    call print $_virtual_register_117 
-    jump %Test_printme__for_step_2
-%Test_printme__for_step_2:
-    $_virtual_register_118 = add $k_2 2
-    $k_3 = move $_virtual_register_118
-    $k_2 = move $k_3
-    $_fresh_variable__11 = move $k_2
-    jump %Test_printme__for_cond_3
-%Test_printme__for_merge_2:
-    call println @__str_const_4 
-    jump %Test_printme__for_step_3
-%Test_printme__for_step_3:
-    $j_8 = add $j_7 1
-    $j_7 = move $j_8
-    $_fresh_variable__12 = move $j_7
-    jump %Test_printme__for_cond_2
-%Test_printme__if_then:
-    $l_3 = move $_virtual_register_82
-    $r_3 = move $_virtual_register_74
-    $l_2 = move $l_3
-    $r_2 = move $r_3
-    $_fresh_variable__13 = move $l_2
-    $l_2 = move $l_2
-    $_fresh_variable__13 = move $r_2
-    jump %Test_printme__if_merge
-%Test_printme__for_step:
-    $i_6 = add $i_5 1
-    $i_5 = move $i_6
-    $_fresh_variable__14 = move $i_5
-    jump %Test_printme__for_cond
-%Test_printme__for_merge:
-    ret 
-}
+@__str_const_1 = 
+@__str_const_2 = \n
+@__str_const_3 = 
+@__str_const_4 = -1
+@__str_const_5 = 0
+@__str_const_6 = 11h
 
 func main {
 %main_entry:
-    $n_4 = load 4 @n 0
-    $_virtual_register_119 = call getInt 
-    call println @__str_const_5 
-    $_virtual_register_120 = alloc 4
-    store 4 @n $_virtual_register_119 0
-    call Test_Constructor $_virtual_register_120 
-    store 4 @n $_virtual_register_119 0
-    call Test_printme $_virtual_register_120 
-    $_virtual_register_121 = add $_virtual_register_120 0
-    $_virtual_register_122 = alloc 16
-    store 4 $_virtual_register_122 3 0
-    $_virtual_register_123 = add $_virtual_register_122 4
-    $_virtual_register_124 = add $_virtual_register_122 16
-    $_virtual_register_125 = move $_virtual_register_123
-    $_fresh_variable__15 = move $_virtual_register_125
-    jump %main__array_loop_cond
-%main__array_loop_cond:
-    $_virtual_register_126 = slt $_virtual_register_125 $_virtual_register_124
-    br $_virtual_register_126 %main__array_loop_body %main__array_loop_merge
-%main__array_loop_merge:
-    store 4 $_virtual_register_121 $_virtual_register_122 0
-    jump %main__for_body
+    $i = move 0
+    $i_2 = move $i
+    $_fresh_variable_ = move $i_2
+    jump %main__for_cond
+%main__for_cond:
+    $_virtual_register = slt $i_2 10
+    br $_virtual_register %main__for_body %main__for_merge
 %main__for_body:
-    jump %main__for_body
-%main__array_loop_body:
-    $_virtual_register_127 = alloc 16
-    store 4 $_virtual_register_127 3 0
-    store 4 $_virtual_register_125 $_virtual_register_127 0
-    jump %main__array_loop_step
-%main__array_loop_step:
-    $_virtual_register_128 = add $_virtual_register_125 4
-    $_virtual_register_129 = move $_virtual_register_128
-    $_virtual_register_125 = move $_virtual_register_129
-    $_fresh_variable__16 = move $_virtual_register_125
-    jump %main__array_loop_cond
+    $_virtual_register_2 = call string.add @__str_const_1 @__str_const_2 
+    call print $_virtual_register_2 
+    jump %main__for_step
+%main__for_step:
+    $i_3 = add $i_2 1
+    $i_2 = move $i_3
+    $_fresh_variable__2 = move $i_2
+    jump %main__for_cond
+%main__for_merge:
+    $i_4 = move 0
+    $i_5 = move $i_4
+    $_fresh_variable__3 = move $i_5
+    jump %main__for_cond_2
+%main__for_cond_2:
+    $_virtual_register_3 = slt $i_5 10
+    br $_virtual_register_3 %main__for_body_2 %main__for_merge_2
+%main__for_body_2:
+    $i_6 = move 0
+    $i_7 = move $i_6
+    $_fresh_variable__4 = move $i_7
+    jump %main__for_cond_3
+%main__for_cond_3:
+    $_virtual_register_4 = slt $i_7 10
+    br $_virtual_register_4 %main__for_step_2 %main__for_step_3
+%main__for_step_2:
+    $i_8 = add $i_7 1
+    $i_7 = move $i_8
+    $_fresh_variable__5 = move $i_7
+    jump %main__for_cond_3
+%main__for_step_3:
+    $i_9 = add $i_7 1
+    $i_5 = move $i_9
+    $_fresh_variable__6 = move $i_5
+    jump %main__for_cond_2
+%main__for_merge_2:
+    $_virtual_register_5 = seq $i_5 0
+    br $_virtual_register_5 %main__if_then %main__if_else
+%main__if_else:
+    $_virtual_register_6 = call string.add @__str_const_4 @__str_const_4 
+    $_virtual_register_7 = call getString 
+    $_virtual_register_8 = call string.add $_virtual_register_6 $_virtual_register_7 
+    call println $_virtual_register_8 
+    jump %main__while_cond
+%main__while_cond:
+    $_virtual_register_9 = call toString $i_5 
+    $_virtual_register_10 = call string.eq $_virtual_register_9 @__str_const_5 
+    br $_virtual_register_10 %main__while_body %main__while_merge
+%main__while_merge:
+    ret 0
+%main__while_body:
+    $_virtual_register_11 = call string.parseInt @__str_const_6 
+    jump %main__while_cond
+%main__if_then:
+    $_virtual_register_12 = call string.add @__str_const_3 @__str_const_3 
+    call println $_virtual_register_12 
+    jump %main__while_cond
 }
 
 func _init_ {
 %_init__entry:
-    $reed_6 = load 4 @reed 0
-    store 4 @reed 12883127 0
-    $_virtual_register_130 = call main 
-    $reed_7 = load 4 @reed 0
-    ret $_virtual_register_130
+    $_virtual_register_13 = call main 
+    ret $_virtual_register_13
 }
 

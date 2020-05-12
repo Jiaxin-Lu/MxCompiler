@@ -4,7 +4,6 @@ import Compiler.AST.*;
 import Compiler.Parser.MxBaseVisitor;
 import Compiler.Parser.MxParser;
 import Compiler.Utils.*;
-import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

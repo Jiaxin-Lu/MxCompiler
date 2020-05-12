@@ -111,20 +111,9 @@ public class InstructionSelector implements IRVisitor
         } else if (operand instanceof Immediate)
         {
             int imm = ((Immediate) operand).getImm();
-            if (((Immediate) operand).isBool())
-            {
-//                if (imm == 0) return allRegisters.get("zero");
-                RVVirtualRegister reg = currentFunction.addRegister("imm");
-                currentBlock.addInst2Tail(new InstLi(currentBlock, reg, new RVImmediate(imm)));
-//                currentBlock.addInst2Tail(new InstI(currentBlock, InstI.Op.addi, reg, allRegisters.get("zero"), new RVImmediate(1)));
-                return reg;
-            } else
-            {
-//                if (imm == 0) return allRegisters.get("zero");
-                RVVirtualRegister reg = currentFunction.addRegister("imm");
-                currentBlock.addInst2Tail(new InstLi(currentBlock, reg, new RVImmediate(imm)));
-                return reg;
-            }
+            RVVirtualRegister reg = currentFunction.addRegister("imm");
+            currentBlock.addInst2Tail(new InstLi(currentBlock, reg, new RVImmediate(imm)));
+            return reg;
         } else if (operand instanceof Memory) //static Str
         {
             assert false;

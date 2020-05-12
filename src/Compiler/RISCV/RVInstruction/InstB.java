@@ -82,7 +82,7 @@ public class InstB extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + op + indent + indent + rs + "," + rt + "," + dst.getName();
+        return indent + op + indent + indent + rs + ", " + rt + ", " + dst.getName();
     }
 
     @Override

@@ -90,6 +90,6 @@ public class InstI extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + op + indent + rd + "," + rs + "," + imm;
+        return indent + op + indent + rd + ", " + rs + ", " + imm;
     }
 }

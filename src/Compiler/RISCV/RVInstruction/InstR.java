@@ -92,7 +92,7 @@ public class InstR extends RVInstruction
     public String toString()
     {
         if (op == Op.sltu)
-            return indent + op + indent + rd + "," + rs1 + "," + rs2;
-        else return indent + op + indent + indent + rd + "," + rs1 + "," + rs2;
+            return indent + op + indent + rd + ", " + rs1 + ", " + rs2;
+        else return indent + op + indent + indent + rd + ", " + rs1 + ", " + rs2;
     }
 }

@@ -9,12 +9,8 @@ import Compiler.RISCV.RVOperand.RVStaticStr;
 import Compiler.RISCV.RVRoot;
 import Compiler.RISCV.RVVisitor;
 
-import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 public class AsmPrinter implements RVVisitor
 {
@@ -65,7 +61,7 @@ public class AsmPrinter implements RVVisitor
     public void visit(RVFunction function)
     {
         output.println(indent + ".globl\t" + function.getName());
-//        output.println(indent + ".p2align\t2");
+        output.println(indent + ".p2align\t2");
         output.println(indent + ".type\t" + function.getName() + ", @function");
         output.println(function.getName() + ":");
         for (RVBasicBlock basicBlock : function.getPreOrderBlockList())

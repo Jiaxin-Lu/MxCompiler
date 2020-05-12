@@ -57,6 +57,6 @@ public class InstLi extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + "li" + indent + indent + rd + "," + imm;
+        return indent + "li" + indent + indent + rd + ", " + imm;
     }
 }

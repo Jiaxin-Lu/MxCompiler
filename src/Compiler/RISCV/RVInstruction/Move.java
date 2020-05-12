@@ -69,6 +69,6 @@ public class Move extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + "mv" + indent + indent + rd + "," + rs;
+        return indent + "mv" + indent + indent + rd + ", " + rs;
     }
 }

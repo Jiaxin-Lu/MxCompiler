@@ -81,6 +81,6 @@ public class CMPz extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + op + indent + rd + "," + rs;
+        return indent + op + indent + rd + ", " + rs;
     }
 }

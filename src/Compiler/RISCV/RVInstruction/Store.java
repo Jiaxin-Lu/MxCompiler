@@ -83,7 +83,7 @@ public class Store extends RVInstruction
     public String toString()
     {
         if (dst instanceof StackData)
-            return indent + "sw" + indent + indent + rd + "," + dst;
-        else return indent + "sw" + indent + indent + rd + "," + imm + "(" + dst + ")";
+            return indent + "sw" + indent + indent + rd + ", " + dst;
+        else return indent + "sw" + indent + indent + rd + ", " + imm + "(" + dst + ")";
     }
 }

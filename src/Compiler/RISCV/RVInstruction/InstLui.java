@@ -57,6 +57,6 @@ public class InstLui extends RVInstruction
     @Override
     public String toString()
     {
-        return indent + "lui" + indent + indent + rd + "," + imm;
+        return indent + "lui" + indent + indent + rd + ", " + imm;
     }
 }

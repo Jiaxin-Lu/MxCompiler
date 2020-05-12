@@ -72,8 +72,8 @@ public class Load extends RVInstruction
     public String toString()
     {
         if (src instanceof StackData)
-            return indent + "lw" + indent + indent + rd + "," + src;
-        else return indent + "lw" + indent + indent + rd + "," + imm + "(" + src + ")";
+            return indent + "lw" + indent + indent + rd + ", " + src;
+        else return indent + "lw" + indent + indent + rd + ", " + imm + "(" + src + ")";
     }
 
     @Override

@@ -95,6 +95,7 @@ public class DeadCodeEliminator extends Pass
             {
                 if (inst instanceof BranchInst)
                 {
+                    if (basicBlock.postIDOM == null) continue;
                     isChanged = true;
                     basicBlock.removeTailInst();
                     basicBlock.endThis(new JumpInst(basicBlock, basicBlock.postIDOM));

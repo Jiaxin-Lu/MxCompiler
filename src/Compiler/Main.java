@@ -171,8 +171,8 @@ public class Main
             ++ changedCnt;
             if (changedCnt > 10) break;
         }
-        ssaDestructor.run();
         printIR(irRoot, "ssaIROutput.ir", false);
+        ssaDestructor.run();
         cfgSimplifier.run(true);
     }
 }

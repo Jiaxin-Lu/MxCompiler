@@ -6,15 +6,12 @@
       <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ScopeBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Frontend/ScopeBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/ScopeBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Frontend/UnusedEliminator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/BranchInst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRInstruction/BranchInst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/SpillPriorityProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,14 +133,7 @@
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
       <workItem from="1589103190149" duration="64738000" />
-      <workItem from="1589304704743" duration="9310000" />
-    </task>
-    <task id="LOCAL-00060" summary="optimize CFGSimplifier.">
-      <created>1588021643313</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1588021643313</updated>
+      <workItem from="1589304704743" duration="10953000" />
     </task>
     <task id="LOCAL-00061" summary="fix bugs in GlobalVariableResolver.">
       <created>1588075916622</created>
@@ -481,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589302886089</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="fix scope and dominator tree">
+      <created>1589314166434</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1589314166435</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +499,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add printer" />
     <MESSAGE value="Add RISC-V relevant files." />
     <MESSAGE value="improve Interpreter" />
     <MESSAGE value="Let new RISCV relevant operands and instructions take over." />
@@ -527,7 +523,8 @@
     <MESSAGE value="add libs" />
     <MESSAGE value="better output" />
     <MESSAGE value="fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
+    <MESSAGE value="fix scope and dominator tree" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix scope and dominator tree" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -566,10 +563,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589302881585">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589314164891">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589302881585" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589314164891" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -578,22 +575,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="279" key="GridCell.Tab.0.bottom" timestamp="1589314031057">
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom" timestamp="1589315663836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589314031057" />
-    <state width="1493" height="279" key="GridCell.Tab.0.center" timestamp="1589314031057">
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589315663836" />
+    <state width="1493" height="222" key="GridCell.Tab.0.center" timestamp="1589315663836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589314031057" />
-    <state width="1493" height="279" key="GridCell.Tab.0.left" timestamp="1589314031057">
+    <state width="1493" height="222" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589315663836" />
+    <state width="1493" height="222" key="GridCell.Tab.0.left" timestamp="1589315663836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589314031057" />
-    <state width="1493" height="279" key="GridCell.Tab.0.right" timestamp="1589314031057">
+    <state width="1493" height="222" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589315663836" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right" timestamp="1589315663836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589314031057" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589315663836" />
     <state width="1493" height="112" key="GridCell.Tab.1.bottom" timestamp="1589303134074">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -614,10 +611,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="408" y="109" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1584697134787" />
-    <state x="575" y="122" key="RollbackChangesDialog" timestamp="1589313734167">
+    <state x="575" y="122" key="RollbackChangesDialog" timestamp="1589315250776">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="575" y="122" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1589313734167" />
+    <state x="575" y="122" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1589315250776" />
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor" timestamp="1588789541207">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

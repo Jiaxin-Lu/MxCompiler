@@ -50,6 +50,7 @@ public class SpillPriorityProcessor
         for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
             for (RVBasicBlock successor : basicBlock.getSuccessors())
+            if (successor.DominatorTreeSuccessorsAll != null)
             {
                 if (successor.DominatorTreeSuccessorsAll.contains(basicBlock))
                 {
@@ -162,6 +163,7 @@ public class SpillPriorityProcessor
             basicBlock.DominatorTreeSuccessor = new HashSet<>();
         }
         for (RVBasicBlock basicBlock : basicBlockList)
+        if (basicBlock.IDOM != null)
         {
             basicBlock.IDOM.DominatorTreeSuccessor.add(basicBlock);
         }

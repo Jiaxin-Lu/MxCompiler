@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/AsmPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/AsmPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/CMPz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/CMPz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstLui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/Store.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,14 +122,7 @@
       <workItem from="1587904814623" duration="83719000" />
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
-      <workItem from="1589103190149" duration="42308000" />
-    </task>
-    <task id="LOCAL-00057" summary="Combine Optimizers.">
-      <created>1587971397272</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1587971397272</updated>
+      <workItem from="1589103190149" duration="42330000" />
     </task>
     <task id="LOCAL-00058" summary="Combine Optimizers and fix bugs.">
       <created>1588007400708</created>
@@ -478,7 +460,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589222815652</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="better output">
+      <created>1589276237909</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1589276237909</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +488,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add Peephole" />
     <MESSAGE value="change Peephole" />
     <MESSAGE value="add printer" />
     <MESSAGE value="Add RISC-V relevant files." />
@@ -524,7 +512,8 @@
     <MESSAGE value="add .bash files" />
     <MESSAGE value="add lib" />
     <MESSAGE value="add libs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add libs" />
+    <MESSAGE value="better output" />
+    <option name="LAST_COMMIT_MESSAGE" value="better output" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -563,10 +552,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589222814524">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589276236078">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589222814524" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589276236078" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

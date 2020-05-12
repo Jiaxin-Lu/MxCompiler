@@ -4,8 +4,6 @@ import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVOperand.*;
 import Compiler.RISCV.RVVisitor;
 
-import java.util.Stack;
-
 public class Store extends RVInstruction
 {
     private RVRegister rd;

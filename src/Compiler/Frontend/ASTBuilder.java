@@ -4,6 +4,7 @@ import Compiler.AST.*;
 import Compiler.Parser.MxBaseVisitor;
 import Compiler.Parser.MxParser;
 import Compiler.Utils.*;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -531,7 +532,12 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode>
     @Override
     public ASTNode visitStrConst(MxParser.StrConstContext ctx)
     {
-        return new StringConstNode(new Position(ctx.getStart()), ctx.StringConst().getText());
+        // == DEBUG ==
+//        System.out.println("string : " + ctx.StringConst().getText());
+        // == DEBUG ==
+        String str = ctx.StringConst().getText();
+        str = str.substring(1, str.length() - 1);
+        return new StringConstNode(new Position(ctx.getStart()), str);
     }
 
     @Override

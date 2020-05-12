@@ -3,6 +3,7 @@
     <words>
       <w>globl</w>
       <w>liveness</w>
+      <w>sccp</w>
       <w>sequentialization</w>
       <w>vzero</w>
     </words>

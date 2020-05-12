@@ -4,15 +4,15 @@
 @chunks
 @inputBuffer
 @outputBuffer
-@__str_const_1 = ""
-@__str_const_2 = ""
-@__str_const_3 = "nChunk > MAXCHUNK!"
-@__str_const_4 = ""
-@__str_const_5 = "Invalid input"
-@__str_const_6 = ""
-@__str_const_7 = "Not Found!"
-@__str_const_8 = newString
-@__str_const_9 = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+@__str_const_1 = 
+@__str_const_2 = 
+@__str_const_3 = nChunk > MAXCHUNK!
+@__str_const_4 = 
+@__str_const_5 = Invalid input
+@__str_const_6 = 
+@__str_const_7 = Not Found!
+@__str_const_8 = 
+@__str_const_9 =  !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 
 func hex2int $x {
 %hex2int_entry:

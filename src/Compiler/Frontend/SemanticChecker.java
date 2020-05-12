@@ -44,7 +44,7 @@ public class SemanticChecker implements ASTVisitor
             } else
             {
                 if (type.getTypeName().equals("string"))
-                    node.setExpr(new StringConstNode(null, "newString"));
+                    node.setExpr(new StringConstNode(null, ""));
                 else node.setExpr(new NullConstNode(null));
             }
             node.getExpr().accept(this);
@@ -474,6 +474,9 @@ public class SemanticChecker implements ASTVisitor
     @Override
     public void visit(StringConstNode node) throws SemanticError
     {
+        // == DEBUG ==
+//        System.out.println("string in semantic : " + node.getVal());
+        // == DEBUG ==
         node.setExprType(ExprNode.ExprType.RIGHT);
         node.setTypeResolved(globalScope.getString());
     }

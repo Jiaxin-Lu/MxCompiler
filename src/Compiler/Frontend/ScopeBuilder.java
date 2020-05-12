@@ -182,7 +182,7 @@ public class ScopeBuilder implements ASTVisitor
     {
         loopStack.push(node);
         if (node.getInit() != null) node.getInit().accept(this);
-        if (node.getCond() != null) node.getCond().accept(this);;
+        if (node.getCond() != null) node.getCond().accept(this);
         if (node.getStep() != null) node.getStep().accept(this);
         if (node.getStatement() != null) node.getStatement().accept(this);
         loopStack.pop();

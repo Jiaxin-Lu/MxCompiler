@@ -106,7 +106,10 @@ public class AsmPrinter implements RVVisitor
     {
         output.println(indent + ".globl\t" + rvStaticStr);
         output.println(rvStaticStr + ":");
-        output.println(indent + ".string\t" + rvStaticStr.getString());
+        output.print(indent + ".string\t");
+        String str = rvStaticStr.getString();
+        str = "\"" + str + "\"";
+        output.println(str);
         output.println();
     }
 

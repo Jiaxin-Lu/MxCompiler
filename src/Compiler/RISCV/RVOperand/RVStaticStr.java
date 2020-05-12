@@ -11,6 +11,8 @@ public class RVStaticStr extends RVGlobalVariable
         this.string = str;
     }
 
+    public boolean isSCCP = false;
+
     public String getString()
     {
         return string;

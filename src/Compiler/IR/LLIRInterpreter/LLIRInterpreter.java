@@ -307,7 +307,7 @@ public class LLIRInterpreter {
             String[] words = line.split("=", 2);
             String name = words[0].trim();
             String val = words[1].trim();
-            val = val.substring(1, val.length() - 1);
+//            val = val.substring(1, val.length() - 1);
             val = StringEscapeUtils.unescapeJava(val);
             Register register = new Register();
             register.value = stringStaticCnt;
@@ -323,11 +323,11 @@ public class LLIRInterpreter {
             register.timestamp = 0;
             globalRegisters.put(name, register);
 
-//            int size = 4;
-//            registerWrite(name, heapTop);
-//            for (int i = 0; i < size; ++i) memory.put(heapTop + i, (byte) 0);
-//            heapTop += size;
-//            heapTop += (int) (Math.random() * 4096);
+            int size = 4;
+            registerWrite(name, heapTop);
+            for (int i = 0; i < size; ++i) memory.put(heapTop + i, (byte) 0);
+            heapTop += size;
+            heapTop += (int) (Math.random() * 4096);
         }
     }
 

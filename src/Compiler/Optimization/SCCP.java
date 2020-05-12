@@ -278,7 +278,9 @@ public class SCCP extends Pass
                 if (lhs != null && rhs != null)
                 {
                     String result = irRoot.getStaticStringValMap().get(lhs) + irRoot.getStaticStringValMap().get(rhs);
+//                    result = "\"" + result + "\"";
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
+                    strResult.isSCCP = true;
                     irRoot.addStaticStr(strResult);
                     markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
                 } else markMultiDefined(inst.getDefRegister());
@@ -330,7 +332,9 @@ public class SCCP extends Pass
                 if (instStr.status == OperandStatus.Status.CONSTANT)
                 {
                     String result = String.valueOf(((Immediate)instStr.operand).getImm());
+//                    result = "\"" + result + "\"";
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
+                    strResult.isSCCP = true;
                     irRoot.addStaticStr(strResult);
                     markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
                 } else markMultiDefined(inst.getDefRegister());
@@ -345,7 +349,9 @@ public class SCCP extends Pass
                         int l = ((Immediate)lhsStatus.operand).getImm();
                         int r = ((Immediate)rhsStatus.operand).getImm();
                         String result = irRoot.getStaticStringValMap().get(thisPointer).substring(l, r);
+//                        result = "\"" + result + "\"";
                         StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
+                        strResult.isSCCP = true;
                         irRoot.addStaticStr(strResult);
                         markConstantStr(inst.getDefRegister(), (GlobalVariable) strResult.getBase());
                     } else markMultiDefined(inst.getDefRegister());

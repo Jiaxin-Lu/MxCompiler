@@ -20,6 +20,8 @@ public class StaticStr extends Memory
 
     public RVStaticStr rvStaticStr;
 
+    public boolean isSCCP = false;
+
     @Override
     public void accept(IRVisitor visitor)
     {

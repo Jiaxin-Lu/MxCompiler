@@ -827,6 +827,9 @@ public class IRBuilder implements ASTVisitor
     public void visit(StringConstNode node) throws SemanticError
     {
         StaticStr staticStr = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), node.getVal());
+        // == DEBUG ==
+//        System.out.println(node.getPosition() + " " + irRoot.stringConstCnt + " " + staticStr.getValue() + " " + node.getVal());
+        // == DEBUG ==
         node.setResultOperand(staticStr.getBase());
         irRoot.addStaticStr(staticStr);
 //        irRoot.addStaticStringVal(staticStr.getBase(), staticStr.getValue());

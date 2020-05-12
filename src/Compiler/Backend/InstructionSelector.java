@@ -113,13 +113,14 @@ public class InstructionSelector implements IRVisitor
             int imm = ((Immediate) operand).getImm();
             if (((Immediate) operand).isBool())
             {
-                if (imm == 0) return allRegisters.get("zero");
+//                if (imm == 0) return allRegisters.get("zero");
                 RVVirtualRegister reg = currentFunction.addRegister("imm");
-                currentBlock.addInst2Tail(new InstI(currentBlock, InstI.Op.addi, reg, allRegisters.get("zero"), new RVImmediate(1)));
+                currentBlock.addInst2Tail(new InstLi(currentBlock, reg, new RVImmediate(imm)));
+//                currentBlock.addInst2Tail(new InstI(currentBlock, InstI.Op.addi, reg, allRegisters.get("zero"), new RVImmediate(1)));
                 return reg;
             } else
             {
-                if (imm == 0) return allRegisters.get("zero");
+//                if (imm == 0) return allRegisters.get("zero");
                 RVVirtualRegister reg = currentFunction.addRegister("imm");
                 currentBlock.addInst2Tail(new InstLi(currentBlock, reg, new RVImmediate(imm)));
                 return reg;
@@ -145,6 +146,7 @@ public class InstructionSelector implements IRVisitor
         for (StaticStr staticStr : irRoot.getStaticStrList())
         {
             RVStaticStr str = new RVStaticStr(staticStr.getName(), staticStr.getValue());
+            str.isSCCP = staticStr.isSCCP;
             staticStr.rvStaticStr = str;
             staticStr.getBase().rvStaticStr = str;
             staticStr.getBase().isStrBase = true;
@@ -421,7 +423,7 @@ public class InstructionSelector implements IRVisitor
             {
                 //neg -x -> binary 0 sub x
                 RVRegister dst = getRegister(inst.getDst());
-                currentBlock.addInst2Tail(new InstR(currentBlock, InstR.Op.sub, dst, getRegister(new Immediate(0)), getRegister(inst.getSrc())));
+                currentBlock.addInst2Tail(new InstR(currentBlock, InstR.Op.sub, dst, allRegisters.get("zero"), getRegister(inst.getSrc())));
                 break;
             }
             default: break;
@@ -470,7 +472,9 @@ public class InstructionSelector implements IRVisitor
         if (src instanceof GlobalVariable)
         {
             //dst = load global
-            currentBlock.addInst2Tail(new Load(currentBlock, getRegister(dst), getRegister(src), new RVImmediate(0)));
+            RVVirtualRegister tmp = currentFunction.addRegister("global_tmp");
+            currentBlock.addInst2Tail(new InstLui(currentBlock, tmp, new Address(hi, ((GlobalVariable) src).rvGlobalVariable)));
+            currentBlock.addInst2Tail(new Load(currentBlock, getRegister(dst), tmp, new Address(lo, ((GlobalVariable) src).rvGlobalVariable)));
         } else if (src instanceof StaticStr)
         {
             assert false;
@@ -487,7 +491,9 @@ public class InstructionSelector implements IRVisitor
         Operand src = inst.getSrc(), dst = inst.getDst();
         if (dst instanceof GlobalVariable)
         {
-            currentBlock.addInst2Tail(new Store(currentBlock, getRegister(src), getRegister(dst), new RVImmediate(0)));
+            RVVirtualRegister tmp = currentFunction.addRegister("global_tmp");
+            currentBlock.addInst2Tail(new InstLui(currentBlock, tmp, new Address(hi, ((GlobalVariable) dst).rvGlobalVariable)));
+            currentBlock.addInst2Tail(new Store(currentBlock, getRegister(src), tmp, new Address(lo, ((GlobalVariable) dst).rvGlobalVariable)));
         } else if (dst instanceof StaticStr)
         {
             assert false;

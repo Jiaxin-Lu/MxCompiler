@@ -1,976 +1,143 @@
-@asciiTable
-@MAXCHUNK
-@MAXLENGTH
-@chunks
-@inputBuffer
-@outputBuffer
 @__str_const_1 = 
-@__str_const_2 = 
-@__str_const_3 = nChunk > MAXCHUNK!
-@__str_const_4 = 
-@__str_const_5 = Invalid input
-@__str_const_6 = 
-@__str_const_7 = Not Found!
-@__str_const_8 = 
-@__str_const_9 =  !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+@__str_const_2 = 123
+@__str_const_3 = 456
 
-func hex2int $x {
-%hex2int_entry:
-    $i = move 0
-    $result = move 0
-    $i = move 0
-    jump %hex2int__for_cond
-%hex2int__for_cond:
-    $_virtual_register = call string.length $x 
-    $_virtual_register_2 = slt $i $_virtual_register
-    br $_virtual_register_2 %hex2int__for_body %hex2int__for_merge
-%hex2int__for_merge:
-    $_virtual_register_3 = move $result
-    $returnVal = move $_virtual_register_3
-    jump %hex2int_exit
-%hex2int_exit:
-    ret $returnVal
-%hex2int__for_body:
-    $_virtual_register_4 = call string.ord $x $i 
-    $digit = move $_virtual_register_4
-    $_virtual_register_5 = sge $digit 48
-    br $_virtual_register_5 %hex2int__lhs_and_then %hex2int__if_else
-%hex2int__if_else:
-    $_virtual_register_6 = sge $digit 65
-    br $_virtual_register_6 %hex2int__lhs_and_then_2 %hex2int__if_else_2
-%hex2int__if_else_2:
-    $_virtual_register_7 = sge $digit 97
-    br $_virtual_register_7 %hex2int__lhs_and_then_3 %hex2int__if_else_3
-%hex2int__lhs_and_then_3:
-    $_virtual_register_8 = sle $digit 102
-    br $_virtual_register_8 %hex2int__if_then %hex2int__if_else_3
-%hex2int__if_then:
-    $_virtual_register_9 = mul $result 16
-    $_virtual_register_10 = add $_virtual_register_9 $digit
-    $_virtual_register_11 = sub $_virtual_register_10 97
-    $_virtual_register_12 = add $_virtual_register_11 10
-    $result = move $_virtual_register_12
-    jump %hex2int__if_merge
-%hex2int__if_merge:
-    jump %hex2int__if_merge_2
-%hex2int__if_merge_2:
-    jump %hex2int__if_merge_3
-%hex2int__if_merge_3:
-    jump %hex2int__for_step
-%hex2int__for_step:
-    $_virtual_register_13 = move $i
-    $i = add $i 1
-    jump %hex2int__for_cond
-%hex2int__if_else_3:
-    $_virtual_register_14 = move 0
-    $returnVal = move $_virtual_register_14
-    jump %hex2int_exit
-%hex2int__lhs_and_then_2:
-    $_virtual_register_15 = sle $digit 70
-    br $_virtual_register_15 %hex2int__if_then_2 %hex2int__if_else_2
-%hex2int__if_then_2:
-    $_virtual_register_16 = mul $result 16
-    $_virtual_register_17 = add $_virtual_register_16 $digit
-    $_virtual_register_18 = sub $_virtual_register_17 65
-    $_virtual_register_19 = add $_virtual_register_18 10
-    $result = move $_virtual_register_19
-    jump %hex2int__if_merge_2
-%hex2int__lhs_and_then:
-    $_virtual_register_20 = sle $digit 57
-    br $_virtual_register_20 %hex2int__if_then_3 %hex2int__if_else
-%hex2int__if_then_3:
-    $_virtual_register_21 = mul $result 16
-    $_virtual_register_22 = add $_virtual_register_21 $digit
-    $_virtual_register_23 = sub $_virtual_register_22 48
-    $result = move $_virtual_register_23
-    jump %hex2int__if_merge_3
-}
-
-func int2chr $x_2 {
-%int2chr_entry:
-    $asciiTable_2 = load 4 @asciiTable 0
-    $_virtual_register_24 = sge $x_2 32
-    br $_virtual_register_24 %int2chr__lhs_and_then %int2chr__if_merge
-%int2chr__lhs_and_then:
-    $_virtual_register_25 = sle $x_2 126
-    br $_virtual_register_25 %int2chr__if_then %int2chr__if_merge
-%int2chr__if_merge:
-    $_virtual_register_26 = move @__str_const_1
-    $returnVal_2 = move $_virtual_register_26
-    jump %int2chr_exit
-%int2chr_exit:
-    ret $returnVal_2
-%int2chr__if_then:
-    $_virtual_register_27 = sub $x_2 32
-    $_virtual_register_28 = sub $x_2 31
-    $_virtual_register_29 = call string.substring $asciiTable_2 $_virtual_register_27 $_virtual_register_28 
-    $_virtual_register_30 = move $_virtual_register_29
-    $returnVal_2 = move $_virtual_register_30
-    jump %int2chr_exit
-}
-
-func toStringHex $x_3 {
-%toStringHex_entry:
-    $ret = move @__str_const_2
-    $i_2 = move 0
-    $i_2 = move 28
-    jump %toStringHex__for_cond
-%toStringHex__for_cond:
-    $_virtual_register_31 = sge $i_2 0
-    br $_virtual_register_31 %toStringHex__for_body %toStringHex__for_merge
-%toStringHex__for_body:
-    $_virtual_register_32 = shr $x_3 $i_2
-    $_virtual_register_33 = and $_virtual_register_32 15
-    $digit_2 = move $_virtual_register_33
-    $_virtual_register_34 = slt $digit_2 10
-    br $_virtual_register_34 %toStringHex__if_then %toStringHex__if_else
-%toStringHex__if_else:
-    $_virtual_register_35 = add 65 $digit_2
-    $_virtual_register_36 = sub $_virtual_register_35 10
-    $_virtual_register_37 = call int2chr $_virtual_register_36 
-    $_virtual_register_38 = call string.add $ret $_virtual_register_37 
-    $ret = move $_virtual_register_38
-    jump %toStringHex__if_merge
-%toStringHex__if_merge:
-    jump %toStringHex__for_step
-%toStringHex__for_step:
-    $_virtual_register_39 = sub $i_2 4
-    $i_2 = move $_virtual_register_39
-    jump %toStringHex__for_cond
-%toStringHex__if_then:
-    $_virtual_register_40 = add 48 $digit_2
-    $_virtual_register_41 = call int2chr $_virtual_register_40 
-    $_virtual_register_42 = call string.add $ret $_virtual_register_41 
-    $ret = move $_virtual_register_42
-    jump %toStringHex__if_merge
-%toStringHex__for_merge:
-    $_virtual_register_43 = move $ret
-    ret $_virtual_register_43
-}
-
-func rotate_left $x_4 $shift {
-%rotate_left_entry:
-    $_virtual_register_44 = seq $shift 1
-    br $_virtual_register_44 %rotate_left__if_then %rotate_left__if_merge
-%rotate_left__if_then:
-    $_virtual_register_45 = and $x_4 2147483647
-    $_virtual_register_46 = shl $_virtual_register_45 1
-    $_virtual_register_47 = shr $x_4 31
-    $_virtual_register_48 = and $_virtual_register_47 1
-    $_virtual_register_49 = or $_virtual_register_46 $_virtual_register_48
-    $_virtual_register_50 = move $_virtual_register_49
-    $returnVal_3 = move $_virtual_register_50
-    jump %rotate_left_exit
-%rotate_left_exit:
-    ret $returnVal_3
-%rotate_left__if_merge:
-    $_virtual_register_51 = seq $shift 31
-    br $_virtual_register_51 %rotate_left__if_then_2 %rotate_left__if_merge_2
-%rotate_left__if_merge_2:
-    $_virtual_register_52 = sub 32 $shift
-    $_virtual_register_53 = shl 1 $_virtual_register_52
-    $_virtual_register_54 = sub $_virtual_register_53 1
-    $_virtual_register_55 = and $x_4 $_virtual_register_54
-    $_virtual_register_56 = shl $_virtual_register_55 $shift
-    $_virtual_register_57 = sub 32 $shift
-    $_virtual_register_58 = shr $x_4 $_virtual_register_57
-    $_virtual_register_59 = shl 1 $shift
-    $_virtual_register_60 = sub $_virtual_register_59 1
-    $_virtual_register_61 = and $_virtual_register_58 $_virtual_register_60
-    $_virtual_register_62 = or $_virtual_register_56 $_virtual_register_61
-    $_virtual_register_63 = move $_virtual_register_62
-    $returnVal_3 = move $_virtual_register_63
-    jump %rotate_left_exit
-%rotate_left__if_then_2:
-    $_virtual_register_64 = and $x_4 1
-    $_virtual_register_65 = shl $_virtual_register_64 31
-    $_virtual_register_66 = shr $x_4 1
-    $_virtual_register_67 = and $_virtual_register_66 2147483647
-    $_virtual_register_68 = or $_virtual_register_65 $_virtual_register_67
-    $_virtual_register_69 = move $_virtual_register_68
-    $returnVal_3 = move $_virtual_register_69
-    jump %rotate_left_exit
-}
-
-func add $x_5 $y {
-%add_entry:
-    $_virtual_register_70 = and $x_5 65535
-    $_virtual_register_71 = and $y 65535
-    $_virtual_register_72 = add $_virtual_register_70 $_virtual_register_71
-    $low = move $_virtual_register_72
-    $_virtual_register_73 = shr $x_5 16
-    $_virtual_register_74 = and $_virtual_register_73 65535
-    $_virtual_register_75 = shr $y 16
-    $_virtual_register_76 = and $_virtual_register_75 65535
-    $_virtual_register_77 = add $_virtual_register_74 $_virtual_register_76
-    $_virtual_register_78 = shr $low 16
-    $_virtual_register_79 = add $_virtual_register_77 $_virtual_register_78
-    $_virtual_register_80 = and $_virtual_register_79 65535
-    $high = move $_virtual_register_80
-    $_virtual_register_81 = shl $high 16
-    $_virtual_register_82 = and $low 65535
-    $_virtual_register_83 = or $_virtual_register_81 $_virtual_register_82
-    $_virtual_register_84 = move $_virtual_register_83
-    ret $_virtual_register_84
-}
-
-func lohi $lo $hi {
-%lohi_entry:
-    $_virtual_register_85 = shl $hi 16
-    $_virtual_register_86 = or $lo $_virtual_register_85
-    $_virtual_register_87 = move $_virtual_register_86
-    ret $_virtual_register_87
-}
-
-func sha1 $input $length {
-%sha1_entry:
-    $chunks_2 = load 4 @chunks 0
-    $outputBuffer_2 = load 4 @outputBuffer 0
-    $MAXCHUNK_2 = load 4 @MAXCHUNK 0
-    $_virtual_register_88 = add $length 64
-    $_virtual_register_89 = sub $_virtual_register_88 56
-    $_virtual_register_90 = div $_virtual_register_89 64
-    $_virtual_register_91 = add $_virtual_register_90 1
-    $nChunk = move $_virtual_register_91
-    $_virtual_register_92 = sgt $nChunk $MAXCHUNK_2
-    br $_virtual_register_92 %sha1__if_then %sha1__if_merge
-%sha1__if_then:
-    call println @__str_const_3 
-    $_virtual_register_93 = move 0
-    $returnVal_4 = move $_virtual_register_93
-    jump %sha1_exit
-%sha1_exit:
-    ret $returnVal_4
-%sha1__if_merge:
-    $i_3 = move 0
-    $j = move 0
-    $i_3 = move 0
-    jump %sha1__for_cond
-%sha1__for_cond:
-    $_virtual_register_94 = slt $i_3 $nChunk
-    br $_virtual_register_94 %sha1__for_body %sha1__for_merge
-%sha1__for_body:
-    $j = move 0
-    jump %sha1__for_cond_2
-%sha1__for_cond_2:
-    $_virtual_register_95 = slt $j 80
-    br $_virtual_register_95 %sha1__for_body_2 %sha1__for_merge_2
-%sha1__for_body_2:
-    $_virtual_register_96 = mul $i_3 4
-    $_virtual_register_97 = add $_virtual_register_96 4
-    $_virtual_register_98 = add $_virtual_register_97 $chunks_2
-    $_virtual_register_99 = load 4 $_virtual_register_98 0
-    $_virtual_register_100 = mul $j 4
-    $_virtual_register_101 = add $_virtual_register_100 4
-    $_virtual_register_102 = add $_virtual_register_101 $_virtual_register_99
-    store 4 $_virtual_register_102 0 0
-    jump %sha1__for_step
-%sha1__for_step:
-    $_virtual_register_103 = move $j
-    $j = add $j 1
-    jump %sha1__for_cond_2
-%sha1__for_merge_2:
-    jump %sha1__for_step_2
-%sha1__for_step_2:
-    $_virtual_register_104 = move $i_3
-    $i_3 = add $i_3 1
-    jump %sha1__for_cond
-%sha1__for_merge:
-    $i_3 = move 0
-    jump %sha1__for_cond_3
-%sha1__for_cond_3:
-    $_virtual_register_105 = slt $i_3 $length
-    br $_virtual_register_105 %sha1__for_body_3 %sha1__for_merge_3
-%sha1__for_body_3:
-    $_virtual_register_106 = div $i_3 64
-    $_virtual_register_107 = mul $_virtual_register_106 4
-    $_virtual_register_108 = add $_virtual_register_107 4
-    $_virtual_register_109 = add $_virtual_register_108 $chunks_2
-    $_virtual_register_110 = mod $i_3 64
-    $_virtual_register_111 = div $_virtual_register_110 4
-    $_virtual_register_112 = load 4 $_virtual_register_109 0
-    $_virtual_register_113 = mul $_virtual_register_111 4
-    $_virtual_register_114 = add $_virtual_register_113 4
-    $_virtual_register_115 = add $_virtual_register_114 $_virtual_register_112
-    $_virtual_register_116 = div $i_3 64
-    $_virtual_register_117 = mul $_virtual_register_116 4
-    $_virtual_register_118 = add $_virtual_register_117 4
-    $_virtual_register_119 = add $_virtual_register_118 $chunks_2
-    $_virtual_register_120 = mod $i_3 64
-    $_virtual_register_121 = div $_virtual_register_120 4
-    $_virtual_register_122 = load 4 $_virtual_register_119 0
-    $_virtual_register_123 = mul $_virtual_register_121 4
-    $_virtual_register_124 = add $_virtual_register_123 4
-    $_virtual_register_125 = add $_virtual_register_124 $_virtual_register_122
-    $_virtual_register_126 = mul $i_3 4
-    $_virtual_register_127 = add $_virtual_register_126 4
-    $_virtual_register_128 = add $_virtual_register_127 $input
-    $_virtual_register_129 = mod $i_3 4
-    $_virtual_register_130 = sub 3 $_virtual_register_129
-    $_virtual_register_131 = mul $_virtual_register_130 8
-    $_virtual_register_132 = load 4 $_virtual_register_128 0
-    $_virtual_register_133 = shl $_virtual_register_132 $_virtual_register_131
-    $_virtual_register_134 = load 4 $_virtual_register_125 0
-    $_virtual_register_135 = or $_virtual_register_134 $_virtual_register_133
-    store 4 $_virtual_register_115 $_virtual_register_135 0
-    jump %sha1__for_step_3
-%sha1__for_step_3:
-    $_virtual_register_136 = move $i_3
-    $i_3 = add $i_3 1
-    jump %sha1__for_cond_3
-%sha1__for_merge_3:
-    $_virtual_register_137 = div $i_3 64
-    $_virtual_register_138 = mul $_virtual_register_137 4
-    $_virtual_register_139 = add $_virtual_register_138 4
-    $_virtual_register_140 = add $_virtual_register_139 $chunks_2
-    $_virtual_register_141 = mod $i_3 64
-    $_virtual_register_142 = div $_virtual_register_141 4
-    $_virtual_register_143 = load 4 $_virtual_register_140 0
-    $_virtual_register_144 = mul $_virtual_register_142 4
-    $_virtual_register_145 = add $_virtual_register_144 4
-    $_virtual_register_146 = add $_virtual_register_145 $_virtual_register_143
-    $_virtual_register_147 = div $i_3 64
-    $_virtual_register_148 = mul $_virtual_register_147 4
-    $_virtual_register_149 = add $_virtual_register_148 4
-    $_virtual_register_150 = add $_virtual_register_149 $chunks_2
-    $_virtual_register_151 = mod $i_3 64
-    $_virtual_register_152 = div $_virtual_register_151 4
-    $_virtual_register_153 = load 4 $_virtual_register_150 0
-    $_virtual_register_154 = mul $_virtual_register_152 4
-    $_virtual_register_155 = add $_virtual_register_154 4
-    $_virtual_register_156 = add $_virtual_register_155 $_virtual_register_153
-    $_virtual_register_157 = mod $i_3 4
-    $_virtual_register_158 = sub 3 $_virtual_register_157
-    $_virtual_register_159 = mul $_virtual_register_158 8
-    $_virtual_register_160 = shl 128 $_virtual_register_159
-    $_virtual_register_161 = load 4 $_virtual_register_156 0
-    $_virtual_register_162 = or $_virtual_register_161 $_virtual_register_160
-    store 4 $_virtual_register_146 $_virtual_register_162 0
-    $_virtual_register_163 = sub $nChunk 1
-    $_virtual_register_164 = mul $_virtual_register_163 4
-    $_virtual_register_165 = add $_virtual_register_164 4
-    $_virtual_register_166 = add $_virtual_register_165 $chunks_2
-    $_virtual_register_167 = load 4 $_virtual_register_166 0
-    $_virtual_register_168 = mul 15 4
-    $_virtual_register_169 = add $_virtual_register_168 4
-    $_virtual_register_170 = add $_virtual_register_169 $_virtual_register_167
-    $_virtual_register_171 = shl $length 3
-    store 4 $_virtual_register_170 $_virtual_register_171 0
-    $_virtual_register_172 = sub $nChunk 1
-    $_virtual_register_173 = mul $_virtual_register_172 4
-    $_virtual_register_174 = add $_virtual_register_173 4
-    $_virtual_register_175 = add $_virtual_register_174 $chunks_2
-    $_virtual_register_176 = load 4 $_virtual_register_175 0
-    $_virtual_register_177 = mul 14 4
-    $_virtual_register_178 = add $_virtual_register_177 4
-    $_virtual_register_179 = add $_virtual_register_178 $_virtual_register_176
-    $_virtual_register_180 = shr $length 29
-    $_virtual_register_181 = and $_virtual_register_180 7
-    store 4 $_virtual_register_179 $_virtual_register_181 0
-    $h0 = move 1732584193
-    $_virtual_register_182 = call lohi 43913 61389 
-    $h1 = move $_virtual_register_182
-    $_virtual_register_183 = call lohi 56574 39098 
-    $h2 = move $_virtual_register_183
-    $h3 = move 271733878
-    $_virtual_register_184 = call lohi 57840 50130 
-    $h4 = move $_virtual_register_184
-    $i_3 = move 0
-    jump %sha1__for_cond_4
-%sha1__for_cond_4:
-    $_virtual_register_185 = slt $i_3 $nChunk
-    br $_virtual_register_185 %sha1__for_body_4 %sha1__for_merge_4
-%sha1__for_merge_4:
-    $_virtual_register_186 = mul 0 4
-    $_virtual_register_187 = add $_virtual_register_186 4
-    $_virtual_register_188 = add $_virtual_register_187 $outputBuffer_2
-    store 4 $_virtual_register_188 $h0 0
-    $_virtual_register_189 = mul 1 4
-    $_virtual_register_190 = add $_virtual_register_189 4
-    $_virtual_register_191 = add $_virtual_register_190 $outputBuffer_2
-    store 4 $_virtual_register_191 $h1 0
-    $_virtual_register_192 = mul 2 4
-    $_virtual_register_193 = add $_virtual_register_192 4
-    $_virtual_register_194 = add $_virtual_register_193 $outputBuffer_2
-    store 4 $_virtual_register_194 $h2 0
-    $_virtual_register_195 = mul 3 4
-    $_virtual_register_196 = add $_virtual_register_195 4
-    $_virtual_register_197 = add $_virtual_register_196 $outputBuffer_2
-    store 4 $_virtual_register_197 $h3 0
-    $_virtual_register_198 = mul 4 4
-    $_virtual_register_199 = add $_virtual_register_198 4
-    $_virtual_register_200 = add $_virtual_register_199 $outputBuffer_2
-    store 4 $_virtual_register_200 $h4 0
-    $_virtual_register_201 = move $outputBuffer_2
-    $returnVal_4 = move $_virtual_register_201
-    jump %sha1_exit
-%sha1__for_body_4:
-    $j = move 16
-    jump %sha1__for_cond_5
-%sha1__for_cond_5:
-    $_virtual_register_202 = slt $j 80
-    br $_virtual_register_202 %sha1__for_body_5 %sha1__for_merge_5
-%sha1__for_merge_5:
-    $a = move $h0
-    $b = move $h1
-    $c = move $h2
-    $d = move $h3
-    $e = move $h4
-    $j = move 0
-    jump %sha1__for_cond_6
-%sha1__for_cond_6:
-    $_virtual_register_203 = slt $j 80
-    br $_virtual_register_203 %sha1__for_body_6 %sha1__for_merge_6
-%sha1__for_body_6:
-    $f = move 0
-    $k = move 0
-    $_virtual_register_204 = slt $j 20
-    br $_virtual_register_204 %sha1__if_then_2 %sha1__if_else
-%sha1__if_else:
-    $_virtual_register_205 = slt $j 40
-    br $_virtual_register_205 %sha1__if_then_3 %sha1__if_else_2
-%sha1__if_then_3:
-    $_virtual_register_206 = xor $b $c
-    $_virtual_register_207 = xor $_virtual_register_206 $d
-    $f = move $_virtual_register_207
-    $k = move 1859775393
-    jump %sha1__if_merge_2
-%sha1__if_merge_2:
-    jump %sha1__if_merge_3
-%sha1__if_merge_3:
-    $_virtual_register_208 = call rotate_left $a 5 
-    $_virtual_register_209 = call add $_virtual_register_208 $e 
-    $_virtual_register_210 = call add $f $k 
-    $_virtual_register_211 = call add $_virtual_register_209 $_virtual_register_210 
-    $_virtual_register_212 = mul $i_3 4
-    $_virtual_register_213 = add $_virtual_register_212 4
-    $_virtual_register_214 = add $_virtual_register_213 $chunks_2
-    $_virtual_register_215 = load 4 $_virtual_register_214 0
-    $_virtual_register_216 = mul $j 4
-    $_virtual_register_217 = add $_virtual_register_216 4
-    $_virtual_register_218 = add $_virtual_register_217 $_virtual_register_215
-    $_virtual_register_219 = load 4 $_virtual_register_218 0
-    $_virtual_register_220 = call add $_virtual_register_211 $_virtual_register_219 
-    $temp = move $_virtual_register_220
-    $e = move $d
-    $d = move $c
-    $_virtual_register_221 = call rotate_left $b 30 
-    $c = move $_virtual_register_221
-    $b = move $a
-    $a = move $temp
-    jump %sha1__for_step_4
-%sha1__for_step_4:
-    $_virtual_register_222 = move $j
-    $j = add $j 1
-    jump %sha1__for_cond_6
-%sha1__if_else_2:
-    $_virtual_register_223 = slt $j 60
-    br $_virtual_register_223 %sha1__if_then_4 %sha1__if_else_3
-%sha1__if_then_4:
-    $_virtual_register_224 = and $b $c
-    $_virtual_register_225 = and $b $d
-    $_virtual_register_226 = or $_virtual_register_224 $_virtual_register_225
-    $_virtual_register_227 = and $c $d
-    $_virtual_register_228 = or $_virtual_register_226 $_virtual_register_227
-    $f = move $_virtual_register_228
-    $_virtual_register_229 = call lohi 48348 36635 
-    $k = move $_virtual_register_229
-    jump %sha1__if_merge_4
-%sha1__if_merge_4:
-    jump %sha1__if_merge_2
-%sha1__if_else_3:
-    $_virtual_register_230 = xor $b $c
-    $_virtual_register_231 = xor $_virtual_register_230 $d
-    $f = move $_virtual_register_231
-    $_virtual_register_232 = call lohi 49622 51810 
-    $k = move $_virtual_register_232
-    jump %sha1__if_merge_4
-%sha1__if_then_2:
-    $_virtual_register_233 = and $b $c
-    $_virtual_register_234 = not $b
-    $_virtual_register_235 = and $_virtual_register_234 $d
-    $_virtual_register_236 = or $_virtual_register_233 $_virtual_register_235
-    $f = move $_virtual_register_236
-    $k = move 1518500249
-    jump %sha1__if_merge_3
-%sha1__for_merge_6:
-    $_virtual_register_237 = call add $h0 $a 
-    $h0 = move $_virtual_register_237
-    $_virtual_register_238 = call add $h1 $b 
-    $h1 = move $_virtual_register_238
-    $_virtual_register_239 = call add $h2 $c 
-    $h2 = move $_virtual_register_239
-    $_virtual_register_240 = call add $h3 $d 
-    $h3 = move $_virtual_register_240
-    $_virtual_register_241 = call add $h4 $e 
-    $h4 = move $_virtual_register_241
-    jump %sha1__for_step_5
-%sha1__for_step_5:
-    $_virtual_register_242 = move $i_3
-    $i_3 = add $i_3 1
-    jump %sha1__for_cond_4
-%sha1__for_body_5:
-    $_virtual_register_243 = mul $i_3 4
-    $_virtual_register_244 = add $_virtual_register_243 4
-    $_virtual_register_245 = add $_virtual_register_244 $chunks_2
-    $_virtual_register_246 = load 4 $_virtual_register_245 0
-    $_virtual_register_247 = mul $j 4
-    $_virtual_register_248 = add $_virtual_register_247 4
-    $_virtual_register_249 = add $_virtual_register_248 $_virtual_register_246
-    $_virtual_register_250 = mul $i_3 4
-    $_virtual_register_251 = add $_virtual_register_250 4
-    $_virtual_register_252 = add $_virtual_register_251 $chunks_2
-    $_virtual_register_253 = sub $j 3
-    $_virtual_register_254 = load 4 $_virtual_register_252 0
-    $_virtual_register_255 = mul $_virtual_register_253 4
-    $_virtual_register_256 = add $_virtual_register_255 4
-    $_virtual_register_257 = add $_virtual_register_256 $_virtual_register_254
-    $_virtual_register_258 = mul $i_3 4
-    $_virtual_register_259 = add $_virtual_register_258 4
-    $_virtual_register_260 = add $_virtual_register_259 $chunks_2
-    $_virtual_register_261 = sub $j 8
-    $_virtual_register_262 = load 4 $_virtual_register_260 0
-    $_virtual_register_263 = mul $_virtual_register_261 4
-    $_virtual_register_264 = add $_virtual_register_263 4
-    $_virtual_register_265 = add $_virtual_register_264 $_virtual_register_262
-    $_virtual_register_266 = load 4 $_virtual_register_257 0
-    $_virtual_register_267 = load 4 $_virtual_register_265 0
-    $_virtual_register_268 = xor $_virtual_register_266 $_virtual_register_267
-    $_virtual_register_269 = mul $i_3 4
-    $_virtual_register_270 = add $_virtual_register_269 4
-    $_virtual_register_271 = add $_virtual_register_270 $chunks_2
-    $_virtual_register_272 = sub $j 14
-    $_virtual_register_273 = load 4 $_virtual_register_271 0
-    $_virtual_register_274 = mul $_virtual_register_272 4
-    $_virtual_register_275 = add $_virtual_register_274 4
-    $_virtual_register_276 = add $_virtual_register_275 $_virtual_register_273
-    $_virtual_register_277 = load 4 $_virtual_register_276 0
-    $_virtual_register_278 = xor $_virtual_register_268 $_virtual_register_277
-    $_virtual_register_279 = mul $i_3 4
-    $_virtual_register_280 = add $_virtual_register_279 4
-    $_virtual_register_281 = add $_virtual_register_280 $chunks_2
-    $_virtual_register_282 = sub $j 16
-    $_virtual_register_283 = load 4 $_virtual_register_281 0
-    $_virtual_register_284 = mul $_virtual_register_282 4
-    $_virtual_register_285 = add $_virtual_register_284 4
-    $_virtual_register_286 = add $_virtual_register_285 $_virtual_register_283
-    $_virtual_register_287 = load 4 $_virtual_register_286 0
-    $_virtual_register_288 = xor $_virtual_register_278 $_virtual_register_287
-    $_virtual_register_289 = call rotate_left $_virtual_register_288 1 
-    store 4 $_virtual_register_249 $_virtual_register_289 0
-    jump %sha1__for_step_6
-%sha1__for_step_6:
-    $_virtual_register_290 = move $j
-    $j = add $j 1
-    jump %sha1__for_cond_5
-}
-
-void computeSHA1 $input_2 {
-%computeSHA1_entry:
-    $inputBuffer_2 = load 4 @inputBuffer 0
-    $i_4 = move 0
-    $i_4 = move 0
-    jump %computeSHA1__for_cond
-%computeSHA1__for_cond:
-    $_virtual_register_291 = call string.length $input_2 
-    $_virtual_register_292 = slt $i_4 $_virtual_register_291
-    br $_virtual_register_292 %computeSHA1__for_body %computeSHA1__for_merge
-%computeSHA1__for_body:
-    $_virtual_register_293 = mul $i_4 4
-    $_virtual_register_294 = add $_virtual_register_293 4
-    $_virtual_register_295 = add $_virtual_register_294 $inputBuffer_2
-    $_virtual_register_296 = call string.ord $input_2 $i_4 
-    store 4 $_virtual_register_295 $_virtual_register_296 0
-    jump %computeSHA1__for_step
-%computeSHA1__for_step:
-    $_virtual_register_297 = move $i_4
-    $i_4 = add $i_4 1
-    jump %computeSHA1__for_cond
-%computeSHA1__for_merge:
-    $_virtual_register_298 = call string.length $input_2 
-    $_virtual_register_299 = call sha1 $inputBuffer_2 $_virtual_register_298 
-    $result_2 = move $_virtual_register_299
-    $i_4 = move 0
-    jump %computeSHA1__for_cond_2
-%computeSHA1__for_cond_2:
-    $_virtual_register_300 = load 4 $result_2 0
-    $_virtual_register_301 = slt $i_4 $_virtual_register_300
-    br $_virtual_register_301 %computeSHA1__for_body_2 %computeSHA1__for_merge_2
-%computeSHA1__for_body_2:
-    $_virtual_register_302 = mul $i_4 4
-    $_virtual_register_303 = add $_virtual_register_302 4
-    $_virtual_register_304 = add $_virtual_register_303 $result_2
-    $_virtual_register_305 = load 4 $_virtual_register_304 0
-    $_virtual_register_306 = call toStringHex $_virtual_register_305 
-    call print $_virtual_register_306 
-    jump %computeSHA1__for_step_2
-%computeSHA1__for_step_2:
-    $_virtual_register_307 = move $i_4
-    $i_4 = add $i_4 1
-    jump %computeSHA1__for_cond_2
-%computeSHA1__for_merge_2:
-    call println @__str_const_4 
+void ClassA_Constructor $this {
+%ClassA_Constructor_entry:
+    $_virtual_register = add $this 4
+    store 4 $_virtual_register @__str_const_1 0
+    $_virtual_register_2 = add $this 0
+    store 4 $_virtual_register_2 1 0
+    $_virtual_register_3 = add $this 8
+    store 4 $_virtual_register_3 0 0
+    $_virtual_register_4 = add $this 8
+    $_virtual_register_5 = mul 100 4
+    $_virtual_register_5 = add $_virtual_register_5 4
+    $_virtual_register_6 = alloc $_virtual_register_5
+    store 4 $_virtual_register_6 100 0
+    store 4 $_virtual_register_4 $_virtual_register_6 0
     ret 
 }
 
-func nextLetter $now {
-%nextLetter_entry:
-    $_virtual_register_308 = seq $now 122
-    br $_virtual_register_308 %nextLetter__if_then %nextLetter__if_merge
-%nextLetter__if_then:
-    $_virtual_register_309 = neg 1
-    $_virtual_register_310 = move $_virtual_register_309
-    $returnVal_5 = move $_virtual_register_310
-    jump %nextLetter_exit
-%nextLetter_exit:
-    ret $returnVal_5
-%nextLetter__if_merge:
-    $_virtual_register_311 = seq $now 90
-    br $_virtual_register_311 %nextLetter__if_then_2 %nextLetter__if_merge_2
-%nextLetter__if_then_2:
-    $_virtual_register_312 = move 97
-    $returnVal_5 = move $_virtual_register_312
-    jump %nextLetter_exit
-%nextLetter__if_merge_2:
-    $_virtual_register_313 = seq $now 57
-    br $_virtual_register_313 %nextLetter__if_then_3 %nextLetter__if_merge_3
-%nextLetter__if_then_3:
-    $_virtual_register_314 = move 65
-    $returnVal_5 = move $_virtual_register_314
-    jump %nextLetter_exit
-%nextLetter__if_merge_3:
-    $_virtual_register_315 = add $now 1
-    $_virtual_register_316 = move $_virtual_register_315
-    $returnVal_5 = move $_virtual_register_316
-    jump %nextLetter_exit
+func ClassA_getClassA $this_2 $x {
+%ClassA_getClassA_entry:
+    $_virtual_register_7 = alloc 12
+    call ClassA_Constructor $_virtual_register_7 
+    $tmp = move $_virtual_register_7
+    $_virtual_register_8 = add $tmp 0
+    store 4 $_virtual_register_8 $x 0
+    $_virtual_register_9 = add $this_2 0
+    store 4 $_virtual_register_9 $x 0
+    $_virtual_register_10 = move $tmp
+    ret $_virtual_register_10
 }
 
-func nextText $now_2 $length_2 {
-%nextText_entry:
-    $i_5 = move 0
-    $_virtual_register_317 = sub $length_2 1
-    $i_5 = move $_virtual_register_317
-    jump %nextText__for_cond
-%nextText__for_cond:
-    $_virtual_register_318 = sge $i_5 0
-    br $_virtual_register_318 %nextText__for_body %nextText__for_merge
-%nextText__for_body:
-    $_virtual_register_319 = mul $i_5 4
-    $_virtual_register_320 = add $_virtual_register_319 4
-    $_virtual_register_321 = add $_virtual_register_320 $now_2
-    $_virtual_register_322 = mul $i_5 4
-    $_virtual_register_323 = add $_virtual_register_322 4
-    $_virtual_register_324 = add $_virtual_register_323 $now_2
-    $_virtual_register_325 = load 4 $_virtual_register_324 0
-    $_virtual_register_326 = call nextLetter $_virtual_register_325 
-    store 4 $_virtual_register_321 $_virtual_register_326 0
-    $_virtual_register_327 = mul $i_5 4
-    $_virtual_register_328 = add $_virtual_register_327 4
-    $_virtual_register_329 = add $_virtual_register_328 $now_2
-    $_virtual_register_330 = neg 1
-    $_virtual_register_331 = load 4 $_virtual_register_329 0
-    $_virtual_register_332 = seq $_virtual_register_331 $_virtual_register_330
-    br $_virtual_register_332 %nextText__if_then %nextText__if_else
-%nextText__if_else:
-    $_virtual_register_333 = move 1
-    $returnVal_6 = move $_virtual_register_333
-    jump %nextText_exit
-%nextText_exit:
-    ret $returnVal_6
-%nextText__if_then:
-    $_virtual_register_334 = mul $i_5 4
-    $_virtual_register_335 = add $_virtual_register_334 4
-    $_virtual_register_336 = add $_virtual_register_335 $now_2
-    store 4 $_virtual_register_336 48 0
-    jump %nextText__if_merge
-%nextText__if_merge:
-    jump %nextText__for_step
-%nextText__for_step:
-    $_virtual_register_337 = move $i_5
-    $i_5 = sub $i_5 1
-    jump %nextText__for_cond
-%nextText__for_merge:
-    $_virtual_register_338 = move 0
-    $returnVal_6 = move $_virtual_register_338
-    jump %nextText_exit
+func ClassA_getString $this_3 {
+%ClassA_getString_entry:
+    $_virtual_register_11 = add $this_3 4
+    $_virtual_register_12 = load 4 $_virtual_register_11 0
+    $_virtual_register_13 = move $_virtual_register_12
+    ret $_virtual_register_13
 }
 
-func array_equal $a_2 $b_2 {
-%array_equal_entry:
-    $_virtual_register_339 = load 4 $a_2 0
-    $_virtual_register_340 = load 4 $b_2 0
-    $_virtual_register_341 = sne $_virtual_register_339 $_virtual_register_340
-    br $_virtual_register_341 %array_equal__if_then %array_equal__if_merge
-%array_equal__if_then:
-    $_virtual_register_342 = move 0
-    $returnVal_7 = move $_virtual_register_342
-    jump %array_equal_exit
-%array_equal_exit:
-    ret $returnVal_7
-%array_equal__if_merge:
-    $i_6 = move 0
-    $i_6 = move 0
-    jump %array_equal__for_cond
-%array_equal__for_cond:
-    $_virtual_register_343 = load 4 $a_2 0
-    $_virtual_register_344 = slt $i_6 $_virtual_register_343
-    br $_virtual_register_344 %array_equal__for_body %array_equal__for_merge
-%array_equal__for_body:
-    $_virtual_register_345 = mul $i_6 4
-    $_virtual_register_346 = add $_virtual_register_345 4
-    $_virtual_register_347 = add $_virtual_register_346 $a_2
-    $_virtual_register_348 = mul $i_6 4
-    $_virtual_register_349 = add $_virtual_register_348 4
-    $_virtual_register_350 = add $_virtual_register_349 $b_2
-    $_virtual_register_351 = load 4 $_virtual_register_347 0
-    $_virtual_register_352 = load 4 $_virtual_register_350 0
-    $_virtual_register_353 = sne $_virtual_register_351 $_virtual_register_352
-    br $_virtual_register_353 %array_equal__if_then_2 %array_equal__if_merge_2
-%array_equal__if_merge_2:
-    jump %array_equal__for_step
-%array_equal__for_step:
-    $_virtual_register_354 = move $i_6
-    $i_6 = add $i_6 1
-    jump %array_equal__for_cond
-%array_equal__if_then_2:
-    $_virtual_register_355 = move 0
-    $returnVal_7 = move $_virtual_register_355
-    jump %array_equal_exit
-%array_equal__for_merge:
-    $_virtual_register_356 = move 1
-    $returnVal_7 = move $_virtual_register_356
-    jump %array_equal_exit
-}
-
-void crackSHA1 $input_3 {
-%crackSHA1_entry:
-    $inputBuffer_3 = load 4 @inputBuffer 0
-    $_virtual_register_357 = mul 5 4
-    $_virtual_register_357 = add $_virtual_register_357 4
-    $_virtual_register_358 = alloc $_virtual_register_357
-    store 4 $_virtual_register_358 5 0
-    $target = move $_virtual_register_358
-    $_virtual_register_359 = call string.length $input_3 
-    $_virtual_register_360 = sne $_virtual_register_359 40
-    br $_virtual_register_360 %crackSHA1__if_then %crackSHA1__if_merge
-%crackSHA1__if_then:
-    call println @__str_const_5 
-    jump %crackSHA1_exit
-%crackSHA1_exit:
-    ret 
-%crackSHA1__if_merge:
-    $i_7 = move 0
-    $i_7 = move 0
-    jump %crackSHA1__for_cond
-%crackSHA1__for_cond:
-    $_virtual_register_361 = slt $i_7 5
-    br $_virtual_register_361 %crackSHA1__for_body %crackSHA1__for_merge
-%crackSHA1__for_body:
-    $_virtual_register_362 = mul $i_7 4
-    $_virtual_register_363 = add $_virtual_register_362 4
-    $_virtual_register_364 = add $_virtual_register_363 $target
-    store 4 $_virtual_register_364 0 0
-    jump %crackSHA1__for_step
-%crackSHA1__for_step:
-    $_virtual_register_365 = move $i_7
-    $i_7 = add $i_7 1
-    jump %crackSHA1__for_cond
-%crackSHA1__for_merge:
-    $i_7 = move 0
-    jump %crackSHA1__for_cond_2
-%crackSHA1__for_cond_2:
-    $_virtual_register_366 = slt $i_7 40
-    br $_virtual_register_366 %crackSHA1__for_body_2 %crackSHA1__for_merge_2
-%crackSHA1__for_body_2:
-    $_virtual_register_367 = div $i_7 8
-    $_virtual_register_368 = mul $_virtual_register_367 4
-    $_virtual_register_369 = add $_virtual_register_368 4
-    $_virtual_register_370 = add $_virtual_register_369 $target
-    $_virtual_register_371 = div $i_7 8
-    $_virtual_register_372 = mul $_virtual_register_371 4
-    $_virtual_register_373 = add $_virtual_register_372 4
-    $_virtual_register_374 = add $_virtual_register_373 $target
-    $_virtual_register_375 = add $i_7 4
-    $_virtual_register_376 = call string.substring $input_3 $i_7 $_virtual_register_375 
-    $_virtual_register_377 = call hex2int $_virtual_register_376 
-    $_virtual_register_378 = div $i_7 4
-    $_virtual_register_379 = mod $_virtual_register_378 2
-    $_virtual_register_380 = sub 1 $_virtual_register_379
-    $_virtual_register_381 = mul $_virtual_register_380 16
-    $_virtual_register_382 = shl $_virtual_register_377 $_virtual_register_381
-    $_virtual_register_383 = load 4 $_virtual_register_374 0
-    $_virtual_register_384 = or $_virtual_register_383 $_virtual_register_382
-    store 4 $_virtual_register_370 $_virtual_register_384 0
-    jump %crackSHA1__for_step_2
-%crackSHA1__for_step_2:
-    $_virtual_register_385 = add $i_7 4
-    $i_7 = move $_virtual_register_385
-    jump %crackSHA1__for_cond_2
-%crackSHA1__for_merge_2:
-    $MAXDIGIT = move 4
-    $digit_3 = move 0
-    $digit_3 = move 1
-    jump %crackSHA1__for_cond_3
-%crackSHA1__for_cond_3:
-    $_virtual_register_386 = sle $digit_3 $MAXDIGIT
-    br $_virtual_register_386 %crackSHA1__for_body_3 %crackSHA1__for_merge_3
-%crackSHA1__for_merge_3:
-    call println @__str_const_7 
-    jump %crackSHA1_exit
-%crackSHA1__for_body_3:
-    $i_7 = move 0
-    jump %crackSHA1__for_cond_4
-%crackSHA1__for_cond_4:
-    $_virtual_register_387 = slt $i_7 $digit_3
-    br $_virtual_register_387 %crackSHA1__for_body_4 %crackSHA1__for_merge_4
-%crackSHA1__for_body_4:
-    $_virtual_register_388 = mul $i_7 4
-    $_virtual_register_389 = add $_virtual_register_388 4
-    $_virtual_register_390 = add $_virtual_register_389 $inputBuffer_3
-    store 4 $_virtual_register_390 48 0
-    jump %crackSHA1__for_step_3
-%crackSHA1__for_step_3:
-    $_virtual_register_391 = move $i_7
-    $i_7 = add $i_7 1
-    jump %crackSHA1__for_cond_4
-%crackSHA1__for_merge_4:
-    jump %crackSHA1__while_cond
-%crackSHA1__while_cond:
-    jump %crackSHA1__while_body
-%crackSHA1__while_body:
-    $_virtual_register_392 = call sha1 $inputBuffer_3 $digit_3 
-    $out = move $_virtual_register_392
-    $_virtual_register_393 = call array_equal $out $target 
-    br $_virtual_register_393 %crackSHA1__if_then_2 %crackSHA1__if_merge_2
-%crackSHA1__if_then_2:
-    $i_7 = move 0
-    jump %crackSHA1__for_cond_5
-%crackSHA1__for_cond_5:
-    $_virtual_register_394 = slt $i_7 $digit_3
-    br $_virtual_register_394 %crackSHA1__for_body_5 %crackSHA1__for_merge_5
-%crackSHA1__for_merge_5:
-    call println @__str_const_6 
-    jump %crackSHA1_exit
-%crackSHA1__for_body_5:
-    $_virtual_register_395 = mul $i_7 4
-    $_virtual_register_396 = add $_virtual_register_395 4
-    $_virtual_register_397 = add $_virtual_register_396 $inputBuffer_3
-    $_virtual_register_398 = load 4 $_virtual_register_397 0
-    $_virtual_register_399 = call int2chr $_virtual_register_398 
-    call print $_virtual_register_399 
-    jump %crackSHA1__for_step_4
-%crackSHA1__for_step_4:
-    $_virtual_register_400 = move $i_7
-    $i_7 = add $i_7 1
-    jump %crackSHA1__for_cond_5
-%crackSHA1__if_merge_2:
-    $_virtual_register_401 = call nextText $inputBuffer_3 $digit_3 
-    br $_virtual_register_401 %crackSHA1__if_merge_3 %crackSHA1__if_then_3
-%crackSHA1__if_merge_3:
-    jump %crackSHA1__while_cond
-%crackSHA1__if_then_3:
-    jump %crackSHA1__while_merge
-%crackSHA1__while_merge:
-    jump %crackSHA1__for_step_5
-%crackSHA1__for_step_5:
-    $_virtual_register_402 = move $digit_3
-    $digit_3 = add $digit_3 1
-    jump %crackSHA1__for_cond_3
+func Main $parameter {
+%Main_entry:
+    $_virtual_register_14 = alloc 12
+    call ClassA_Constructor $_virtual_register_14 
+    $a = move $_virtual_register_14
+    $_virtual_register_15 = call ClassA_getClassA $a $parameter 
+    $b = move $_virtual_register_15
+    $_virtual_register_16 = add $b 0
+    store 4 $_virtual_register_16 $parameter 0
+    $_virtual_register_17 = call getInt 
+    $parameter = move $_virtual_register_17
+    $_virtual_register_18 = mul 2 4
+    $_virtual_register_18 = add $_virtual_register_18 4
+    $_virtual_register_19 = alloc $_virtual_register_18
+    store 4 $_virtual_register_19 2 0
+    $_virtual_register_20 = mul 3 4
+    $_virtual_register_21 = add $_virtual_register_20 4
+    $_virtual_register_22 = add $_virtual_register_21 $_virtual_register_19
+    $_virtual_register_23 = load 4 $_virtual_register_22 0
+    $int_arr = move $_virtual_register_23
+    $_virtual_register_24 = call ClassA_getString $b 
+    $_virtual_register_25 = call string.parseInt $_virtual_register_24 
+    $_virtual_register_26 = call getString 
+    $_virtual_register_27 = call string.ord $_virtual_register_26 123 
+    $_virtual_register_28 = call ClassA_getString $b 
+    $_virtual_register_29 = call string.substring $_virtual_register_28 1 3 
+    $_virtual_register_30 = call string.length $_virtual_register_29 
+    $_virtual_register_31 = mod $_virtual_register_27 $_virtual_register_30
+    $_virtual_register_32 = add $_virtual_register_25 $_virtual_register_31
+    $number = move $_virtual_register_32
+    $str1 = move @__str_const_2
+    $str2 = move @__str_const_3
+    $num = move 0
+    $_virtual_register_33 = call string.lt $str1 $str2 
+    br $_virtual_register_33 %Main__if_then %Main__if_merge
+%Main__if_then:
+    $_virtual_register_34 = move $num
+    $num = add $num 1
+    jump %Main__if_merge
+%Main__if_merge:
+    $_virtual_register_35 = call string.leq $str1 $str2 
+    br $_virtual_register_35 %Main__if_then_2 %Main__if_merge_2
+%Main__if_then_2:
+    $_virtual_register_36 = move $num
+    $num = add $num 1
+    jump %Main__if_merge_2
+%Main__if_merge_2:
+    $_virtual_register_37 = call string.rt $str1 $str2 
+    br $_virtual_register_37 %Main__if_then_3 %Main__if_merge_3
+%Main__if_then_3:
+    $_virtual_register_38 = move $num
+    $num = add $num 1
+    jump %Main__if_merge_3
+%Main__if_merge_3:
+    $_virtual_register_39 = call string.req $str1 $str2 
+    br $_virtual_register_39 %Main__if_then_4 %Main__if_merge_4
+%Main__if_merge_4:
+    $_virtual_register_40 = call string.add $str1 $str2 
+    $_virtual_register_41 = call string.add $str1 $str2 
+    $_virtual_register_42 = call string.eq $_virtual_register_40 $_virtual_register_41 
+    br $_virtual_register_42 %Main__if_then_5 %Main__if_else
+%Main__if_then_5:
+    $_virtual_register_43 = move $num
+    $num = add $num 1
+    jump %Main__if_merge_5
+%Main__if_merge_5:
+    jump %Main__for_body
+%Main__for_body:
+    jump %Main__for_merge
+%Main__for_merge:
+    jump %Main__while_cond
+%Main__while_cond:
+    jump %Main__while_body
+%Main__while_body:
+    jump %Main__while_cond
+%Main__if_else:
+    jump %Main__if_else_2
+%Main__if_else_2:
+    $num = sub $num 1
+    jump %Main__if_merge_6
+%Main__if_merge_6:
+    jump %Main__if_merge_5
+%Main__if_then_4:
+    $_virtual_register_44 = move $num
+    $num = add $num 1
+    jump %Main__if_merge_4
 }
 
 func main {
 %main_entry:
-    $op = move 0
-    $input_4 = move @__str_const_8
-    jump %main__while_cond
-%main__while_cond:
-    jump %main__while_body
-%main__while_body:
-    $_virtual_register_403 = call getInt 
-    $op = move $_virtual_register_403
-    $_virtual_register_404 = seq $op 0
-    br $_virtual_register_404 %main__if_then %main__if_merge
-%main__if_then:
-    jump %main__while_merge
-%main__while_merge:
-    $_virtual_register_405 = move 0
-    ret $_virtual_register_405
-%main__if_merge:
-    $_virtual_register_406 = seq $op 1
-    br $_virtual_register_406 %main__if_then_2 %main__if_else
-%main__if_else:
-    $_virtual_register_407 = seq $op 2
-    br $_virtual_register_407 %main__if_then_3 %main__if_merge_2
-%main__if_then_3:
-    $_virtual_register_408 = call getString 
-    $input_4 = move $_virtual_register_408
-    call crackSHA1 $input_4 
-    jump %main__if_merge_2
-%main__if_merge_2:
-    jump %main__if_merge_3
-%main__if_merge_3:
-    jump %main__while_cond
-%main__if_then_2:
-    $_virtual_register_409 = call getString 
-    $input_4 = move $_virtual_register_409
-    call computeSHA1 $input_4 
-    jump %main__if_merge_3
+    $_virtual_register_45 = call Main 0 
+    ret 0
 }
 
 func _init_ {
 %_init__entry:
-    $chunks_3 = load 4 @chunks 0
-    $asciiTable_3 = load 4 @asciiTable 0
-    $outputBuffer_3 = load 4 @outputBuffer 0
-    $inputBuffer_4 = load 4 @inputBuffer 0
-    $MAXLENGTH_2 = load 4 @MAXLENGTH 0
-    $MAXCHUNK_3 = load 4 @MAXCHUNK 0
-    $asciiTable_3 = move @__str_const_9
-    $MAXCHUNK_3 = move 100
-    $_virtual_register_410 = sub $MAXCHUNK_3 1
-    $_virtual_register_411 = mul $_virtual_register_410 64
-    $_virtual_register_412 = sub $_virtual_register_411 16
-    $MAXLENGTH_2 = move $_virtual_register_412
-    $_virtual_register_413 = mul $MAXCHUNK_3 4
-    $_virtual_register_413 = add $_virtual_register_413 4
-    $_virtual_register_414 = alloc $_virtual_register_413
-    store 4 $_virtual_register_414 $MAXCHUNK_3 0
-    $_virtual_register_415 = add $_virtual_register_414 4
-    $_virtual_register_416 = add $_virtual_register_414 $_virtual_register_413
-    jump %_init___array_loop_cond
-%_init___array_loop_cond:
-    $_virtual_register_417 = slt $_virtual_register_415 $_virtual_register_416
-    br $_virtual_register_417 %_init___array_loop_body %_init___array_loop_merge
-%_init___array_loop_body:
-    $_virtual_register_418 = mul 80 4
-    $_virtual_register_418 = add $_virtual_register_418 4
-    $_virtual_register_419 = alloc $_virtual_register_418
-    store 4 $_virtual_register_419 80 0
-    store 4 $_virtual_register_415 $_virtual_register_419 0
-    jump %_init___array_loop_step
-%_init___array_loop_step:
-    $_virtual_register_420 = add $_virtual_register_415 4
-    $_virtual_register_415 = move $_virtual_register_420
-    jump %_init___array_loop_cond
-%_init___array_loop_merge:
-    $chunks_3 = move $_virtual_register_414
-    $_virtual_register_421 = mul $MAXLENGTH_2 4
-    $_virtual_register_421 = add $_virtual_register_421 4
-    $_virtual_register_422 = alloc $_virtual_register_421
-    store 4 $_virtual_register_422 $MAXLENGTH_2 0
-    $inputBuffer_4 = move $_virtual_register_422
-    $_virtual_register_423 = mul 5 4
-    $_virtual_register_423 = add $_virtual_register_423 4
-    $_virtual_register_424 = alloc $_virtual_register_423
-    store 4 $_virtual_register_424 5 0
-    $outputBuffer_3 = move $_virtual_register_424
-    store 4 @MAXCHUNK $MAXCHUNK_3 0
-    store 4 @inputBuffer $inputBuffer_4 0
-    store 4 @outputBuffer $outputBuffer_3 0
-    store 4 @asciiTable $asciiTable_3 0
-    store 4 @chunks $chunks_3 0
-    $_virtual_register_425 = call main 
-    $_virtual_register_426 = move $_virtual_register_425
-    ret $_virtual_register_426
+    $_virtual_register_46 = call main 
+    $_virtual_register_47 = move $_virtual_register_46
+    ret $_virtual_register_47
 }
 

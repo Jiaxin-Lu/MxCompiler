@@ -147,8 +147,10 @@ public class ScopeBuilder implements ASTVisitor
     @Override
     public void visit(IfStmtNode node) throws SemanticError
     {
+        Scope scope = currentScope;
         node.getExpr().accept(this);
         node.getThenStmt().accept(this);
+        currentScope = scope;
         if (node.getElseStmt() != null) node.getElseStmt().accept(this);
     }
 

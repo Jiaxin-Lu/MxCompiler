@@ -63,9 +63,9 @@ public class Main
             System.out.println("Success");
 
             // a little optimizer
-            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
-            while (unusedEliminator.isEliminated)
-                unusedEliminator.visit(ast);
+//            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
+//            while (unusedEliminator.isEliminated)
+//                unusedEliminator.visit(ast);
 
             //ir gen
 
@@ -149,6 +149,7 @@ public class Main
         ssaConstructor.run();
         System.out.println("SSA Construct complete!");
         boolean changed = true;
+        int changedCnt = 0;
         while (changed)
         {
             changed = commonSubExpressionEliminator.run();
@@ -167,9 +168,11 @@ public class Main
             changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
             System.out.println("Unused Function Eliminator complete!");
+            ++ changedCnt;
+            if (changedCnt > 10) break;
         }
-        printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();
+        printIR(irRoot, "ssaIROutput.ir", false);
         cfgSimplifier.run(true);
     }
 }

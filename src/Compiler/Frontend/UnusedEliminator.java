@@ -290,7 +290,10 @@ public class UnusedEliminator implements ASTVisitor
         {
             if (inDefine)
             {
-                definedSymbolSet.add((VariableSymbol)symbol);
+                if (!((VariableSymbol) symbol).isUnUsed())
+                {
+                    definedSymbolSet.add((VariableSymbol)symbol);
+                }
             }
             else
             {

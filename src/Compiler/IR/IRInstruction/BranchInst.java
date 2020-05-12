@@ -53,7 +53,7 @@ public class BranchInst extends IRInstruction
     public void replaceTargetBlock(BasicBlock basicBlock, BasicBlock targetBlock)
     {
         if (basicBlock == this.thenBlock) this.thenBlock = targetBlock;
-        else this.elseBlock = targetBlock;
+        if (basicBlock == this.elseBlock) this.elseBlock = targetBlock;
     }
 
     public void setRvInstB(InstB rvInstB)

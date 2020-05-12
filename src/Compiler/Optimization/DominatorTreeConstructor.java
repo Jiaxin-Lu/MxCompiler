@@ -74,6 +74,7 @@ public class DominatorTreeConstructor extends Pass
             basicBlock.DominatorTreeSuccessor = new HashSet<>();
         }
         for (BasicBlock basicBlock : basicBlockList)
+        if (basicBlock.IDOM != null)
         {
             basicBlock.IDOM.DominatorTreeSuccessor.add(basicBlock);
         }
@@ -164,6 +165,7 @@ public class DominatorTreeConstructor extends Pass
             basicBlock.PostDominatorTreeSuccessor = new HashSet<>();
         }
         for (BasicBlock basicBlock : basicBlockList)
+        if (basicBlock.postIDOM != null)
         {
             basicBlock.postIDOM.PostDominatorTreeSuccessor.add(basicBlock);
         }
@@ -175,8 +177,16 @@ public class DominatorTreeConstructor extends Pass
         BasicBlock figure2 = basicBlock2;
         while (figure2 != figure1)
         {
-            while (figure1.reverseCFGPostOrderIndex < figure2.reverseCFGPostOrderIndex) figure1 = figure1.postIDOM;
-            while (figure2.reverseCFGPostOrderIndex < figure1.reverseCFGPostOrderIndex) figure2 = figure2.postIDOM;
+            while (figure1.reverseCFGPostOrderIndex < figure2.reverseCFGPostOrderIndex)
+            {
+                figure1 = figure1.postIDOM;
+                if (figure1 == figure1.postIDOM) return figure1;
+            }
+            while (figure2.reverseCFGPostOrderIndex < figure1.reverseCFGPostOrderIndex)
+            {
+                figure2 = figure2.postIDOM;
+                if (figure2 == figure2.postIDOM) return figure2;
+            }
         }
         return figure1;
     }

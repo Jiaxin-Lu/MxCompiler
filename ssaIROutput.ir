@@ -1,72 +1,47 @@
-@__str_const_1 = 
-@__str_const_2 = \n
-@__str_const_3 = 
-@__str_const_4 = -1
-@__str_const_5 = 0
-@__str_const_6 = 11h
+
+func qpow $a $p $mod {
+%qpow_entry:
+    $t = move 1
+    $y = move $a
+    jump %qpow__while_cond
+%qpow__while_cond:
+    $p_2 = phi qpow_entry $p qpow__if_merge $p_3 
+    $t_2 = phi qpow_entry $t qpow__if_merge $t_3 
+    $y_2 = phi qpow_entry $y qpow__if_merge $y_3 
+    $_virtual_register = sgt $p_2 0
+    br $_virtual_register %qpow__while_body %qpow__while_merge
+%qpow__while_body:
+    $_virtual_register_2 = and $p_2 1
+    $_virtual_register_3 = seq $_virtual_register_2 1
+    br $_virtual_register_3 %qpow__if_then %qpow__if_merge
+%qpow__if_then:
+    $_virtual_register_4 = mul $t_2 $y_2
+    $_virtual_register_5 = mod $_virtual_register_4 $mod
+    $t_4 = move $_virtual_register_5
+    jump %qpow__if_merge
+%qpow__if_merge:
+    $t_3 = phi qpow__while_body $t_2 qpow__if_then $t_4 
+    $_virtual_register_6 = mul $y_2 $y_2
+    $_virtual_register_7 = mod $_virtual_register_6 $mod
+    $y_3 = move $_virtual_register_7
+    $_virtual_register_8 = div $p_2 2
+    $p_3 = move $_virtual_register_8
+    jump %qpow__while_cond
+%qpow__while_merge:
+    ret $t_2
+}
 
 func main {
 %main_entry:
-    $i = move 0
-    jump %main__for_cond
-%main__for_cond:
-    $i_2 = phi main_entry $i main__for_step $i_3 
-    $_virtual_register = slt $i_2 10
-    br $_virtual_register %main__for_body %main__for_merge
-%main__for_body:
-    $_virtual_register_2 = call string.add @__str_const_1 @__str_const_2 
-    call print $_virtual_register_2 
-    jump %main__for_step
-%main__for_step:
-    $i_3 = add $i_2 1
-    jump %main__for_cond
-%main__for_merge:
-    $i_4 = move 0
-    jump %main__for_cond_2
-%main__for_cond_2:
-    $i_5 = phi main__for_merge $i_4 main__for_step_2 $i_6 
-    $_virtual_register_3 = slt $i_5 10
-    br $_virtual_register_3 %main__for_body_2 %main__for_merge_2
-%main__for_body_2:
-    $i_7 = move 0
-    jump %main__for_cond_3
-%main__for_cond_3:
-    $i_8 = phi main__for_body_2 $i_7 main__for_step_3 $i_9 
-    $_virtual_register_4 = slt $i_8 10
-    br $_virtual_register_4 %main__for_step_3 %main__for_step_2
-%main__for_step_3:
-    $i_9 = add $i_8 1
-    jump %main__for_cond_3
-%main__for_step_2:
-    $i_6 = add $i_8 1
-    jump %main__for_cond_2
-%main__for_merge_2:
-    $_virtual_register_5 = seq $i_5 0
-    br $_virtual_register_5 %main__if_then %main__if_else
-%main__if_else:
-    $_virtual_register_6 = call string.add @__str_const_4 @__str_const_4 
-    $_virtual_register_7 = call getString 
-    $_virtual_register_8 = call string.add $_virtual_register_6 $_virtual_register_7 
-    call println $_virtual_register_8 
-    jump %main__while_cond
-%main__while_cond:
-    $_virtual_register_9 = call toString $i_5 
-    $_virtual_register_10 = call string.eq $_virtual_register_9 @__str_const_5 
-    br $_virtual_register_10 %main__while_body %main__while_merge
-%main__while_merge:
+    $_virtual_register_9 = call qpow 2 10 10000 
+    $_virtual_register_10 = call toString $_virtual_register_9 
+    call println $_virtual_register_10 
     ret 0
-%main__while_body:
-    $_virtual_register_11 = call string.parseInt @__str_const_6 
-    jump %main__while_cond
-%main__if_then:
-    $_virtual_register_12 = call string.add @__str_const_3 @__str_const_3 
-    call println $_virtual_register_12 
-    jump %main__while_cond
 }
 
 func _init_ {
 %_init__entry:
-    $_virtual_register_13 = call main 
-    ret $_virtual_register_13
+    $_virtual_register_11 = call main 
+    ret $_virtual_register_11
 }
 

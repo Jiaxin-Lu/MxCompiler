@@ -1,144 +1,46 @@
-@__str_const_1 = 
-@__str_const_2 = \n
-@__str_const_3 = 
-@__str_const_4 = -1
-@__str_const_5 = 0
-@__str_const_6 = 11h
+
+func qpow $a $p $mod {
+%qpow_entry:
+    $t = move 1
+    $y = move $a
+    jump %qpow__while_cond
+%qpow__while_cond:
+    $_virtual_register = sgt $p 0
+    br $_virtual_register %qpow__while_body %qpow__while_merge
+%qpow__while_body:
+    $_virtual_register_2 = and $p 1
+    $_virtual_register_3 = seq $_virtual_register_2 1
+    br $_virtual_register_3 %qpow__if_then %qpow__if_merge
+%qpow__if_then:
+    $_virtual_register_4 = mul $t $y
+    $_virtual_register_5 = mod $_virtual_register_4 $mod
+    $t = move $_virtual_register_5
+    jump %qpow__if_merge
+%qpow__if_merge:
+    $_virtual_register_6 = mul $y $y
+    $_virtual_register_7 = mod $_virtual_register_6 $mod
+    $y = move $_virtual_register_7
+    $_virtual_register_8 = div $p 2
+    $p = move $_virtual_register_8
+    jump %qpow__while_cond
+%qpow__while_merge:
+    $_virtual_register_9 = move $t
+    ret $_virtual_register_9
+}
 
 func main {
 %main_entry:
-    $i = move 0
-    $i = move 0
-    jump %main__for_cond
-%main__for_cond:
-    $_virtual_register = slt $i 10
-    br $_virtual_register %main__for_body %main__for_merge
-%main__for_body:
-    $i_2 = move @__str_const_1
-    $_virtual_register_2 = call string.add $i_2 @__str_const_2 
-    call print $_virtual_register_2 
-    jump %main__for_step
-%main__for_step:
-    $i = add $i 1
-    jump %main__for_cond
-%main__for_merge:
-    $i = move 0
-    jump %main__for_cond_2
-%main__for_cond_2:
-    $_virtual_register_3 = slt $i 10
-    br $_virtual_register_3 %main__for_body_2 %main__for_merge_2
-%main__for_merge_2:
-    $i = move 0
-    jump %main__for_cond_3
-%main__for_cond_3:
-    $_virtual_register_4 = slt $i 10
-    br $_virtual_register_4 %main__for_body_3 %main__for_merge_3
-%main__for_body_3:
-    $i = move 0
-    jump %main__for_cond_4
-%main__for_cond_4:
-    $_virtual_register_5 = slt $i 10
-    br $_virtual_register_5 %main__for_body_4 %main__for_merge_4
-%main__for_body_4:
-    $i_3 = move 0
-    jump %main__for_step_2
-%main__for_step_2:
-    $i = add $i 1
-    jump %main__for_cond_4
-%main__for_merge_4:
-    jump %main__for_step_3
-%main__for_step_3:
-    $i = add $i 1
-    jump %main__for_cond_3
-%main__for_merge_3:
-    $i_4 = move 0
-    $_virtual_register_6 = seq $i 0
-    br $_virtual_register_6 %main__if_then %main__if_else
-%main__if_else:
-    $i_5 = move @__str_const_4
-    $_virtual_register_7 = call string.add $i_5 $i_5 
-    $_virtual_register_8 = call getString 
-    $_virtual_register_9 = call string.add $_virtual_register_7 $_virtual_register_8 
-    call println $_virtual_register_9 
-    jump %main__if_merge
-%main__if_merge:
-    $_virtual_register_10 = seq $i 0
-    br $_virtual_register_10 %main__if_then_2 %main__if_else_2
-%main__if_else_2:
-    $_virtual_register_11 = seq $i 0
-    br $_virtual_register_11 %main__if_then_3 %main__if_merge_2
-%main__if_merge_2:
-    jump %main__if_merge_3
-%main__if_merge_3:
-    $i_6 = move 0
-    jump %main__while_cond
-%main__while_cond:
-    $_virtual_register_12 = call toString $i 
-    $_virtual_register_13 = call string.eq $_virtual_register_12 @__str_const_5 
-    br $_virtual_register_13 %main__while_body %main__while_merge
-%main__while_body:
-    $i_7 = move @__str_const_6
-    $_virtual_register_14 = call string.parseInt $i_7 
-    $i_ = move $_virtual_register_14
-    jump %main__while_cond
-%main__while_merge:
-    jump %main__while_cond_2
-%main__while_cond_2:
-    $_virtual_register_15 = seq $i 0
-    br $_virtual_register_15 %main__while_body_2 %main__while_merge_2
-%main__while_body_2:
-    $i_8 = move 0
-    jump %main__while_cond_2
-%main__while_merge_2:
-    jump %main__while_cond_3
-%main__while_cond_3:
-    $_virtual_register_16 = seq $i 0
-    br $_virtual_register_16 %main__while_body_3 %main__while_merge_3
-%main__while_merge_3:
-    $i_9 = move 0
-    $_virtual_register_17 = move 0
-    ret $_virtual_register_17
-%main__while_body_3:
-    jump %main__while_cond_4
-%main__while_cond_4:
-    $_virtual_register_18 = seq $i 0
-    br $_virtual_register_18 %main__while_body_4 %main__while_merge_4
-%main__while_body_4:
-    $i_10 = move 0
-    jump %main__while_cond_4
-%main__while_merge_4:
-    jump %main__while_cond_3
-%main__if_then_3:
-    $_virtual_register_19 = seq $i 0
-    br $_virtual_register_19 %main__if_then_4 %main__if_else_3
-%main__if_then_4:
-    $i_11 = move 0
-    jump %main__if_merge_4
-%main__if_merge_4:
-    jump %main__if_merge_2
-%main__if_else_3:
-    $i_12 = move 0
-    jump %main__if_merge_4
-%main__if_then_2:
-    $i_13 = move 0
-    jump %main__if_merge_3
-%main__if_then:
-    $i_14 = move @__str_const_3
-    $_virtual_register_20 = call string.add $i_14 $i_14 
-    call println $_virtual_register_20 
-    jump %main__if_merge
-%main__for_body_2:
-    $i_15 = move 0
-    jump %main__for_step_4
-%main__for_step_4:
-    $i = add $i 1
-    jump %main__for_cond_2
+    $_virtual_register_10 = call qpow 2 10 10000 
+    $_virtual_register_11 = call toString $_virtual_register_10 
+    call println $_virtual_register_11 
+    $_virtual_register_12 = move 0
+    ret $_virtual_register_12
 }
 
 func _init_ {
 %_init__entry:
-    $_virtual_register_21 = call main 
-    $_virtual_register_22 = move $_virtual_register_21
-    ret $_virtual_register_22
+    $_virtual_register_13 = call main 
+    $_virtual_register_14 = move $_virtual_register_13
+    ret $_virtual_register_14
 }
 

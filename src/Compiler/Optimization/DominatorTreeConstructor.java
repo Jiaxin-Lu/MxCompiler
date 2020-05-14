@@ -74,10 +74,10 @@ public class DominatorTreeConstructor extends Pass
             basicBlock.DominatorTreeSuccessor = new HashSet<>();
         }
         for (BasicBlock basicBlock : basicBlockList)
-        if (basicBlock.IDOM != null)
-        {
-            basicBlock.IDOM.DominatorTreeSuccessor.add(basicBlock);
-        }
+            if (basicBlock.IDOM != null)
+            {
+                basicBlock.IDOM.DominatorTreeSuccessor.add(basicBlock);
+            }
         computeDominatorTreeSuccessors(function.getEntryBlock());
     }
 
@@ -165,18 +165,34 @@ public class DominatorTreeConstructor extends Pass
             basicBlock.PostDominatorTreeSuccessor = new HashSet<>();
         }
         for (BasicBlock basicBlock : basicBlockList)
-        if (basicBlock.postIDOM != null)
-        {
-            basicBlock.postIDOM.PostDominatorTreeSuccessor.add(basicBlock);
-        }
+            if (basicBlock.postIDOM != null)
+            {
+                basicBlock.postIDOM.PostDominatorTreeSuccessor.add(basicBlock);
+            }
     }
 
     private BasicBlock intersectPost(BasicBlock basicBlock1, BasicBlock basicBlock2)
     {
         BasicBlock figure1 = basicBlock1;
         BasicBlock figure2 = basicBlock2;
+        BasicBlock pastFigure1 = null;
+        BasicBlock pastFigure2 = null;
+        if (checkRecursive(figure1) || checkRecursive(figure2))
+            return figure1;
         while (figure2 != figure1)
         {
+            if (pastFigure1 == null)
+            {
+                pastFigure1 = figure1;
+                pastFigure2 = figure2;
+            } else {
+                if (pastFigure1 == figure1 && pastFigure2 == figure2)
+                    return figure1;
+                else {
+                    pastFigure1 = figure1;
+                    pastFigure2 = figure2;
+                }
+            }
             while (figure1.reverseCFGPostOrderIndex < figure2.reverseCFGPostOrderIndex)
             {
                 figure1 = figure1.postIDOM;
@@ -189,6 +205,17 @@ public class DominatorTreeConstructor extends Pass
             }
         }
         return figure1;
+    }
+
+    private boolean checkRecursive(BasicBlock figure)
+    {
+        BasicBlock oriFigure = figure;
+        while (figure.postIDOM != figure.getFunction().getExitBlock())
+        {
+            figure = figure.postIDOM;
+            if (figure == oriFigure) return true;
+        }
+        return false;
     }
 
     public void computePostDominanceFrontier(Function function)

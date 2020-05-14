@@ -66,6 +66,7 @@ public class Main
 //            UnusedEliminator unusedEliminator = new UnusedEliminator(globalScope);
 //            while (unusedEliminator.isEliminated)
 //                unusedEliminator.visit(ast);
+            // should debug
 
             //ir gen
 

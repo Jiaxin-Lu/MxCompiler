@@ -9,10 +9,10 @@
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/LLIRInterpreter/LLIRInterpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DeadCodeEliminator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/DominatorTreeConstructor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/GlobalVariableResolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,21 +134,7 @@
       <workItem from="1588437231886" duration="37295000" />
       <workItem from="1588674991699" duration="99740000" />
       <workItem from="1589103190149" duration="64738000" />
-      <workItem from="1589304704743" duration="21599000" />
-    </task>
-    <task id="LOCAL-00063" summary="fixing bugs...">
-      <created>1588163446441</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1588163446441</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Process registers in Binary.">
-      <created>1588271153089</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1588271153089</updated>
+      <workItem from="1589304704743" duration="32580000" />
     </task>
     <task id="LOCAL-00065" summary="add PhysicalRegister.">
       <created>1588271628172</created>
@@ -479,7 +465,21 @@
       <option name="project" value="LOCAL" />
       <updated>1589316323624</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="fix DominatorTreeConstructor">
+      <created>1589468299693</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1589468299693</updated>
+    </task>
+    <task id="LOCAL-00113" summary="optimize DeadCodeEliminator">
+      <created>1589468313407</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1589468313407</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,8 +500,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Let new RISCV relevant operands and instructions take over." />
-    <MESSAGE value="add AsmPrinter" />
     <MESSAGE value="add InstructionSelector" />
     <MESSAGE value="change names for RISC-V Instruction" />
     <MESSAGE value="on InstructionSelector..." />
@@ -525,7 +523,9 @@
     <MESSAGE value="fix scope and dominator tree" />
     <MESSAGE value="fix DeadCodeEliminator for dead loop" />
     <MESSAGE value="fix import" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix import" />
+    <MESSAGE value="fix DominatorTreeConstructor" />
+    <MESSAGE value="optimize DeadCodeEliminator" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimize DeadCodeEliminator" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -564,10 +564,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589468298001">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589479995209">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589468298001" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589479995209" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -576,38 +576,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="97" key="GridCell.Tab.0.bottom" timestamp="1589468203654">
+    <state width="1493" height="384" key="GridCell.Tab.0.bottom" timestamp="1589479881035">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="97" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589468203654" />
-    <state width="1493" height="97" key="GridCell.Tab.0.center" timestamp="1589468203654">
+    <state width="1493" height="384" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589479881035" />
+    <state width="1493" height="384" key="GridCell.Tab.0.center" timestamp="1589479881035">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="97" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589468203654" />
-    <state width="1493" height="97" key="GridCell.Tab.0.left" timestamp="1589468203654">
+    <state width="1493" height="384" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589479881035" />
+    <state width="1493" height="384" key="GridCell.Tab.0.left" timestamp="1589479881034">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="97" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589468203654" />
-    <state width="1493" height="97" key="GridCell.Tab.0.right" timestamp="1589468203654">
+    <state width="1493" height="384" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589479881034" />
+    <state width="1493" height="384" key="GridCell.Tab.0.right" timestamp="1589479881035">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="97" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589468203654" />
-    <state width="1493" height="112" key="GridCell.Tab.1.bottom" timestamp="1589303134074">
+    <state width="1493" height="384" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589479881035" />
+    <state width="1493" height="393" key="GridCell.Tab.1.bottom" timestamp="1589479453084">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="112" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589303134074" />
-    <state width="1493" height="112" key="GridCell.Tab.1.center" timestamp="1589303134074">
+    <state width="1493" height="393" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589479453084" />
+    <state width="1493" height="393" key="GridCell.Tab.1.center" timestamp="1589479453084">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="112" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589303134074" />
-    <state width="1493" height="112" key="GridCell.Tab.1.left" timestamp="1589303134074">
+    <state width="1493" height="393" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589479453084" />
+    <state width="1493" height="393" key="GridCell.Tab.1.left" timestamp="1589479453084">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="112" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589303134074" />
-    <state width="1493" height="112" key="GridCell.Tab.1.right" timestamp="1589303134074">
+    <state width="1493" height="393" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589479453084" />
+    <state width="1493" height="393" key="GridCell.Tab.1.right" timestamp="1589479453084">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="112" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589303134074" />
+    <state width="1493" height="393" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589479453084" />
     <state x="408" y="109" key="NewModule_or_Project.wizard" timestamp="1584697134787">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

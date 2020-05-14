@@ -83,8 +83,6 @@ public class Main
 
 //            globalVariableResolver.allocGlobalVariable();
 
-            printIR(irRoot, "irOutput.ir", false);
-
             // codegen
             InstructionSelector instructionSelector = new InstructionSelector(irRoot);
             instructionSelector.run();
@@ -174,6 +172,8 @@ public class Main
         }
         printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();
+
+        printIR(irRoot, "irOutput.ir", true);
         cfgSimplifier.run(true);
     }
 }

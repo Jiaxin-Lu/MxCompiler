@@ -90,7 +90,7 @@ public class IRPrinter implements IRVisitor
         for (StaticStr staticStr : irRoot.getStaticStrList())
         {
             staticStr.accept(this);
-            output.println(" = " + staticStr.getValue());
+            output.println(" = \"" + staticStr.getValue() + "\"");
 //            staticStr.accept(this);
 //            System.out.println("register name " + staticStr.getName());
 //            output.printf("@%s = %s\n", getRegisterID(staticStr.getBase()), staticStr.getValue());

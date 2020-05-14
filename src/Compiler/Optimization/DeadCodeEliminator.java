@@ -39,7 +39,8 @@ public class DeadCodeEliminator extends Pass
     private boolean isCritical(IRInstruction inst)
     {
         return !(inst instanceof BranchInst || inst instanceof JumpInst || inst instanceof MoveInst ||
-                inst instanceof BinaryInst || inst instanceof UnaryInst || inst instanceof CmpInst || inst instanceof Phi);
+                inst instanceof BinaryInst || inst instanceof UnaryInst || inst instanceof CmpInst || inst instanceof Phi
+                || (inst instanceof LoadInst && ((LoadInst) inst).isForGlobal()));
     }
 
     private void mark(Function function)

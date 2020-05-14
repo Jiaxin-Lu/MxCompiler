@@ -59,22 +59,6 @@ public class GlobalVariableResolver
         {
             entryInit.addInst2Head(new AllocInst(entryInit, new Immediate(Width.regWidth), globalVariable));
         }
-//        for (Function function : irRoot.getFunctionMap().values())
-//        {
-//            for (BasicBlock basicBlock : function.getPreOrderBlockList())
-//            {
-//                for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
-//                {
-//                    if (inst instanceof LoadInst && ((LoadInst) inst).isForGlobal())
-//                    {
-//                        ((LoadInst) inst).setGlobalPtr(((GlobalVariable) ((LoadInst) inst).getSrc()).getGlobalPtr());
-//                    } else if (inst instanceof StoreInst && ((StoreInst) inst).isForGlobal())
-//                    {
-//                        ((StoreInst) inst).setGlobalPtr(((GlobalVariable) ((StoreInst) inst).getDst()).getGlobalPtr());
-//                    }
-//                }
-//            }
-//        }
     }
 
     private VirtualRegister getTempGlobalVariable(GlobalVariable register, Map<GlobalVariable, VirtualRegister> usedTempGlobalVariable)

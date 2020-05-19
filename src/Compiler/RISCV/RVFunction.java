@@ -93,6 +93,34 @@ public class RVFunction
         return preOrderBlockList;
     }
 
+    private Set<RVBasicBlock> dfsVisit = null;
+    
+    public void calcPreOrderBlockList()
+    {
+        preOrderBlockList = new ArrayList<>();
+        dfsVisit = new HashSet<>();
+        dfsBasicBlock(entryBlock);
+        for (int i = preOrderBlockList.size() - 1; i >= 0; --i)
+        {
+            preOrderBlockList.get(i).postOrderIndex = preOrderBlockList.size() - i;
+        }
+    }
+
+    public void dfsBasicBlock(RVBasicBlock basicBlock)
+    {
+        basicBlock.preOrderIndex = preOrderBlockList.size();
+        preOrderBlockList.add(basicBlock);
+        dfsVisit.add(basicBlock);
+        for (RVBasicBlock successor : basicBlock.getSuccessors())
+        {
+            if (!dfsVisit.contains(successor))
+            {
+                successor.dfsFatherBlock = basicBlock;
+                dfsBasicBlock(successor);
+            }
+        }
+    }
+
     public void addBlockList(RVBasicBlock basicBlock)
     {
         preOrderBlockList.add(basicBlock);

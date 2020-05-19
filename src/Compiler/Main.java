@@ -173,7 +173,7 @@ public class Main
         printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();
 
-        printIR(irRoot, "irOutput.ir", true);
         cfgSimplifier.run(true);
+        printIR(irRoot, "irOutput.ir", true);
     }
 }

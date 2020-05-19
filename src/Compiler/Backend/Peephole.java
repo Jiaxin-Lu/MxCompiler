@@ -3,12 +3,8 @@ package Compiler.Backend;
 
 import Compiler.RISCV.RVBasicBlock;
 import Compiler.RISCV.RVFunction;
-import Compiler.RISCV.RVInstruction.Load;
-import Compiler.RISCV.RVInstruction.Move;
-import Compiler.RISCV.RVInstruction.RVInstruction;
-import Compiler.RISCV.RVInstruction.Store;
+import Compiler.RISCV.RVInstruction.*;
 import Compiler.RISCV.RVOperand.RVPhysicalRegister;
-import Compiler.RISCV.RVOperand.RVRegister;
 import Compiler.RISCV.RVOperand.RVVirtualRegister;
 import Compiler.RISCV.RVRoot;
 
@@ -26,6 +22,7 @@ public class Peephole
         {
             removeLoadStore(function);
             removeMove(function);
+            removeSingleBranchBlock(function);
         }
     }
 
@@ -82,5 +79,37 @@ public class Peephole
                 }
             }
         }
+    }
+
+    public void removeSingleBranchBlock(RVFunction function)
+    {
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
+        {
+            if (basicBlock != function.getEntryBlock())
+            {
+                if (basicBlock.headInst == basicBlock.tailInst && basicBlock.headInst instanceof InstJ)
+                {
+                    RVBasicBlock target = ((InstJ) basicBlock.headInst).getDst();
+                    target.getPredecessors().remove(basicBlock);
+                    for (RVBasicBlock predecessor : basicBlock.getPredecessors())
+                    {
+                        predecessor.getSuccessors().remove(basicBlock);
+                        predecessor.getSuccessors().add(target);
+                        target.getPredecessors().add(predecessor);
+                        for (RVInstruction inst = predecessor.headInst; inst != null; inst = inst.getNextInst())
+                        {
+                            if (inst instanceof InstJ && ((InstJ) inst).getDst() == basicBlock)
+                            {
+                                ((InstJ)inst).setDst(target);
+                            } else if (inst instanceof InstB && ((InstB) inst).getDst() == basicBlock)
+                            {
+                                ((InstB) inst).setDst(target);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        function.calcPreOrderBlockList();
     }
 }

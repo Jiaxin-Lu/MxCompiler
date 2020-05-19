@@ -336,9 +336,6 @@ show__for_body:
 	mv		vReg_27,a0
 	mv		a0,vReg_27
 	call	__builtin_print
-	j		show__for_step
-
-show__for_step:
 	addi	i_28,i_19,1
 	mv		i_19,i_28
 	j		show__for_cond
@@ -435,9 +432,6 @@ win__for_body:
 	add		vReg_32,vReg_30,a_16
 	lw		vReg_33,0(vReg_32)
 	sw		vReg_33,0(vReg_31)
-	j		win__for_step
-
-win__for_step:
 	addi	j_34,j_27,1
 	mv		j_27,j_34
 	j		win__for_cond
@@ -461,7 +455,7 @@ win__for_body_2:
 
 win__for_cond_3:
 	blt		j_41,now_18,win__for_body_3
-	j		win__for_step_3
+	j		win__for_step_2
 
 win__for_body_3:
 	li		imm_43,4
@@ -475,9 +469,9 @@ win__for_body_3:
 	lw		vReg_50,0(vReg_45)
 	lw		vReg_51,0(vReg_49)
 	bgt		vReg_50,vReg_51,win__if_then_2
-	j		win__for_step_2
+	j		win__for_step
 
-win__for_step_2:
+win__for_step:
 	addi	j_52,j_41,1
 	mv		j_41,j_52
 	j		win__for_cond_3
@@ -487,9 +481,9 @@ win__if_then_2:
 	lw		vReg_54,0(vReg_49)
 	sw		vReg_54,0(vReg_45)
 	sw		vReg_53,0(vReg_49)
-	j		win__for_step_2
+	j		win__for_step
 
-win__for_step_3:
+win__for_step_2:
 	addi	i_55,i_37,1
 	mv		i_37,i_55
 	j		win__for_cond_2
@@ -512,9 +506,9 @@ win__for_body_4:
 	addi	vReg_63,i_58,1
 	lw		vReg_64,0(vReg_62)
 	bne		vReg_64,vReg_63,win__if_then_3
-	j		win__for_step_4
+	j		win__for_step_3
 
-win__for_step_4:
+win__for_step_3:
 	mv		i_65,vReg_63
 	mv		i_58,i_65
 	j		win__for_cond_4
@@ -890,9 +884,6 @@ main__while_merge:
 	lw		vReg_83,0(vReg_73)
 	add		vReg_84,temp_57,vReg_83
 	mv		temp_85,vReg_84
-	j		main__for_step
-
-main__for_step:
 	addi	i_86,i_58,1
 	mv		temp_57,temp_85
 	mv		i_58,i_86

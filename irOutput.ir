@@ -29,9 +29,7 @@ func random {
     $_virtual_register_4 = mul $R_2 $_virtual_register_3
     $_virtual_register_5 = sub $_virtual_register_2 $_virtual_register_4
     $_virtual_register_6 = sge $_virtual_register_5 0
-    br $_virtual_register_6 %random__parallel_copy_ %random__parallel_copy__2
-%random__parallel_copy__2:
-    jump %random__if_else
+    br $_virtual_register_6 %random__if_then %random__if_else
 %random__if_else:
     $_virtual_register_7 = add $_virtual_register_5 $M_2
     $seed_3 = move $_virtual_register_7
@@ -40,8 +38,6 @@ func random {
 %random__if_merge:
     store 4 @seed $seed_4 0
     ret $seed_4
-%random__parallel_copy_:
-    jump %random__if_then
 %random__if_then:
     $seed_5 = move $_virtual_register_5
     $seed_4 = move $seed_5
@@ -77,34 +73,26 @@ func pd $x_2 {
     jump %pd__for_cond
 %pd__for_cond:
     $_virtual_register_16 = sle $h_3 $x_2
-    br $_virtual_register_16 %pd__parallel_copy_ %pd__parallel_copy__2
-%pd__parallel_copy__2:
-    jump %pd__for_merge
-%pd__for_merge:
-    $returnVal = move 0
-    $returnVal_2 = move $returnVal
-    jump %pd_exit
-%pd_exit:
-    store 4 @h $h_3 0
-    ret $returnVal_2
-%pd__parallel_copy_:
-    jump %pd__for_body
+    br $_virtual_register_16 %pd__for_body %pd__for_merge
 %pd__for_body:
     $_virtual_register_17 = add $h_3 1
     $_virtual_register_18 = mul $h_3 $_virtual_register_17
     $_virtual_register_19 = div $_virtual_register_18 2
     $_virtual_register_20 = seq $x_2 $_virtual_register_19
-    br $_virtual_register_20 %pd__parallel_copy__3 %pd__parallel_copy__4
-%pd__parallel_copy__4:
-    jump %pd__for_step
+    br $_virtual_register_20 %pd__if_then %pd__for_step
 %pd__for_step:
     $h_4 = move $_virtual_register_17
     $h_3 = move $h_4
     jump %pd__for_cond
-%pd__parallel_copy__3:
-    jump %pd__if_then
 %pd__if_then:
-    $returnVal_3 = move 1
+    $returnVal = move 1
+    $returnVal_2 = move $returnVal
+    jump %pd_exit
+%pd_exit:
+    store 4 @h $h_3 0
+    ret $returnVal_2
+%pd__for_merge:
+    $returnVal_3 = move 0
     $returnVal_2 = move $returnVal_3
     jump %pd_exit
 }
@@ -118,14 +106,7 @@ void show {
     jump %show__for_cond
 %show__for_cond:
     $_virtual_register_21 = slt $i_2 $now_2
-    br $_virtual_register_21 %show__parallel_copy_ %show__parallel_copy__2
-%show__parallel_copy__2:
-    jump %show__for_merge
-%show__for_merge:
-    call println @__str_const_2 
-    ret 
-%show__parallel_copy_:
-    jump %show__for_body
+    br $_virtual_register_21 %show__for_body %show__for_merge
 %show__for_body:
     $_virtual_register_22 = mul $i_2 4
     $_virtual_register_23 = add $_virtual_register_22 4
@@ -134,11 +115,12 @@ void show {
     $_virtual_register_26 = call toString $_virtual_register_25 
     $_virtual_register_27 = call string.add $_virtual_register_26 @__str_const_1 
     call print $_virtual_register_27 
-    jump %show__for_step
-%show__for_step:
     $i_3 = add $i_2 1
     $i_2 = move $i_3
     jump %show__for_cond
+%show__for_merge:
+    call println @__str_const_2 
+    ret 
 }
 
 func win {
@@ -149,126 +131,96 @@ func win {
     $_virtual_register_28 = alloc 404
     store 4 $_virtual_register_28 100 0
     $_virtual_register_29 = sne $now_3 $h_5
-    br $_virtual_register_29 %win__parallel_copy_ %win__parallel_copy__2
-%win__parallel_copy__2:
-    jump %win__if_merge
+    br $_virtual_register_29 %win__if_then %win__if_merge
+%win__if_then:
+    $returnVal_4 = move 0
+    $returnVal_5 = move $returnVal_4
+    jump %win_exit
+%win_exit:
+    ret $returnVal_5
 %win__if_merge:
     $j = move 0
     $j_2 = move $j
     jump %win__for_cond
 %win__for_cond:
     $_virtual_register_30 = slt $j_2 $now_3
-    br $_virtual_register_30 %win__parallel_copy__3 %win__parallel_copy__4
-%win__parallel_copy__4:
-    jump %win__for_merge
+    br $_virtual_register_30 %win__for_body %win__for_merge
+%win__for_body:
+    $_virtual_register_31 = mul $j_2 4
+    $_virtual_register_32 = add $_virtual_register_31 4
+    $_virtual_register_33 = add $_virtual_register_32 $_virtual_register_28
+    $_virtual_register_34 = add $_virtual_register_32 $a_4
+    $_virtual_register_35 = load 4 $_virtual_register_34 0
+    store 4 $_virtual_register_33 $_virtual_register_35 0
+    $j_3 = add $j_2 1
+    $j_2 = move $j_3
+    jump %win__for_cond
 %win__for_merge:
     $i_4 = move 0
     $i_5 = move $i_4
     jump %win__for_cond_2
 %win__for_cond_2:
-    $_virtual_register_31 = sub $now_3 1
-    $_virtual_register_32 = slt $i_5 $_virtual_register_31
-    br $_virtual_register_32 %win__parallel_copy__5 %win__parallel_copy__6
-%win__parallel_copy__5:
-    jump %win__for_body
-%win__for_body:
-    $_virtual_register_33 = add $i_5 1
-    $j_3 = move $_virtual_register_33
-    $j_4 = move $j_3
+    $_virtual_register_36 = sub $now_3 1
+    $_virtual_register_37 = slt $i_5 $_virtual_register_36
+    br $_virtual_register_37 %win__for_body_2 %win__for_merge_2
+%win__for_body_2:
+    $_virtual_register_38 = add $i_5 1
+    $j_4 = move $_virtual_register_38
+    $j_5 = move $j_4
     jump %win__for_cond_3
 %win__for_cond_3:
-    $_virtual_register_34 = slt $j_4 $now_3
-    br $_virtual_register_34 %win__parallel_copy__7 %win__parallel_copy__8
-%win__parallel_copy__7:
-    jump %win__for_body_2
-%win__for_body_2:
-    $_virtual_register_35 = mul $i_5 4
-    $_virtual_register_36 = add $_virtual_register_35 4
-    $_virtual_register_37 = add $_virtual_register_36 $_virtual_register_28
-    $_virtual_register_38 = mul $j_4 4
-    $_virtual_register_39 = add $_virtual_register_38 4
-    $_virtual_register_40 = add $_virtual_register_39 $_virtual_register_28
-    $_virtual_register_41 = load 4 $_virtual_register_37 0
-    $_virtual_register_42 = load 4 $_virtual_register_40 0
-    $_virtual_register_43 = sgt $_virtual_register_41 $_virtual_register_42
-    br $_virtual_register_43 %win__parallel_copy__9 %win__parallel_copy__10
-%win__parallel_copy__10:
-    jump %win__for_step
-%win__for_step:
-    $j_5 = add $j_4 1
-    $j_4 = move $j_5
-    jump %win__for_cond_3
-%win__parallel_copy__9:
-    jump %win__if_then
-%win__if_then:
-    $_virtual_register_44 = load 4 $_virtual_register_37 0
-    $_virtual_register_45 = load 4 $_virtual_register_40 0
-    store 4 $_virtual_register_37 $_virtual_register_45 0
-    store 4 $_virtual_register_40 $_virtual_register_44 0
-    jump %win__for_step
-%win__parallel_copy__8:
-    jump %win__for_step_2
+    $_virtual_register_39 = slt $j_5 $now_3
+    br $_virtual_register_39 %win__for_body_3 %win__for_step
+%win__for_body_3:
+    $_virtual_register_40 = mul $i_5 4
+    $_virtual_register_41 = add $_virtual_register_40 4
+    $_virtual_register_42 = add $_virtual_register_41 $_virtual_register_28
+    $_virtual_register_43 = mul $j_5 4
+    $_virtual_register_44 = add $_virtual_register_43 4
+    $_virtual_register_45 = add $_virtual_register_44 $_virtual_register_28
+    $_virtual_register_46 = load 4 $_virtual_register_42 0
+    $_virtual_register_47 = load 4 $_virtual_register_45 0
+    $_virtual_register_48 = sgt $_virtual_register_46 $_virtual_register_47
+    br $_virtual_register_48 %win__if_then_2 %win__for_step_2
 %win__for_step_2:
+    $j_6 = add $j_5 1
+    $j_5 = move $j_6
+    jump %win__for_cond_3
+%win__if_then_2:
+    $_virtual_register_49 = load 4 $_virtual_register_42 0
+    $_virtual_register_50 = load 4 $_virtual_register_45 0
+    store 4 $_virtual_register_42 $_virtual_register_50 0
+    store 4 $_virtual_register_45 $_virtual_register_49 0
+    jump %win__for_step_2
+%win__for_step:
     $i_6 = add $i_5 1
     $i_5 = move $i_6
     jump %win__for_cond_2
-%win__parallel_copy__6:
-    jump %win__for_merge_2
 %win__for_merge_2:
     $i_7 = move 0
     $i_8 = move $i_7
     jump %win__for_cond_4
 %win__for_cond_4:
-    $_virtual_register_46 = slt $i_8 $now_3
-    br $_virtual_register_46 %win__parallel_copy__11 %win__parallel_copy__12
-%win__parallel_copy__11:
-    jump %win__for_body_3
-%win__for_body_3:
-    $_virtual_register_47 = mul $i_8 4
-    $_virtual_register_48 = add $_virtual_register_47 4
-    $_virtual_register_49 = add $_virtual_register_48 $_virtual_register_28
-    $_virtual_register_50 = add $i_8 1
-    $_virtual_register_51 = load 4 $_virtual_register_49 0
-    $_virtual_register_52 = sne $_virtual_register_51 $_virtual_register_50
-    br $_virtual_register_52 %win__parallel_copy__13 %win__parallel_copy__14
-%win__parallel_copy__13:
-    jump %win__if_then_2
-%win__if_then_2:
-    $returnVal_4 = move 0
-    $returnVal_5 = move $returnVal_4
-    jump %win_exit
-%win_exit:
-    ret $returnVal_5
-%win__parallel_copy__14:
-    jump %win__for_step_3
+    $_virtual_register_51 = slt $i_8 $now_3
+    br $_virtual_register_51 %win__for_body_4 %win__for_merge_3
+%win__for_body_4:
+    $_virtual_register_52 = mul $i_8 4
+    $_virtual_register_53 = add $_virtual_register_52 4
+    $_virtual_register_54 = add $_virtual_register_53 $_virtual_register_28
+    $_virtual_register_55 = add $i_8 1
+    $_virtual_register_56 = load 4 $_virtual_register_54 0
+    $_virtual_register_57 = sne $_virtual_register_56 $_virtual_register_55
+    br $_virtual_register_57 %win__if_then_3 %win__for_step_3
 %win__for_step_3:
-    $i_9 = move $_virtual_register_50
+    $i_9 = move $_virtual_register_55
     $i_8 = move $i_9
     jump %win__for_cond_4
-%win__parallel_copy__12:
-    jump %win__for_merge_3
-%win__for_merge_3:
-    $returnVal_6 = move 1
+%win__if_then_3:
+    $returnVal_6 = move 0
     $returnVal_5 = move $returnVal_6
     jump %win_exit
-%win__parallel_copy__3:
-    jump %win__for_body_4
-%win__for_body_4:
-    $_virtual_register_53 = mul $j_2 4
-    $_virtual_register_54 = add $_virtual_register_53 4
-    $_virtual_register_55 = add $_virtual_register_54 $_virtual_register_28
-    $_virtual_register_56 = add $_virtual_register_54 $a_4
-    $_virtual_register_57 = load 4 $_virtual_register_56 0
-    store 4 $_virtual_register_55 $_virtual_register_57 0
-    jump %win__for_step_4
-%win__for_step_4:
-    $j_6 = add $j_2 1
-    $j_2 = move $j_6
-    jump %win__for_cond
-%win__parallel_copy_:
-    jump %win__if_then_3
-%win__if_then_3:
-    $returnVal_7 = move 0
+%win__for_merge_3:
+    $returnVal_7 = move 1
     $returnVal_5 = move $returnVal_7
     jump %win_exit
 }
@@ -282,54 +234,42 @@ void merge {
     jump %merge__for_cond
 %merge__for_cond:
     $_virtual_register_58 = slt $i_11 $now_4
-    br $_virtual_register_58 %merge__parallel_copy_ %merge__parallel_copy__2
-%merge__parallel_copy__2:
-    jump %merge__for_merge
+    br $_virtual_register_58 %merge__for_body %merge__for_merge
 %merge__for_merge:
     $i_12 = move 0
     $i_13 = move $i_12
     jump %merge__for_cond_2
 %merge__for_cond_2:
     $_virtual_register_59 = slt $i_13 $now_4
-    br $_virtual_register_59 %merge__parallel_copy__3 %merge__parallel_copy__4
-%merge__parallel_copy__4:
-    $now_5 = move $now_4
-    jump %merge__for_merge_2
-%merge__for_merge_2:
-    store 4 @now $now_5 0
-    ret 
-%merge__parallel_copy__3:
-    jump %merge__for_body
-%merge__for_body:
+    br $_virtual_register_59 %merge__for_body_2 %merge__parallel_copy_
+%merge__for_body_2:
     $_virtual_register_60 = mul $i_13 4
     $_virtual_register_61 = add $_virtual_register_60 4
     $_virtual_register_62 = add $_virtual_register_61 $a_5
     $_virtual_register_63 = load 4 $_virtual_register_62 0
     $_virtual_register_64 = seq $_virtual_register_63 0
-    br $_virtual_register_64 %merge__parallel_copy__5 %merge__parallel_copy__6
-%merge__parallel_copy__5:
-    jump %merge__if_then
-%merge__if_then:
-    $now_6 = move $i_13
-    $now_5 = move $now_6
-    jump %merge__for_merge_2
-%merge__parallel_copy__6:
-    jump %merge__for_step
+    br $_virtual_register_64 %merge__if_then %merge__for_step
 %merge__for_step:
     $i_14 = add $i_13 1
     $i_13 = move $i_14
     jump %merge__for_cond_2
+%merge__if_then:
+    $now_5 = move $i_13
+    $now_6 = move $now_5
+    jump %merge__for_merge_2
+%merge__for_merge_2:
+    store 4 @now $now_6 0
+    ret 
 %merge__parallel_copy_:
-    jump %merge__for_body_2
-%merge__for_body_2:
+    $now_6 = move $now_4
+    jump %merge__for_merge_2
+%merge__for_body:
     $_virtual_register_65 = mul $i_11 4
     $_virtual_register_66 = add $_virtual_register_65 4
     $_virtual_register_67 = add $_virtual_register_66 $a_5
     $_virtual_register_68 = load 4 $_virtual_register_67 0
     $_virtual_register_69 = seq $_virtual_register_68 0
-    br $_virtual_register_69 %merge__parallel_copy__7 %merge__parallel_copy__8
-%merge__parallel_copy__7:
-    jump %merge__if_then_2
+    br $_virtual_register_69 %merge__if_then_2 %merge__for_step_2
 %merge__if_then_2:
     $_virtual_register_70 = add $i_11 1
     $j_7 = move $_virtual_register_70
@@ -337,35 +277,25 @@ void merge {
     jump %merge__for_cond_3
 %merge__for_cond_3:
     $_virtual_register_71 = slt $j_8 $now_4
-    br $_virtual_register_71 %merge__parallel_copy__9 %merge__parallel_copy__10
-%merge__parallel_copy__10:
-    jump %merge__for_step_2
-%merge__for_step_2:
-    $i_15 = add $i_11 1
-    $i_11 = move $i_15
-    jump %merge__for_cond
-%merge__parallel_copy__9:
-    jump %merge__for_body_3
+    br $_virtual_register_71 %merge__for_body_3 %merge__for_step_2
 %merge__for_body_3:
     $_virtual_register_72 = mul $j_8 4
     $_virtual_register_73 = add $_virtual_register_72 4
     $_virtual_register_74 = add $_virtual_register_73 $a_5
     $_virtual_register_75 = load 4 $_virtual_register_74 0
     $_virtual_register_76 = sne $_virtual_register_75 0
-    br $_virtual_register_76 %merge__parallel_copy__11 %merge__parallel_copy__12
-%merge__parallel_copy__12:
-    jump %merge__for_step_3
+    br $_virtual_register_76 %merge__if_then_3 %merge__for_step_3
 %merge__for_step_3:
     $j_9 = add $j_8 1
     $j_8 = move $j_9
     jump %merge__for_cond_3
-%merge__parallel_copy__11:
-    jump %merge__if_then_3
 %merge__if_then_3:
     call swap $i_11 $j_8 
     jump %merge__for_step_2
-%merge__parallel_copy__8:
-    jump %merge__for_step_2
+%merge__for_step_2:
+    $i_15 = add $i_11 1
+    $i_11 = move $i_15
+    jump %merge__for_cond
 }
 
 void move {
@@ -377,9 +307,7 @@ void move {
     jump %move__for_cond
 %move__for_cond:
     $_virtual_register_77 = slt $i_17 $now_7
-    br $_virtual_register_77 %move__parallel_copy_ %move__parallel_copy__2
-%move__parallel_copy_:
-    jump %move__for_body
+    br $_virtual_register_77 %move__for_body %move__for_merge
 %move__for_body:
     $_virtual_register_78 = mul $i_17 4
     $_virtual_register_79 = add $_virtual_register_78 4
@@ -391,8 +319,6 @@ void move {
     $i_18 = move $_virtual_register_83
     $i_17 = move $i_18
     jump %move__for_cond
-%move__parallel_copy__2:
-    jump %move__for_merge
 %move__for_merge:
     $_virtual_register_84 = mul $now_7 4
     $_virtual_register_85 = add $_virtual_register_84 4
@@ -418,9 +344,7 @@ func main {
     store 4 @h 0 0
     $_virtual_register_90 = call pd 210 
     $h_6 = load 4 @h 0
-    br $_virtual_register_90 %main__parallel_copy_ %main__parallel_copy__2
-%main__parallel_copy__2:
-    jump %main__if_then
+    br $_virtual_register_90 %main__if_merge %main__if_then
 %main__if_then:
     call println @__str_const_3 
     $returnVal_8 = move 1
@@ -435,8 +359,6 @@ func main {
     store 4 @h $h_6 0
     store 4 @Q $_virtual_register_88 0
     ret $returnVal_9
-%main__parallel_copy_:
-    jump %main__if_merge
 %main__if_merge:
     call println @__str_const_4 
     call initialize 3654898 
@@ -453,9 +375,7 @@ func main {
 %main__for_cond:
     $_virtual_register_95 = sub $_virtual_register_93 1
     $_virtual_register_96 = slt $i_20 $_virtual_register_95
-    br $_virtual_register_96 %main__parallel_copy__3 %main__parallel_copy__4
-%main__parallel_copy__3:
-    jump %main__for_body
+    br $_virtual_register_96 %main__for_body %main__for_merge
 %main__for_body:
     $_virtual_register_97 = mul $i_20 4
     $_virtual_register_98 = add $_virtual_register_97 4
@@ -474,9 +394,7 @@ func main {
     $_virtual_register_106 = load 4 $_virtual_register_105 0
     $_virtual_register_107 = add $_virtual_register_106 $temp_2
     $_virtual_register_108 = sgt $_virtual_register_107 210
-    br $_virtual_register_108 %main__parallel_copy__5 %main__parallel_copy__6
-%main__parallel_copy__5:
-    jump %main__while_body
+    br $_virtual_register_108 %main__while_body %main__while_merge
 %main__while_body:
     store 4 @R $_virtual_register_89 0
     store 4 @Q $_virtual_register_88 0
@@ -485,20 +403,14 @@ func main {
     $_virtual_register_111 = add $_virtual_register_110 1
     store 4 $_virtual_register_105 $_virtual_register_111 0
     jump %main__while_cond
-%main__parallel_copy__6:
-    jump %main__while_merge
 %main__while_merge:
     $_virtual_register_112 = load 4 $_virtual_register_105 0
     $_virtual_register_113 = add $temp_2 $_virtual_register_112
     $temp_3 = move $_virtual_register_113
-    jump %main__for_step
-%main__for_step:
     $i_21 = add $i_20 1
     $temp_2 = move $temp_3
     $i_20 = move $i_21
     jump %main__for_cond
-%main__parallel_copy__4:
-    jump %main__for_merge
 %main__for_merge:
     $_virtual_register_114 = mul $_virtual_register_95 4
     $_virtual_register_115 = add $_virtual_register_114 4
@@ -520,9 +432,7 @@ func main {
     store 4 @a $_virtual_register_87 0
     store 4 @h $h_6 0
     $_virtual_register_118 = call win 
-    br $_virtual_register_118 %main__parallel_copy__7 %main__parallel_copy__8
-%main__parallel_copy__8:
-    jump %main__while_body_2
+    br $_virtual_register_118 %main__while_merge_2 %main__while_body_2
 %main__while_body_2:
     $count_3 = add $count_2 1
     $_virtual_register_119 = call toString $count_3 
@@ -543,8 +453,6 @@ func main {
     $now_12 = move $now_14
     $count_2 = move $count_3
     jump %main__while_cond_2
-%main__parallel_copy__7:
-    jump %main__while_merge_2
 %main__while_merge_2:
     $_virtual_register_122 = call toString $count_2 
     $_virtual_register_123 = call string.add @__str_const_7 $_virtual_register_122 

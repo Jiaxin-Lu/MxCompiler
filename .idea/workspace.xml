@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="optimize DeadCodeEliminator">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="optimize SSADestructor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Backend/Peephole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/RISCV/RVInstruction/InstJ.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,14 +133,7 @@
       <workItem from="1588674991699" duration="99740000" />
       <workItem from="1589103190149" duration="64738000" />
       <workItem from="1589304704743" duration="33541000" />
-      <workItem from="1589872168003" duration="1065000" />
-    </task>
-    <task id="LOCAL-00066" summary="Process registers in function.">
-      <created>1588274358436</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1588274358436</updated>
+      <workItem from="1589872168003" duration="5728000" />
     </task>
     <task id="LOCAL-00067" summary="Process registers in function.">
       <created>1588323859909</created>
@@ -476,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589480026560</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="optimize SSADestructor">
+      <created>1589873251853</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1589873251854</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +499,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="change names for RISC-V Instruction" />
     <MESSAGE value="on InstructionSelector..." />
     <MESSAGE value="on InstructionSelector...." />
     <MESSAGE value="on InstructionSelector....." />
@@ -522,7 +523,8 @@
     <MESSAGE value="fix DominatorTreeConstructor" />
     <MESSAGE value="optimize DeadCodeEliminator" />
     <MESSAGE value="fix IRPrinter for string" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix IRPrinter for string" />
+    <MESSAGE value="optimize SSADestructor" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimize SSADestructor" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -561,10 +563,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589872243662">
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589876842297">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589872243662" />
+    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589876842297" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -573,22 +575,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="393" key="GridCell.Tab.0.bottom" timestamp="1589511134777">
+    <state width="1493" height="264" key="GridCell.Tab.0.bottom" timestamp="1589876576016">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="393" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589511134777" />
-    <state width="1493" height="393" key="GridCell.Tab.0.center" timestamp="1589511134777">
+    <state width="1493" height="264" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589876576016" />
+    <state width="1493" height="264" key="GridCell.Tab.0.center" timestamp="1589876576015">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="393" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589511134777" />
-    <state width="1493" height="393" key="GridCell.Tab.0.left" timestamp="1589511134777">
+    <state width="1493" height="264" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589876576015" />
+    <state width="1493" height="264" key="GridCell.Tab.0.left" timestamp="1589876576015">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="393" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589511134777" />
-    <state width="1493" height="393" key="GridCell.Tab.0.right" timestamp="1589511134777">
+    <state width="1493" height="264" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589876576015" />
+    <state width="1493" height="264" key="GridCell.Tab.0.right" timestamp="1589876576015">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="393" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589511134777" />
+    <state width="1493" height="264" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589876576015" />
     <state width="1493" height="393" key="GridCell.Tab.1.bottom" timestamp="1589511134778">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

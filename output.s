@@ -91,7 +91,7 @@ random:
 	mul		a6, t5, a6
 	sub		a0, a1, a6
 	li		a6, 0
-	bge		a0, a6, random__if_then
+	bge		a0, a6, random__if_merge
 	j		random__if_else
 
 random__if_else:
@@ -102,9 +102,6 @@ random__if_merge:
 	lui		a3, %hi(seed)
 	sw		a0, %lo(seed)(a3)
 	jr		ra
-
-random__if_then:
-	j		random__if_merge
 
 
 	.globl	initialize
@@ -157,10 +154,6 @@ pd__for_body:
 	beq		a0, t3, pd__if_then
 	j		pd__for_step
 
-pd__for_step:
-	mv		a3, a6
-	j		pd__for_cond
-
 pd__if_then:
 	li		a0, 1
 	j		pd_exit
@@ -169,6 +162,10 @@ pd_exit:
 	lui		a6, %hi(h)
 	sw		a3, %lo(h)(a6)
 	jr		ra
+
+pd__for_step:
+	mv		a3, a6
+	j		pd__for_cond
 
 pd__for_merge:
 	li		a0, 0
@@ -181,10 +178,10 @@ pd__for_merge:
 show:
 	addi	sp, sp, -16
 	sw		ra, 12(sp)
-	sw		s3, 8(sp)
-	sw		s5, 4(sp)
+	sw		s5, 8(sp)
 	lui		s5, %hi(a)
-	lw		s3, %lo(a)(s5)
+	lw		s5, %lo(a)(s5)
+	sw		s5, 4(sp)
 	lui		s5, %hi(now)
 	lw		s5, %lo(now)(s5)
 	sw		s5, 0(sp)
@@ -200,23 +197,20 @@ show__for_body:
 	li		a3, 4
 	mul		a3, s5, a3
 	addi	a3, a3, 4
-	add		a3, a3, s3
+	lw		a6, 4(sp)
+	add		a3, a3, a6
 	lw		a0, 0(a3)
 	call	__builtin_toString
 	la		a1, __str_const_1
 	call	__builtin_string_add
 	call	__builtin_print
-	j		show__for_step
-
-show__for_step:
 	addi	s5, s5, 1
 	j		show__for_cond
 
 show__for_merge:
 	la		a0, __str_const_2
 	call	__builtin_println
-	lw		s5, 4(sp)
-	lw		s3, 8(sp)
+	lw		s5, 8(sp)
 	lw		ra, 12(sp)
 	addi	sp, sp, 16
 	jr		ra
@@ -228,129 +222,123 @@ show__for_merge:
 win:
 	addi	sp, sp, -16
 	sw		ra, 12(sp)
-	sw		s1, 8(sp)
-	sw		s3, 4(sp)
-	lui		s1, %hi(h)
-	lw		s1, %lo(h)(s1)
-	sw		s1, 0(sp)
-	lui		s1, %hi(a)
-	lw		s3, %lo(a)(s1)
-	lui		s1, %hi(now)
-	lw		s1, %lo(now)(s1)
+	sw		s2, 8(sp)
+	sw		s4, 4(sp)
+	sw		s11, 0(sp)
+	lui		s4, %hi(h)
+	lw		s4, %lo(h)(s4)
+	lui		s11, %hi(a)
+	lw		s2, %lo(a)(s11)
+	lui		s11, %hi(now)
+	lw		s11, %lo(now)(s11)
 	li		a0, 404
 	call	malloc
 	li		a3, 100
 	sw		a3, 0(a0)
-	lw		a3, 0(sp)
-	bne		s1, a3, win__if_then
+	bne		s11, s4, win__if_then
 	j		win__if_merge
 
-win__if_then:
-	li		a0, 0
-	j		win_exit
-
-win_exit:
-	lw		s3, 4(sp)
-	lw		s1, 8(sp)
-	lw		ra, 12(sp)
-	addi	sp, sp, 16
-	jr		ra
-
 win__if_merge:
-	li		a3, 0
+	li		s4, 0
 	j		win__for_cond
 
 win__for_cond:
-	blt		a3, s1, win__for_body
+	blt		s4, s11, win__for_body
 	j		win__for_merge
 
-win__for_body:
-	li		a6, 4
-	mul		a6, a3, a6
-	addi	a6, a6, 4
-	add		t3, a6, a0
-	add		a6, a6, s3
-	lw		a6, 0(a6)
-	sw		a6, 0(t3)
-	j		win__for_step
-
-win__for_step:
-	addi	a3, a3, 1
-	j		win__for_cond
-
 win__for_merge:
-	li		a3, 0
+	li		s2, 0
 	j		win__for_cond_2
 
 win__for_cond_2:
-	addi	s3, s1, -1
-	blt		a3, s3, win__for_body_2
+	addi	s4, s11, -1
+	blt		s2, s4, win__for_body_2
 	j		win__for_merge_2
 
 win__for_body_2:
-	addi	s3, a3, 1
+	addi	s4, s2, 1
 	j		win__for_cond_3
 
 win__for_cond_3:
-	blt		s3, s1, win__for_body_3
-	j		win__for_step_3
+	blt		s4, s11, win__for_body_3
+	j		win__for_step_2
 
 win__for_body_3:
-	li		a6, 4
-	mul		a6, a3, a6
-	addi	a6, a6, 4
-	add		t5, a6, a0
-	li		a6, 4
-	mul		a6, s3, a6
-	addi	a6, a6, 4
-	add		a1, a6, a0
-	lw		a6, 0(t5)
-	lw		t3, 0(a1)
-	bgt		a6, t3, win__if_then_2
-	j		win__for_step_2
-
-win__for_step_2:
-	addi	s3, s3, 1
-	j		win__for_cond_3
+	li		a3, 4
+	mul		a3, s2, a3
+	addi	a3, a3, 4
+	add		a6, a3, a0
+	li		a3, 4
+	mul		a3, s4, a3
+	addi	a3, a3, 4
+	add		t3, a3, a0
+	lw		t5, 0(a6)
+	lw		a3, 0(t3)
+	bgt		t5, a3, win__if_then_2
+	j		win__for_step
 
 win__if_then_2:
-	lw		a6, 0(t5)
-	lw		t3, 0(a1)
-	sw		t3, 0(t5)
-	sw		a6, 0(a1)
-	j		win__for_step_2
+	lw		t5, 0(a6)
+	lw		a3, 0(t3)
+	sw		a3, 0(a6)
+	sw		t5, 0(t3)
+	j		win__for_step
 
-win__for_step_3:
-	addi	a3, a3, 1
+win__for_step:
+	addi	s4, s4, 1
+	j		win__for_cond_3
+
+win__for_step_2:
+	addi	s2, s2, 1
 	j		win__for_cond_2
 
 win__for_merge_2:
-	li		s3, 0
+	li		s4, 0
 	j		win__for_cond_4
 
 win__for_cond_4:
-	blt		s3, s1, win__for_body_4
+	blt		s4, s11, win__for_body_4
 	j		win__for_merge_3
 
 win__for_body_4:
-	li		a3, 4
-	mul		a3, s3, a3
-	addi	a3, a3, 4
-	add		a3, a3, a0
-	addi	s3, s3, 1
-	lw		a3, 0(a3)
-	bne		a3, s3, win__if_then_3
-	j		win__for_step_4
-
-win__for_step_4:
+	li		s2, 4
+	mul		s2, s4, s2
+	addi	s2, s2, 4
+	add		s2, s2, a0
+	addi	s4, s4, 1
+	lw		s2, 0(s2)
+	bne		s2, s4, win__if_then_3
 	j		win__for_cond_4
 
 win__if_then_3:
 	li		a0, 0
 	j		win_exit
 
+win_exit:
+	lw		s11, 0(sp)
+	lw		s4, 4(sp)
+	lw		s2, 8(sp)
+	lw		ra, 12(sp)
+	addi	sp, sp, 16
+	jr		ra
+
 win__for_merge_3:
 	li		a0, 1
+	j		win_exit
+
+win__for_body:
+	li		a3, 4
+	mul		a3, s4, a3
+	addi	a3, a3, 4
+	add		a6, a3, a0
+	add		a3, a3, s2
+	lw		a3, 0(a3)
+	sw		a3, 0(a6)
+	addi	s4, s4, 1
+	j		win__for_cond
+
+win__if_then:
+	li		a0, 0
 	j		win_exit
 
 
@@ -360,99 +348,96 @@ win__for_merge_3:
 merge:
 	addi	sp, sp, -16
 	sw		ra, 12(sp)
-	sw		s3, 8(sp)
-	sw		s4, 4(sp)
-	sw		s7, 0(sp)
-	lui		s7, %hi(a)
-	lw		s4, %lo(a)(s7)
-	lui		s7, %hi(now)
-	lw		s3, %lo(now)(s7)
-	li		s7, 0
+	sw		s1, 8(sp)
+	sw		s6, 4(sp)
+	sw		s9, 0(sp)
+	lui		s9, %hi(a)
+	lw		s1, %lo(a)(s9)
+	lui		s9, %hi(now)
+	lw		s9, %lo(now)(s9)
+	li		s6, 0
 	j		merge__for_cond
 
 merge__for_cond:
-	blt		s7, s3, merge__for_body_2
+	blt		s6, s9, merge__for_body_2
 	j		merge__for_merge
-
-merge__for_merge:
-	li		s7, 0
-	j		merge__for_cond_2
-
-merge__for_cond_2:
-	blt		s7, s3, merge__for_body
-	j		merge__parallel_copy_
-
-merge__for_body:
-	li		a3, 4
-	mul		a3, s7, a3
-	addi	a3, a3, 4
-	add		a3, a3, s4
-	lw		a6, 0(a3)
-	li		a3, 0
-	beq		a6, a3, merge__if_then
-	j		merge__for_step
-
-merge__for_step:
-	addi	s7, s7, 1
-	j		merge__for_cond_2
-
-merge__if_then:
-	j		merge__for_merge_2
-
-merge__for_merge_2:
-	lui		s4, %hi(now)
-	sw		s7, %lo(now)(s4)
-	lw		s7, 0(sp)
-	lw		s4, 4(sp)
-	lw		s3, 8(sp)
-	lw		ra, 12(sp)
-	addi	sp, sp, 16
-	jr		ra
-
-merge__parallel_copy_:
-	mv		s7, s3
-	j		merge__for_merge_2
 
 merge__for_body_2:
 	li		a3, 4
-	mul		a3, s7, a3
+	mul		a3, s6, a3
 	addi	a3, a3, 4
-	add		a3, a3, s4
-	lw		a6, 0(a3)
-	li		a3, 0
-	beq		a6, a3, merge__if_then_2
+	add		a3, a3, s1
+	lw		a3, 0(a3)
+	li		a6, 0
+	beq		a3, a6, merge__if_then_2
 	j		merge__for_step_3
 
+merge__for_step_3:
+	addi	s6, s6, 1
+	j		merge__for_cond
+
 merge__if_then_2:
-	addi	a1, s7, 1
+	addi	a1, s6, 1
 	j		merge__for_cond_3
 
 merge__for_cond_3:
-	blt		a1, s3, merge__for_body_3
+	blt		a1, s9, merge__for_body_3
 	j		merge__for_step_3
 
 merge__for_body_3:
 	li		a3, 4
 	mul		a3, a1, a3
 	addi	a3, a3, 4
-	add		a3, a3, s4
-	lw		a6, 0(a3)
-	li		a3, 0
-	bne		a6, a3, merge__if_then_3
+	add		a3, a3, s1
+	lw		a3, 0(a3)
+	li		a6, 0
+	bne		a3, a6, merge__if_then_3
 	j		merge__for_step_2
+
+merge__if_then_3:
+	mv		a0, s6
+	call	swap
+	j		merge__for_step_3
 
 merge__for_step_2:
 	addi	a1, a1, 1
 	j		merge__for_cond_3
 
-merge__if_then_3:
-	mv		a0, s7
-	call	swap
-	j		merge__for_step_3
+merge__for_merge:
+	li		s6, 0
+	j		merge__for_cond_2
 
-merge__for_step_3:
-	addi	s7, s7, 1
-	j		merge__for_cond
+merge__for_cond_2:
+	blt		s6, s9, merge__for_body
+	j		merge__for_merge_2
+
+merge__for_merge_2:
+	lui		s6, %hi(now)
+	sw		s9, %lo(now)(s6)
+	lw		s9, 0(sp)
+	lw		s6, 4(sp)
+	lw		s1, 8(sp)
+	lw		ra, 12(sp)
+	addi	sp, sp, 16
+	jr		ra
+
+merge__for_body:
+	li		a3, 4
+	mul		a3, s6, a3
+	addi	a3, a3, 4
+	add		a3, a3, s1
+	lw		a3, 0(a3)
+	li		a6, 0
+	beq		a3, a6, merge__if_then
+	j		merge__for_step
+
+merge__if_then:
+	mv		s9, s6
+	j		merge__for_merge_2
+
+merge__for_step:
+	addi	s6, s6, 1
+	j		merge__for_cond_2
 
 
 	.globl	move
@@ -460,37 +445,37 @@ merge__for_step_3:
 	.type	move, @function
 move:
 	lui		a3, %hi(a)
-	lw		a1, %lo(a)(a3)
+	lw		t3, %lo(a)(a3)
 	lui		a3, %hi(now)
-	lw		t3, %lo(now)(a3)
+	lw		t5, %lo(now)(a3)
 	li		a3, 0
 	j		move__for_cond
 
 move__for_cond:
-	blt		a3, t3, move__for_body
+	blt		a3, t5, move__for_body
 	j		move__for_merge
+
+move__for_merge:
+	li		a3, 4
+	mul		a3, t5, a3
+	addi	a3, a3, 4
+	add		a3, a3, t3
+	sw		t5, 0(a3)
+	addi	a6, t5, 1
+	lui		a3, %hi(now)
+	sw		a6, %lo(now)(a3)
+	jr		ra
 
 move__for_body:
 	li		a6, 4
 	mul		a6, a3, a6
 	addi	a6, a6, 4
-	add		t5, a6, a1
-	lw		a6, 0(t5)
+	add		a1, a6, t3
+	lw		a6, 0(a1)
 	addi	a6, a6, -1
-	sw		a6, 0(t5)
+	sw		a6, 0(a1)
 	addi	a3, a3, 1
 	j		move__for_cond
-
-move__for_merge:
-	li		a3, 4
-	mul		a3, t3, a3
-	addi	a3, a3, 4
-	add		a3, a3, a1
-	sw		t3, 0(a3)
-	addi	a6, t3, 1
-	lui		a3, %hi(now)
-	sw		a6, %lo(now)(a3)
-	jr		ra
 
 
 	.globl	_main
@@ -503,35 +488,36 @@ _main:
 	sw		s3, 36(sp)
 	sw		s4, 32(sp)
 	sw		s5, 28(sp)
-	sw		s7, 24(sp)
-	sw		s8, 20(sp)
+	sw		s6, 24(sp)
+	sw		s7, 20(sp)
 	sw		s9, 16(sp)
 	sw		s10, 12(sp)
-	sw		s11, 8(sp)
-	lui		s8, %hi(A)
-	lw		s4, %lo(A)(s8)
-	lui		s8, %hi(M)
-	lw		s11, %lo(M)(s8)
-	lui		s8, %hi(now)
-	lw		s5, %lo(now)(s8)
-	li		s8, 0
-	sw		s8, 4(sp)
-	li		s8, 0
+	mv		s10, s11
+	lui		s7, %hi(A)
+	lw		s6, %lo(A)(s7)
+	lui		s7, %hi(M)
+	lw		s9, %lo(M)(s7)
+	lui		s7, %hi(now)
+	lw		s5, %lo(now)(s7)
+	li		s4, 0
 	li		s7, 0
+	sw		s7, 8(sp)
+	li		s7, 0
+	sw		s7, 4(sp)
 	li		a0, 404
 	call	malloc
-	mv		s3, a0
-	li		s9, 100
-	sw		s9, 0(s3)
-	div		s9, s11, s4
-	rem		s10, s11, s4
-	lui		s4, %hi(h)
-	li		s11, 0
-	sw		s11, %lo(h)(s4)
+	mv		s7, a0
+	li		s11, 100
+	sw		s11, 0(s7)
+	div		s11, s9, s6
+	rem		s9, s9, s6
+	lui		s6, %hi(h)
+	li		s1, 0
+	sw		s1, %lo(h)(s6)
 	li		a0, 210
 	call	pd
-	lui		s4, %hi(h)
-	lw		s4, %lo(h)(s4)
+	lui		s6, %hi(h)
+	lw		s1, %lo(h)(s6)
 	bne		a0, zero, main__if_merge
 	j		main__if_then
 
@@ -542,24 +528,24 @@ main__if_then:
 	j		main_exit
 
 main_exit:
-	lui		s7, %hi(n)
-	li		s8, 210
-	sw		s8, %lo(n)(s7)
-	lui		s8, %hi(now)
-	sw		s5, %lo(now)(s8)
-	lui		s8, %hi(a)
-	sw		s3, %lo(a)(s8)
-	lui		s8, %hi(R)
-	sw		s10, %lo(R)(s8)
-	lui		s8, %hi(h)
-	sw		s4, %lo(h)(s8)
-	lui		s8, %hi(Q)
-	sw		s9, %lo(Q)(s8)
-	lw		s11, 8(sp)
+	lui		s6, %hi(n)
+	li		s4, 210
+	sw		s4, %lo(n)(s6)
+	lui		s4, %hi(now)
+	sw		s5, %lo(now)(s4)
+	lui		s4, %hi(a)
+	sw		s7, %lo(a)(s4)
+	lui		s7, %hi(R)
+	sw		s9, %lo(R)(s7)
+	lui		s7, %hi(h)
+	sw		s1, %lo(h)(s7)
+	lui		s7, %hi(Q)
+	sw		s11, %lo(Q)(s7)
+	mv		s11, s10
 	lw		s10, 12(sp)
 	lw		s9, 16(sp)
-	lw		s8, 20(sp)
-	lw		s7, 24(sp)
+	lw		s7, 20(sp)
+	lw		s6, 24(sp)
 	lw		s5, 28(sp)
 	lw		s4, 32(sp)
 	lw		s3, 36(sp)
@@ -574,111 +560,108 @@ main__if_merge:
 	li		a0, 3654898
 	call	initialize
 	lui		s5, %hi(R)
-	sw		s10, %lo(R)(s5)
+	sw		s9, %lo(R)(s5)
 	lui		s5, %hi(Q)
-	sw		s9, %lo(Q)(s5)
+	sw		s11, %lo(Q)(s5)
 	call	random
 	li		s5, 10
 	rem		s5, a0, s5
-	addi	s11, s5, 1
-	mv		a0, s11
+	addi	s3, s5, 1
+	mv		a0, s3
 	call	__builtin_toString
 	call	__builtin_println
-	mv		s1, s8
-	lw		s8, 4(sp)
+	lw		s5, 8(sp)
+	mv		s6, s4
 	j		main__for_cond
 
 main__for_cond:
-	addi	s5, s11, -1
-	blt		s8, s5, main__for_body
+	addi	s4, s3, -1
+	blt		s6, s4, main__for_body
 	j		main__for_merge
 
 main__for_body:
-	li		s5, 4
-	mul		s5, s8, s5
-	addi	s5, s5, 4
-	add		s5, s5, s3
+	li		s4, 4
+	mul		s4, s6, s4
+	addi	s4, s4, 4
+	add		s4, s4, s7
 	lui		a3, %hi(R)
-	sw		s10, %lo(R)(a3)
+	sw		s9, %lo(R)(a3)
 	lui		a3, %hi(Q)
-	sw		s9, %lo(Q)(a3)
+	sw		s11, %lo(Q)(a3)
 	call	random
 	li		a3, 10
 	rem		a3, a0, a3
 	addi	a3, a3, 1
-	sw		a3, 0(s5)
+	sw		a3, 0(s4)
 	j		main__while_cond
 
 main__while_cond:
-	li		s5, 4
-	mul		s5, s8, s5
-	addi	s5, s5, 4
-	add		s5, s5, s3
-	lw		a3, 0(s5)
-	add		a6, a3, s1
+	li		s4, 4
+	mul		s4, s6, s4
+	addi	s4, s4, 4
+	add		s4, s4, s7
+	lw		a3, 0(s4)
+	add		a6, a3, s5
 	li		a3, 210
 	bgt		a6, a3, main__while_body
 	j		main__while_merge
 
 main__while_body:
 	lui		a3, %hi(R)
-	sw		s10, %lo(R)(a3)
+	sw		s9, %lo(R)(a3)
 	lui		a3, %hi(Q)
-	sw		s9, %lo(Q)(a3)
+	sw		s11, %lo(Q)(a3)
 	call	random
 	li		a3, 10
 	rem		a3, a0, a3
 	addi	a3, a3, 1
-	sw		a3, 0(s5)
+	sw		a3, 0(s4)
 	j		main__while_cond
 
 main__while_merge:
-	lw		s5, 0(s5)
-	add		s5, s1, s5
-	j		main__for_step
-
-main__for_step:
-	addi	s8, s8, 1
-	mv		s1, s5
+	lw		s4, 0(s4)
+	add		s4, s5, s4
+	addi	s6, s6, 1
+	mv		s5, s4
 	j		main__for_cond
 
 main__for_merge:
-	li		s8, 4
-	mul		s8, s5, s8
-	addi	s8, s8, 4
-	add		s5, s8, s3
-	li		s8, 210
-	sub		s8, s8, s1
-	sw		s8, 0(s5)
-	lui		s8, %hi(now)
-	sw		s11, %lo(now)(s8)
-	lui		s8, %hi(a)
-	sw		s3, %lo(a)(s8)
+	li		s6, 4
+	mul		s4, s4, s6
+	addi	s4, s4, 4
+	add		s4, s4, s7
+	li		s6, 210
+	sub		s5, s6, s5
+	sw		s5, 0(s4)
+	lui		s4, %hi(now)
+	sw		s3, %lo(now)(s4)
+	lui		s4, %hi(a)
+	sw		s7, %lo(a)(s4)
 	call	show
-	lui		s8, %hi(now)
-	sw		s11, %lo(now)(s8)
-	lui		s8, %hi(a)
-	sw		s3, %lo(a)(s8)
+	lui		s4, %hi(now)
+	sw		s3, %lo(now)(s4)
+	lui		s4, %hi(a)
+	sw		s7, %lo(a)(s4)
 	call	merge
-	lui		s8, %hi(now)
-	lw		s5, %lo(now)(s8)
-	mv		s8, s7
+	lui		s4, %hi(now)
+	lw		s5, %lo(now)(s4)
+	lw		s4, 4(sp)
 	j		main__while_cond_2
 
 main__while_cond_2:
-	lui		s7, %hi(now)
-	sw		s5, %lo(now)(s7)
-	lui		s7, %hi(a)
-	sw		s3, %lo(a)(s7)
-	lui		s7, %hi(h)
-	sw		s4, %lo(h)(s7)
+	lui		s6, %hi(now)
+	sw		s5, %lo(now)(s6)
+	lui		s6, %hi(a)
+	sw		s7, %lo(a)(s6)
+	lui		s6, %hi(h)
+	sw		s1, %lo(h)(s6)
 	call	win
 	bne		a0, zero, main__while_merge_2
 	j		main__while_body_2
 
 main__while_body_2:
-	addi	s8, s8, 1
-	mv		a0, s8
+	addi	s4, s4, 1
+	mv		a0, s4
 	call	__builtin_toString
 	mv		a1, a0
 	la		a0, __str_const_5
@@ -686,29 +669,29 @@ main__while_body_2:
 	la		a1, __str_const_6
 	call	__builtin_string_add
 	call	__builtin_println
-	lui		s7, %hi(now)
-	sw		s5, %lo(now)(s7)
-	lui		s7, %hi(a)
-	sw		s3, %lo(a)(s7)
+	lui		s6, %hi(now)
+	sw		s5, %lo(now)(s6)
+	lui		s5, %hi(a)
+	sw		s7, %lo(a)(s5)
 	call	move
-	lui		s7, %hi(now)
-	lw		s7, %lo(now)(s7)
 	lui		s5, %hi(now)
-	sw		s7, %lo(now)(s5)
-	lui		s7, %hi(a)
-	sw		s3, %lo(a)(s7)
+	lw		s6, %lo(now)(s5)
+	lui		s5, %hi(now)
+	sw		s6, %lo(now)(s5)
+	lui		s5, %hi(a)
+	sw		s7, %lo(a)(s5)
 	call	merge
-	lui		s7, %hi(now)
-	lw		s5, %lo(now)(s7)
-	lui		s7, %hi(now)
-	sw		s5, %lo(now)(s7)
-	lui		s7, %hi(a)
-	sw		s3, %lo(a)(s7)
+	lui		s5, %hi(now)
+	lw		s5, %lo(now)(s5)
+	lui		s6, %hi(now)
+	sw		s5, %lo(now)(s6)
+	lui		s6, %hi(a)
+	sw		s7, %lo(a)(s6)
 	call	show
 	j		main__while_cond_2
 
 main__while_merge_2:
-	mv		a0, s8
+	mv		a0, s4
 	call	__builtin_toString
 	mv		a1, a0
 	la		a0, __str_const_7
@@ -726,15 +709,15 @@ main__while_merge_2:
 main:
 	addi	sp, sp, -16
 	sw		ra, 12(sp)
-	lui		a3, %hi(M)
-	li		a6, 2147483647
-	sw		a6, %lo(M)(a3)
-	lui		a3, %hi(A)
-	li		a6, 48271
-	sw		a6, %lo(A)(a3)
-	lui		a6, %hi(seed)
-	li		a3, 1
-	sw		a3, %lo(seed)(a6)
+	lui		a6, %hi(M)
+	li		a3, 2147483647
+	sw		a3, %lo(M)(a6)
+	lui		a6, %hi(A)
+	li		a3, 48271
+	sw		a3, %lo(A)(a6)
+	lui		a3, %hi(seed)
+	li		a6, 1
+	sw		a6, %lo(seed)(a3)
 	call	_main
 	lw		ra, 12(sp)
 	addi	sp, sp, 16

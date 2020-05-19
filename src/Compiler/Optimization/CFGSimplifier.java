@@ -41,6 +41,7 @@ public class CFGSimplifier extends Pass
             isChanged |= removeBranch(function);
             isChanged |= removeSingleBranchBlock(function);
             isChanged |= removeUnreachableBlock(function);
+            isChanged |= mergeBasicBlock(function);
         }
         return isChanged;
     }
@@ -141,6 +142,28 @@ public class CFGSimplifier extends Pass
                             ((BranchInst) predecessor.tailInst).replaceTargetBlock(basicBlock, target);
                         }
                     }
+                }
+            }
+        }
+        function.calcPreOrderBlockList();
+        return isChanged;
+    }
+
+    public boolean mergeBasicBlock(Function function)
+    {
+        boolean isChanged = false;
+        for (int i = function.getPreOrderBlockList().size() - 1; i >= 0; i--)
+        {
+            BasicBlock basicBlock = function.getPreOrderBlockList().get(i);
+            if (basicBlock.getSuccessors().size() == 1)
+            {
+                BasicBlock successor = basicBlock.getSuccessors().iterator().next();
+                if (successor != function.getEntryBlock() && successor.getPredecessors().size() == 1 && successor != basicBlock)
+                {
+                    isChanged = true;
+                    successor.mergeBasicBlock(basicBlock);
+                    if (successor == function.getExitBlock())
+                        function.setExitBlock(basicBlock);
                 }
             }
         }

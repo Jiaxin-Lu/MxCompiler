@@ -19,6 +19,11 @@ public class InstJ extends RVInstruction
         return dst;
     }
 
+    public void setDst(RVBasicBlock dst)
+    {
+        this.dst = dst;
+    }
+
     @Override
     public void calcDefUse()
     {

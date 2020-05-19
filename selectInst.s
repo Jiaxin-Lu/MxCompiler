@@ -1,725 +1,43 @@
 	.data
 
-	.globl	__str_const_1
-__str_const_1:
-	.string	 
-
-	.globl	__str_const_2
-__str_const_2:
-	.string	
-
-	.globl	__str_const_3
-__str_const_3:
-	.string	Sorry, the number n must be a number s.t. there exists i satisfying n=1+2+...+i
-
-	.globl	__str_const_4
-__str_const_4:
-	.string	Let's start!
-
-	.globl	__str_const_5
-__str_const_5:
-	.string	step 
-
-	.globl	__str_const_6
-__str_const_6:
-	.string	:
-
-	.globl	__str_const_7
-__str_const_7:
-	.string	Total: 
-
-	.globl	__str_const_8
-__str_const_8:
-	.string	 step(s)
-
-	.globl	n
-n:
+	.globl	c
+c:
 	.zero	4
 
-	.globl	h
-h:
+	.globl	ans
+ans:
 	.zero	4
 
-	.globl	now
-now:
+	.globl	visit
+visit:
 	.zero	4
 
-	.globl	a
-a:
+	.globl	pre
+pre:
 	.zero	4
 
-	.globl	A
-A:
+	.globl	f
+f:
 	.zero	4
 
-	.globl	M
-M:
+	.globl	i
+i:
 	.zero	4
 
-	.globl	Q
-Q:
+	.globl	j
+j:
 	.zero	4
 
-	.globl	R
-R:
+	.globl	open
+open:
 	.zero	4
 
-	.globl	seed
-seed:
+	.globl	closed
+closed:
 	.zero	4
 
 
 	.text
-
-	.globl	random
-	.type	random, @function
-random:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	lui		global_tmp_13,0
-	lw		Q_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	lw		R_16,0(global_tmp_15)
-	lui		global_tmp_17,0
-	lw		seed_18,0(global_tmp_17)
-	lui		global_tmp_19,0
-	lw		A_20,0(global_tmp_19)
-	lui		global_tmp_21,0
-	lw		M_22,0(global_tmp_21)
-	rem		vReg_23,seed_18,Q_14
-	mul		vReg_24,A_20,vReg_23
-	div		vReg_25,seed_18,Q_14
-	mul		vReg_26,R_16,vReg_25
-	sub		vReg_27,vReg_24,vReg_26
-	li		imm_28,0
-	bge		vReg_27,imm_28,random__if_then
-	j		random__if_else
-
-random__if_else:
-	add		vReg_29,vReg_27,M_22
-	mv		seed_30,vReg_29
-	mv		seed_31,seed_30
-	j		random__if_merge
-
-random__if_merge:
-	lui		global_tmp_32,0
-	sw		seed_31,0(global_tmp_32)
-	mv		a0,seed_31
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-random__if_then:
-	mv		seed_33,vReg_27
-	mv		seed_31,seed_33
-	j		random__if_merge
-
-
-	.globl	initialize
-	.type	initialize, @function
-initialize:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	mv		val_13,a0
-	lui		global_tmp_14,0
-	sw		val_13,0(global_tmp_14)
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-
-	.globl	swap
-	.type	swap, @function
-swap:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	mv		x_13,a0
-	mv		y_14,a1
-	lui		global_tmp_15,0
-	lw		a_16,0(global_tmp_15)
-	li		imm_18,4
-	mul		vReg_17,x_13,imm_18
-	addi	vReg_19,vReg_17,4
-	add		vReg_20,vReg_19,a_16
-	lw		vReg_21,0(vReg_20)
-	li		imm_23,4
-	mul		vReg_22,y_14,imm_23
-	addi	vReg_24,vReg_22,4
-	add		vReg_25,vReg_24,a_16
-	lw		vReg_26,0(vReg_25)
-	sw		vReg_26,0(vReg_20)
-	sw		vReg_21,0(vReg_25)
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-
-	.globl	pd
-	.type	pd, @function
-pd:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	mv		x_13,a0
-	lui		global_tmp_14,0
-	lw		h_15,0(global_tmp_14)
-	mv		h_16,h_15
-	j		pd__for_cond
-
-pd__for_cond:
-	ble		h_16,x_13,pd__for_body
-	j		pd__for_merge
-
-pd__for_body:
-	addi	vReg_17,h_16,1
-	mul		vReg_18,h_16,vReg_17
-	li		imm_20,2
-	div		vReg_19,vReg_18,imm_20
-	beq		x_13,vReg_19,pd__if_then
-	j		pd__for_step
-
-pd__for_step:
-	mv		h_21,vReg_17
-	mv		h_16,h_21
-	j		pd__for_cond
-
-pd__if_then:
-	li		imm_23,1
-	mv		returnVal_22,imm_23
-	mv		returnVal_24,returnVal_22
-	j		pd_exit
-
-pd_exit:
-	lui		global_tmp_25,0
-	sw		h_16,0(global_tmp_25)
-	mv		a0,returnVal_24
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-pd__for_merge:
-	li		imm_27,0
-	mv		returnVal_26,imm_27
-	mv		returnVal_24,returnVal_26
-	j		pd_exit
-
-
-	.globl	show
-	.type	show, @function
-show:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	lui		global_tmp_13,0
-	lw		a_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	lw		now_16,0(global_tmp_15)
-	li		imm_18,0
-	mv		i_17,imm_18
-	mv		i_19,i_17
-	j		show__for_cond
-
-show__for_cond:
-	blt		i_19,now_16,show__for_body
-	j		show__for_merge
-
-show__for_body:
-	li		imm_21,4
-	mul		vReg_20,i_19,imm_21
-	addi	vReg_22,vReg_20,4
-	add		vReg_23,vReg_22,a_14
-	lw		vReg_24,0(vReg_23)
-	mv		a0,vReg_24
-	call	__builtin_toString
-	mv		vReg_25,a0
-	mv		a0,vReg_25
-	la		str_const_26,__str_const_1
-	mv		a1,str_const_26
-	call	__builtin_string_add
-	mv		vReg_27,a0
-	mv		a0,vReg_27
-	call	__builtin_print
-	addi	i_28,i_19,1
-	mv		i_19,i_28
-	j		show__for_cond
-
-show__for_merge:
-	la		str_const_29,__str_const_2
-	mv		a0,str_const_29
-	call	__builtin_println
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-
-	.globl	win
-	.type	win, @function
-win:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	lui		global_tmp_13,0
-	lw		h_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	lw		a_16,0(global_tmp_15)
-	lui		global_tmp_17,0
-	lw		now_18,0(global_tmp_17)
-	li		imm_19,404
-	mv		a0,imm_19
-	call	malloc
-	mv		vReg_20,a0
-	li		imm_21,100
-	sw		imm_21,0(vReg_20)
-	bne		now_18,h_14,win__if_then
-	j		win__if_merge
-
-win__if_then:
-	li		imm_23,0
-	mv		returnVal_22,imm_23
-	mv		returnVal_24,returnVal_22
-	j		win_exit
-
-win_exit:
-	mv		a0,returnVal_24
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-win__if_merge:
-	li		imm_26,0
-	mv		j_25,imm_26
-	mv		j_27,j_25
-	j		win__for_cond
-
-win__for_cond:
-	blt		j_27,now_18,win__for_body
-	j		win__for_merge
-
-win__for_body:
-	li		imm_29,4
-	mul		vReg_28,j_27,imm_29
-	addi	vReg_30,vReg_28,4
-	add		vReg_31,vReg_30,vReg_20
-	add		vReg_32,vReg_30,a_16
-	lw		vReg_33,0(vReg_32)
-	sw		vReg_33,0(vReg_31)
-	addi	j_34,j_27,1
-	mv		j_27,j_34
-	j		win__for_cond
-
-win__for_merge:
-	li		imm_36,0
-	mv		i_35,imm_36
-	mv		i_37,i_35
-	j		win__for_cond_2
-
-win__for_cond_2:
-	addi	vReg_38,now_18,-1
-	blt		i_37,vReg_38,win__for_body_2
-	j		win__for_merge_2
-
-win__for_body_2:
-	addi	vReg_39,i_37,1
-	mv		j_40,vReg_39
-	mv		j_41,j_40
-	j		win__for_cond_3
-
-win__for_cond_3:
-	blt		j_41,now_18,win__for_body_3
-	j		win__for_step_2
-
-win__for_body_3:
-	li		imm_43,4
-	mul		vReg_42,i_37,imm_43
-	addi	vReg_44,vReg_42,4
-	add		vReg_45,vReg_44,vReg_20
-	li		imm_47,4
-	mul		vReg_46,j_41,imm_47
-	addi	vReg_48,vReg_46,4
-	add		vReg_49,vReg_48,vReg_20
-	lw		vReg_50,0(vReg_45)
-	lw		vReg_51,0(vReg_49)
-	bgt		vReg_50,vReg_51,win__if_then_2
-	j		win__for_step
-
-win__for_step:
-	addi	j_52,j_41,1
-	mv		j_41,j_52
-	j		win__for_cond_3
-
-win__if_then_2:
-	lw		vReg_53,0(vReg_45)
-	lw		vReg_54,0(vReg_49)
-	sw		vReg_54,0(vReg_45)
-	sw		vReg_53,0(vReg_49)
-	j		win__for_step
-
-win__for_step_2:
-	addi	i_55,i_37,1
-	mv		i_37,i_55
-	j		win__for_cond_2
-
-win__for_merge_2:
-	li		imm_57,0
-	mv		i_56,imm_57
-	mv		i_58,i_56
-	j		win__for_cond_4
-
-win__for_cond_4:
-	blt		i_58,now_18,win__for_body_4
-	j		win__for_merge_3
-
-win__for_body_4:
-	li		imm_60,4
-	mul		vReg_59,i_58,imm_60
-	addi	vReg_61,vReg_59,4
-	add		vReg_62,vReg_61,vReg_20
-	addi	vReg_63,i_58,1
-	lw		vReg_64,0(vReg_62)
-	bne		vReg_64,vReg_63,win__if_then_3
-	j		win__for_step_3
-
-win__for_step_3:
-	mv		i_65,vReg_63
-	mv		i_58,i_65
-	j		win__for_cond_4
-
-win__if_then_3:
-	li		imm_67,0
-	mv		returnVal_66,imm_67
-	mv		returnVal_24,returnVal_66
-	j		win_exit
-
-win__for_merge_3:
-	li		imm_69,1
-	mv		returnVal_68,imm_69
-	mv		returnVal_24,returnVal_68
-	j		win_exit
-
-
-	.globl	merge
-	.type	merge, @function
-merge:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	lui		global_tmp_13,0
-	lw		a_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	lw		now_16,0(global_tmp_15)
-	li		imm_18,0
-	mv		i_17,imm_18
-	mv		i_19,i_17
-	j		merge__for_cond
-
-merge__for_cond:
-	blt		i_19,now_16,merge__for_body_2
-	j		merge__for_merge
-
-merge__for_merge:
-	li		imm_21,0
-	mv		i_20,imm_21
-	mv		i_22,i_20
-	j		merge__for_cond_2
-
-merge__for_cond_2:
-	blt		i_22,now_16,merge__for_body
-	j		merge__parallel_copy_
-
-merge__for_body:
-	li		imm_24,4
-	mul		vReg_23,i_22,imm_24
-	addi	vReg_25,vReg_23,4
-	add		vReg_26,vReg_25,a_14
-	lw		vReg_27,0(vReg_26)
-	li		imm_28,0
-	beq		vReg_27,imm_28,merge__if_then
-	j		merge__for_step
-
-merge__for_step:
-	addi	i_29,i_22,1
-	mv		i_22,i_29
-	j		merge__for_cond_2
-
-merge__if_then:
-	mv		now_30,i_22
-	mv		now_31,now_30
-	j		merge__for_merge_2
-
-merge__for_merge_2:
-	lui		global_tmp_32,0
-	sw		now_31,0(global_tmp_32)
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
-merge__parallel_copy_:
-	mv		now_31,now_16
-	j		merge__for_merge_2
-
-merge__for_body_2:
-	li		imm_34,4
-	mul		vReg_33,i_19,imm_34
-	addi	vReg_35,vReg_33,4
-	add		vReg_36,vReg_35,a_14
-	lw		vReg_37,0(vReg_36)
-	li		imm_38,0
-	beq		vReg_37,imm_38,merge__if_then_2
-	j		merge__for_step_3
-
-merge__if_then_2:
-	addi	vReg_39,i_19,1
-	mv		j_40,vReg_39
-	mv		j_41,j_40
-	j		merge__for_cond_3
-
-merge__for_cond_3:
-	blt		j_41,now_16,merge__for_body_3
-	j		merge__for_step_3
-
-merge__for_body_3:
-	li		imm_43,4
-	mul		vReg_42,j_41,imm_43
-	addi	vReg_44,vReg_42,4
-	add		vReg_45,vReg_44,a_14
-	lw		vReg_46,0(vReg_45)
-	li		imm_47,0
-	bne		vReg_46,imm_47,merge__if_then_3
-	j		merge__for_step_2
-
-merge__for_step_2:
-	addi	j_48,j_41,1
-	mv		j_41,j_48
-	j		merge__for_cond_3
-
-merge__if_then_3:
-	mv		a0,i_19
-	mv		a1,j_41
-	call	swap
-	j		merge__for_step_3
-
-merge__for_step_3:
-	addi	i_49,i_19,1
-	mv		i_19,i_49
-	j		merge__for_cond
-
-
-	.globl	move
-	.type	move, @function
-move:
-	mv		ra_0,ra
-	mv		s0_1,s0
-	mv		s1_2,s1
-	mv		s2_3,s2
-	mv		s3_4,s3
-	mv		s4_5,s4
-	mv		s5_6,s5
-	mv		s6_7,s6
-	mv		s7_8,s7
-	mv		s8_9,s8
-	mv		s9_10,s9
-	mv		s10_11,s10
-	mv		s11_12,s11
-	lui		global_tmp_13,0
-	lw		a_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	lw		now_16,0(global_tmp_15)
-	li		imm_18,0
-	mv		i_17,imm_18
-	mv		i_19,i_17
-	j		move__for_cond
-
-move__for_cond:
-	blt		i_19,now_16,move__for_body
-	j		move__for_merge
-
-move__for_body:
-	li		imm_21,4
-	mul		vReg_20,i_19,imm_21
-	addi	vReg_22,vReg_20,4
-	add		vReg_23,vReg_22,a_14
-	lw		vReg_24,0(vReg_23)
-	addi	vReg_25,vReg_24,-1
-	sw		vReg_25,0(vReg_23)
-	addi	vReg_26,i_19,1
-	mv		i_27,vReg_26
-	mv		i_19,i_27
-	j		move__for_cond
-
-move__for_merge:
-	li		imm_29,4
-	mul		vReg_28,now_16,imm_29
-	addi	vReg_30,vReg_28,4
-	add		vReg_31,vReg_30,a_14
-	sw		now_16,0(vReg_31)
-	addi	now_32,now_16,1
-	lui		global_tmp_33,0
-	sw		now_32,0(global_tmp_33)
-	mv		s11,s11_12
-	mv		s10,s10_11
-	mv		s9,s9_10
-	mv		s8,s8_9
-	mv		s7,s7_8
-	mv		s6,s6_7
-	mv		s5,s5_6
-	mv		s4,s4_5
-	mv		s3,s3_4
-	mv		s2,s2_3
-	mv		s1,s1_2
-	mv		s0,s0_1
-	mv		ra,ra_0
-	jr		ra
-
 
 	.globl	_main
 	.type	_main, @function
@@ -738,62 +56,210 @@ _main:
 	mv		s10_11,s10
 	mv		s11_12,s11
 	lui		global_tmp_13,0
-	lw		A_14,0(global_tmp_13)
+	lw		j_14,0(global_tmp_13)
 	lui		global_tmp_15,0
-	lw		M_16,0(global_tmp_15)
+	lw		f_16,0(global_tmp_15)
 	lui		global_tmp_17,0
-	lw		now_18,0(global_tmp_17)
-	li		imm_20,0
-	mv		i_19,imm_20
-	li		imm_22,0
-	mv		temp_21,imm_22
-	li		imm_24,0
-	mv		count_23,imm_24
-	li		imm_25,404
-	mv		a0,imm_25
+	lw		visit_18,0(global_tmp_17)
+	lui		global_tmp_19,0
+	lw		pre_20,0(global_tmp_19)
+	lui		global_tmp_21,0
+	lw		ans_22,0(global_tmp_21)
+	li		imm_23,444
+	mv		a0,imm_23
 	call	malloc
-	mv		vReg_26,a0
-	li		imm_27,100
-	sw		imm_27,0(vReg_26)
-	div		vReg_28,M_16,A_14
-	rem		vReg_29,M_16,A_14
-	lui		global_tmp_30,0
-	li		imm_31,0
-	sw		imm_31,0(global_tmp_30)
-	li		imm_32,210
-	mv		a0,imm_32
-	call	pd
-	mv		vReg_33,a0
-	lui		global_tmp_34,0
-	lw		h_35,0(global_tmp_34)
-	bne		vReg_33,zero,main__if_merge
-	j		main__if_then
+	mv		vReg_24,a0
+	li		imm_25,110
+	sw		imm_25,0(vReg_24)
+	li		imm_27,0
+	mv		i_26,imm_27
+	mv		i_28,i_26
+	mv		j_29,j_14
+	j		main_fake_origin__for_cond
 
-main__if_then:
-	la		str_const_36,__str_const_3
-	mv		a0,str_const_36
+main_fake_origin__for_cond:
+	li		imm_30,110
+	blt		i_28,imm_30,main_fake_origin__for_body
+	j		main_split_block
+
+main_split_block:
+	li		imm_32,1
+	mv		i_31,imm_32
+	mv		i_33,i_31
+	mv		j_34,j_29
+	j		main_fake_build__for_cond
+
+main_fake_build__for_cond:
+	li		imm_35,49
+	ble		i_33,imm_35,main_fake_build__for_body_3
+	j		main_fake_build__for_merge
+
+main_fake_build__for_merge:
+	li		imm_37,1
+	mv		i_36,imm_37
+	mv		i_38,i_36
+	j		main_fake_build__for_cond_2
+
+main_fake_build__for_cond_2:
+	li		imm_39,49
+	ble		i_38,imm_39,main_fake_build__for_body
+	j		main_fake_build__for_merge_2
+
+main_fake_build__for_body:
+	li		imm_41,99
+	li		imm_42,4
+	mul		vReg_40,imm_41,imm_42
+	addi	vReg_43,vReg_40,4
+	add		vReg_44,vReg_43,vReg_24
+	lw		vReg_45,0(vReg_44)
+	li		imm_47,4
+	mul		vReg_46,i_38,imm_47
+	addi	vReg_48,vReg_46,4
+	add		vReg_49,vReg_48,vReg_45
+	li		imm_50,1
+	sw		imm_50,0(vReg_49)
+	addi	i_51,i_38,1
+	mv		i_38,i_51
+	j		main_fake_build__for_cond_2
+
+main_fake_build__for_merge_2:
+	li		imm_53,50
+	mv		i_52,imm_53
+	mv		i_54,i_52
+	j		main_fake_build__for_cond_3
+
+main_fake_build__for_cond_3:
+	li		imm_55,98
+	ble		i_54,imm_55,main_fake_build__for_body_2
+	j		main_split_block_2
+
+main_split_block_2:
+	mv		ans_56,ans_22
+	mv		j_57,j_34
+	j		main__while_cond
+
+main__while_cond:
+	li		imm_59,0
+	mv		open_58,imm_59
+	li		imm_61,1
+	mv		closed_60,imm_61
+	li		imm_63,1
+	mv		i_62,imm_63
+	mv		i_64,i_62
+	j		main_fake_find__for_cond
+
+main_fake_find__for_cond:
+	li		imm_65,100
+	ble		i_64,imm_65,main_fake_find__for_body_2
+	j		main_fake_find__for_merge
+
+main_fake_find__for_merge:
+	li		imm_67,1
+	li		imm_68,4
+	mul		vReg_66,imm_67,imm_68
+	addi	vReg_69,vReg_66,4
+	add		vReg_70,vReg_69,f_16
+	li		imm_71,99
+	sw		imm_71,0(vReg_70)
+	li		imm_73,99
+	li		imm_74,4
+	mul		vReg_72,imm_73,imm_74
+	addi	vReg_75,vReg_72,4
+	add		vReg_76,vReg_75,visit_18
+	li		imm_77,1
+	sw		imm_77,0(vReg_76)
+	add		vReg_78,vReg_75,pre_20
+	li		imm_79,0
+	sw		imm_79,0(vReg_78)
+	li		imm_81,0
+	mv		flag_80,imm_81
+	mv		closed_82,closed_60
+	mv		i_83,i_64
+	mv		open_84,open_58
+	mv		flag_85,flag_80
+	mv		j_86,j_57
+	j		main_fake_find__while_cond
+
+main_fake_find__while_cond:
+	blt		open_84,closed_82,main_fake_find__lhs_and_then
+	j		main_split_block_3
+
+main_fake_find__lhs_and_then:
+	li		imm_87,0
+	beq		flag_85,imm_87,main_fake_find__while_body
+	j		main_split_block_3
+
+main_split_block_3:
+	li		imm_88,0
+	bgt		flag_85,imm_88,main__while_body
+	j		main__while_merge
+
+main__while_body:
+	li		imm_90,100
+	mv		i_89,imm_90
+	addi	ans_91,ans_56,1
+	mv		i_92,i_89
+	mv		j_93,j_86
+	j		main_fake_improve__while_cond
+
+main_fake_improve__while_cond:
+	li		imm_95,4
+	mul		vReg_94,i_92,imm_95
+	addi	vReg_96,vReg_94,4
+	add		vReg_97,vReg_96,pre_20
+	lw		vReg_98,0(vReg_97)
+	li		imm_99,0
+	bgt		vReg_98,imm_99,main_fake_improve__while_body
+	j		main_split_block_4
+
+main_split_block_4:
+	mv		ans_56,ans_91
+	mv		j_57,j_93
+	j		main__while_cond
+
+main_fake_improve__while_body:
+	lw		vReg_100,0(vReg_97)
+	mv		j_101,vReg_100
+	li		imm_103,4
+	mul		vReg_102,vReg_100,imm_103
+	addi	vReg_104,vReg_102,4
+	add		vReg_105,vReg_104,vReg_24
+	lw		vReg_106,0(vReg_105)
+	add		vReg_107,vReg_96,vReg_106
+	lw		vReg_108,0(vReg_107)
+	addi	vReg_109,vReg_108,-1
+	sw		vReg_109,0(vReg_107)
+	add		vReg_110,vReg_96,vReg_24
+	lw		vReg_111,0(vReg_110)
+	add		vReg_112,vReg_104,vReg_111
+	lw		vReg_113,0(vReg_112)
+	addi	vReg_114,vReg_113,1
+	sw		vReg_114,0(vReg_112)
+	mv		i_115,vReg_100
+	mv		i_92,i_115
+	mv		j_93,j_101
+	j		main_fake_improve__while_cond
+
+main__while_merge:
+	mv		a0,ans_56
+	call	__builtin_toString
+	mv		vReg_116,a0
+	mv		a0,vReg_116
 	call	__builtin_println
-	li		imm_38,1
-	mv		returnVal_37,imm_38
-	mv		now_39,now_18
-	mv		returnVal_40,returnVal_37
-	j		main_exit
-
-main_exit:
-	lui		global_tmp_41,0
-	li		imm_42,210
-	sw		imm_42,0(global_tmp_41)
-	lui		global_tmp_43,0
-	sw		now_39,0(global_tmp_43)
-	lui		global_tmp_44,0
-	sw		vReg_26,0(global_tmp_44)
-	lui		global_tmp_45,0
-	sw		vReg_29,0(global_tmp_45)
-	lui		global_tmp_46,0
-	sw		h_35,0(global_tmp_46)
-	lui		global_tmp_47,0
-	sw		vReg_28,0(global_tmp_47)
-	mv		a0,returnVal_40
+	lui		global_tmp_117,0
+	sw		ans_56,0(global_tmp_117)
+	lui		global_tmp_118,0
+	sw		closed_82,0(global_tmp_118)
+	lui		global_tmp_119,0
+	sw		i_83,0(global_tmp_119)
+	lui		global_tmp_120,0
+	sw		vReg_24,0(global_tmp_120)
+	lui		global_tmp_121,0
+	sw		j_86,0(global_tmp_121)
+	lui		global_tmp_122,0
+	sw		open_84,0(global_tmp_122)
+	li		imm_123,0
+	mv		a0,imm_123
 	mv		s11,s11_12
 	mv		s10,s10_11
 	mv		s9,s9_10
@@ -809,183 +275,212 @@ main_exit:
 	mv		ra,ra_0
 	jr		ra
 
-main__if_merge:
-	la		str_const_48,__str_const_4
-	mv		a0,str_const_48
-	call	__builtin_println
-	li		imm_49,3654898
-	mv		a0,imm_49
-	call	initialize
-	lui		global_tmp_50,0
-	sw		vReg_29,0(global_tmp_50)
-	lui		global_tmp_51,0
-	sw		vReg_28,0(global_tmp_51)
-	call	random
-	mv		vReg_52,a0
-	li		imm_54,10
-	rem		vReg_53,vReg_52,imm_54
-	addi	vReg_55,vReg_53,1
-	mv		a0,vReg_55
-	call	__builtin_toString
-	mv		vReg_56,a0
-	mv		a0,vReg_56
-	call	__builtin_println
-	mv		temp_57,temp_21
-	mv		i_58,i_19
-	j		main__for_cond
+main_fake_find__while_body:
+	addi	open_124,open_84,1
+	li		imm_126,4
+	mul		vReg_125,open_124,imm_126
+	addi	vReg_127,vReg_125,4
+	add		vReg_128,vReg_127,f_16
+	lw		vReg_129,0(vReg_128)
+	mv		i_130,vReg_129
+	li		imm_132,1
+	mv		j_131,imm_132
+	mv		closed_133,closed_82
+	mv		flag_134,flag_85
+	mv		j_135,j_131
+	j		main_fake_find__for_cond_2
 
-main__for_cond:
-	addi	vReg_59,vReg_55,-1
-	blt		i_58,vReg_59,main__for_body
-	j		main__for_merge
+main_fake_find__for_cond_2:
+	li		imm_136,100
+	ble		j_135,imm_136,main_fake_find__for_body
+	j		main_fake_find__for_merge_2
 
-main__for_body:
-	li		imm_61,4
-	mul		vReg_60,i_58,imm_61
-	addi	vReg_62,vReg_60,4
-	add		vReg_63,vReg_62,vReg_26
-	lui		global_tmp_64,0
-	sw		vReg_29,0(global_tmp_64)
-	lui		global_tmp_65,0
-	sw		vReg_28,0(global_tmp_65)
-	call	random
-	mv		vReg_66,a0
-	li		imm_68,10
-	rem		vReg_67,vReg_66,imm_68
-	addi	vReg_69,vReg_67,1
-	sw		vReg_69,0(vReg_63)
-	j		main__while_cond
+main_fake_find__for_body:
+	li		imm_138,4
+	mul		vReg_137,vReg_129,imm_138
+	addi	vReg_139,vReg_137,4
+	add		vReg_140,vReg_139,vReg_24
+	lw		vReg_141,0(vReg_140)
+	li		imm_143,4
+	mul		vReg_142,j_135,imm_143
+	addi	vReg_144,vReg_142,4
+	add		vReg_145,vReg_144,vReg_141
+	lw		vReg_146,0(vReg_145)
+	li		imm_147,0
+	bgt		vReg_146,imm_147,main_fake_find__lhs_and_then_2
+	j		main__parallel_copy__3
 
-main__while_cond:
-	li		imm_71,4
-	mul		vReg_70,i_58,imm_71
-	addi	vReg_72,vReg_70,4
-	add		vReg_73,vReg_72,vReg_26
-	lw		vReg_74,0(vReg_73)
-	add		vReg_75,vReg_74,temp_57
-	li		imm_76,210
-	bgt		vReg_75,imm_76,main__while_body
-	j		main__while_merge
+main_fake_find__lhs_and_then_2:
+	add		vReg_148,vReg_144,visit_18
+	lw		vReg_149,0(vReg_148)
+	li		imm_150,0
+	beq		vReg_149,imm_150,main_fake_find__if_then
+	j		main__parallel_copy__2
 
-main__while_body:
-	lui		global_tmp_77,0
-	sw		vReg_29,0(global_tmp_77)
-	lui		global_tmp_78,0
-	sw		vReg_28,0(global_tmp_78)
-	call	random
-	mv		vReg_79,a0
-	li		imm_81,10
-	rem		vReg_80,vReg_79,imm_81
-	addi	vReg_82,vReg_80,1
-	sw		vReg_82,0(vReg_73)
-	j		main__while_cond
+main_fake_find__if_then:
+	li		imm_151,1
+	sw		imm_151,0(vReg_148)
+	addi	closed_152,closed_133,1
+	li		imm_154,4
+	mul		vReg_153,closed_152,imm_154
+	addi	vReg_155,vReg_153,4
+	add		vReg_156,vReg_155,f_16
+	sw		j_135,0(vReg_156)
+	add		vReg_157,vReg_144,pre_20
+	sw		vReg_129,0(vReg_157)
+	li		imm_158,100
+	beq		closed_152,imm_158,main_fake_find__if_then_2
+	j		main__parallel_copy_
 
-main__while_merge:
-	lw		vReg_83,0(vReg_73)
-	add		vReg_84,temp_57,vReg_83
-	mv		temp_85,vReg_84
-	addi	i_86,i_58,1
-	mv		temp_57,temp_85
-	mv		i_58,i_86
-	j		main__for_cond
+main__parallel_copy_:
+	mv		flag_159,flag_134
+	j		main_fake_find__if_merge
 
-main__for_merge:
-	li		imm_88,4
-	mul		vReg_87,vReg_59,imm_88
-	addi	vReg_89,vReg_87,4
-	add		vReg_90,vReg_89,vReg_26
-	li		imm_92,210
-	sub		vReg_91,imm_92,temp_57
-	sw		vReg_91,0(vReg_90)
-	lui		global_tmp_93,0
-	sw		vReg_55,0(global_tmp_93)
-	lui		global_tmp_94,0
-	sw		vReg_26,0(global_tmp_94)
-	call	show
-	lui		global_tmp_95,0
-	sw		vReg_55,0(global_tmp_95)
-	lui		global_tmp_96,0
-	sw		vReg_26,0(global_tmp_96)
-	call	merge
-	lui		global_tmp_97,0
-	lw		now_98,0(global_tmp_97)
-	mv		now_99,now_98
-	mv		count_100,count_23
-	j		main__while_cond_2
+main_fake_find__if_merge:
+	mv		closed_160,closed_152
+	mv		flag_161,flag_159
+	j		main_fake_find__for_step
 
-main__while_cond_2:
-	lui		global_tmp_101,0
-	sw		now_99,0(global_tmp_101)
-	lui		global_tmp_102,0
-	sw		vReg_26,0(global_tmp_102)
-	lui		global_tmp_103,0
-	sw		h_35,0(global_tmp_103)
-	call	win
-	mv		vReg_104,a0
-	bne		vReg_104,zero,main__while_merge_2
-	j		main__while_body_2
+main_fake_find__for_step:
+	addi	j_162,j_135,1
+	mv		closed_133,closed_160
+	mv		flag_134,flag_161
+	mv		j_135,j_162
+	j		main_fake_find__for_cond_2
 
-main__while_body_2:
-	addi	count_105,count_100,1
-	mv		a0,count_105
-	call	__builtin_toString
-	mv		vReg_106,a0
-	la		str_const_107,__str_const_5
-	mv		a0,str_const_107
-	mv		a1,vReg_106
-	call	__builtin_string_add
-	mv		vReg_108,a0
-	mv		a0,vReg_108
-	la		str_const_109,__str_const_6
-	mv		a1,str_const_109
-	call	__builtin_string_add
-	mv		vReg_110,a0
-	mv		a0,vReg_110
-	call	__builtin_println
-	lui		global_tmp_111,0
-	sw		now_99,0(global_tmp_111)
-	lui		global_tmp_112,0
-	sw		vReg_26,0(global_tmp_112)
-	call	move
-	lui		global_tmp_113,0
-	lw		now_114,0(global_tmp_113)
-	lui		global_tmp_115,0
-	sw		now_114,0(global_tmp_115)
-	lui		global_tmp_116,0
-	sw		vReg_26,0(global_tmp_116)
-	call	merge
-	lui		global_tmp_117,0
-	lw		now_118,0(global_tmp_117)
-	lui		global_tmp_119,0
-	sw		now_118,0(global_tmp_119)
-	lui		global_tmp_120,0
-	sw		vReg_26,0(global_tmp_120)
-	call	show
-	mv		now_99,now_118
-	mv		count_100,count_105
-	j		main__while_cond_2
+main_fake_find__if_then_2:
+	li		imm_164,1
+	mv		flag_163,imm_164
+	mv		flag_159,flag_163
+	j		main_fake_find__if_merge
 
-main__while_merge_2:
-	mv		a0,count_100
-	call	__builtin_toString
-	mv		vReg_121,a0
-	la		str_const_122,__str_const_7
-	mv		a0,str_const_122
-	mv		a1,vReg_121
-	call	__builtin_string_add
-	mv		vReg_123,a0
-	mv		a0,vReg_123
-	la		str_const_124,__str_const_8
-	mv		a1,str_const_124
-	call	__builtin_string_add
-	mv		vReg_125,a0
-	mv		a0,vReg_125
-	call	__builtin_println
-	li		imm_127,0
-	mv		returnVal_126,imm_127
-	mv		now_39,now_99
-	mv		returnVal_40,returnVal_126
-	j		main_exit
+main__parallel_copy__2:
+	mv		closed_160,closed_133
+	mv		flag_161,flag_134
+	j		main_fake_find__for_step
+
+main__parallel_copy__3:
+	mv		closed_160,closed_133
+	mv		flag_161,flag_134
+	j		main_fake_find__for_step
+
+main_fake_find__for_merge_2:
+	mv		closed_82,closed_133
+	mv		i_83,i_130
+	mv		open_84,open_124
+	mv		flag_85,flag_134
+	mv		j_86,j_135
+	j		main_fake_find__while_cond
+
+main_fake_find__for_body_2:
+	li		imm_166,4
+	mul		vReg_165,i_64,imm_166
+	addi	vReg_167,vReg_165,4
+	add		vReg_168,vReg_167,visit_18
+	li		imm_169,0
+	sw		imm_169,0(vReg_168)
+	addi	i_170,i_64,1
+	mv		i_64,i_170
+	j		main_fake_find__for_cond
+
+main_fake_build__for_body_2:
+	li		imm_172,4
+	mul		vReg_171,i_54,imm_172
+	addi	vReg_173,vReg_171,4
+	add		vReg_174,vReg_173,vReg_24
+	lw		vReg_175,0(vReg_174)
+	li		imm_177,100
+	li		imm_178,4
+	mul		vReg_176,imm_177,imm_178
+	addi	vReg_179,vReg_176,4
+	add		vReg_180,vReg_179,vReg_175
+	li		imm_181,1
+	sw		imm_181,0(vReg_180)
+	addi	i_182,i_54,1
+	mv		i_54,i_182
+	j		main_fake_build__for_cond_3
+
+main_fake_build__for_body_3:
+	li		imm_184,50
+	mv		j_183,imm_184
+	mv		j_185,j_183
+	j		main_fake_build__for_cond_4
+
+main_fake_build__for_cond_4:
+	li		imm_187,98
+	sub		vReg_186,imm_187,i_33
+	addi	vReg_188,vReg_186,1
+	ble		j_185,vReg_188,main_fake_build__for_body_4
+	j		main_fake_build__for_step
+
+main_fake_build__for_body_4:
+	li		imm_190,4
+	mul		vReg_189,i_33,imm_190
+	addi	vReg_191,vReg_189,4
+	add		vReg_192,vReg_191,vReg_24
+	lw		vReg_193,0(vReg_192)
+	li		imm_195,4
+	mul		vReg_194,j_185,imm_195
+	addi	vReg_196,vReg_194,4
+	add		vReg_197,vReg_196,vReg_193
+	li		imm_198,1
+	sw		imm_198,0(vReg_197)
+	addi	j_199,j_185,1
+	mv		j_185,j_199
+	j		main_fake_build__for_cond_4
+
+main_fake_build__for_step:
+	addi	i_200,i_33,1
+	mv		i_33,i_200
+	mv		j_34,j_185
+	j		main_fake_build__for_cond
+
+main_fake_origin__for_body:
+	li		imm_202,4
+	mul		vReg_201,i_28,imm_202
+	addi	vReg_203,vReg_201,4
+	add		vReg_204,vReg_203,vReg_24
+	li		imm_206,110
+	li		imm_207,4
+	mul		vReg_205,imm_206,imm_207
+	addi	vReg_208,vReg_205,4
+	mv		a0,vReg_208
+	call	malloc
+	mv		vReg_209,a0
+	li		imm_210,110
+	sw		imm_210,0(vReg_209)
+	sw		vReg_209,0(vReg_204)
+	li		imm_212,0
+	mv		j_211,imm_212
+	mv		j_213,j_211
+	j		main_fake_origin__for_cond_2
+
+main_fake_origin__for_cond_2:
+	li		imm_214,110
+	blt		j_213,imm_214,main_fake_origin__for_body_2
+	j		main_fake_origin__for_step
+
+main_fake_origin__for_step:
+	addi	i_215,i_28,1
+	mv		i_28,i_215
+	mv		j_29,j_213
+	j		main_fake_origin__for_cond
+
+main_fake_origin__for_body_2:
+	li		imm_217,4
+	mul		vReg_216,i_28,imm_217
+	addi	vReg_218,vReg_216,4
+	add		vReg_219,vReg_218,vReg_24
+	lw		vReg_220,0(vReg_219)
+	li		imm_222,4
+	mul		vReg_221,j_213,imm_222
+	addi	vReg_223,vReg_221,4
+	add		vReg_224,vReg_223,vReg_220
+	li		imm_225,0
+	sw		imm_225,0(vReg_224)
+	addi	j_226,j_213,1
+	mv		j_213,j_226
+	j		main_fake_origin__for_cond_2
 
 
 	.globl	main
@@ -1004,18 +499,36 @@ main:
 	mv		s9_10,s9
 	mv		s10_11,s10
 	mv		s11_12,s11
-	lui		global_tmp_13,0
-	li		imm_14,2147483647
-	sw		imm_14,0(global_tmp_13)
-	lui		global_tmp_15,0
-	li		imm_16,48271
-	sw		imm_16,0(global_tmp_15)
-	lui		global_tmp_17,0
-	li		imm_18,1
-	sw		imm_18,0(global_tmp_17)
+	li		imm_13,444
+	mv		a0,imm_13
+	call	malloc
+	mv		vReg_14,a0
+	li		imm_15,110
+	sw		imm_15,0(vReg_14)
+	li		imm_16,444
+	mv		a0,imm_16
+	call	malloc
+	mv		vReg_17,a0
+	li		imm_18,110
+	sw		imm_18,0(vReg_17)
+	li		imm_19,444
+	mv		a0,imm_19
+	call	malloc
+	mv		vReg_20,a0
+	li		imm_21,110
+	sw		imm_21,0(vReg_20)
+	lui		global_tmp_22,0
+	li		imm_23,0
+	sw		imm_23,0(global_tmp_22)
+	lui		global_tmp_24,0
+	sw		vReg_17,0(global_tmp_24)
+	lui		global_tmp_25,0
+	sw		vReg_14,0(global_tmp_25)
+	lui		global_tmp_26,0
+	sw		vReg_20,0(global_tmp_26)
 	call	_main
-	mv		vReg_19,a0
-	mv		a0,vReg_19
+	mv		vReg_27,a0
+	mv		a0,vReg_27
 	mv		s11,s11_12
 	mv		s10,s10_11
 	mv		s9,s9_10

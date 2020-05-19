@@ -201,6 +201,9 @@ public class SCCP extends Pass
         } else if (inst instanceof Phi)
         {
             evaluate((Phi) inst);
+        } else if (inst instanceof JumpInst)
+        {
+            evaluate((JumpInst) inst);
         }
     }
     void evaluate(BinaryInst inst)
@@ -420,6 +423,10 @@ public class SCCP extends Pass
                 markUnExecuted(inst.getElseBlock());
             }
         }
+    }
+    void evaluate(JumpInst inst)
+    {
+        markUnExecuted(inst.getDstBlock());
     }
     void evaluate(Phi inst)
     {

@@ -81,6 +81,8 @@ public class SSADestructor extends Pass
                 {
                     BasicBlock block = entry.getKey();
                     Operand reg = entry.getValue();
+                    if (pCopy.get(block) == null)
+                        System.err.println("pCopy.get(block) == null " + block.getName());
                     pCopy.get(block).add(new CopiedInst((VirtualRegister) ((Phi) inst).getDst(), reg == null ? new Immediate(0) : reg));
                 }
             }

@@ -75,13 +75,15 @@ public class Main
             IRRoot irRoot = irBuilder.getIrRoot();
             System.out.println("Finish IRBuild.");
 
+            FunctionInliner functionInliner = new FunctionInliner(irRoot);
+            functionInliner.run();
+            System.out.println("function inline complete!");
+
             GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
             globalVariableResolver.run();
-            printIR(irRoot, "oldIrOutput.ir", false);
+            printIR(irRoot, "oldIrOutput.ir", true);
 
             optimize(irRoot);
-
-//            globalVariableResolver.allocGlobalVariable();
 
             // codegen
             InstructionSelector instructionSelector = new InstructionSelector(irRoot);
@@ -140,7 +142,6 @@ public class Main
         DeadCodeEliminator deadCodeEliminator = new DeadCodeEliminator(irRoot);
         SCCP sccp = new SCCP(irRoot);
         SSADestructor ssaDestructor = new SSADestructor(irRoot);
-
         cfgSimplifier.run();
 
         dominatorTreeConstructor.run();
@@ -167,8 +168,8 @@ public class Main
             changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
             System.out.println("Unused Function Eliminator complete!");
-            ++ changedCnt;
-            if (changedCnt > 10) break;
+//            ++ changedCnt;
+//            if (changedCnt > 10) break;
         }
         printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();

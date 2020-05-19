@@ -69,8 +69,7 @@ public class SSADestructor extends Pass
 
                     basicBlock.getPredecessors().remove(predecessor);
                     basicBlock.getPredecessors().add(basicBlockCopy);
-                    if (!parallelCopy.containsKey(basicBlockCopy))
-                        parallelCopy.put(basicBlockCopy, new LinkedList<>());
+                    parallelCopy.computeIfAbsent(basicBlockCopy, t -> new LinkedList<>());
                     pCopy.put(predecessor, parallelCopy.get(basicBlockCopy));
                 } else pCopy.put(predecessor, parallelCopy.get(predecessor));
             }
@@ -94,10 +93,37 @@ public class SSADestructor extends Pass
     {
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
-            parallelCopySequentialization(basicBlock);
+            copySequentialization(basicBlock);
+//            parallelCopySequentialization(basicBlock);
         }
     }
 
+    private void copySequentialization(BasicBlock basicBlock)
+    {
+        for (CopiedInst inst : parallelCopy.get(basicBlock))
+        {
+            if (inst.src instanceof VirtualRegister)
+            {
+                if (inst.src != inst.dst)
+                {
+                    basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, inst.src, inst.dst));
+                } else {
+                    VirtualRegister n = new Value("_breaker_");
+                    basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, inst.src, n));
+                    basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, n, inst.dst));
+                }
+            }
+        }
+        for (CopiedInst inst : parallelCopy.get(basicBlock))
+        {
+            if (inst.src instanceof Immediate)
+            {
+                basicBlock.tailInst.addPrevInst(new MoveInst(basicBlock, inst.src, inst.dst));
+            }
+        }
+    }
+
+    // It seems that this doesn't work well, why?
     private void parallelCopySequentialization(BasicBlock basicBlock)
     {
         Queue<VirtualRegister> ready = new LinkedList<>();

@@ -1,13 +1,1626 @@
+@root
+@MAX
+@MaxRandInt
+@seed
+@__str_const_1 = ": "
+
+func insertImpl $cur $pnt $childId $key {
+%insertImpl_entry:
+    $_virtual_register = seq $cur 0
+    br $_virtual_register %insertImpl__if_then %insertImpl__if_merge
+%insertImpl__if_then:
+    jump %insertImpl_split_block
+%insertImpl_split_block:
+    $_virtual_register_2 = alloc 16
+    $_virtual_register_3 = add $_virtual_register_2 4
+    $_virtual_register_4 = mul 2 4
+    $_virtual_register_5 = add $_virtual_register_4 4
+    $_virtual_register_6 = alloc $_virtual_register_5
+    store 4 $_virtual_register_6 2 0
+    store 4 $_virtual_register_3 $_virtual_register_6 0
+    $_virtual_register_7 = add $_virtual_register_2 8
+    store 4 $_virtual_register_7 $key 0
+    $_virtual_register_8 = add $_virtual_register_2 12
+    store 4 $_virtual_register_8 1 0
+    $_virtual_register_9 = add $_virtual_register_2 0
+    store 4 $_virtual_register_9 $pnt 0
+    $_virtual_register_10 = load 4 $_virtual_register_3 0
+    $_virtual_register_11 = mul 0 4
+    $_virtual_register_12 = add $_virtual_register_11 4
+    $_virtual_register_13 = add $_virtual_register_12 $_virtual_register_10
+    store 4 $_virtual_register_13 0 0
+    $_virtual_register_14 = load 4 $_virtual_register_3 0
+    $_virtual_register_15 = mul 1 4
+    $_virtual_register_16 = add $_virtual_register_15 4
+    $_virtual_register_17 = add $_virtual_register_16 $_virtual_register_14
+    store 4 $_virtual_register_17 0 0
+    $_virtual_register_18 = add $pnt 4
+    $_virtual_register_19 = load 4 $_virtual_register_18 0
+    $_virtual_register_20 = mul $childId 4
+    $_virtual_register_21 = add $_virtual_register_20 4
+    $_virtual_register_22 = add $_virtual_register_21 $_virtual_register_19
+    store 4 $_virtual_register_22 $_virtual_register_2 0
+    $returnVal = move 0
+    jump %insertImpl_exit
+%insertImpl_exit:
+    $returnVal_2 = phi insertImpl_split_block $returnVal insertImpl_split_block_2 $returnVal_3 insertImpl__if_then_2 $returnVal_4 
+    ret $returnVal_2
+%insertImpl__if_merge:
+    $_virtual_register_23 = add $cur 8
+    $_virtual_register_24 = load 4 $_virtual_register_23 0
+    $_virtual_register_25 = seq $_virtual_register_24 $key
+    br $_virtual_register_25 %insertImpl__if_then_2 %insertImpl__if_merge_2
+%insertImpl__if_merge_2:
+    $id = move 0
+    $_virtual_register_26 = load 4 $_virtual_register_23 0
+    $_virtual_register_27 = slt $_virtual_register_26 $key
+    br $_virtual_register_27 %insertImpl__if_then_3 %insertImpl__if_merge_3
+%insertImpl__if_merge_3:
+    $id_2 = phi insertImpl__if_merge_2 $id insertImpl__if_then_3 $id_3 
+    $_virtual_register_28 = add $cur 4
+    $_virtual_register_29 = load 4 $_virtual_register_28 0
+    $_virtual_register_30 = mul $id_2 4
+    $_virtual_register_31 = add $_virtual_register_30 4
+    $_virtual_register_32 = add $_virtual_register_31 $_virtual_register_29
+    $_virtual_register_33 = load 4 $_virtual_register_32 0
+    $_virtual_register_34 = seq $_virtual_register_33 0
+    br $_virtual_register_34 %insertImpl_fake_fake_insertImpl_1_insertImpl__if_then %insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
+    $_virtual_register_35 = add $_virtual_register_33 8
+    $_virtual_register_36 = load 4 $_virtual_register_35 0
+    $_virtual_register_37 = seq $_virtual_register_36 $key
+    br $_virtual_register_37 %insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2 %insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+    $id_4 = move 0
+    $_virtual_register_38 = load 4 $_virtual_register_35 0
+    $_virtual_register_39 = slt $_virtual_register_38 $key
+    br $_virtual_register_39 %insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3 %insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
+    $id_5 = move 1
+    jump %insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+    $id_6 = phi insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2 $id_4 insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3 $id_5 
+    $_virtual_register_40 = add $_virtual_register_33 4
+    $_virtual_register_41 = load 4 $_virtual_register_40 0
+    $_virtual_register_42 = mul $id_6 4
+    $_virtual_register_43 = add $_virtual_register_42 4
+    $_virtual_register_44 = add $_virtual_register_43 $_virtual_register_41
+    $_virtual_register_45 = load 4 $_virtual_register_44 0
+    $_virtual_register_46 = seq $_virtual_register_45 0
+    br $_virtual_register_46 %insertImpl_fake_fake_insertImpl_2_insertImpl__if_then %insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_then:
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_split_block
+%insertImpl_fake_fake_insertImpl_2_insertImpl_split_block:
+    $_virtual_register_47 = alloc 16
+    $_virtual_register_48 = add $_virtual_register_47 4
+    $_virtual_register_49 = mul 2 4
+    $_virtual_register_50 = add $_virtual_register_49 4
+    $_virtual_register_51 = alloc $_virtual_register_50
+    store 4 $_virtual_register_51 2 0
+    store 4 $_virtual_register_48 $_virtual_register_51 0
+    $_virtual_register_52 = add $_virtual_register_47 8
+    store 4 $_virtual_register_52 $key 0
+    $_virtual_register_53 = add $_virtual_register_47 12
+    store 4 $_virtual_register_53 1 0
+    $_virtual_register_54 = add $_virtual_register_47 0
+    store 4 $_virtual_register_54 $_virtual_register_33 0
+    $_virtual_register_55 = load 4 $_virtual_register_48 0
+    $_virtual_register_56 = mul 0 4
+    $_virtual_register_57 = add $_virtual_register_56 4
+    $_virtual_register_58 = add $_virtual_register_57 $_virtual_register_55
+    store 4 $_virtual_register_58 0 0
+    $_virtual_register_59 = load 4 $_virtual_register_48 0
+    $_virtual_register_60 = mul 1 4
+    $_virtual_register_61 = add $_virtual_register_60 4
+    $_virtual_register_62 = add $_virtual_register_61 $_virtual_register_59
+    store 4 $_virtual_register_62 0 0
+    $_virtual_register_63 = load 4 $_virtual_register_40 0
+    $_virtual_register_64 = add $_virtual_register_43 $_virtual_register_63
+    store 4 $_virtual_register_64 $_virtual_register_47 0
+    $returnVal_5 = move 0
+    jump %insertImpl_split_block_3
+%insertImpl_split_block_3:
+    $returnVal_6 = phi insertImpl_fake_fake_insertImpl_2_insertImpl_split_block $returnVal_5 insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2 $returnVal_7 insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2 $returnVal_8 
+    $returnVal_9 = move $returnVal_6
+    jump %insertImpl_split_block_2
+%insertImpl_split_block_2:
+    $returnVal_10 = phi insertImpl_split_block_3 $returnVal_9 insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2 $returnVal_11 insertImpl_fake_fake_insertImpl_1_insertImpl_split_block $returnVal_12 
+    $returnVal_3 = move $returnVal_10
+    jump %insertImpl_exit
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge:
+    $_virtual_register_65 = add $_virtual_register_45 8
+    $_virtual_register_66 = load 4 $_virtual_register_65 0
+    $_virtual_register_67 = seq $_virtual_register_66 $key
+    br $_virtual_register_67 %insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2 %insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2:
+    $_virtual_register_68 = add $_virtual_register_45 12
+    $_virtual_register_69 = load 4 $_virtual_register_68 0
+    $_virtual_register_70 = add $_virtual_register_69 1
+    store 4 $_virtual_register_68 $_virtual_register_70 0
+    $returnVal_7 = move 1
+    jump %insertImpl_split_block_3
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2:
+    $id_7 = move 0
+    $_virtual_register_71 = load 4 $_virtual_register_65 0
+    $_virtual_register_72 = slt $_virtual_register_71 $key
+    br $_virtual_register_72 %insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3 %insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3:
+    $id_8 = phi insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2 $id_7 insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3 $id_9 
+    $_virtual_register_73 = add $_virtual_register_45 4
+    $_virtual_register_74 = load 4 $_virtual_register_73 0
+    $_virtual_register_75 = mul $id_8 4
+    $_virtual_register_76 = add $_virtual_register_75 4
+    $_virtual_register_77 = add $_virtual_register_76 $_virtual_register_74
+    $_virtual_register_78 = load 4 $_virtual_register_77 0
+    $_virtual_register_79 = seq $_virtual_register_78 0
+    br $_virtual_register_79 %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
+    $_virtual_register_80 = add $_virtual_register_78 8
+    $_virtual_register_81 = load 4 $_virtual_register_80 0
+    $_virtual_register_82 = seq $_virtual_register_81 $key
+    br $_virtual_register_82 %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2 %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
+    $_virtual_register_83 = add $_virtual_register_78 12
+    $_virtual_register_84 = load 4 $_virtual_register_83 0
+    $_virtual_register_85 = add $_virtual_register_84 1
+    store 4 $_virtual_register_83 $_virtual_register_85 0
+    $returnVal_13 = move 1
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2
+%insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2:
+    $returnVal_14 = phi insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2 $returnVal_13 insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3 $returnVal_15 insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block $returnVal_16 
+    $returnVal_8 = move $returnVal_14
+    jump %insertImpl_split_block_3
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+    $id_10 = move 0
+    $_virtual_register_86 = load 4 $_virtual_register_80 0
+    $_virtual_register_87 = slt $_virtual_register_86 $key
+    br $_virtual_register_87 %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3 %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
+    $id_11 = move 1
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+    $id_12 = phi insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2 $id_10 insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3 $id_11 
+    $_virtual_register_88 = add $_virtual_register_78 4
+    $_virtual_register_89 = load 4 $_virtual_register_88 0
+    $_virtual_register_90 = mul $id_12 4
+    $_virtual_register_91 = add $_virtual_register_90 4
+    $_virtual_register_92 = add $_virtual_register_91 $_virtual_register_89
+    $_virtual_register_93 = load 4 $_virtual_register_92 0
+    $_virtual_register_94 = call insertImpl $_virtual_register_93 $_virtual_register_78 $id_12 $key 
+    $returnVal_15 = move $_virtual_register_94
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
+%insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
+    $_virtual_register_95 = alloc 16
+    $_virtual_register_96 = add $_virtual_register_95 4
+    $_virtual_register_97 = mul 2 4
+    $_virtual_register_98 = add $_virtual_register_97 4
+    $_virtual_register_99 = alloc $_virtual_register_98
+    store 4 $_virtual_register_99 2 0
+    store 4 $_virtual_register_96 $_virtual_register_99 0
+    $_virtual_register_100 = add $_virtual_register_95 8
+    store 4 $_virtual_register_100 $key 0
+    $_virtual_register_101 = add $_virtual_register_95 12
+    store 4 $_virtual_register_101 1 0
+    $_virtual_register_102 = add $_virtual_register_95 0
+    store 4 $_virtual_register_102 $_virtual_register_45 0
+    $_virtual_register_103 = load 4 $_virtual_register_96 0
+    $_virtual_register_104 = mul 0 4
+    $_virtual_register_105 = add $_virtual_register_104 4
+    $_virtual_register_106 = add $_virtual_register_105 $_virtual_register_103
+    store 4 $_virtual_register_106 0 0
+    $_virtual_register_107 = load 4 $_virtual_register_96 0
+    $_virtual_register_108 = mul 1 4
+    $_virtual_register_109 = add $_virtual_register_108 4
+    $_virtual_register_110 = add $_virtual_register_109 $_virtual_register_107
+    store 4 $_virtual_register_110 0 0
+    $_virtual_register_111 = load 4 $_virtual_register_73 0
+    $_virtual_register_112 = add $_virtual_register_76 $_virtual_register_111
+    store 4 $_virtual_register_112 $_virtual_register_95 0
+    $returnVal_16 = move 0
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2
+%insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3:
+    $id_9 = move 1
+    jump %insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
+    $_virtual_register_113 = add $_virtual_register_33 12
+    $_virtual_register_114 = load 4 $_virtual_register_113 0
+    $_virtual_register_115 = add $_virtual_register_114 1
+    store 4 $_virtual_register_113 $_virtual_register_115 0
+    $returnVal_11 = move 1
+    jump %insertImpl_split_block_2
+%insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
+    jump %insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
+%insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
+    $_virtual_register_116 = alloc 16
+    $_virtual_register_117 = add $_virtual_register_116 4
+    $_virtual_register_118 = mul 2 4
+    $_virtual_register_119 = add $_virtual_register_118 4
+    $_virtual_register_120 = alloc $_virtual_register_119
+    store 4 $_virtual_register_120 2 0
+    store 4 $_virtual_register_117 $_virtual_register_120 0
+    $_virtual_register_121 = add $_virtual_register_116 8
+    store 4 $_virtual_register_121 $key 0
+    $_virtual_register_122 = add $_virtual_register_116 12
+    store 4 $_virtual_register_122 1 0
+    $_virtual_register_123 = add $_virtual_register_116 0
+    store 4 $_virtual_register_123 $cur 0
+    $_virtual_register_124 = load 4 $_virtual_register_117 0
+    $_virtual_register_125 = mul 0 4
+    $_virtual_register_126 = add $_virtual_register_125 4
+    $_virtual_register_127 = add $_virtual_register_126 $_virtual_register_124
+    store 4 $_virtual_register_127 0 0
+    $_virtual_register_128 = load 4 $_virtual_register_117 0
+    $_virtual_register_129 = mul 1 4
+    $_virtual_register_130 = add $_virtual_register_129 4
+    $_virtual_register_131 = add $_virtual_register_130 $_virtual_register_128
+    store 4 $_virtual_register_131 0 0
+    $_virtual_register_132 = load 4 $_virtual_register_28 0
+    $_virtual_register_133 = add $_virtual_register_31 $_virtual_register_132
+    store 4 $_virtual_register_133 $_virtual_register_116 0
+    $returnVal_12 = move 0
+    jump %insertImpl_split_block_2
+%insertImpl__if_then_3:
+    $id_3 = move 1
+    jump %insertImpl__if_merge_3
+%insertImpl__if_then_2:
+    $_virtual_register_134 = add $cur 12
+    $_virtual_register_135 = load 4 $_virtual_register_134 0
+    $_virtual_register_136 = add $_virtual_register_135 1
+    store 4 $_virtual_register_134 $_virtual_register_136 0
+    $returnVal_4 = move 1
+    jump %insertImpl_exit
+}
+
+func findLargest $cur_2 {
+%findLargest_entry:
+    $_virtual_register_137 = add $cur_2 4
+    $_virtual_register_138 = load 4 $_virtual_register_137 0
+    $_virtual_register_139 = add 8 $_virtual_register_138
+    $_virtual_register_140 = load 4 $_virtual_register_139 0
+    $_virtual_register_141 = seq $_virtual_register_140 0
+    br $_virtual_register_141 %findLargest__if_then %findLargest__if_merge
+%findLargest__if_then:
+    $returnVal_17 = move $cur_2
+    jump %findLargest_exit
+%findLargest_exit:
+    $returnVal_18 = phi findLargest__if_then $returnVal_17 findLargest_split_block $returnVal_19 
+    ret $returnVal_18
+%findLargest__if_merge:
+    $_virtual_register_142 = load 4 $_virtual_register_137 0
+    $_virtual_register_143 = add 8 $_virtual_register_142
+    $_virtual_register_144 = load 4 $_virtual_register_143 0
+    $_virtual_register_145 = add $_virtual_register_144 4
+    $_virtual_register_146 = load 4 $_virtual_register_145 0
+    $_virtual_register_147 = add 8 $_virtual_register_146
+    $_virtual_register_148 = load 4 $_virtual_register_147 0
+    $_virtual_register_149 = seq $_virtual_register_148 0
+    br $_virtual_register_149 %findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_20 = move $_virtual_register_144
+    jump %findLargest_split_block
+%findLargest_split_block:
+    $returnVal_21 = phi findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_20 findLargest_split_block_2 $returnVal_22 
+    $returnVal_19 = move $returnVal_21
+    jump %findLargest_exit
+%findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_150 = load 4 $_virtual_register_145 0
+    $_virtual_register_151 = add 8 $_virtual_register_150
+    $_virtual_register_152 = load 4 $_virtual_register_151 0
+    $_virtual_register_153 = add $_virtual_register_152 4
+    $_virtual_register_154 = load 4 $_virtual_register_153 0
+    $_virtual_register_155 = add 8 $_virtual_register_154
+    $_virtual_register_156 = load 4 $_virtual_register_155 0
+    $_virtual_register_157 = seq $_virtual_register_156 0
+    br $_virtual_register_157 %findLargest_fake_fake_findLargest_2_findLargest__if_then %findLargest_fake_fake_findLargest_2_findLargest__if_merge
+%findLargest_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_23 = move $_virtual_register_152
+    jump %findLargest_split_block_2
+%findLargest_split_block_2:
+    $returnVal_24 = phi findLargest_fake_fake_findLargest_2_findLargest__if_then $returnVal_23 findLargest_fake_fake_findLargest_2_findLargest_split_block $returnVal_25 
+    $returnVal_22 = move $returnVal_24
+    jump %findLargest_split_block
+%findLargest_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_158 = load 4 $_virtual_register_153 0
+    $_virtual_register_159 = add 8 $_virtual_register_158
+    $_virtual_register_160 = load 4 $_virtual_register_159 0
+    $_virtual_register_161 = add $_virtual_register_160 4
+    $_virtual_register_162 = load 4 $_virtual_register_161 0
+    $_virtual_register_163 = add 8 $_virtual_register_162
+    $_virtual_register_164 = load 4 $_virtual_register_163 0
+    $_virtual_register_165 = seq $_virtual_register_164 0
+    br $_virtual_register_165 %findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_26 = move $_virtual_register_160
+    jump %findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_27 = phi findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_26 findLargest_split_block_3 $returnVal_28 
+    $returnVal_25 = move $returnVal_27
+    jump %findLargest_split_block_2
+%findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_166 = load 4 $_virtual_register_161 0
+    $_virtual_register_167 = add 8 $_virtual_register_166
+    $_virtual_register_168 = load 4 $_virtual_register_167 0
+    $_virtual_register_169 = add $_virtual_register_168 4
+    $_virtual_register_170 = load 4 $_virtual_register_169 0
+    $_virtual_register_171 = add 8 $_virtual_register_170
+    $_virtual_register_172 = load 4 $_virtual_register_171 0
+    $_virtual_register_173 = seq $_virtual_register_172 0
+    br $_virtual_register_173 %findLargest_fake_fake_findLargest_3_findLargest__if_then %findLargest_fake_fake_findLargest_3_findLargest__if_merge
+%findLargest_fake_fake_findLargest_3_findLargest__if_then:
+    $returnVal_29 = move $_virtual_register_168
+    jump %findLargest_split_block_3
+%findLargest_split_block_3:
+    $returnVal_30 = phi findLargest_fake_fake_findLargest_3_findLargest__if_then $returnVal_29 findLargest_fake_fake_findLargest_3_findLargest_split_block $returnVal_31 
+    $returnVal_28 = move $returnVal_30
+    jump %findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_3_findLargest__if_merge:
+    $_virtual_register_174 = load 4 $_virtual_register_169 0
+    $_virtual_register_175 = add 8 $_virtual_register_174
+    $_virtual_register_176 = load 4 $_virtual_register_175 0
+    $_virtual_register_177 = add $_virtual_register_176 4
+    $_virtual_register_178 = load 4 $_virtual_register_177 0
+    $_virtual_register_179 = add 8 $_virtual_register_178
+    $_virtual_register_180 = load 4 $_virtual_register_179 0
+    $_virtual_register_181 = seq $_virtual_register_180 0
+    br $_virtual_register_181 %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_32 = move $_virtual_register_176
+    jump %findLargest_fake_fake_findLargest_3_findLargest_split_block
+%findLargest_fake_fake_findLargest_3_findLargest_split_block:
+    $returnVal_33 = phi findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_32 findLargest_fake_fake_findLargest_3_findLargest_split_block_2 $returnVal_34 
+    $returnVal_31 = move $returnVal_33
+    jump %findLargest_split_block_3
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_182 = load 4 $_virtual_register_177 0
+    $_virtual_register_183 = add 8 $_virtual_register_182
+    $_virtual_register_184 = load 4 $_virtual_register_183 0
+    $_virtual_register_185 = add $_virtual_register_184 4
+    $_virtual_register_186 = load 4 $_virtual_register_185 0
+    $_virtual_register_187 = add 8 $_virtual_register_186
+    $_virtual_register_188 = load 4 $_virtual_register_187 0
+    $_virtual_register_189 = seq $_virtual_register_188 0
+    br $_virtual_register_189 %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_190 = load 4 $_virtual_register_185 0
+    $_virtual_register_191 = add 8 $_virtual_register_190
+    $_virtual_register_192 = load 4 $_virtual_register_191 0
+    $_virtual_register_193 = add $_virtual_register_192 4
+    $_virtual_register_194 = load 4 $_virtual_register_193 0
+    $_virtual_register_195 = add 8 $_virtual_register_194
+    $_virtual_register_196 = load 4 $_virtual_register_195 0
+    $_virtual_register_197 = seq $_virtual_register_196 0
+    br $_virtual_register_197 %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_198 = load 4 $_virtual_register_193 0
+    $_virtual_register_199 = add 8 $_virtual_register_198
+    $_virtual_register_200 = load 4 $_virtual_register_199 0
+    $_virtual_register_201 = add $_virtual_register_200 4
+    $_virtual_register_202 = load 4 $_virtual_register_201 0
+    $_virtual_register_203 = add 8 $_virtual_register_202
+    $_virtual_register_204 = load 4 $_virtual_register_203 0
+    $_virtual_register_205 = seq $_virtual_register_204 0
+    br $_virtual_register_205 %findLargest_fake_fake_findLargest_4_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest__if_then:
+    $returnVal_35 = move $_virtual_register_200
+    jump %findLargest_split_block_4
+%findLargest_split_block_4:
+    $returnVal_36 = phi findLargest_fake_fake_findLargest_4_findLargest__if_then $returnVal_35 findLargest_fake_fake_findLargest_4_findLargest_split_block $returnVal_37 
+    $returnVal_38 = move $returnVal_36
+    jump %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_39 = phi findLargest_split_block_4 $returnVal_38 findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_40 
+    $returnVal_41 = move $returnVal_39
+    jump %findLargest_fake_fake_findLargest_3_findLargest_split_block_2
+%findLargest_fake_fake_findLargest_3_findLargest_split_block_2:
+    $returnVal_42 = phi findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block $returnVal_41 findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then $returnVal_43 
+    $returnVal_34 = move $returnVal_42
+    jump %findLargest_fake_fake_findLargest_3_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest__if_merge:
+    $_virtual_register_206 = load 4 $_virtual_register_201 0
+    $_virtual_register_207 = add 8 $_virtual_register_206
+    $_virtual_register_208 = load 4 $_virtual_register_207 0
+    $_virtual_register_209 = add $_virtual_register_208 4
+    $_virtual_register_210 = load 4 $_virtual_register_209 0
+    $_virtual_register_211 = add 8 $_virtual_register_210
+    $_virtual_register_212 = load 4 $_virtual_register_211 0
+    $_virtual_register_213 = seq $_virtual_register_212 0
+    br $_virtual_register_213 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_214 = load 4 $_virtual_register_209 0
+    $_virtual_register_215 = add 8 $_virtual_register_214
+    $_virtual_register_216 = load 4 $_virtual_register_215 0
+    $_virtual_register_217 = add $_virtual_register_216 4
+    $_virtual_register_218 = load 4 $_virtual_register_217 0
+    $_virtual_register_219 = add 8 $_virtual_register_218
+    $_virtual_register_220 = load 4 $_virtual_register_219 0
+    $_virtual_register_221 = seq $_virtual_register_220 0
+    br $_virtual_register_221 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_222 = load 4 $_virtual_register_217 0
+    $_virtual_register_223 = add 8 $_virtual_register_222
+    $_virtual_register_224 = load 4 $_virtual_register_223 0
+    $_virtual_register_225 = add $_virtual_register_224 4
+    $_virtual_register_226 = load 4 $_virtual_register_225 0
+    $_virtual_register_227 = add 8 $_virtual_register_226
+    $_virtual_register_228 = load 4 $_virtual_register_227 0
+    $_virtual_register_229 = seq $_virtual_register_228 0
+    br $_virtual_register_229 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_230 = load 4 $_virtual_register_225 0
+    $_virtual_register_231 = add 8 $_virtual_register_230
+    $_virtual_register_232 = load 4 $_virtual_register_231 0
+    $_virtual_register_233 = add $_virtual_register_232 4
+    $_virtual_register_234 = load 4 $_virtual_register_233 0
+    $_virtual_register_235 = add 8 $_virtual_register_234
+    $_virtual_register_236 = load 4 $_virtual_register_235 0
+    $_virtual_register_237 = seq $_virtual_register_236 0
+    br $_virtual_register_237 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest__if_merge:
+    $_virtual_register_238 = load 4 $_virtual_register_233 0
+    $_virtual_register_239 = add 8 $_virtual_register_238
+    $_virtual_register_240 = load 4 $_virtual_register_239 0
+    $_virtual_register_241 = add $_virtual_register_240 4
+    $_virtual_register_242 = load 4 $_virtual_register_241 0
+    $_virtual_register_243 = add 8 $_virtual_register_242
+    $_virtual_register_244 = load 4 $_virtual_register_243 0
+    $_virtual_register_245 = seq $_virtual_register_244 0
+    br $_virtual_register_245 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_246 = load 4 $_virtual_register_241 0
+    $_virtual_register_247 = add 8 $_virtual_register_246
+    $_virtual_register_248 = load 4 $_virtual_register_247 0
+    $_virtual_register_249 = add $_virtual_register_248 4
+    $_virtual_register_250 = load 4 $_virtual_register_249 0
+    $_virtual_register_251 = add 8 $_virtual_register_250
+    $_virtual_register_252 = load 4 $_virtual_register_251 0
+    $_virtual_register_253 = seq $_virtual_register_252 0
+    br $_virtual_register_253 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_44 = move $_virtual_register_248
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block:
+    $returnVal_45 = phi findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then $returnVal_44 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block $returnVal_46 
+    $returnVal_47 = move $returnVal_45
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block_2
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block_2:
+    $returnVal_48 = phi findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block $returnVal_47 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_49 
+    $returnVal_50 = move $returnVal_48
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block_2
+%findLargest_fake_fake_findLargest_4_findLargest_split_block_2:
+    $returnVal_51 = phi findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block_2 $returnVal_50 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest__if_then $returnVal_52 
+    $returnVal_53 = move $returnVal_51
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_54 = phi findLargest_fake_fake_findLargest_4_findLargest_split_block_2 $returnVal_53 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_55 
+    $returnVal_56 = move $returnVal_54
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block_3
+%findLargest_fake_fake_findLargest_4_findLargest_split_block_3:
+    $returnVal_57 = phi findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_split_block $returnVal_56 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest__if_then $returnVal_58 
+    $returnVal_59 = move $returnVal_57
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_split_block:
+    $returnVal_60 = phi findLargest_fake_fake_findLargest_4_findLargest_split_block_3 $returnVal_59 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_61 
+    $returnVal_37 = move $returnVal_60
+    jump %findLargest_split_block_4
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_254 = load 4 $_virtual_register_249 0
+    $_virtual_register_255 = add 8 $_virtual_register_254
+    $_virtual_register_256 = load 4 $_virtual_register_255 0
+    $_virtual_register_257 = add $_virtual_register_256 4
+    $_virtual_register_258 = load 4 $_virtual_register_257 0
+    $_virtual_register_259 = add 8 $_virtual_register_258
+    $_virtual_register_260 = load 4 $_virtual_register_259 0
+    $_virtual_register_261 = seq $_virtual_register_260 0
+    br $_virtual_register_261 %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_62 = move $_virtual_register_256
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_63 = phi findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_62 findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge $returnVal_64 
+    $returnVal_46 = move $returnVal_63
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_262 = load 4 $_virtual_register_257 0
+    $_virtual_register_263 = add 8 $_virtual_register_262
+    $_virtual_register_264 = load 4 $_virtual_register_263 0
+    $_virtual_register_265 = call findLargest $_virtual_register_264 
+    $returnVal_64 = move $_virtual_register_265
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_49 = move $_virtual_register_240
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest_split_block_2
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_3_findLargest__if_then:
+    $returnVal_52 = move $_virtual_register_232
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block_2
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_55 = move $_virtual_register_224
+    jump %findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_58 = move $_virtual_register_216
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block_3
+%findLargest_fake_fake_findLargest_4_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_61 = move $_virtual_register_208
+    jump %findLargest_fake_fake_findLargest_4_findLargest_split_block
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_40 = move $_virtual_register_192
+    jump %findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%findLargest_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_43 = move $_virtual_register_184
+    jump %findLargest_fake_fake_findLargest_3_findLargest_split_block_2
+}
+
+func eraseImpl $cur_3 $pnt_2 $childId_2 $key_2 {
+%eraseImpl_entry:
+    $root_2 = load 4 @root 0
+    $_virtual_register_266 = seq $cur_3 0
+    br $_virtual_register_266 %eraseImpl__if_then %eraseImpl__if_merge
+%eraseImpl__if_then:
+    $returnVal_65 = move 0
+    jump %eraseImpl_exit
+%eraseImpl_exit:
+    $returnVal_66 = phi eraseImpl__if_then $returnVal_65 eraseImpl__if_then_2 $returnVal_67 eraseImpl__if_then_3 $returnVal_68 eraseImpl__if_merge_2 $returnVal_69 eraseImpl__if_merge_3 $returnVal_70 eraseImpl__if_then_4 $returnVal_71 
+    $root_3 = phi eraseImpl__if_then $root_2 eraseImpl__if_then_2 $root_4 eraseImpl__if_then_3 $root_2 eraseImpl__if_merge_2 $root_5 eraseImpl__if_merge_3 $root_6 eraseImpl__if_then_4 $root_7 
+    store 4 @root $root_3 0
+    ret $returnVal_66
+%eraseImpl__if_merge:
+    $_virtual_register_267 = add $cur_3 8
+    $_virtual_register_268 = load 4 $_virtual_register_267 0
+    $_virtual_register_269 = sgt $_virtual_register_268 $key_2
+    br $_virtual_register_269 %eraseImpl__if_then_4 %eraseImpl__if_merge_4
+%eraseImpl__if_merge_4:
+    $_virtual_register_270 = load 4 $_virtual_register_267 0
+    $_virtual_register_271 = slt $_virtual_register_270 $key_2
+    br $_virtual_register_271 %eraseImpl__if_then_2 %eraseImpl__if_merge_5
+%eraseImpl__if_then_2:
+    $_virtual_register_272 = add $cur_3 4
+    $_virtual_register_273 = load 4 $_virtual_register_272 0
+    $_virtual_register_274 = mul 1 4
+    $_virtual_register_275 = add $_virtual_register_274 4
+    $_virtual_register_276 = add $_virtual_register_275 $_virtual_register_273
+    $_virtual_register_277 = load 4 $_virtual_register_276 0
+    store 4 @root $root_2 0
+    $_virtual_register_278 = call eraseImpl $_virtual_register_277 $cur_3 1 $key_2 
+    $root_4 = load 4 @root 0
+    $returnVal_67 = move $_virtual_register_278
+    jump %eraseImpl_exit
+%eraseImpl__if_merge_5:
+    $_virtual_register_279 = add $cur_3 12
+    $_virtual_register_280 = load 4 $_virtual_register_279 0
+    $_virtual_register_281 = sub $_virtual_register_280 1
+    store 4 $_virtual_register_279 $_virtual_register_281 0
+    $_virtual_register_282 = load 4 $_virtual_register_279 0
+    $_virtual_register_283 = sgt $_virtual_register_282 0
+    br $_virtual_register_283 %eraseImpl__if_then_3 %eraseImpl__if_merge_6
+%eraseImpl__if_then_3:
+    $returnVal_68 = move 1
+    jump %eraseImpl_exit
+%eraseImpl__if_merge_6:
+    $_virtual_register_284 = add $cur_3 4
+    $_virtual_register_285 = load 4 $_virtual_register_284 0
+    $_virtual_register_286 = mul 0 4
+    $_virtual_register_287 = add $_virtual_register_286 4
+    $_virtual_register_288 = add $_virtual_register_287 $_virtual_register_285
+    $_virtual_register_289 = load 4 $_virtual_register_288 0
+    $_virtual_register_290 = seq $_virtual_register_289 0
+    br $_virtual_register_290 %eraseImpl__if_then_5 %eraseImpl__if_merge_7
+%eraseImpl__if_then_5:
+    $_virtual_register_291 = sne $pnt_2 0
+    br $_virtual_register_291 %eraseImpl__if_then_6 %eraseImpl__if_merge_8
+%eraseImpl__if_then_6:
+    $_virtual_register_292 = add $pnt_2 4
+    $_virtual_register_293 = load 4 $_virtual_register_292 0
+    $_virtual_register_294 = mul $childId_2 4
+    $_virtual_register_295 = add $_virtual_register_294 4
+    $_virtual_register_296 = add $_virtual_register_295 $_virtual_register_293
+    $_virtual_register_297 = load 4 $_virtual_register_284 0
+    $_virtual_register_298 = mul 1 4
+    $_virtual_register_299 = add $_virtual_register_298 4
+    $_virtual_register_300 = add $_virtual_register_299 $_virtual_register_297
+    $_virtual_register_301 = load 4 $_virtual_register_300 0
+    store 4 $_virtual_register_296 $_virtual_register_301 0
+    jump %eraseImpl__if_merge_8
+%eraseImpl__if_merge_8:
+    $_virtual_register_302 = add $cur_3 4
+    $_virtual_register_303 = load 4 $_virtual_register_302 0
+    $_virtual_register_304 = mul 1 4
+    $_virtual_register_305 = add $_virtual_register_304 4
+    $_virtual_register_306 = add $_virtual_register_305 $_virtual_register_303
+    $_virtual_register_307 = load 4 $_virtual_register_306 0
+    $_virtual_register_308 = sne $_virtual_register_307 0
+    br $_virtual_register_308 %eraseImpl__if_then_7 %eraseImpl__if_merge_9
+%eraseImpl__if_merge_9:
+    $_virtual_register_309 = add $root_2 8
+    $_virtual_register_310 = load 4 $_virtual_register_309 0
+    $_virtual_register_311 = seq $key_2 $_virtual_register_310
+    br $_virtual_register_311 %eraseImpl__if_then_8 %eraseImpl__if_merge_2
+%eraseImpl__if_merge_2:
+    $root_5 = phi eraseImpl__if_merge_9 $root_2 eraseImpl__if_then_8 $root_8 
+    $returnVal_69 = move 1
+    jump %eraseImpl_exit
+%eraseImpl__if_then_8:
+    $_virtual_register_312 = add $cur_3 4
+    $_virtual_register_313 = load 4 $_virtual_register_312 0
+    $_virtual_register_314 = add 8 $_virtual_register_313
+    $_virtual_register_315 = load 4 $_virtual_register_314 0
+    $root_8 = move $_virtual_register_315
+    jump %eraseImpl__if_merge_2
+%eraseImpl__if_then_7:
+    $_virtual_register_316 = load 4 $_virtual_register_302 0
+    $_virtual_register_317 = add $_virtual_register_305 $_virtual_register_316
+    $_virtual_register_318 = load 4 $_virtual_register_317 0
+    $_virtual_register_319 = add $_virtual_register_318 0
+    store 4 $_virtual_register_319 $pnt_2 0
+    jump %eraseImpl__if_merge_9
+%eraseImpl__if_merge_7:
+    $_virtual_register_320 = load 4 $_virtual_register_284 0
+    $_virtual_register_321 = add $_virtual_register_287 $_virtual_register_320
+    $_virtual_register_322 = load 4 $_virtual_register_321 0
+    $_virtual_register_323 = add $_virtual_register_322 4
+    $_virtual_register_324 = load 4 $_virtual_register_323 0
+    $_virtual_register_325 = mul 1 4
+    $_virtual_register_326 = add $_virtual_register_325 4
+    $_virtual_register_327 = add $_virtual_register_326 $_virtual_register_324
+    $_virtual_register_328 = load 4 $_virtual_register_327 0
+    $_virtual_register_329 = seq $_virtual_register_328 0
+    br $_virtual_register_329 %eraseImpl_fake_fake_findLargest_1_findLargest__if_then %eraseImpl_fake_fake_findLargest_1_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_72 = move $_virtual_register_322
+    jump %eraseImpl_split_block
+%eraseImpl_split_block:
+    $returnVal_73 = phi eraseImpl_fake_fake_findLargest_1_findLargest__if_then $returnVal_72 eraseImpl_split_block_2 $returnVal_74 
+    $_virtual_register_330 = add $root_2 8
+    $_virtual_register_331 = load 4 $_virtual_register_330 0
+    $_virtual_register_332 = seq $key_2 $_virtual_register_331
+    br $_virtual_register_332 %eraseImpl__if_then_9 %eraseImpl__if_merge_10
+%eraseImpl__if_then_9:
+    $root_9 = move $returnVal_73
+    jump %eraseImpl__if_merge_10
+%eraseImpl__if_merge_10:
+    $root_6 = phi eraseImpl_split_block $root_2 eraseImpl__if_then_9 $root_9 
+    $_virtual_register_333 = add $returnVal_73 8
+    $_virtual_register_334 = add $cur_3 4
+    $_virtual_register_335 = load 4 $_virtual_register_334 0
+    $_virtual_register_336 = add 4 $_virtual_register_335
+    $_virtual_register_337 = load 4 $_virtual_register_336 0
+    $_virtual_register_338 = add $_virtual_register_337 8
+    $_virtual_register_339 = load 4 $_virtual_register_333 0
+    $_virtual_register_340 = load 4 $_virtual_register_338 0
+    $_virtual_register_341 = sne $_virtual_register_339 $_virtual_register_340
+    br $_virtual_register_341 %eraseImpl__if_then_10 %eraseImpl__if_merge_11
+%eraseImpl__if_merge_11:
+    $_virtual_register_342 = sne $pnt_2 0
+    br $_virtual_register_342 %eraseImpl__if_then_11 %eraseImpl__if_merge_12
+%eraseImpl__if_merge_12:
+    $_virtual_register_343 = add $returnVal_73 0
+    store 4 $_virtual_register_343 $pnt_2 0
+    $_virtual_register_344 = add $returnVal_73 4
+    $_virtual_register_345 = load 4 $_virtual_register_344 0
+    $_virtual_register_346 = mul 1 4
+    $_virtual_register_347 = add $_virtual_register_346 4
+    $_virtual_register_348 = add $_virtual_register_347 $_virtual_register_345
+    $_virtual_register_349 = add $cur_3 4
+    $_virtual_register_350 = load 4 $_virtual_register_349 0
+    $_virtual_register_351 = add $_virtual_register_347 $_virtual_register_350
+    $_virtual_register_352 = load 4 $_virtual_register_351 0
+    store 4 $_virtual_register_348 $_virtual_register_352 0
+    $_virtual_register_353 = load 4 $_virtual_register_349 0
+    $_virtual_register_354 = add $_virtual_register_347 $_virtual_register_353
+    $_virtual_register_355 = load 4 $_virtual_register_354 0
+    $_virtual_register_356 = sne $_virtual_register_355 0
+    br $_virtual_register_356 %eraseImpl__if_then_12 %eraseImpl__if_merge_13
+%eraseImpl__if_merge_13:
+    $_virtual_register_357 = add $returnVal_73 8
+    $_virtual_register_358 = add $cur_3 4
+    $_virtual_register_359 = load 4 $_virtual_register_358 0
+    $_virtual_register_360 = mul 0 4
+    $_virtual_register_361 = add $_virtual_register_360 4
+    $_virtual_register_362 = add $_virtual_register_361 $_virtual_register_359
+    $_virtual_register_363 = load 4 $_virtual_register_362 0
+    $_virtual_register_364 = add $_virtual_register_363 8
+    $_virtual_register_365 = load 4 $_virtual_register_357 0
+    $_virtual_register_366 = load 4 $_virtual_register_364 0
+    $_virtual_register_367 = sne $_virtual_register_365 $_virtual_register_366
+    br $_virtual_register_367 %eraseImpl__if_then_13 %eraseImpl__if_merge_3
+%eraseImpl__if_merge_3:
+    $returnVal_70 = move 1
+    jump %eraseImpl_exit
+%eraseImpl__if_then_13:
+    $_virtual_register_368 = add $returnVal_73 4
+    $_virtual_register_369 = load 4 $_virtual_register_368 0
+    $_virtual_register_370 = add $_virtual_register_361 $_virtual_register_369
+    $_virtual_register_371 = load 4 $_virtual_register_358 0
+    $_virtual_register_372 = add $_virtual_register_361 $_virtual_register_371
+    $_virtual_register_373 = load 4 $_virtual_register_372 0
+    store 4 $_virtual_register_370 $_virtual_register_373 0
+    $_virtual_register_374 = load 4 $_virtual_register_358 0
+    $_virtual_register_375 = add $_virtual_register_361 $_virtual_register_374
+    $_virtual_register_376 = load 4 $_virtual_register_375 0
+    $_virtual_register_377 = add $_virtual_register_376 0
+    store 4 $_virtual_register_377 $returnVal_73 0
+    jump %eraseImpl__if_merge_3
+%eraseImpl__if_then_12:
+    $_virtual_register_378 = load 4 $_virtual_register_349 0
+    $_virtual_register_379 = add $_virtual_register_347 $_virtual_register_378
+    $_virtual_register_380 = load 4 $_virtual_register_379 0
+    $_virtual_register_381 = add $_virtual_register_380 0
+    store 4 $_virtual_register_381 $returnVal_73 0
+    jump %eraseImpl__if_merge_13
+%eraseImpl__if_then_11:
+    $_virtual_register_382 = add $pnt_2 4
+    $_virtual_register_383 = load 4 $_virtual_register_382 0
+    $_virtual_register_384 = mul $childId_2 4
+    $_virtual_register_385 = add $_virtual_register_384 4
+    $_virtual_register_386 = add $_virtual_register_385 $_virtual_register_383
+    store 4 $_virtual_register_386 $returnVal_73 0
+    jump %eraseImpl__if_merge_12
+%eraseImpl__if_then_10:
+    $_virtual_register_387 = add $returnVal_73 0
+    $_virtual_register_388 = load 4 $_virtual_register_387 0
+    $_virtual_register_389 = add $_virtual_register_388 4
+    $_virtual_register_390 = load 4 $_virtual_register_389 0
+    $_virtual_register_391 = add 8 $_virtual_register_390
+    $_virtual_register_392 = add $returnVal_73 4
+    $_virtual_register_393 = load 4 $_virtual_register_392 0
+    $_virtual_register_394 = add 4 $_virtual_register_393
+    $_virtual_register_395 = load 4 $_virtual_register_394 0
+    store 4 $_virtual_register_391 $_virtual_register_395 0
+    $_virtual_register_396 = load 4 $_virtual_register_392 0
+    $_virtual_register_397 = add 4 $_virtual_register_396
+    $_virtual_register_398 = load 4 $_virtual_register_397 0
+    $_virtual_register_399 = sne $_virtual_register_398 0
+    br $_virtual_register_399 %eraseImpl__if_then_14 %eraseImpl__if_merge_14
+%eraseImpl__if_then_14:
+    $_virtual_register_400 = load 4 $_virtual_register_392 0
+    $_virtual_register_401 = add 4 $_virtual_register_400
+    $_virtual_register_402 = load 4 $_virtual_register_401 0
+    $_virtual_register_403 = add $_virtual_register_402 0
+    $_virtual_register_404 = load 4 $_virtual_register_387 0
+    store 4 $_virtual_register_403 $_virtual_register_404 0
+    jump %eraseImpl__if_merge_14
+%eraseImpl__if_merge_14:
+    jump %eraseImpl__if_merge_11
+%eraseImpl_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_405 = load 4 $_virtual_register_323 0
+    $_virtual_register_406 = add $_virtual_register_326 $_virtual_register_405
+    $_virtual_register_407 = load 4 $_virtual_register_406 0
+    $_virtual_register_408 = add $_virtual_register_407 4
+    $_virtual_register_409 = load 4 $_virtual_register_408 0
+    $_virtual_register_410 = add $_virtual_register_326 $_virtual_register_409
+    $_virtual_register_411 = load 4 $_virtual_register_410 0
+    $_virtual_register_412 = seq $_virtual_register_411 0
+    br $_virtual_register_412 %eraseImpl_fake_fake_findLargest_2_findLargest__if_then %eraseImpl_fake_fake_findLargest_2_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_75 = move $_virtual_register_407
+    jump %eraseImpl_split_block_2
+%eraseImpl_split_block_2:
+    $returnVal_76 = phi eraseImpl_fake_fake_findLargest_2_findLargest__if_then $returnVal_75 eraseImpl_fake_fake_findLargest_2_findLargest_split_block $returnVal_77 
+    $returnVal_74 = move $returnVal_76
+    jump %eraseImpl_split_block
+%eraseImpl_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_413 = load 4 $_virtual_register_408 0
+    $_virtual_register_414 = add $_virtual_register_326 $_virtual_register_413
+    $_virtual_register_415 = load 4 $_virtual_register_414 0
+    $_virtual_register_416 = add $_virtual_register_415 4
+    $_virtual_register_417 = load 4 $_virtual_register_416 0
+    $_virtual_register_418 = add $_virtual_register_326 $_virtual_register_417
+    $_virtual_register_419 = load 4 $_virtual_register_418 0
+    $_virtual_register_420 = seq $_virtual_register_419 0
+    br $_virtual_register_420 %eraseImpl_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %eraseImpl_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_421 = load 4 $_virtual_register_416 0
+    $_virtual_register_422 = add $_virtual_register_326 $_virtual_register_421
+    $_virtual_register_423 = load 4 $_virtual_register_422 0
+    $_virtual_register_424 = add $_virtual_register_423 4
+    $_virtual_register_425 = load 4 $_virtual_register_424 0
+    $_virtual_register_426 = add $_virtual_register_326 $_virtual_register_425
+    $_virtual_register_427 = load 4 $_virtual_register_426 0
+    $_virtual_register_428 = seq $_virtual_register_427 0
+    br $_virtual_register_428 %eraseImpl_fake_fake_findLargest_3_findLargest__if_then %eraseImpl_fake_fake_findLargest_3_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_3_findLargest__if_merge:
+    $_virtual_register_429 = load 4 $_virtual_register_424 0
+    $_virtual_register_430 = add $_virtual_register_326 $_virtual_register_429
+    $_virtual_register_431 = load 4 $_virtual_register_430 0
+    $_virtual_register_432 = add $_virtual_register_431 4
+    $_virtual_register_433 = load 4 $_virtual_register_432 0
+    $_virtual_register_434 = add $_virtual_register_326 $_virtual_register_433
+    $_virtual_register_435 = load 4 $_virtual_register_434 0
+    $_virtual_register_436 = seq $_virtual_register_435 0
+    br $_virtual_register_436 %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_78 = move $_virtual_register_431
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_split_block
+%eraseImpl_fake_fake_findLargest_3_findLargest_split_block:
+    $returnVal_79 = phi eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_78 eraseImpl_fake_fake_findLargest_3_findLargest_split_block_2 $returnVal_80 
+    $returnVal_81 = move $returnVal_79
+    jump %eraseImpl_split_block_3
+%eraseImpl_split_block_3:
+    $returnVal_82 = phi eraseImpl_fake_fake_findLargest_3_findLargest_split_block $returnVal_81 eraseImpl_fake_fake_findLargest_3_findLargest__if_then $returnVal_83 
+    $returnVal_84 = move $returnVal_82
+    jump %eraseImpl_fake_fake_findLargest_2_findLargest_split_block
+%eraseImpl_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_85 = phi eraseImpl_split_block_3 $returnVal_84 eraseImpl_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_86 
+    $returnVal_77 = move $returnVal_85
+    jump %eraseImpl_split_block_2
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_437 = load 4 $_virtual_register_432 0
+    $_virtual_register_438 = add $_virtual_register_326 $_virtual_register_437
+    $_virtual_register_439 = load 4 $_virtual_register_438 0
+    $_virtual_register_440 = add $_virtual_register_439 4
+    $_virtual_register_441 = load 4 $_virtual_register_440 0
+    $_virtual_register_442 = add $_virtual_register_326 $_virtual_register_441
+    $_virtual_register_443 = load 4 $_virtual_register_442 0
+    $_virtual_register_444 = seq $_virtual_register_443 0
+    br $_virtual_register_444 %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then:
+    $returnVal_87 = move $_virtual_register_439
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_split_block_2
+%eraseImpl_fake_fake_findLargest_3_findLargest_split_block_2:
+    $returnVal_88 = phi eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_then $returnVal_87 eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block $returnVal_89 
+    $returnVal_80 = move $returnVal_88
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_split_block
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest__if_merge:
+    $_virtual_register_445 = load 4 $_virtual_register_440 0
+    $_virtual_register_446 = add $_virtual_register_326 $_virtual_register_445
+    $_virtual_register_447 = load 4 $_virtual_register_446 0
+    $_virtual_register_448 = add $_virtual_register_447 4
+    $_virtual_register_449 = load 4 $_virtual_register_448 0
+    $_virtual_register_450 = add $_virtual_register_326 $_virtual_register_449
+    $_virtual_register_451 = load 4 $_virtual_register_450 0
+    $_virtual_register_452 = seq $_virtual_register_451 0
+    br $_virtual_register_452 %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_90 = move $_virtual_register_447
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block:
+    $returnVal_91 = phi eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then $returnVal_90 eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge $returnVal_92 
+    $returnVal_89 = move $returnVal_91
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_split_block_2
+%eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_merge:
+    $_virtual_register_453 = load 4 $_virtual_register_448 0
+    $_virtual_register_454 = add $_virtual_register_326 $_virtual_register_453
+    $_virtual_register_455 = load 4 $_virtual_register_454 0
+    $_virtual_register_456 = call findLargest $_virtual_register_455 
+    $returnVal_92 = move $_virtual_register_456
+    jump %eraseImpl_fake_fake_findLargest_3_findLargest_fake_fake_findLargest_2_findLargest_split_block
+%eraseImpl_fake_fake_findLargest_3_findLargest__if_then:
+    $returnVal_83 = move $_virtual_register_423
+    jump %eraseImpl_split_block_3
+%eraseImpl_fake_fake_findLargest_2_findLargest_fake_fake_findLargest_1_findLargest__if_then:
+    $returnVal_86 = move $_virtual_register_415
+    jump %eraseImpl_fake_fake_findLargest_2_findLargest_split_block
+%eraseImpl__if_then_4:
+    $_virtual_register_457 = add $cur_3 4
+    $_virtual_register_458 = load 4 $_virtual_register_457 0
+    $_virtual_register_459 = mul 0 4
+    $_virtual_register_460 = add $_virtual_register_459 4
+    $_virtual_register_461 = add $_virtual_register_460 $_virtual_register_458
+    $_virtual_register_462 = load 4 $_virtual_register_461 0
+    store 4 @root $root_2 0
+    $_virtual_register_463 = call eraseImpl $_virtual_register_462 $cur_3 0 $key_2 
+    $root_7 = load 4 @root 0
+    $returnVal_71 = move $_virtual_register_463
+    jump %eraseImpl_exit
+}
+
+void printTree $cur_4 {
+%printTree_entry:
+    $_virtual_register_464 = seq $cur_4 0
+    br $_virtual_register_464 %printTree__if_then %printTree__if_merge
+%printTree__if_merge:
+    $_virtual_register_465 = add $cur_4 4
+    $_virtual_register_466 = load 4 $_virtual_register_465 0
+    $_virtual_register_467 = mul 0 4
+    $_virtual_register_468 = add $_virtual_register_467 4
+    $_virtual_register_469 = add $_virtual_register_468 $_virtual_register_466
+    $_virtual_register_470 = load 4 $_virtual_register_469 0
+    $_virtual_register_471 = seq $_virtual_register_470 0
+    br $_virtual_register_471 %printTree_fake_fake_printTree_1_printTree__if_then %printTree_fake_fake_printTree_1_printTree__if_merge
+%printTree_fake_fake_printTree_1_printTree__if_merge:
+    $_virtual_register_472 = add $_virtual_register_470 4
+    $_virtual_register_473 = load 4 $_virtual_register_472 0
+    $_virtual_register_474 = add $_virtual_register_468 $_virtual_register_473
+    $_virtual_register_475 = load 4 $_virtual_register_474 0
+    $_virtual_register_476 = seq $_virtual_register_475 0
+    br $_virtual_register_476 %printTree_fake_fake_printTree_2_printTree__if_then %printTree_fake_fake_printTree_2_printTree__if_merge
+%printTree_fake_fake_printTree_2_printTree__if_then:
+    jump %printTree_split_block
+%printTree_split_block:
+    $_virtual_register_477 = add $_virtual_register_470 8
+    $_virtual_register_478 = load 4 $_virtual_register_477 0
+    $_virtual_register_479 = call toString $_virtual_register_478 
+    $_virtual_register_480 = call string.add $_virtual_register_479 @__str_const_1 
+    $_virtual_register_481 = add $_virtual_register_470 12
+    $_virtual_register_482 = load 4 $_virtual_register_481 0
+    $_virtual_register_483 = call toString $_virtual_register_482 
+    $_virtual_register_484 = call string.add $_virtual_register_480 $_virtual_register_483 
+    call println $_virtual_register_484 
+    $_virtual_register_485 = add $_virtual_register_470 4
+    $_virtual_register_486 = load 4 $_virtual_register_485 0
+    $_virtual_register_487 = mul 1 4
+    $_virtual_register_488 = add $_virtual_register_487 4
+    $_virtual_register_489 = add $_virtual_register_488 $_virtual_register_486
+    $_virtual_register_490 = load 4 $_virtual_register_489 0
+    call printTree $_virtual_register_490 
+    jump %printTree_split_block_2
+%printTree_split_block_2:
+    $_virtual_register_491 = add $cur_4 8
+    $_virtual_register_492 = load 4 $_virtual_register_491 0
+    $_virtual_register_493 = call toString $_virtual_register_492 
+    $_virtual_register_494 = call string.add $_virtual_register_493 @__str_const_1 
+    $_virtual_register_495 = add $cur_4 12
+    $_virtual_register_496 = load 4 $_virtual_register_495 0
+    $_virtual_register_497 = call toString $_virtual_register_496 
+    $_virtual_register_498 = call string.add $_virtual_register_494 $_virtual_register_497 
+    call println $_virtual_register_498 
+    $_virtual_register_499 = add $cur_4 4
+    $_virtual_register_500 = load 4 $_virtual_register_499 0
+    $_virtual_register_501 = mul 1 4
+    $_virtual_register_502 = add $_virtual_register_501 4
+    $_virtual_register_503 = add $_virtual_register_502 $_virtual_register_500
+    $_virtual_register_504 = load 4 $_virtual_register_503 0
+    $_virtual_register_505 = seq $_virtual_register_504 0
+    br $_virtual_register_505 %printTree_fake_fake_printTree_1_printTree__if_then_2 %printTree_fake_fake_printTree_1_printTree__if_merge_2
+%printTree_fake_fake_printTree_1_printTree__if_then_2:
+    jump %printTree_split_block_3
+%printTree_split_block_3:
+    jump %printTree_exit
+%printTree_exit:
+    ret 
+%printTree_fake_fake_printTree_1_printTree__if_merge_2:
+    $_virtual_register_506 = add $_virtual_register_504 4
+    $_virtual_register_507 = load 4 $_virtual_register_506 0
+    $_virtual_register_508 = mul 0 4
+    $_virtual_register_509 = add $_virtual_register_508 4
+    $_virtual_register_510 = add $_virtual_register_509 $_virtual_register_507
+    $_virtual_register_511 = load 4 $_virtual_register_510 0
+    call printTree $_virtual_register_511 
+    $_virtual_register_512 = add $_virtual_register_504 8
+    $_virtual_register_513 = load 4 $_virtual_register_512 0
+    $_virtual_register_514 = call toString $_virtual_register_513 
+    $_virtual_register_515 = call string.add $_virtual_register_514 @__str_const_1 
+    $_virtual_register_516 = add $_virtual_register_504 12
+    $_virtual_register_517 = load 4 $_virtual_register_516 0
+    $_virtual_register_518 = call toString $_virtual_register_517 
+    $_virtual_register_519 = call string.add $_virtual_register_515 $_virtual_register_518 
+    call println $_virtual_register_519 
+    $_virtual_register_520 = load 4 $_virtual_register_506 0
+    $_virtual_register_521 = add $_virtual_register_502 $_virtual_register_520
+    $_virtual_register_522 = load 4 $_virtual_register_521 0
+    call printTree $_virtual_register_522 
+    jump %printTree_split_block_3
+%printTree_fake_fake_printTree_2_printTree__if_merge:
+    $_virtual_register_523 = add $_virtual_register_475 4
+    $_virtual_register_524 = load 4 $_virtual_register_523 0
+    $_virtual_register_525 = add $_virtual_register_468 $_virtual_register_524
+    $_virtual_register_526 = load 4 $_virtual_register_525 0
+    $_virtual_register_527 = seq $_virtual_register_526 0
+    br $_virtual_register_527 %printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_then %printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_merge
+%printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_merge:
+    $_virtual_register_528 = add $_virtual_register_526 4
+    $_virtual_register_529 = load 4 $_virtual_register_528 0
+    $_virtual_register_530 = add $_virtual_register_468 $_virtual_register_529
+    $_virtual_register_531 = load 4 $_virtual_register_530 0
+    call printTree $_virtual_register_531 
+    $_virtual_register_532 = add $_virtual_register_526 8
+    $_virtual_register_533 = load 4 $_virtual_register_532 0
+    $_virtual_register_534 = call toString $_virtual_register_533 
+    $_virtual_register_535 = call string.add $_virtual_register_534 @__str_const_1 
+    $_virtual_register_536 = add $_virtual_register_526 12
+    $_virtual_register_537 = load 4 $_virtual_register_536 0
+    $_virtual_register_538 = call toString $_virtual_register_537 
+    $_virtual_register_539 = call string.add $_virtual_register_535 $_virtual_register_538 
+    call println $_virtual_register_539 
+    $_virtual_register_540 = load 4 $_virtual_register_528 0
+    $_virtual_register_541 = mul 1 4
+    $_virtual_register_542 = add $_virtual_register_541 4
+    $_virtual_register_543 = add $_virtual_register_542 $_virtual_register_540
+    $_virtual_register_544 = load 4 $_virtual_register_543 0
+    call printTree $_virtual_register_544 
+    jump %printTree_fake_fake_printTree_2_printTree_split_block
+%printTree_fake_fake_printTree_2_printTree_split_block:
+    $_virtual_register_545 = add $_virtual_register_475 8
+    $_virtual_register_546 = load 4 $_virtual_register_545 0
+    $_virtual_register_547 = call toString $_virtual_register_546 
+    $_virtual_register_548 = call string.add $_virtual_register_547 @__str_const_1 
+    $_virtual_register_549 = add $_virtual_register_475 12
+    $_virtual_register_550 = load 4 $_virtual_register_549 0
+    $_virtual_register_551 = call toString $_virtual_register_550 
+    $_virtual_register_552 = call string.add $_virtual_register_548 $_virtual_register_551 
+    call println $_virtual_register_552 
+    $_virtual_register_553 = add $_virtual_register_475 4
+    $_virtual_register_554 = load 4 $_virtual_register_553 0
+    $_virtual_register_555 = mul 1 4
+    $_virtual_register_556 = add $_virtual_register_555 4
+    $_virtual_register_557 = add $_virtual_register_556 $_virtual_register_554
+    $_virtual_register_558 = load 4 $_virtual_register_557 0
+    $_virtual_register_559 = seq $_virtual_register_558 0
+    br $_virtual_register_559 %printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_then_2 %printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_merge_2
+%printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_merge_2:
+    $_virtual_register_560 = add $_virtual_register_558 4
+    $_virtual_register_561 = load 4 $_virtual_register_560 0
+    $_virtual_register_562 = mul 0 4
+    $_virtual_register_563 = add $_virtual_register_562 4
+    $_virtual_register_564 = add $_virtual_register_563 $_virtual_register_561
+    $_virtual_register_565 = load 4 $_virtual_register_564 0
+    call printTree $_virtual_register_565 
+    $_virtual_register_566 = add $_virtual_register_558 8
+    $_virtual_register_567 = load 4 $_virtual_register_566 0
+    $_virtual_register_568 = call toString $_virtual_register_567 
+    $_virtual_register_569 = call string.add $_virtual_register_568 @__str_const_1 
+    $_virtual_register_570 = add $_virtual_register_558 12
+    $_virtual_register_571 = load 4 $_virtual_register_570 0
+    $_virtual_register_572 = call toString $_virtual_register_571 
+    $_virtual_register_573 = call string.add $_virtual_register_569 $_virtual_register_572 
+    call println $_virtual_register_573 
+    $_virtual_register_574 = load 4 $_virtual_register_560 0
+    $_virtual_register_575 = add $_virtual_register_556 $_virtual_register_574
+    $_virtual_register_576 = load 4 $_virtual_register_575 0
+    call printTree $_virtual_register_576 
+    jump %printTree_fake_fake_printTree_2_printTree_split_block_2
+%printTree_fake_fake_printTree_2_printTree_split_block_2:
+    jump %printTree_split_block
+%printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_then_2:
+    jump %printTree_fake_fake_printTree_2_printTree_split_block_2
+%printTree_fake_fake_printTree_2_printTree_fake_fake_printTree_1_printTree__if_then:
+    jump %printTree_fake_fake_printTree_2_printTree_split_block
+%printTree_fake_fake_printTree_1_printTree__if_then:
+    jump %printTree_split_block_2
+%printTree__if_then:
+    jump %printTree_exit
+}
+
+func main {
+%main_entry:
+    $MaxRandInt_2 = load 4 @MaxRandInt 0
+    $root_10 = load 4 @root 0
+    $MAX_2 = load 4 @MAX 0
+    $_virtual_register_577 = call getInt 
+    $seed_2 = move $_virtual_register_577
+    $_virtual_register_578 = div $MaxRandInt_2 10
+    $_virtual_register_579 = mul 8 $_virtual_register_578
+    $i = move 0
+    jump %main_fake_generateOperations__for_cond
+%main_fake_generateOperations__for_cond:
+    $seed_3 = phi main_entry $seed_2 main_fake_generateOperations__for_step $seed_4 
+    $i_2 = phi main_entry $i main_fake_generateOperations__for_step $i_3 
+    $root_11 = phi main_entry $root_10 main_fake_generateOperations__for_step $root_12 
+    $_virtual_register_580 = slt $i_2 50000
+    br $_virtual_register_580 %main_fake_generateOperations__for_body %main_split_block
+%main_split_block:
+    $_virtual_register_581 = div $MaxRandInt_2 10
+    $_virtual_register_582 = mul 2 $_virtual_register_581
+    $_virtual_register_583 = mul 2 50000
+    $i_4 = move 0
+    jump %main_fake_generateOperations__for_cond_2
+%main_fake_generateOperations__for_cond_2:
+    $i_5 = phi main_split_block $i_4 main_fake_generateOperations__for_step_2 $i_6 
+    $seed_5 = phi main_split_block $seed_3 main_fake_generateOperations__for_step_2 $seed_6 
+    $root_13 = phi main_split_block $root_11 main_fake_generateOperations__for_step_2 $root_14 
+    $_virtual_register_584 = slt $i_5 $_virtual_register_583
+    br $_virtual_register_584 %main_fake_generateOperations__for_body_2 %main_split_block_2
+%main_fake_generateOperations__for_body_2:
+    jump %main_fake_generateOperations_split_block
+%main_fake_generateOperations_split_block:
+    $_virtual_register_585 = shl $seed_5 13
+    $_virtual_register_586 = xor $seed_5 $_virtual_register_585
+    $_virtual_register_587 = shl 1 31
+    $_virtual_register_588 = not $_virtual_register_587
+    $_virtual_register_589 = and $_virtual_register_586 $_virtual_register_588
+    $_virtual_register_590 = shr $_virtual_register_589 17
+    $_virtual_register_591 = xor $_virtual_register_589 $_virtual_register_590
+    $_virtual_register_592 = shl $_virtual_register_591 5
+    $_virtual_register_593 = xor $_virtual_register_591 $_virtual_register_592
+    $_virtual_register_594 = not $_virtual_register_587
+    $_virtual_register_595 = and $_virtual_register_593 $_virtual_register_594
+    $_virtual_register_596 = mod $_virtual_register_595 $MAX_2
+    jump %main_fake_generateOperations_fake_randOp_split_block
+%main_fake_generateOperations_fake_randOp_split_block:
+    $_virtual_register_597 = shl $_virtual_register_595 13
+    $_virtual_register_598 = xor $_virtual_register_595 $_virtual_register_597
+    $_virtual_register_599 = not $_virtual_register_587
+    $_virtual_register_600 = and $_virtual_register_598 $_virtual_register_599
+    $_virtual_register_601 = shr $_virtual_register_600 17
+    $_virtual_register_602 = xor $_virtual_register_600 $_virtual_register_601
+    $_virtual_register_603 = shl $_virtual_register_602 5
+    $_virtual_register_604 = xor $_virtual_register_602 $_virtual_register_603
+    $_virtual_register_605 = not $_virtual_register_587
+    $_virtual_register_606 = and $_virtual_register_604 $_virtual_register_605
+    $seed_6 = move $_virtual_register_606
+    $_virtual_register_607 = slt $_virtual_register_606 $_virtual_register_582
+    br $_virtual_register_607 %main_fake_generateOperations_fake_randOp__if_then %main_fake_generateOperations_fake_randOp__if_merge
+%main_fake_generateOperations_fake_randOp__if_merge:
+    $returnVal_93 = move 2
+    jump %main_fake_generateOperations_split_block_2
+%main_fake_generateOperations_split_block_2:
+    $returnVal_94 = phi main_fake_generateOperations_fake_randOp__if_merge $returnVal_93 main_fake_generateOperations_fake_randOp__if_then $returnVal_95 
+    $_virtual_register_608 = seq $returnVal_94 1
+    br $_virtual_register_608 %main_fake_generateOperations__if_then %main_fake_generateOperations__if_else
+%main_fake_generateOperations__if_then:
+    $_virtual_register_609 = sne $root_13 0
+    br $_virtual_register_609 %main_fake_generateOperations_fake_insert__if_then %main_fake_generateOperations_fake_insert__if_merge
+%main_fake_generateOperations_fake_insert__if_merge:
+    jump %main_fake_generateOperations_fake_insert_split_block
+%main_fake_generateOperations_fake_insert_split_block:
+    $_virtual_register_610 = alloc 16
+    $_virtual_register_611 = add $_virtual_register_610 4
+    $_virtual_register_612 = mul 2 4
+    $_virtual_register_613 = add $_virtual_register_612 4
+    $_virtual_register_614 = alloc $_virtual_register_613
+    store 4 $_virtual_register_614 2 0
+    store 4 $_virtual_register_611 $_virtual_register_614 0
+    $_virtual_register_615 = add $_virtual_register_610 8
+    store 4 $_virtual_register_615 $_virtual_register_596 0
+    $_virtual_register_616 = add $_virtual_register_610 12
+    store 4 $_virtual_register_616 1 0
+    $_virtual_register_617 = add $_virtual_register_610 0
+    store 4 $_virtual_register_617 0 0
+    $_virtual_register_618 = load 4 $_virtual_register_611 0
+    $_virtual_register_619 = mul 0 4
+    $_virtual_register_620 = add $_virtual_register_619 4
+    $_virtual_register_621 = add $_virtual_register_620 $_virtual_register_618
+    store 4 $_virtual_register_621 0 0
+    $_virtual_register_622 = load 4 $_virtual_register_611 0
+    $_virtual_register_623 = mul 1 4
+    $_virtual_register_624 = add $_virtual_register_623 4
+    $_virtual_register_625 = add $_virtual_register_624 $_virtual_register_622
+    store 4 $_virtual_register_625 0 0
+    $root_15 = move $_virtual_register_610
+    jump %main_fake_generateOperations_split_block_3
+%main_fake_generateOperations_split_block_3:
+    $root_16 = phi main_fake_generateOperations_fake_insert_split_block $root_15 main_split_block_3 $root_13 
+    jump %main_fake_generateOperations__if_merge
+%main_fake_generateOperations__if_merge:
+    $root_14 = phi main_fake_generateOperations_split_block_3 $root_16 main_fake_generateOperations_split_block_4 $root_17 
+    jump %main_fake_generateOperations__for_step_2
+%main_fake_generateOperations__for_step_2:
+    $i_6 = add $i_5 1
+    jump %main_fake_generateOperations__for_cond_2
+%main_fake_generateOperations_fake_insert__if_then:
+    $_virtual_register_626 = sub 0 1
+    $_virtual_register_627 = seq $root_13 0
+    br $_virtual_register_627 %main_fake_fake_insertImpl_1_insertImpl__if_then %main_fake_fake_insertImpl_1_insertImpl__if_merge
+%main_fake_fake_insertImpl_1_insertImpl__if_then:
+    jump %main_fake_fake_insertImpl_1_insertImpl_split_block
+%main_fake_fake_insertImpl_1_insertImpl_split_block:
+    $_virtual_register_628 = alloc 16
+    $_virtual_register_629 = add $_virtual_register_628 4
+    $_virtual_register_630 = mul 2 4
+    $_virtual_register_631 = add $_virtual_register_630 4
+    $_virtual_register_632 = alloc $_virtual_register_631
+    store 4 $_virtual_register_632 2 0
+    store 4 $_virtual_register_629 $_virtual_register_632 0
+    $_virtual_register_633 = add $_virtual_register_628 8
+    store 4 $_virtual_register_633 $_virtual_register_596 0
+    $_virtual_register_634 = add $_virtual_register_628 12
+    store 4 $_virtual_register_634 1 0
+    $_virtual_register_635 = add $_virtual_register_628 0
+    store 4 $_virtual_register_635 0 0
+    $_virtual_register_636 = load 4 $_virtual_register_629 0
+    $_virtual_register_637 = mul 0 4
+    $_virtual_register_638 = add $_virtual_register_637 4
+    $_virtual_register_639 = add $_virtual_register_638 $_virtual_register_636
+    store 4 $_virtual_register_639 0 0
+    $_virtual_register_640 = load 4 $_virtual_register_629 0
+    $_virtual_register_641 = mul 1 4
+    $_virtual_register_642 = add $_virtual_register_641 4
+    $_virtual_register_643 = add $_virtual_register_642 $_virtual_register_640
+    store 4 $_virtual_register_643 0 0
+    $_virtual_register_644 = add 0 4
+    $_virtual_register_645 = load 4 $_virtual_register_644 0
+    $_virtual_register_646 = mul $_virtual_register_626 4
+    $_virtual_register_647 = add $_virtual_register_646 4
+    $_virtual_register_648 = add $_virtual_register_647 $_virtual_register_645
+    store 4 $_virtual_register_648 $_virtual_register_628 0
+    jump %main_split_block_3
+%main_split_block_3:
+    jump %main_fake_generateOperations_split_block_3
+%main_fake_fake_insertImpl_1_insertImpl__if_merge:
+    $_virtual_register_649 = add $root_13 8
+    $_virtual_register_650 = load 4 $_virtual_register_649 0
+    $_virtual_register_651 = seq $_virtual_register_650 $_virtual_register_596
+    br $_virtual_register_651 %main_fake_fake_insertImpl_1_insertImpl__if_then_2 %main_fake_fake_insertImpl_1_insertImpl__if_merge_2
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+    $id_13 = move 0
+    $_virtual_register_652 = load 4 $_virtual_register_649 0
+    $_virtual_register_653 = slt $_virtual_register_652 $_virtual_register_596
+    br $_virtual_register_653 %main_fake_fake_insertImpl_1_insertImpl__if_then_3 %main_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+    $id_14 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_2 $id_13 main_fake_fake_insertImpl_1_insertImpl__if_then_3 $id_15 
+    $_virtual_register_654 = add $root_13 4
+    $_virtual_register_655 = load 4 $_virtual_register_654 0
+    $_virtual_register_656 = mul $id_14 4
+    $_virtual_register_657 = add $_virtual_register_656 4
+    $_virtual_register_658 = add $_virtual_register_657 $_virtual_register_655
+    $_virtual_register_659 = load 4 $_virtual_register_658 0
+    $_virtual_register_660 = call insertImpl $_virtual_register_659 $root_13 $id_14 $_virtual_register_596 
+    jump %main_split_block_3
+%main_fake_fake_insertImpl_1_insertImpl__if_then_3:
+    $id_15 = move 1
+    jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_3
+%main_fake_fake_insertImpl_1_insertImpl__if_then_2:
+    $_virtual_register_661 = add $root_13 12
+    $_virtual_register_662 = load 4 $_virtual_register_661 0
+    $_virtual_register_663 = add $_virtual_register_662 1
+    store 4 $_virtual_register_661 $_virtual_register_663 0
+    jump %main_split_block_3
+%main_fake_generateOperations__if_else:
+    $_virtual_register_664 = seq $root_13 0
+    br $_virtual_register_664 %main_fake_generateOperations_fake_erase__if_then %main_fake_generateOperations_fake_erase__if_merge
+%main_fake_generateOperations_fake_erase__if_then:
+    jump %main_fake_generateOperations_split_block_4
+%main_fake_generateOperations_split_block_4:
+    $root_17 = phi main_fake_generateOperations_fake_erase__if_then $root_13 main_fake_generateOperations_fake_erase__if_merge $root_18 
+    jump %main_fake_generateOperations__if_merge
+%main_fake_generateOperations_fake_erase__if_merge:
+    $_virtual_register_665 = neg 1
+    store 4 @root $root_13 0
+    $_virtual_register_666 = call eraseImpl $root_13 0 $_virtual_register_665 $_virtual_register_596 
+    $root_18 = load 4 @root 0
+    jump %main_fake_generateOperations_split_block_4
+%main_fake_generateOperations_fake_randOp__if_then:
+    $returnVal_95 = move 1
+    jump %main_fake_generateOperations_split_block_2
+%main_split_block_2:
+    $_virtual_register_667 = div $MaxRandInt_2 10
+    $_virtual_register_668 = mul 4 $_virtual_register_667
+    $i_7 = move 0
+    jump %main_fake_generateOperations__for_cond_3
+%main_fake_generateOperations__for_cond_3:
+    $seed_7 = phi main_split_block_2 $seed_5 main_fake_generateOperations__for_step_3 $seed_8 
+    $i_8 = phi main_split_block_2 $i_7 main_fake_generateOperations__for_step_3 $i_9 
+    $root_19 = phi main_split_block_2 $root_13 main_fake_generateOperations__for_step_3 $root_20 
+    $_virtual_register_669 = slt $i_8 50000
+    br $_virtual_register_669 %main_fake_generateOperations__for_body_3 %main_split_block_4
+%main_split_block_4:
+    $_virtual_register_670 = seq $root_19 0
+    br $_virtual_register_670 %main_fake_fake_printTree_1_printTree__if_then %main_fake_fake_printTree_1_printTree__if_merge
+%main_fake_fake_printTree_1_printTree__if_merge:
+    $_virtual_register_671 = add $root_19 4
+    $_virtual_register_672 = load 4 $_virtual_register_671 0
+    $_virtual_register_673 = mul 0 4
+    $_virtual_register_674 = add $_virtual_register_673 4
+    $_virtual_register_675 = add $_virtual_register_674 $_virtual_register_672
+    $_virtual_register_676 = load 4 $_virtual_register_675 0
+    call printTree $_virtual_register_676 
+    $_virtual_register_677 = add $root_19 8
+    $_virtual_register_678 = load 4 $_virtual_register_677 0
+    $_virtual_register_679 = call toString $_virtual_register_678 
+    $_virtual_register_680 = call string.add $_virtual_register_679 @__str_const_1 
+    $_virtual_register_681 = add $root_19 12
+    $_virtual_register_682 = load 4 $_virtual_register_681 0
+    $_virtual_register_683 = call toString $_virtual_register_682 
+    $_virtual_register_684 = call string.add $_virtual_register_680 $_virtual_register_683 
+    call println $_virtual_register_684 
+    $_virtual_register_685 = load 4 $_virtual_register_671 0
+    $_virtual_register_686 = mul 1 4
+    $_virtual_register_687 = add $_virtual_register_686 4
+    $_virtual_register_688 = add $_virtual_register_687 $_virtual_register_685
+    $_virtual_register_689 = load 4 $_virtual_register_688 0
+    call printTree $_virtual_register_689 
+    jump %main_split_block_5
+%main_split_block_5:
+    store 4 @root $root_19 0
+    store 4 @seed $seed_7 0
+    ret 0
+%main_fake_fake_printTree_1_printTree__if_then:
+    jump %main_split_block_5
+%main_fake_generateOperations__for_body_3:
+    jump %main_fake_generateOperations_split_block_5
+%main_fake_generateOperations_split_block_5:
+    $_virtual_register_690 = shl $seed_7 13
+    $_virtual_register_691 = xor $seed_7 $_virtual_register_690
+    $_virtual_register_692 = shl 1 31
+    $_virtual_register_693 = not $_virtual_register_692
+    $_virtual_register_694 = and $_virtual_register_691 $_virtual_register_693
+    $_virtual_register_695 = shr $_virtual_register_694 17
+    $_virtual_register_696 = xor $_virtual_register_694 $_virtual_register_695
+    $_virtual_register_697 = shl $_virtual_register_696 5
+    $_virtual_register_698 = xor $_virtual_register_696 $_virtual_register_697
+    $_virtual_register_699 = not $_virtual_register_692
+    $_virtual_register_700 = and $_virtual_register_698 $_virtual_register_699
+    $_virtual_register_701 = mod $_virtual_register_700 $MAX_2
+    jump %main_fake_generateOperations_fake_randOp_split_block_2
+%main_fake_generateOperations_fake_randOp_split_block_2:
+    $_virtual_register_702 = shl $_virtual_register_700 13
+    $_virtual_register_703 = xor $_virtual_register_700 $_virtual_register_702
+    $_virtual_register_704 = not $_virtual_register_692
+    $_virtual_register_705 = and $_virtual_register_703 $_virtual_register_704
+    $_virtual_register_706 = shr $_virtual_register_705 17
+    $_virtual_register_707 = xor $_virtual_register_705 $_virtual_register_706
+    $_virtual_register_708 = shl $_virtual_register_707 5
+    $_virtual_register_709 = xor $_virtual_register_707 $_virtual_register_708
+    $_virtual_register_710 = not $_virtual_register_692
+    $_virtual_register_711 = and $_virtual_register_709 $_virtual_register_710
+    $seed_8 = move $_virtual_register_711
+    $_virtual_register_712 = slt $_virtual_register_711 $_virtual_register_668
+    br $_virtual_register_712 %main_fake_generateOperations_fake_randOp__if_then_2 %main_fake_generateOperations_fake_randOp__if_merge_2
+%main_fake_generateOperations_fake_randOp__if_merge_2:
+    $returnVal_96 = move 2
+    jump %main_fake_generateOperations_split_block_6
+%main_fake_generateOperations_split_block_6:
+    $returnVal_97 = phi main_fake_generateOperations_fake_randOp__if_merge_2 $returnVal_96 main_fake_generateOperations_fake_randOp__if_then_2 $returnVal_98 
+    $_virtual_register_713 = seq $returnVal_97 1
+    br $_virtual_register_713 %main_fake_generateOperations__if_then_2 %main_fake_generateOperations__if_else_2
+%main_fake_generateOperations__if_else_2:
+    $_virtual_register_714 = seq $root_19 0
+    br $_virtual_register_714 %main_fake_generateOperations_fake_erase__if_then_2 %main_fake_generateOperations_fake_erase__if_merge_2
+%main_fake_generateOperations_fake_erase__if_then_2:
+    jump %main_fake_generateOperations_split_block_7
+%main_fake_generateOperations_split_block_7:
+    $root_21 = phi main_fake_generateOperations_fake_erase__if_then_2 $root_19 main_fake_generateOperations_fake_erase__if_merge_2 $root_22 
+    jump %main_fake_generateOperations__if_merge_2
+%main_fake_generateOperations__if_merge_2:
+    $root_20 = phi main_fake_generateOperations_split_block_7 $root_21 main_fake_generateOperations_split_block_8 $root_23 
+    jump %main_fake_generateOperations__for_step_3
+%main_fake_generateOperations__for_step_3:
+    $i_9 = add $i_8 1
+    jump %main_fake_generateOperations__for_cond_3
+%main_fake_generateOperations_fake_erase__if_merge_2:
+    $_virtual_register_715 = neg 1
+    store 4 @root $root_19 0
+    $_virtual_register_716 = call eraseImpl $root_19 0 $_virtual_register_715 $_virtual_register_701 
+    $root_22 = load 4 @root 0
+    jump %main_fake_generateOperations_split_block_7
+%main_fake_generateOperations__if_then_2:
+    $_virtual_register_717 = sne $root_19 0
+    br $_virtual_register_717 %main_fake_generateOperations_fake_insert__if_then_2 %main_fake_generateOperations_fake_insert__if_merge_2
+%main_fake_generateOperations_fake_insert__if_merge_2:
+    jump %main_fake_generateOperations_fake_insert_split_block_2
+%main_fake_generateOperations_fake_insert_split_block_2:
+    $_virtual_register_718 = alloc 16
+    $_virtual_register_719 = add $_virtual_register_718 4
+    $_virtual_register_720 = mul 2 4
+    $_virtual_register_721 = add $_virtual_register_720 4
+    $_virtual_register_722 = alloc $_virtual_register_721
+    store 4 $_virtual_register_722 2 0
+    store 4 $_virtual_register_719 $_virtual_register_722 0
+    $_virtual_register_723 = add $_virtual_register_718 8
+    store 4 $_virtual_register_723 $_virtual_register_701 0
+    $_virtual_register_724 = add $_virtual_register_718 12
+    store 4 $_virtual_register_724 1 0
+    $_virtual_register_725 = add $_virtual_register_718 0
+    store 4 $_virtual_register_725 0 0
+    $_virtual_register_726 = load 4 $_virtual_register_719 0
+    $_virtual_register_727 = mul 0 4
+    $_virtual_register_728 = add $_virtual_register_727 4
+    $_virtual_register_729 = add $_virtual_register_728 $_virtual_register_726
+    store 4 $_virtual_register_729 0 0
+    $_virtual_register_730 = load 4 $_virtual_register_719 0
+    $_virtual_register_731 = mul 1 4
+    $_virtual_register_732 = add $_virtual_register_731 4
+    $_virtual_register_733 = add $_virtual_register_732 $_virtual_register_730
+    store 4 $_virtual_register_733 0 0
+    $root_24 = move $_virtual_register_718
+    jump %main_fake_generateOperations_split_block_8
+%main_fake_generateOperations_split_block_8:
+    $root_23 = phi main_fake_generateOperations_fake_insert_split_block_2 $root_24 main_split_block_6 $root_19 
+    jump %main_fake_generateOperations__if_merge_2
+%main_fake_generateOperations_fake_insert__if_then_2:
+    $_virtual_register_734 = sub 0 1
+    $_virtual_register_735 = seq $root_19 0
+    br $_virtual_register_735 %main_fake_fake_insertImpl_1_insertImpl__if_then_4 %main_fake_fake_insertImpl_1_insertImpl__if_merge_4
+%main_fake_fake_insertImpl_1_insertImpl__if_then_4:
+    jump %main_fake_fake_insertImpl_1_insertImpl_split_block_2
+%main_fake_fake_insertImpl_1_insertImpl_split_block_2:
+    $_virtual_register_736 = alloc 16
+    $_virtual_register_737 = add $_virtual_register_736 4
+    $_virtual_register_738 = mul 2 4
+    $_virtual_register_739 = add $_virtual_register_738 4
+    $_virtual_register_740 = alloc $_virtual_register_739
+    store 4 $_virtual_register_740 2 0
+    store 4 $_virtual_register_737 $_virtual_register_740 0
+    $_virtual_register_741 = add $_virtual_register_736 8
+    store 4 $_virtual_register_741 $_virtual_register_701 0
+    $_virtual_register_742 = add $_virtual_register_736 12
+    store 4 $_virtual_register_742 1 0
+    $_virtual_register_743 = add $_virtual_register_736 0
+    store 4 $_virtual_register_743 0 0
+    $_virtual_register_744 = load 4 $_virtual_register_737 0
+    $_virtual_register_745 = mul 0 4
+    $_virtual_register_746 = add $_virtual_register_745 4
+    $_virtual_register_747 = add $_virtual_register_746 $_virtual_register_744
+    store 4 $_virtual_register_747 0 0
+    $_virtual_register_748 = load 4 $_virtual_register_737 0
+    $_virtual_register_749 = mul 1 4
+    $_virtual_register_750 = add $_virtual_register_749 4
+    $_virtual_register_751 = add $_virtual_register_750 $_virtual_register_748
+    store 4 $_virtual_register_751 0 0
+    $_virtual_register_752 = add 0 4
+    $_virtual_register_753 = load 4 $_virtual_register_752 0
+    $_virtual_register_754 = mul $_virtual_register_734 4
+    $_virtual_register_755 = add $_virtual_register_754 4
+    $_virtual_register_756 = add $_virtual_register_755 $_virtual_register_753
+    store 4 $_virtual_register_756 $_virtual_register_736 0
+    jump %main_split_block_6
+%main_split_block_6:
+    jump %main_fake_generateOperations_split_block_8
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_4:
+    $_virtual_register_757 = add $root_19 8
+    $_virtual_register_758 = load 4 $_virtual_register_757 0
+    $_virtual_register_759 = seq $_virtual_register_758 $_virtual_register_701
+    br $_virtual_register_759 %main_fake_fake_insertImpl_1_insertImpl__if_then_5 %main_fake_fake_insertImpl_1_insertImpl__if_merge_5
+%main_fake_fake_insertImpl_1_insertImpl__if_then_5:
+    $_virtual_register_760 = add $root_19 12
+    $_virtual_register_761 = load 4 $_virtual_register_760 0
+    $_virtual_register_762 = add $_virtual_register_761 1
+    store 4 $_virtual_register_760 $_virtual_register_762 0
+    jump %main_split_block_6
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_5:
+    $id_16 = move 0
+    $_virtual_register_763 = load 4 $_virtual_register_757 0
+    $_virtual_register_764 = slt $_virtual_register_763 $_virtual_register_701
+    br $_virtual_register_764 %main_fake_fake_insertImpl_1_insertImpl__if_then_6 %main_fake_fake_insertImpl_1_insertImpl__if_merge_6
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_6:
+    $id_17 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_5 $id_16 main_fake_fake_insertImpl_1_insertImpl__if_then_6 $id_18 
+    $_virtual_register_765 = add $root_19 4
+    $_virtual_register_766 = load 4 $_virtual_register_765 0
+    $_virtual_register_767 = mul $id_17 4
+    $_virtual_register_768 = add $_virtual_register_767 4
+    $_virtual_register_769 = add $_virtual_register_768 $_virtual_register_766
+    $_virtual_register_770 = load 4 $_virtual_register_769 0
+    $_virtual_register_771 = call insertImpl $_virtual_register_770 $root_19 $id_17 $_virtual_register_701 
+    jump %main_split_block_6
+%main_fake_fake_insertImpl_1_insertImpl__if_then_6:
+    $id_18 = move 1
+    jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_6
+%main_fake_generateOperations_fake_randOp__if_then_2:
+    $returnVal_98 = move 1
+    jump %main_fake_generateOperations_split_block_6
+%main_fake_generateOperations__for_body:
+    jump %main_fake_generateOperations_split_block_9
+%main_fake_generateOperations_split_block_9:
+    $_virtual_register_772 = shl $seed_3 13
+    $_virtual_register_773 = xor $seed_3 $_virtual_register_772
+    $_virtual_register_774 = shl 1 31
+    $_virtual_register_775 = not $_virtual_register_774
+    $_virtual_register_776 = and $_virtual_register_773 $_virtual_register_775
+    $_virtual_register_777 = shr $_virtual_register_776 17
+    $_virtual_register_778 = xor $_virtual_register_776 $_virtual_register_777
+    $_virtual_register_779 = shl $_virtual_register_778 5
+    $_virtual_register_780 = xor $_virtual_register_778 $_virtual_register_779
+    $_virtual_register_781 = not $_virtual_register_774
+    $_virtual_register_782 = and $_virtual_register_780 $_virtual_register_781
+    $_virtual_register_783 = mod $_virtual_register_782 $MAX_2
+    jump %main_fake_generateOperations_fake_randOp_split_block_3
+%main_fake_generateOperations_fake_randOp_split_block_3:
+    $_virtual_register_784 = shl $_virtual_register_782 13
+    $_virtual_register_785 = xor $_virtual_register_782 $_virtual_register_784
+    $_virtual_register_786 = not $_virtual_register_774
+    $_virtual_register_787 = and $_virtual_register_785 $_virtual_register_786
+    $_virtual_register_788 = shr $_virtual_register_787 17
+    $_virtual_register_789 = xor $_virtual_register_787 $_virtual_register_788
+    $_virtual_register_790 = shl $_virtual_register_789 5
+    $_virtual_register_791 = xor $_virtual_register_789 $_virtual_register_790
+    $_virtual_register_792 = not $_virtual_register_774
+    $_virtual_register_793 = and $_virtual_register_791 $_virtual_register_792
+    $seed_4 = move $_virtual_register_793
+    $_virtual_register_794 = slt $_virtual_register_793 $_virtual_register_579
+    br $_virtual_register_794 %main_fake_generateOperations_fake_randOp__if_then_3 %main_fake_generateOperations_fake_randOp__if_merge_3
+%main_fake_generateOperations_fake_randOp__if_then_3:
+    $returnVal_99 = move 1
+    jump %main_fake_generateOperations_split_block_10
+%main_fake_generateOperations_split_block_10:
+    $returnVal_100 = phi main_fake_generateOperations_fake_randOp__if_then_3 $returnVal_99 main_fake_generateOperations_fake_randOp__if_merge_3 $returnVal_101 
+    $_virtual_register_795 = seq $returnVal_100 1
+    br $_virtual_register_795 %main_fake_generateOperations__if_then_3 %main_fake_generateOperations__if_else_3
+%main_fake_generateOperations__if_then_3:
+    $_virtual_register_796 = sne $root_11 0
+    br $_virtual_register_796 %main_fake_generateOperations_fake_insert__if_then_3 %main_fake_generateOperations_fake_insert__if_merge_3
+%main_fake_generateOperations_fake_insert__if_merge_3:
+    jump %main_fake_generateOperations_fake_insert_split_block_3
+%main_fake_generateOperations_fake_insert_split_block_3:
+    $_virtual_register_797 = alloc 16
+    $_virtual_register_798 = add $_virtual_register_797 4
+    $_virtual_register_799 = alloc 12
+    store 4 $_virtual_register_799 2 0
+    store 4 $_virtual_register_798 $_virtual_register_799 0
+    $_virtual_register_800 = add $_virtual_register_797 8
+    store 4 $_virtual_register_800 $_virtual_register_783 0
+    $_virtual_register_801 = add $_virtual_register_797 12
+    store 4 $_virtual_register_801 1 0
+    $_virtual_register_802 = add $_virtual_register_797 0
+    store 4 $_virtual_register_802 0 0
+    $_virtual_register_803 = load 4 $_virtual_register_798 0
+    $_virtual_register_804 = add 4 $_virtual_register_803
+    store 4 $_virtual_register_804 0 0
+    $_virtual_register_805 = load 4 $_virtual_register_798 0
+    $_virtual_register_806 = add 8 $_virtual_register_805
+    store 4 $_virtual_register_806 0 0
+    $root_25 = move $_virtual_register_797
+    jump %main_fake_generateOperations_split_block_11
+%main_fake_generateOperations_split_block_11:
+    $root_26 = phi main_fake_generateOperations_fake_insert_split_block_3 $root_25 main_split_block_7 $root_11 
+    jump %main_fake_generateOperations__if_merge_3
+%main_fake_generateOperations__if_merge_3:
+    $root_12 = phi main_fake_generateOperations_split_block_11 $root_26 main_fake_generateOperations_split_block_12 $root_27 
+    jump %main_fake_generateOperations__for_step
+%main_fake_generateOperations__for_step:
+    $i_3 = add $i_2 1
+    jump %main_fake_generateOperations__for_cond
+%main_fake_generateOperations_fake_insert__if_then_3:
+    $_virtual_register_807 = seq $root_11 0
+    br $_virtual_register_807 %main_fake_fake_insertImpl_1_insertImpl__if_then_7 %main_fake_fake_insertImpl_1_insertImpl__if_merge_7
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_7:
+    $_virtual_register_808 = add $root_11 8
+    $_virtual_register_809 = load 4 $_virtual_register_808 0
+    $_virtual_register_810 = seq $_virtual_register_809 $_virtual_register_783
+    br $_virtual_register_810 %main_fake_fake_insertImpl_1_insertImpl__if_then_8 %main_fake_fake_insertImpl_1_insertImpl__if_merge_8
+%main_fake_fake_insertImpl_1_insertImpl__if_then_8:
+    $_virtual_register_811 = add $root_11 12
+    $_virtual_register_812 = load 4 $_virtual_register_811 0
+    $_virtual_register_813 = add $_virtual_register_812 1
+    store 4 $_virtual_register_811 $_virtual_register_813 0
+    jump %main_split_block_7
+%main_split_block_7:
+    jump %main_fake_generateOperations_split_block_11
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_8:
+    $id_19 = move 0
+    $_virtual_register_814 = load 4 $_virtual_register_808 0
+    $_virtual_register_815 = slt $_virtual_register_814 $_virtual_register_783
+    br $_virtual_register_815 %main_fake_fake_insertImpl_1_insertImpl__if_then_9 %main_fake_fake_insertImpl_1_insertImpl__if_merge_9
+%main_fake_fake_insertImpl_1_insertImpl__if_merge_9:
+    $id_20 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_8 $id_19 main_fake_fake_insertImpl_1_insertImpl__if_then_9 $id_21 
+    $_virtual_register_816 = add $root_11 4
+    $_virtual_register_817 = load 4 $_virtual_register_816 0
+    $_virtual_register_818 = mul $id_20 4
+    $_virtual_register_819 = add $_virtual_register_818 4
+    $_virtual_register_820 = add $_virtual_register_819 $_virtual_register_817
+    $_virtual_register_821 = load 4 $_virtual_register_820 0
+    $_virtual_register_822 = call insertImpl $_virtual_register_821 $root_11 $id_20 $_virtual_register_783 
+    jump %main_split_block_7
+%main_fake_fake_insertImpl_1_insertImpl__if_then_9:
+    $id_21 = move 1
+    jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_9
+%main_fake_fake_insertImpl_1_insertImpl__if_then_7:
+    jump %main_fake_fake_insertImpl_1_insertImpl_split_block_3
+%main_fake_fake_insertImpl_1_insertImpl_split_block_3:
+    $_virtual_register_823 = alloc 16
+    $_virtual_register_824 = add $_virtual_register_823 4
+    $_virtual_register_825 = alloc 12
+    store 4 $_virtual_register_825 2 0
+    store 4 $_virtual_register_824 $_virtual_register_825 0
+    $_virtual_register_826 = add $_virtual_register_823 8
+    store 4 $_virtual_register_826 $_virtual_register_783 0
+    $_virtual_register_827 = add $_virtual_register_823 12
+    store 4 $_virtual_register_827 1 0
+    $_virtual_register_828 = add $_virtual_register_823 0
+    store 4 $_virtual_register_828 0 0
+    $_virtual_register_829 = load 4 $_virtual_register_824 0
+    $_virtual_register_830 = add 4 $_virtual_register_829
+    store 4 $_virtual_register_830 0 0
+    $_virtual_register_831 = load 4 $_virtual_register_824 0
+    $_virtual_register_832 = add 8 $_virtual_register_831
+    store 4 $_virtual_register_832 0 0
+    $_virtual_register_833 = load 4 4 0
+    $_virtual_register_834 = add 0 $_virtual_register_833
+    store 4 $_virtual_register_834 $_virtual_register_823 0
+    jump %main_split_block_7
+%main_fake_generateOperations__if_else_3:
+    $_virtual_register_835 = seq $root_11 0
+    br $_virtual_register_835 %main_fake_generateOperations_fake_erase__if_then_3 %main_fake_generateOperations_fake_erase__if_merge_3
+%main_fake_generateOperations_fake_erase__if_merge_3:
+    store 4 @root $root_11 0
+    $_virtual_register_836 = call eraseImpl $root_11 0 -1 $_virtual_register_783 
+    $root_28 = load 4 @root 0
+    jump %main_fake_generateOperations_split_block_12
+%main_fake_generateOperations_split_block_12:
+    $root_27 = phi main_fake_generateOperations_fake_erase__if_merge_3 $root_28 main_fake_generateOperations_fake_erase__if_then_3 $root_11 
+    jump %main_fake_generateOperations__if_merge_3
+%main_fake_generateOperations_fake_erase__if_then_3:
+    jump %main_fake_generateOperations_split_block_12
+%main_fake_generateOperations_fake_randOp__if_merge_3:
+    $returnVal_101 = move 2
+    jump %main_fake_generateOperations_split_block_10
+}
 
 func _init_ {
 %_init__entry:
-    jump %_init__split_block
-%_init__split_block:
-    $_virtual_register = alloc 4
-    $_virtual_register_2 = add $_virtual_register 0
-    store 4 $_virtual_register_2 10 0
-    $_virtual_register_3 = load 4 $_virtual_register_2 0
-    $_virtual_register_4 = mul 2 $_virtual_register_3
-    ret $_virtual_register_4
+    store 4 @root 0 0
+    store 4 @MAX 128 0
+    store 4 @MaxRandInt 2147483647 0
+    $_virtual_register_837 = call main 
+    ret $_virtual_register_837
 }
 

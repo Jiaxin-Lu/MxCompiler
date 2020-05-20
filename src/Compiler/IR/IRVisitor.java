@@ -18,8 +18,6 @@ public interface IRVisitor
     void visit(StoreInst inst);
     void visit(CmpInst inst);
     void visit(Phi inst);
-    void visit(Push inst);
-    void visit(Pop inst);
     void visit(JumpInst inst);
     void visit(ReturnInst inst);
     void visit(Register register);

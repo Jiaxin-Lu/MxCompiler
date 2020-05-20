@@ -637,18 +637,6 @@ public class InstructionSelector implements IRVisitor
     }
 
     @Override
-    public void visit(Push inst)
-    {
-        //do nothing
-    }
-
-    @Override
-    public void visit(Pop inst)
-    {
-        //do nothing
-    }
-
-    @Override
     public void visit(JumpInst inst)
     {
         currentBlock.addInst2Tail(new InstJ(currentBlock, inst.getDstBlock().rvBasicBlock));

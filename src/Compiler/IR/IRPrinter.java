@@ -326,16 +326,6 @@ public class IRPrinter implements IRVisitor
         output.println();
     }
     @Override
-    public void visit(Push inst)
-    {
-        //won't access
-    }
-    @Override
-    public void visit(Pop inst)
-    {
-        //won't access
-    }
-    @Override
     public void visit(JumpInst inst)
     {
         output.println("    jump " + "%" + getBasicBlockID(inst.getDstBlock()));

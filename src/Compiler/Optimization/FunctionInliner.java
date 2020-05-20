@@ -227,6 +227,13 @@ public class FunctionInliner extends Pass
         if (caller.getExitBlock() == currentBlock) caller.setExitBlock(spiltBlock);
 
         //parameter
+        if (callee.getInClassThis() != null)
+        {
+            Operand oldParameter = callee.getInClassThis();
+            VirtualRegister newParameter = new Value(oldParameter.getName());
+            callInst.addPrevInst(new MoveInst(currentBlock, callInst.getPointer(), newParameter));
+            registerMap.put(oldParameter, newParameter);
+        }
         for (int i = 0; i < callInst.getParameterList().size(); i++)
         {
             Operand oldParameter = callee.getParameterList().get(i);
@@ -300,7 +307,7 @@ public class FunctionInliner extends Pass
     {
         if (!functionCallCountMap.containsKey(function)) return false;
         if (function.recursiveCallee.contains(function)) return false;
-        if (function.getInClassThis() != null) return false;
+//        if (function.getInClassThis() != null) return false;
         return functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT;
     }
 

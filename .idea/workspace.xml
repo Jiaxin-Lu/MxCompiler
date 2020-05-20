@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/Optimization/FunctionInliner.java" afterDir="false" />
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="add FunctionInliner and optimize SCCP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SSADestructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/FunctionInliner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/FunctionInliner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,14 +133,7 @@
       <workItem from="1589103190149" duration="64738000" />
       <workItem from="1589304704743" duration="33541000" />
       <workItem from="1589872168003" duration="6543000" />
-      <workItem from="1589900170360" duration="18607000" />
-    </task>
-    <task id="LOCAL-00068" summary="Process registers in function.">
-      <created>1588356565866</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1588356565866</updated>
+      <workItem from="1589900170360" duration="21848000" />
     </task>
     <task id="LOCAL-00069" summary="Add LoopAnalysis.">
       <created>1588451923966</created>
@@ -482,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589880209459</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="add FunctionInliner and optimize SCCP">
+      <created>1589920826992</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1589920826993</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,7 +502,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="on InstructionSelector...." />
     <MESSAGE value="on InstructionSelector....." />
     <MESSAGE value="on RegisterAllocator..." />
     <MESSAGE value="fix Peephole" />
@@ -531,7 +526,8 @@
     <MESSAGE value="fix IRPrinter for string" />
     <MESSAGE value="optimize SSADestructor" />
     <MESSAGE value="optimize CFG" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimize CFG" />
+    <MESSAGE value="add FunctionInliner and optimize SCCP" />
+    <option name="LAST_COMMIT_MESSAGE" value="add FunctionInliner and optimize SCCP" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -570,10 +566,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589880208077">
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1589961003444">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="316" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589880208077" />
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589961003444" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -582,22 +578,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="421" key="GridCell.Tab.0.bottom" timestamp="1589920100054">
+    <state width="1493" height="140" key="GridCell.Tab.0.bottom" timestamp="1589960951861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="421" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589920100054" />
-    <state width="1493" height="421" key="GridCell.Tab.0.center" timestamp="1589920100054">
+    <state width="1493" height="140" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589960951861" />
+    <state width="1493" height="140" key="GridCell.Tab.0.center" timestamp="1589960951861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="421" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589920100054" />
-    <state width="1493" height="421" key="GridCell.Tab.0.left" timestamp="1589920100054">
+    <state width="1493" height="140" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589960951861" />
+    <state width="1493" height="140" key="GridCell.Tab.0.left" timestamp="1589960951861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="421" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589920100054" />
-    <state width="1493" height="421" key="GridCell.Tab.0.right" timestamp="1589920100054">
+    <state width="1493" height="140" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589960951861" />
+    <state width="1493" height="140" key="GridCell.Tab.0.right" timestamp="1589960951861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="421" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589920100054" />
+    <state width="1493" height="140" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589960951861" />
     <state width="1493" height="393" key="GridCell.Tab.1.bottom" timestamp="1589511134778">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

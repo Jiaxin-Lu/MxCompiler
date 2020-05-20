@@ -74,7 +74,6 @@ public class Main
             irBuilder.visit(ast);
             IRRoot irRoot = irBuilder.getIrRoot();
             System.out.println("Finish IRBuild.");
-            printIR(irRoot, "oldIrOutput.ir", false);
 
             FunctionInliner functionInliner = new FunctionInliner(irRoot);
             functionInliner.run();
@@ -82,6 +81,7 @@ public class Main
 
             GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver(irRoot);
             globalVariableResolver.run();
+            printIR(irRoot, "oldIrOutput.ir", false);
 
             optimize(irRoot);
 
@@ -175,6 +175,6 @@ public class Main
         ssaDestructor.run();
 
         cfgSimplifier.run(true);
-        printIR(irRoot, "irOutput.ir", false);
+        printIR(irRoot, "irOutput.ir", true);
     }
 }

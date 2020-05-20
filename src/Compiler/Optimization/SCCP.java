@@ -4,12 +4,13 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
+import Compiler.IR.IRVisitor;
 import Compiler.IR.Operand.*;
 
 import java.util.*;
 
 //Sparse Conditional Constant Propagation
-public class SCCP extends Pass
+public class SCCP extends Pass implements IRVisitor
 {
     boolean isChanged = false;
 
@@ -49,6 +50,8 @@ public class SCCP extends Pass
         return isChanged;
     }
 
+    private BasicBlock currentBlock;
+
     private void markUnExecuted(BasicBlock basicBlock)
     {
         if (!unExecutedBlock.contains(basicBlock))
@@ -60,7 +63,7 @@ public class SCCP extends Pass
             for (IRInstruction inst = basicBlock.headInst; inst != null; inst = inst.getNextInst())
             if (inst instanceof Phi)
             {
-                evaluate((Phi) inst);
+                inst.accept(this);
             } else break;
         }
     }
@@ -72,15 +75,25 @@ public class SCCP extends Pass
         SSAList.clear();
         unExecutedBlock.clear();
         valueLattice.clear();
+        currentBlock = function.getEntryBlock();
         markUnExecuted(function.getEntryBlock());
+        if (function.getInClassThis() != null)
+        {
+            markMultiDefined(function.getInClassThis());
+        }
+        for (Register register : function.getParameterList())
+        {
+            markMultiDefined(register);
+        }
         while (!CFGList.isEmpty() || !SSAList.isEmpty())
         {
             while (!CFGList.isEmpty())
             {
                 BasicBlock block = CFGList.poll();
+                currentBlock = block;
                 for (IRInstruction inst = block.headInst; inst != null; inst = inst.getNextInst())
                 {
-                    evaluateInst(inst);
+                    inst.accept(this);
                 }
             }
             while (!SSAList.isEmpty())
@@ -88,7 +101,7 @@ public class SCCP extends Pass
                 Register reg = SSAList.poll();
                 for (IRInstruction inst : used.get(reg))
                 {
-                    evaluateInst(inst);
+                    inst.accept(this);
                 }
             }
         }
@@ -111,6 +124,7 @@ public class SCCP extends Pass
             OperandStatus operandStatus = getStatus(inst.getDefRegister());
             if (operandStatus.status == OperandStatus.Status.CONSTANT)
             {
+                if (inst instanceof MoveInst && ((MoveInst) inst).getSrc() instanceof Immediate) continue;
                 inst.replaceInst(new MoveInst(basicBlock, operandStatus.operand, inst.getDefRegister()));
                 isChanged = true;
             } else if (operandStatus.status == OperandStatus.Status.CONSTANTSTR)
@@ -175,38 +189,57 @@ public class SCCP extends Pass
         }
     }
 
-    void evaluateInst(IRInstruction inst)
+    @Override
+    public void visit(IRRoot irRoot)
     {
-        if (inst instanceof BinaryInst)
+        //no access
+    }
+
+    @Override
+    public void visit(Function function)
+    {
+        //no access
+    }
+
+    @Override
+    public void visit(BasicBlock basicBlock)
+    {
+        //no access
+    }
+
+    @Override
+    public void visit(AllocInst inst)
+    {
+        markMultiDefined(inst.getDefRegister());
+    }
+
+    @Override
+    public void visit(BranchInst inst)
+    {
+        if (inst.getCond() == null)
+            markUnExecuted(inst.getThenBlock());
+        else
         {
-            evaluate((BinaryInst) inst);
-        } else if (inst instanceof CmpInst)
-        {
-            evaluate((CmpInst) inst);
-        } else if (inst instanceof UnaryInst)
-        {
-            evaluate((UnaryInst) inst);
-        } else if (inst instanceof LoadInst)
-        {
-            evaluate((LoadInst) inst);
-        } else if (inst instanceof AllocInst)
-        {
-            evaluate((AllocInst) inst);
-        } else if (inst instanceof CallInst)
-        {
-            evaluate((CallInst) inst);
-        } else if (inst instanceof BranchInst)
-        {
-            evaluate((BranchInst) inst);
-        } else if (inst instanceof Phi)
-        {
-            evaluate((Phi) inst);
-        } else if (inst instanceof JumpInst)
-        {
-            evaluate((JumpInst) inst);
+            OperandStatus condStatus = getStatus(inst.getCond());
+            if (condStatus.status == OperandStatus.Status.CONSTANT)
+            {
+                if (((Immediate)condStatus.operand).getImm() == 1)
+                {
+                    markUnExecuted(inst.getThenBlock());
+                } else
+                {
+                    markUnExecuted(inst.getElseBlock());
+                }
+            } else if (condStatus.status == OperandStatus.Status.MULTIDEFINED)
+            {
+                markUnExecuted(inst.getThenBlock());
+                markUnExecuted(inst.getElseBlock());
+            }
         }
     }
-    void evaluate(BinaryInst inst)
+
+    @Override
+    public void visit(BinaryInst inst)
     {
         Operand lhs = inst.getLhs();
         OperandStatus lhsStatus = getStatus(lhs);
@@ -224,23 +257,9 @@ public class SCCP extends Pass
             markMultiDefined(inst.getDefRegister());
         }
     }
-    void evaluate(CmpInst inst)
-    {
-        Operand lhs = inst.getLhs();
-        Operand rhs = inst.getRhs();
-        OperandStatus lhsStatus = getStatus(lhs);
-        OperandStatus rhsStatus = getStatus(rhs);
-        if (lhsStatus.status == OperandStatus.Status.CONSTANT && rhsStatus.status == OperandStatus.Status.CONSTANT)
-        {
-            Immediate resultImm = foldConstant(inst , (Immediate)lhsStatus.operand, (Immediate)rhsStatus.operand);
-            if (resultImm != null)
-                markConstant(inst.getDefRegister(), resultImm);
-        } else if (lhsStatus.status == OperandStatus.Status.MULTIDEFINED || rhsStatus.status == OperandStatus.Status.MULTIDEFINED)
-        {
-            markMultiDefined(inst.getDefRegister());
-        }
-    }
-    void evaluate(UnaryInst inst)
+
+    @Override
+    public void visit(UnaryInst inst)
     {
         Operand src = inst.getSrc();
         OperandStatus srcStatus = getStatus(src);
@@ -256,15 +275,9 @@ public class SCCP extends Pass
             markMultiDefined(inst.getDefRegister());
         }
     }
-    void evaluate(LoadInst inst)
-    {
-        markMultiDefined(inst.getDefRegister());
-    }
-    void evaluate(AllocInst inst)
-    {
-        markMultiDefined(inst.getDefRegister());
-    }
-    void evaluate(CallInst inst)
+
+    @Override
+    public void visit(CallInst inst)
     {
         //DONE : Consider builtin function
         if (inst.getFunction().getBuiltinName() != null)
@@ -281,7 +294,7 @@ public class SCCP extends Pass
                 if (lhs != null && rhs != null)
                 {
                     String result = irRoot.getStaticStringValMap().get(lhs) + irRoot.getStaticStringValMap().get(rhs);
-//                    result = "\"" + result + "\"";
+                    //                    result = "\"" + result + "\"";
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                     strResult.isSCCP = true;
                     irRoot.addStaticStr(strResult);
@@ -335,7 +348,7 @@ public class SCCP extends Pass
                 if (instStr.status == OperandStatus.Status.CONSTANT)
                 {
                     String result = String.valueOf(((Immediate)instStr.operand).getImm());
-//                    result = "\"" + result + "\"";
+                    //                    result = "\"" + result + "\"";
                     StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                     strResult.isSCCP = true;
                     irRoot.addStaticStr(strResult);
@@ -352,7 +365,7 @@ public class SCCP extends Pass
                         int l = ((Immediate)lhsStatus.operand).getImm();
                         int r = ((Immediate)rhsStatus.operand).getImm();
                         String result = irRoot.getStaticStringValMap().get(thisPointer).substring(l, r);
-//                        result = "\"" + result + "\"";
+                        //                        result = "\"" + result + "\"";
                         StaticStr strResult = new StaticStr(new GlobalVariable("__str_const_" + (++irRoot.stringConstCnt), true), result);
                         strResult.isSCCP = true;
                         irRoot.addStaticStr(strResult);
@@ -401,41 +414,63 @@ public class SCCP extends Pass
         } else if (inst.getDefRegister() != null)
             markMultiDefined(inst.getDefRegister());
     }
-    void evaluate(BranchInst inst)
+
+    @Override
+    public void visit(MoveInst inst)
     {
-        if (inst.getCond() == null)
-            markUnExecuted(inst.getThenBlock());
-        else
+        Operand src = inst.getSrc();
+        OperandStatus srcStatus = getStatus(src);
+        if (srcStatus.status == OperandStatus.Status.CONSTANT)
         {
-            OperandStatus condStatus = getStatus(inst.getCond());
-            if (condStatus.status == OperandStatus.Status.CONSTANT)
-            {
-                if (((Immediate)condStatus.operand).getImm() == 1)
-                {
-                    markUnExecuted(inst.getThenBlock());
-                } else
-                {
-                    markUnExecuted(inst.getElseBlock());
-                }
-            } else if (condStatus.status == OperandStatus.Status.MULTIDEFINED)
-            {
-                markUnExecuted(inst.getThenBlock());
-                markUnExecuted(inst.getElseBlock());
-            }
+            markConstant((Register) inst.getDst(), (Immediate) srcStatus.operand);
+        } else if (srcStatus.status == OperandStatus.Status.MULTIDEFINED)
+        {
+            markMultiDefined(inst.getDst());
         }
     }
-    void evaluate(JumpInst inst)
+
+    @Override
+    public void visit(LoadInst inst)
     {
-        markUnExecuted(inst.getDstBlock());
+        markMultiDefined(inst.getDefRegister());
     }
-    void evaluate(Phi inst)
+
+    @Override
+    public void visit(StoreInst inst)
+    {
+
+    }
+
+    @Override
+    public void visit(CmpInst inst)
+    {
+        Operand lhs = inst.getLhs();
+        Operand rhs = inst.getRhs();
+        OperandStatus lhsStatus = getStatus(lhs);
+        OperandStatus rhsStatus = getStatus(rhs);
+        if (lhsStatus.status == OperandStatus.Status.CONSTANT && rhsStatus.status == OperandStatus.Status.CONSTANT)
+        {
+            Immediate resultImm = foldConstant(inst , (Immediate)lhsStatus.operand, (Immediate)rhsStatus.operand);
+            if (resultImm != null)
+                markConstant(inst.getDefRegister(), resultImm);
+        } else if (lhsStatus.status == OperandStatus.Status.MULTIDEFINED || rhsStatus.status == OperandStatus.Status.MULTIDEFINED)
+        {
+            markMultiDefined(inst.getDefRegister());
+        }
+    }
+
+    @Override
+    public void visit(Phi inst)
     {
         Immediate constImm = null;
         for (Map.Entry<BasicBlock, Operand> path : inst.getPath().entrySet())
         {
             BasicBlock basicBlock = path.getKey();
             if (!unExecutedBlock.contains(basicBlock))
-                continue;
+            {
+                markMultiDefined(inst.getDefRegister());
+                return;
+            }
             Operand operand = path.getValue();
             OperandStatus status = getStatus(operand);
             if (status.status == OperandStatus.Status.MULTIDEFINED)
@@ -459,6 +494,37 @@ public class SCCP extends Pass
         if (constImm != null)
             markConstant(inst.getDefRegister(), constImm);
     }
+
+    @Override
+    public void visit(JumpInst inst)
+    {
+        markUnExecuted(inst.getDstBlock());
+    }
+
+    @Override
+    public void visit(ReturnInst inst)
+    {
+
+    }
+
+    @Override
+    public void visit(Register register)
+    {
+
+    }
+
+    @Override
+    public void visit(Immediate immediate)
+    {
+
+    }
+
+    @Override
+    public void visit(Memory memory)
+    {
+
+    }
+
     OperandStatus getStatus(Operand operand)
     {
         if (valueLattice.containsKey(operand))

@@ -139,13 +139,13 @@ public class RegisterAllocator
                 for (RVRegister spilledNode : spilledNodes)
                 {
                     //== DEBUG ==
-                    System.out.println(spilledNode.getName());
+//                    System.out.println(spilledNode.getName());
                     //== DEBUG ==
                     assert !(spilledNode instanceof RVPhysicalRegister);
                     assert !(spilledNode.isGlobal);
                 }
                 //== DEBUG ==
-                System.out.println("---");
+//                System.out.println("---");
                 //== DEBUG ==
                 isChanged = true;
                 rewriteProgram(function);

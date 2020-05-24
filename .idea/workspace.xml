@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="optimize SCCP">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/IR/IRBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/CFGSimplifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,14 +136,7 @@
       <workItem from="1589872168003" duration="6543000" />
       <workItem from="1589900170360" duration="22609000" />
       <workItem from="1589981200504" duration="11926000" />
-      <workItem from="1590311247285" duration="5319000" />
-    </task>
-    <task id="LOCAL-00073" summary="still working on RegisterAllocator..">
-      <created>1588617308706</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1588617308706</updated>
+      <workItem from="1590311247285" duration="13892000" />
     </task>
     <task id="LOCAL-00074" summary="still working on RegisterAllocator...">
       <created>1588617334550</created>
@@ -472,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590321331907</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="optimize SCCP">
+      <created>1590321353047</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1590321353047</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,10 +569,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1590321330019">
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1590341980170">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590321330019" />
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590341980170" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -572,22 +581,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="359" key="GridCell.Tab.0.bottom" timestamp="1590321278160">
+    <state width="1493" height="152" key="GridCell.Tab.0.bottom" timestamp="1590342270180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="359" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590321278160" />
-    <state width="1493" height="359" key="GridCell.Tab.0.center" timestamp="1590321278159">
+    <state width="1493" height="152" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590342270180" />
+    <state width="1493" height="152" key="GridCell.Tab.0.center" timestamp="1590342270180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="359" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590321278159" />
-    <state width="1493" height="359" key="GridCell.Tab.0.left" timestamp="1590321278159">
+    <state width="1493" height="152" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590342270180" />
+    <state width="1493" height="152" key="GridCell.Tab.0.left" timestamp="1590342270179">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="359" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590321278159" />
-    <state width="1493" height="359" key="GridCell.Tab.0.right" timestamp="1590321278159">
+    <state width="1493" height="152" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590342270179" />
+    <state width="1493" height="152" key="GridCell.Tab.0.right" timestamp="1590342270180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="359" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590321278159" />
+    <state width="1493" height="152" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590342270180" />
     <state width="1493" height="393" key="GridCell.Tab.1.bottom" timestamp="1589511134778">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

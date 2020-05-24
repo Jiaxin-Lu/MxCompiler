@@ -351,6 +351,37 @@ public class IRBuilder implements ASTVisitor
     }
 
     //Expr
+
+    /*
+    * optimize print
+    * print(A + B + C) -> print(A), print(B), print(C)
+    * print(toString(A)) -> printInt(A)
+     */
+    private void processPrintFunc(ExprNode node, boolean isPrintln) throws SemanticError
+    {
+        if (node instanceof BinaryExprNode)
+        {
+            // print(A + B)
+            BinaryExprNode expr = (BinaryExprNode) node;
+            processPrintFunc(expr.getLhs(), false);
+            processPrintFunc(expr.getRhs(), isPrintln);
+        } else if (node instanceof FuncCallExprNode && ((FuncCallExprNode) node).getFunctionExpr().getFunctionSymbol().getFunction().getName().equals("toString"))
+        {
+            // print(toString(A))
+            ExprNode inExpr = ((FuncCallExprNode) node).getParameterList().get(0);
+            inExpr.accept(this);
+            CallInst call = new CallInst(currentBlock,  isPrintln ? irRoot.builtinPrintlnInt : irRoot.builtinPrintInt, null);
+            call.addParameterList(resolvePointer(currentBlock, inExpr.getResultOperand()));
+            currentBlock.addInst2Tail(call);
+        } else {
+            // print(A)
+            node.accept(this);
+            CallInst call = new CallInst(currentBlock, isPrintln ? irRoot.builtinPrintln : irRoot.builtinPrint, null);
+            call.addParameterList(resolvePointer(currentBlock, node.getResultOperand()));
+            currentBlock.addInst2Tail(call);
+        }
+    }
+
     @Override
     public void visit(FuncCallExprNode node) throws SemanticError
     {
@@ -358,7 +389,6 @@ public class IRBuilder implements ASTVisitor
         node.getFunctionExpr().accept(this);
         if (functionSymbol.isMemberFunction() && functionSymbol.getTypeName().equals("array.size"))
         {
-//            node.getFunctionExpr().accept(this);
             Operand operand = node.getFunctionExpr().getResultOperand();
             node.setResultOperand(new Value());
             currentBlock.addInst2Tail(new LoadInst(currentBlock, operand, node.getResultOperand(), Width.regWidth, 0));
@@ -367,6 +397,11 @@ public class IRBuilder implements ASTVisitor
 //        System.out.println("functionSymbol name " + functionSymbol.getName());
         if (node.getTypeResolved().getTypeName().equals("void")) node.setResultOperand(null);
         else node.setResultOperand(new Value());
+        if (functionSymbol.getFunction().getName().equals("print") || functionSymbol.getFunction().getName().equals("println"))
+        {
+            processPrintFunc(node.getParameterList().get(0), functionSymbol.getFunction().getName().equals("println"));
+            return;
+        }
         CallInst call = new CallInst(currentBlock, functionSymbol.getFunction(), node.getResultOperand());
         if (functionSymbol.getFunction().getBuiltinName() == null)
         {

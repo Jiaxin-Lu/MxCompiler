@@ -73,7 +73,6 @@ public class SCCP extends Pass implements IRVisitor
         SSAList.clear();
         unExecutedBlock.clear();
         valueLattice.clear();
-        currentBlock = function.getEntryBlock();
         markUnExecuted(function.getEntryBlock());
         if (function.getInClassThis() != null)
         {
@@ -88,7 +87,6 @@ public class SCCP extends Pass implements IRVisitor
             while (!CFGList.isEmpty())
             {
                 BasicBlock block = CFGList.poll();
-                currentBlock = block;
                 for (IRInstruction inst = block.headInst; inst != null; inst = inst.getNextInst())
                 {
                     inst.accept(this);

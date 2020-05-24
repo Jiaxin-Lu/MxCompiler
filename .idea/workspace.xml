@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="optimize SCCP">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/irOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/oldIrOutput.ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" afterPath="$PROJECT_DIR$/output.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" afterPath="$PROJECT_DIR$/selectInst.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/SCCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" afterPath="$PROJECT_DIR$/ssaIROutput.ir" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,14 +127,7 @@
       <workItem from="1589872168003" duration="6543000" />
       <workItem from="1589900170360" duration="22609000" />
       <workItem from="1589981200504" duration="11926000" />
-      <workItem from="1590311247285" duration="5299000" />
-    </task>
-    <task id="LOCAL-00072" summary="Start RegisterAllocator.">
-      <created>1588535869418</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1588535869418</updated>
+      <workItem from="1590311247285" duration="5319000" />
     </task>
     <task id="LOCAL-00073" summary="still working on RegisterAllocator..">
       <created>1588617308706</created>
@@ -480,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589993072509</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="optimize SCCP">
+      <created>1590321331906</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1590321331907</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,10 +560,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1590321275046">
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1590321330019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590321275046" />
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590321330019" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

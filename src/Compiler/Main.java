@@ -157,6 +157,7 @@ public class Main
 
             changed |= cfgSimplifier.run();
             System.out.println("Dead code Eliminator...");
+            printIR(irRoot, "ssaIROutput.ir", false);
             dominatorTreeConstructor.run(true);
             System.out.println("Dead code Eliminator...");
             changed |= deadCodeEliminator.run();
@@ -171,7 +172,6 @@ public class Main
 //            ++ changedCnt;
 //            if (changedCnt > 10) break;
         }
-        printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();
 
         cfgSimplifier.run(true);

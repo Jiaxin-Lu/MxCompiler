@@ -50,8 +50,6 @@ public class SCCP extends Pass implements IRVisitor
         return isChanged;
     }
 
-    private BasicBlock currentBlock;
-
     private void markUnExecuted(BasicBlock basicBlock)
     {
         if (!unExecutedBlock.contains(basicBlock))

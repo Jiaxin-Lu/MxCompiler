@@ -6004,1318 +6004,703 @@ _init___init__fake_main_fake_generateOperations__for_cond_pre_header:
 
 _init__fake_main_fake_generateOperations__for_cond_2:
 	li		imm_94,100000
-	blt		i_92,imm_94,_init__fake_main_fake_generateOperations_split_block
+	blt		i_92,imm_94,_init__fake_main_fake_generateOperations_split_block_5
 	j		_init___init__fake_main_fake_generateOperations__for_cond_pre_header_2
 
-_init__fake_main_fake_generateOperations_split_block:
-	slli	vReg_95,seed_93,13
-	xor		vReg_96,seed_93,vReg_95
-	li		imm_98,2147483647
-	and		vReg_97,vReg_96,imm_98
-	srai	vReg_99,vReg_97,17
-	xor		vReg_100,vReg_97,vReg_99
-	slli	vReg_101,vReg_100,5
-	xor		vReg_102,vReg_100,vReg_101
-	li		imm_104,2147483647
-	and		vReg_103,vReg_102,imm_104
-	li		imm_106,128
-	rem		vReg_105,vReg_103,imm_106
-	slli	vReg_107,vReg_103,13
-	xor		vReg_108,vReg_103,vReg_107
-	li		imm_110,2147483647
-	and		vReg_109,vReg_108,imm_110
-	srai	vReg_111,vReg_109,17
-	xor		vReg_112,vReg_109,vReg_111
-	slli	vReg_113,vReg_112,5
-	xor		vReg_114,vReg_112,vReg_113
-	li		imm_116,2147483647
-	and		vReg_115,vReg_114,imm_116
-	mv		seed_117,vReg_115
-	li		imm_118,429496728
-	blt		vReg_115,imm_118,_init__fake_main_fake_generateOperations_fake_randOp__if_then
-	j		_init__fake_main_fake_generateOperations_fake_randOp__if_merge
-
-_init__fake_main_fake_generateOperations_fake_randOp__if_then:
-	mv		returnVal_119,returnVal_85
-	j		_init__fake_main_fake_generateOperations_split_block_2
-
-_init__fake_main_fake_generateOperations_split_block_2:
-	li		imm_120,1
-	beq		returnVal_119,imm_120,_init__fake_main_fake_generateOperations__if_then
-	j		_init__fake_main_fake_generateOperations__if_else
-
-_init__fake_main_fake_generateOperations__if_then:
-	bne		root_91,zero,_init__fake_main_fake_generateOperations_fake_insert__if_then
-	j		_init__fake_main_fake_generateOperations_fake_insert_split_block
-
-_init__fake_main_fake_generateOperations_fake_insert__if_then:
-	beq		root_91,zero,_init__fake_fake_insertImpl_1_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_1_insertImpl__if_merge:
-	addi	vReg_121,root_91,8
-	lw		vReg_122,0(vReg_121)
-	beq		vReg_122,vReg_105,_init__fake_fake_insertImpl_1_insertImpl__if_then
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_1_insertImpl__if_then:
-	addi	vReg_123,root_91,12
-	lw		vReg_124,0(vReg_123)
-	addi	vReg_125,vReg_124,1
-	sw		vReg_125,0(vReg_123)
-	j		_init__split_block
-
-_init__split_block:
-	mv		root_126,root_91
-	j		_init__fake_main_fake_generateOperations_split_block_3
-
-_init__fake_main_fake_generateOperations_split_block_3:
-	mv		root_127,root_126
-	j		_init__fake_main_fake_generateOperations__for_step
-
-_init__fake_main_fake_generateOperations__for_step:
-	addi	i_128,i_92,1
-	mv		root_91,root_127
-	mv		i_92,i_128
-	mv		seed_93,seed_117
-	j		_init__fake_main_fake_generateOperations__for_cond_2
-
-_init__fake_fake_insertImpl_1_insertImpl__if_merge_2:
-	lw		vReg_129,0(vReg_121)
-	blt		vReg_129,vReg_105,_init__fake_fake_insertImpl_1_insertImpl__if_then_2
-	j		_init___parallel_copy__7
-
-_init__fake_fake_insertImpl_1_insertImpl__if_then_2:
-	mv		id_130,id_69
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_1_insertImpl__if_merge_3:
-	addi	vReg_131,root_91,4
-	lw		vReg_132,0(vReg_131)
-	slli	vReg_133,id_130,2
-	addi	vReg_134,vReg_133,4
-	add		vReg_135,vReg_134,vReg_132
-	lw		vReg_136,0(vReg_135)
-	beq		vReg_136,zero,_init__fake_fake_insertImpl_2_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_2_insertImpl_split_block:
-	li		imm_137,16
-	mv		a0,imm_137
-	call	malloc
-	mv		vReg_138,a0
-	addi	vReg_139,vReg_138,4
-	li		imm_140,12
-	mv		a0,imm_140
-	call	malloc
-	mv		vReg_141,a0
-	li		imm_142,2
-	sw		imm_142,0(vReg_141)
-	sw		vReg_141,0(vReg_139)
-	addi	vReg_143,vReg_138,8
-	sw		vReg_105,0(vReg_143)
-	addi	vReg_144,vReg_138,12
-	li		imm_145,1
-	sw		imm_145,0(vReg_144)
-	addi	vReg_146,vReg_138,0
-	sw		root_91,0(vReg_146)
-	lw		vReg_147,0(vReg_139)
-	addi	vReg_148,vReg_147,4
-	li		imm_149,0
-	sw		imm_149,0(vReg_148)
-	lw		vReg_150,0(vReg_139)
-	addi	vReg_151,vReg_150,8
-	li		imm_152,0
-	sw		imm_152,0(vReg_151)
-	lw		vReg_153,0(vReg_131)
-	add		vReg_154,vReg_134,vReg_153
-	sw		vReg_138,0(vReg_154)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge:
-	addi	vReg_155,vReg_136,8
-	lw		vReg_156,0(vReg_155)
-	beq		vReg_156,vReg_105,_init__fake_fake_insertImpl_2_insertImpl__if_then
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_2_insertImpl__if_then:
-	addi	vReg_157,vReg_136,12
-	lw		vReg_158,0(vReg_157)
-	addi	vReg_159,vReg_158,1
-	sw		vReg_159,0(vReg_157)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge_2:
-	lw		vReg_160,0(vReg_155)
-	blt		vReg_160,vReg_105,_init__fake_fake_insertImpl_2_insertImpl__if_then_2
-	j		_init___parallel_copy_
-
-_init___parallel_copy_:
-	mv		id_161,id_77
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge_3:
-	addi	vReg_162,vReg_136,4
-	lw		vReg_163,0(vReg_162)
-	slli	vReg_164,id_161,2
-	addi	vReg_165,vReg_164,4
-	add		vReg_166,vReg_165,vReg_163
-	lw		vReg_167,0(vReg_166)
-	beq		vReg_167,zero,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
-	li		imm_168,16
-	mv		a0,imm_168
-	call	malloc
-	mv		vReg_169,a0
-	addi	vReg_170,vReg_169,4
-	li		imm_171,12
-	mv		a0,imm_171
-	call	malloc
-	mv		vReg_172,a0
-	li		imm_173,2
-	sw		imm_173,0(vReg_172)
-	sw		vReg_172,0(vReg_170)
-	addi	vReg_174,vReg_169,8
-	sw		vReg_105,0(vReg_174)
-	addi	vReg_175,vReg_169,12
-	li		imm_176,1
-	sw		imm_176,0(vReg_175)
-	addi	vReg_177,vReg_169,0
-	sw		vReg_136,0(vReg_177)
-	lw		vReg_178,0(vReg_170)
-	addi	vReg_179,vReg_178,4
-	li		imm_180,0
-	sw		imm_180,0(vReg_179)
-	lw		vReg_181,0(vReg_170)
-	addi	vReg_182,vReg_181,8
-	li		imm_183,0
-	sw		imm_183,0(vReg_182)
-	lw		vReg_184,0(vReg_162)
-	add		vReg_185,vReg_165,vReg_184
-	sw		vReg_169,0(vReg_185)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
-	addi	vReg_186,vReg_167,8
-	lw		vReg_187,0(vReg_186)
-	beq		vReg_187,vReg_105,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
-	lw		vReg_188,0(vReg_186)
-	blt		vReg_188,vReg_105,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
-	j		_init___parallel_copy__2
-
-_init___parallel_copy__2:
-	mv		id_189,id_63
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
-	addi	vReg_190,vReg_167,4
-	lw		vReg_191,0(vReg_190)
-	slli	vReg_192,id_189,2
-	addi	vReg_193,vReg_192,4
-	add		vReg_194,vReg_193,vReg_191
-	lw		vReg_195,0(vReg_194)
-	beq		vReg_195,zero,_init__fake_fake_insertImpl_3_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_3_insertImpl_split_block:
-	li		imm_196,16
-	mv		a0,imm_196
-	call	malloc
-	mv		vReg_197,a0
-	addi	vReg_198,vReg_197,4
-	li		imm_199,12
-	mv		a0,imm_199
-	call	malloc
-	mv		vReg_200,a0
-	li		imm_201,2
-	sw		imm_201,0(vReg_200)
-	sw		vReg_200,0(vReg_198)
-	addi	vReg_202,vReg_197,8
-	sw		vReg_105,0(vReg_202)
-	addi	vReg_203,vReg_197,12
-	li		imm_204,1
-	sw		imm_204,0(vReg_203)
-	addi	vReg_205,vReg_197,0
-	sw		vReg_167,0(vReg_205)
-	lw		vReg_206,0(vReg_198)
-	addi	vReg_207,vReg_206,4
-	li		imm_208,0
-	sw		imm_208,0(vReg_207)
-	lw		vReg_209,0(vReg_198)
-	addi	vReg_210,vReg_209,8
-	li		imm_211,0
-	sw		imm_211,0(vReg_210)
-	lw		vReg_212,0(vReg_190)
-	add		vReg_213,vReg_193,vReg_212
-	sw		vReg_197,0(vReg_213)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge:
-	addi	vReg_214,vReg_195,8
-	lw		vReg_215,0(vReg_214)
-	beq		vReg_215,vReg_105,_init__fake_fake_insertImpl_3_insertImpl__if_then_2
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge_2:
-	lw		vReg_216,0(vReg_214)
-	blt		vReg_216,vReg_105,_init__fake_fake_insertImpl_3_insertImpl__if_then
-	j		_init___parallel_copy__3
-
-_init___parallel_copy__3:
-	mv		id_217,id_73
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge_3:
-	addi	vReg_218,vReg_195,4
-	lw		vReg_219,0(vReg_218)
-	slli	vReg_220,id_217,2
-	addi	vReg_221,vReg_220,4
-	add		vReg_222,vReg_221,vReg_219
-	lw		vReg_223,0(vReg_222)
-	beq		vReg_223,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
-	addi	vReg_224,vReg_223,8
-	lw		vReg_225,0(vReg_224)
-	beq		vReg_225,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
-	addi	vReg_226,vReg_223,12
-	lw		vReg_227,0(vReg_226)
-	addi	vReg_228,vReg_227,1
-	sw		vReg_228,0(vReg_226)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
-	lw		vReg_229,0(vReg_224)
-	blt		vReg_229,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
-	j		_init___parallel_copy__4
-
-_init___parallel_copy__4:
-	mv		id_230,id_59
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
-	addi	vReg_231,vReg_223,4
-	lw		vReg_232,0(vReg_231)
-	slli	vReg_233,id_230,2
-	addi	vReg_234,vReg_233,4
-	add		vReg_235,vReg_234,vReg_232
-	lw		vReg_236,0(vReg_235)
-	beq		vReg_236,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block:
-	li		imm_237,16
-	mv		a0,imm_237
-	call	malloc
-	mv		vReg_238,a0
-	addi	vReg_239,vReg_238,4
-	li		imm_240,12
-	mv		a0,imm_240
-	call	malloc
-	mv		vReg_241,a0
-	li		imm_242,2
-	sw		imm_242,0(vReg_241)
-	sw		vReg_241,0(vReg_239)
-	addi	vReg_243,vReg_238,8
-	sw		vReg_105,0(vReg_243)
-	addi	vReg_244,vReg_238,12
-	li		imm_245,1
-	sw		imm_245,0(vReg_244)
-	addi	vReg_246,vReg_238,0
-	sw		vReg_223,0(vReg_246)
-	lw		vReg_247,0(vReg_239)
-	addi	vReg_248,vReg_247,4
-	li		imm_249,0
-	sw		imm_249,0(vReg_248)
-	lw		vReg_250,0(vReg_239)
-	addi	vReg_251,vReg_250,8
-	li		imm_252,0
-	sw		imm_252,0(vReg_251)
-	lw		vReg_253,0(vReg_231)
-	add		vReg_254,vReg_234,vReg_253
-	sw		vReg_238,0(vReg_254)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge:
-	addi	vReg_255,vReg_236,8
-	lw		vReg_256,0(vReg_255)
-	beq		vReg_256,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then:
-	addi	vReg_257,vReg_236,12
-	lw		vReg_258,0(vReg_257)
-	addi	vReg_259,vReg_258,1
-	sw		vReg_259,0(vReg_257)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2:
-	lw		vReg_260,0(vReg_255)
-	blt		vReg_260,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2
-	j		_init___parallel_copy__6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2:
-	mv		id_261,id_75
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3:
-	addi	vReg_262,vReg_236,4
-	lw		vReg_263,0(vReg_262)
-	slli	vReg_264,id_261,2
-	addi	vReg_265,vReg_264,4
-	add		vReg_266,vReg_265,vReg_263
-	lw		vReg_267,0(vReg_266)
-	beq		vReg_267,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
-	addi	vReg_268,vReg_267,8
-	lw		vReg_269,0(vReg_268)
-	beq		vReg_269,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
-	addi	vReg_270,vReg_267,12
-	lw		vReg_271,0(vReg_270)
-	addi	vReg_272,vReg_271,1
-	sw		vReg_272,0(vReg_270)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
-	lw		vReg_273,0(vReg_268)
-	blt		vReg_273,vReg_105,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
-	j		_init___parallel_copy__5
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
-	mv		id_274,id_79
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
-	addi	vReg_275,vReg_267,4
-	lw		vReg_276,0(vReg_275)
-	slli	vReg_277,id_274,2
-	addi	vReg_278,vReg_277,4
-	add		vReg_279,vReg_278,vReg_276
-	lw		vReg_280,0(vReg_279)
-	mv		a0,vReg_280
-	mv		a1,vReg_267
-	mv		a2,id_274
-	mv		a3,vReg_105
-	call	insertImpl
-	mv		vReg_281,a0
-	j		_init__split_block
-
-_init___parallel_copy__5:
-	mv		id_274,id_87
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
-	li		imm_282,16
-	mv		a0,imm_282
-	call	malloc
-	mv		vReg_283,a0
-	addi	vReg_284,vReg_283,4
-	li		imm_285,12
-	mv		a0,imm_285
-	call	malloc
-	mv		vReg_286,a0
-	li		imm_287,2
-	sw		imm_287,0(vReg_286)
-	sw		vReg_286,0(vReg_284)
-	addi	vReg_288,vReg_283,8
-	sw		vReg_105,0(vReg_288)
-	addi	vReg_289,vReg_283,12
-	li		imm_290,1
-	sw		imm_290,0(vReg_289)
-	addi	vReg_291,vReg_283,0
-	sw		vReg_236,0(vReg_291)
-	lw		vReg_292,0(vReg_284)
-	addi	vReg_293,vReg_292,4
-	li		imm_294,0
-	sw		imm_294,0(vReg_293)
-	lw		vReg_295,0(vReg_284)
-	addi	vReg_296,vReg_295,8
-	li		imm_297,0
-	sw		imm_297,0(vReg_296)
-	lw		vReg_298,0(vReg_262)
-	add		vReg_299,vReg_265,vReg_298
-	sw		vReg_283,0(vReg_299)
-	j		_init__split_block
-
-_init___parallel_copy__6:
-	mv		id_261,id_65
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
-	mv		id_230,id_89
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
-	li		imm_300,16
-	mv		a0,imm_300
-	call	malloc
-	mv		vReg_301,a0
-	addi	vReg_302,vReg_301,4
-	li		imm_303,12
-	mv		a0,imm_303
-	call	malloc
-	mv		vReg_304,a0
-	li		imm_305,2
-	sw		imm_305,0(vReg_304)
-	sw		vReg_304,0(vReg_302)
-	addi	vReg_306,vReg_301,8
-	sw		vReg_105,0(vReg_306)
-	addi	vReg_307,vReg_301,12
-	li		imm_308,1
-	sw		imm_308,0(vReg_307)
-	addi	vReg_309,vReg_301,0
-	sw		vReg_195,0(vReg_309)
-	lw		vReg_310,0(vReg_302)
-	addi	vReg_311,vReg_310,4
-	li		imm_312,0
-	sw		imm_312,0(vReg_311)
-	lw		vReg_313,0(vReg_302)
-	addi	vReg_314,vReg_313,8
-	li		imm_315,0
-	sw		imm_315,0(vReg_314)
-	lw		vReg_316,0(vReg_218)
-	add		vReg_317,vReg_221,vReg_316
-	sw		vReg_301,0(vReg_317)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_3_insertImpl__if_then:
-	mv		id_217,id_81
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_3_insertImpl__if_then_2:
-	addi	vReg_318,vReg_195,12
-	lw		vReg_319,0(vReg_318)
-	addi	vReg_320,vReg_319,1
-	sw		vReg_320,0(vReg_318)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
-	mv		id_189,id_71
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
-	addi	vReg_321,vReg_167,12
-	lw		vReg_322,0(vReg_321)
-	addi	vReg_323,vReg_322,1
-	sw		vReg_323,0(vReg_321)
-	j		_init__split_block
-
-_init__fake_fake_insertImpl_2_insertImpl__if_then_2:
-	mv		id_161,id_61
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_3
-
-_init___parallel_copy__7:
-	mv		id_130,id_83
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_3
-
-_init__fake_fake_insertImpl_1_insertImpl_split_block:
-	li		imm_324,16
-	mv		a0,imm_324
-	call	malloc
-	mv		vReg_325,a0
-	addi	vReg_326,vReg_325,4
-	li		imm_327,12
-	mv		a0,imm_327
-	call	malloc
-	mv		vReg_328,a0
-	li		imm_329,2
-	sw		imm_329,0(vReg_328)
-	sw		vReg_328,0(vReg_326)
-	addi	vReg_330,vReg_325,8
-	sw		vReg_105,0(vReg_330)
-	addi	vReg_331,vReg_325,12
-	li		imm_332,1
-	sw		imm_332,0(vReg_331)
-	addi	vReg_333,vReg_325,0
-	li		imm_334,0
-	sw		imm_334,0(vReg_333)
-	lw		vReg_335,0(vReg_326)
-	addi	vReg_336,vReg_335,4
-	li		imm_337,0
-	sw		imm_337,0(vReg_336)
-	lw		vReg_338,0(vReg_326)
-	addi	vReg_339,vReg_338,8
-	li		imm_340,0
-	sw		imm_340,0(vReg_339)
-	li		imm_342,4
-	lw		vReg_341,0(imm_342)
-	addi	vReg_343,vReg_341,0
-	sw		vReg_325,0(vReg_343)
-	j		_init__split_block
-
-_init__fake_main_fake_generateOperations_fake_insert_split_block:
-	li		imm_344,16
-	mv		a0,imm_344
-	call	malloc
-	mv		vReg_345,a0
-	addi	vReg_346,vReg_345,4
-	li		imm_347,12
-	mv		a0,imm_347
-	call	malloc
-	mv		vReg_348,a0
-	li		imm_349,2
-	sw		imm_349,0(vReg_348)
-	sw		vReg_348,0(vReg_346)
-	addi	vReg_350,vReg_345,8
-	sw		vReg_105,0(vReg_350)
-	addi	vReg_351,vReg_345,12
-	li		imm_352,1
-	sw		imm_352,0(vReg_351)
-	addi	vReg_353,vReg_345,0
-	li		imm_354,0
-	sw		imm_354,0(vReg_353)
-	lw		vReg_355,0(vReg_346)
-	addi	vReg_356,vReg_355,4
-	li		imm_357,0
-	sw		imm_357,0(vReg_356)
-	lw		vReg_358,0(vReg_346)
-	addi	vReg_359,vReg_358,8
-	li		imm_360,0
-	sw		imm_360,0(vReg_359)
-	mv		root_361,vReg_345
-	mv		root_126,root_361
-	j		_init__fake_main_fake_generateOperations_split_block_3
-
-_init__fake_main_fake_generateOperations__if_else:
-	beq		root_91,zero,_init__fake_main_fake_generateOperations_fake_erase__if_then
-	j		_init__fake_main_fake_generateOperations_fake_erase__if_merge
-
-_init__fake_main_fake_generateOperations_fake_erase__if_then:
-	mv		root_362,root_91
-	j		_init__fake_main_fake_generateOperations_split_block_4
-
-_init__fake_main_fake_generateOperations_split_block_4:
-	mv		root_127,root_362
-	j		_init__fake_main_fake_generateOperations__for_step
-
-_init__fake_main_fake_generateOperations_fake_erase__if_merge:
-	lui		global_tmp_363,0
-	sw		root_91,0(global_tmp_363)
-	mv		a0,root_91
-	li		imm_364,0
-	mv		a1,imm_364
-	li		imm_365,-1
-	mv		a2,imm_365
-	mv		a3,vReg_105
-	call	eraseImpl
-	mv		vReg_366,a0
-	lui		global_tmp_367,0
-	lw		root_368,0(global_tmp_367)
-	mv		root_362,root_368
-	j		_init__fake_main_fake_generateOperations_split_block_4
-
-_init__fake_main_fake_generateOperations_fake_randOp__if_merge:
-	mv		returnVal_119,returnVal_67
-	j		_init__fake_main_fake_generateOperations_split_block_2
-
 _init___init__fake_main_fake_generateOperations__for_cond_pre_header_2:
-	mv		root_licm_phi_369,root_91
-	mv		seed_licm_phi_370,seed_93
-	li		imm_372,0
-	mv		i_licm_phi_371,imm_372
-	li		imm_374,1
-	mv		id_373,imm_374
-	li		imm_376,0
-	mv		id_375,imm_376
-	li		imm_378,0
-	mv		id_377,imm_378
-	li		imm_380,1
-	mv		id_379,imm_380
-	li		imm_382,1
-	mv		id_381,imm_382
-	li		imm_384,1
-	mv		id_383,imm_384
-	li		imm_386,1
-	mv		id_385,imm_386
-	li		imm_388,1
-	mv		returnVal_387,imm_388
-	li		imm_390,0
-	mv		id_389,imm_390
-	li		imm_392,0
-	mv		id_391,imm_392
-	li		imm_394,0
-	mv		id_393,imm_394
-	li		imm_396,2
-	mv		returnVal_395,imm_396
-	li		imm_398,1
-	mv		id_397,imm_398
-	li		imm_400,0
-	mv		id_399,imm_400
-	li		imm_402,1
-	mv		id_401,imm_402
-	li		imm_404,0
-	mv		id_403,imm_404
-	mv		root_405,root_licm_phi_369
-	mv		seed_406,seed_licm_phi_370
-	mv		i_407,i_licm_phi_371
+	mv		root_licm_phi_95,root_91
+	mv		seed_licm_phi_96,seed_93
+	li		imm_98,0
+	mv		i_licm_phi_97,imm_98
+	li		imm_100,1
+	mv		id_99,imm_100
+	li		imm_102,0
+	mv		id_101,imm_102
+	li		imm_104,0
+	mv		id_103,imm_104
+	li		imm_106,1
+	mv		id_105,imm_106
+	li		imm_108,1
+	mv		id_107,imm_108
+	li		imm_110,1
+	mv		id_109,imm_110
+	li		imm_112,1
+	mv		id_111,imm_112
+	li		imm_114,1
+	mv		returnVal_113,imm_114
+	li		imm_116,0
+	mv		id_115,imm_116
+	li		imm_118,0
+	mv		id_117,imm_118
+	li		imm_120,0
+	mv		id_119,imm_120
+	li		imm_122,2
+	mv		returnVal_121,imm_122
+	li		imm_124,1
+	mv		id_123,imm_124
+	li		imm_126,0
+	mv		id_125,imm_126
+	li		imm_128,1
+	mv		id_127,imm_128
+	li		imm_130,0
+	mv		id_129,imm_130
+	mv		root_131,root_licm_phi_95
+	mv		seed_132,seed_licm_phi_96
+	mv		i_133,i_licm_phi_97
 	j		_init__fake_main_fake_generateOperations__for_cond_3
 
 _init__fake_main_fake_generateOperations__for_cond_3:
-	li		imm_408,50000
-	blt		i_407,imm_408,_init__fake_main_fake_generateOperations_split_block_5
-	j		_init__split_block_3
+	li		imm_134,50000
+	blt		i_133,imm_134,_init__fake_main_fake_generateOperations_split_block
+	j		_init__split_block_2
 
-_init__fake_main_fake_generateOperations_split_block_5:
-	slli	vReg_409,seed_406,13
-	xor		vReg_410,seed_406,vReg_409
-	li		imm_412,2147483647
-	and		vReg_411,vReg_410,imm_412
-	srai	vReg_413,vReg_411,17
-	xor		vReg_414,vReg_411,vReg_413
-	slli	vReg_415,vReg_414,5
-	xor		vReg_416,vReg_414,vReg_415
-	li		imm_418,2147483647
-	and		vReg_417,vReg_416,imm_418
-	li		imm_420,128
-	rem		vReg_419,vReg_417,imm_420
-	slli	vReg_421,vReg_417,13
-	xor		vReg_422,vReg_417,vReg_421
-	li		imm_424,2147483647
-	and		vReg_423,vReg_422,imm_424
-	srai	vReg_425,vReg_423,17
-	xor		vReg_426,vReg_423,vReg_425
-	slli	vReg_427,vReg_426,5
-	xor		vReg_428,vReg_426,vReg_427
-	li		imm_430,2147483647
-	and		vReg_429,vReg_428,imm_430
-	mv		seed_431,vReg_429
-	li		imm_432,858993456
-	blt		vReg_429,imm_432,_init__fake_main_fake_generateOperations_fake_randOp__if_then_2
-	j		_init__fake_main_fake_generateOperations_fake_randOp__if_merge_2
+_init__fake_main_fake_generateOperations_split_block:
+	slli	vReg_135,seed_132,13
+	xor		vReg_136,seed_132,vReg_135
+	li		imm_138,2147483647
+	and		vReg_137,vReg_136,imm_138
+	srai	vReg_139,vReg_137,17
+	xor		vReg_140,vReg_137,vReg_139
+	slli	vReg_141,vReg_140,5
+	xor		vReg_142,vReg_140,vReg_141
+	li		imm_144,2147483647
+	and		vReg_143,vReg_142,imm_144
+	li		imm_146,128
+	rem		vReg_145,vReg_143,imm_146
+	slli	vReg_147,vReg_143,13
+	xor		vReg_148,vReg_143,vReg_147
+	li		imm_150,2147483647
+	and		vReg_149,vReg_148,imm_150
+	srai	vReg_151,vReg_149,17
+	xor		vReg_152,vReg_149,vReg_151
+	slli	vReg_153,vReg_152,5
+	xor		vReg_154,vReg_152,vReg_153
+	li		imm_156,2147483647
+	and		vReg_155,vReg_154,imm_156
+	mv		seed_157,vReg_155
+	li		imm_158,858993456
+	blt		vReg_155,imm_158,_init__fake_main_fake_generateOperations_fake_randOp__if_then
+	j		_init__fake_main_fake_generateOperations_fake_randOp__if_merge
 
-_init__fake_main_fake_generateOperations_fake_randOp__if_merge_2:
-	mv		returnVal_433,returnVal_395
-	j		_init__fake_main_fake_generateOperations_split_block_6
+_init__fake_main_fake_generateOperations_fake_randOp__if_merge:
+	mv		returnVal_159,returnVal_121
+	j		_init__fake_main_fake_generateOperations_split_block_2
 
-_init__fake_main_fake_generateOperations_split_block_6:
-	li		imm_434,1
-	beq		returnVal_433,imm_434,_init__fake_main_fake_generateOperations__if_then_2
-	j		_init__fake_main_fake_generateOperations__if_else_2
+_init__fake_main_fake_generateOperations_split_block_2:
+	li		imm_160,1
+	beq		returnVal_159,imm_160,_init__fake_main_fake_generateOperations__if_then
+	j		_init__fake_main_fake_generateOperations__if_else
 
-_init__fake_main_fake_generateOperations__if_else_2:
-	beq		root_405,zero,_init__fake_main_fake_generateOperations_fake_erase__if_then_2
-	j		_init__fake_main_fake_generateOperations_fake_erase__if_merge_2
+_init__fake_main_fake_generateOperations__if_else:
+	beq		root_131,zero,_init__fake_main_fake_generateOperations_fake_erase__if_then
+	j		_init__fake_main_fake_generateOperations_fake_erase__if_merge
 
-_init__fake_main_fake_generateOperations_fake_erase__if_then_2:
-	mv		root_435,root_405
-	j		_init__fake_main_fake_generateOperations_split_block_7
+_init__fake_main_fake_generateOperations_fake_erase__if_then:
+	mv		root_161,root_131
+	j		_init__fake_main_fake_generateOperations_split_block_3
 
-_init__fake_main_fake_generateOperations_split_block_7:
-	mv		root_436,root_435
-	j		_init__fake_main_fake_generateOperations__for_step_2
+_init__fake_main_fake_generateOperations_split_block_3:
+	mv		root_162,root_161
+	j		_init__fake_main_fake_generateOperations__for_step
 
-_init__fake_main_fake_generateOperations__for_step_2:
-	addi	i_437,i_407,1
-	mv		root_405,root_436
-	mv		seed_406,seed_431
-	mv		i_407,i_437
+_init__fake_main_fake_generateOperations__for_step:
+	addi	i_163,i_133,1
+	mv		root_131,root_162
+	mv		seed_132,seed_157
+	mv		i_133,i_163
 	j		_init__fake_main_fake_generateOperations__for_cond_3
 
-_init__fake_main_fake_generateOperations_fake_erase__if_merge_2:
-	lui		global_tmp_438,0
-	sw		root_405,0(global_tmp_438)
-	mv		a0,root_405
-	li		imm_439,0
-	mv		a1,imm_439
-	li		imm_440,-1
-	mv		a2,imm_440
-	mv		a3,vReg_419
+_init__fake_main_fake_generateOperations_fake_erase__if_merge:
+	lui		global_tmp_164,0
+	sw		root_131,0(global_tmp_164)
+	mv		a0,root_131
+	li		imm_165,0
+	mv		a1,imm_165
+	li		imm_166,-1
+	mv		a2,imm_166
+	mv		a3,vReg_145
 	call	eraseImpl
-	mv		vReg_441,a0
-	lui		global_tmp_442,0
-	lw		root_443,0(global_tmp_442)
-	mv		root_435,root_443
-	j		_init__fake_main_fake_generateOperations_split_block_7
+	mv		vReg_167,a0
+	lui		global_tmp_168,0
+	lw		root_169,0(global_tmp_168)
+	mv		root_161,root_169
+	j		_init__fake_main_fake_generateOperations_split_block_3
 
-_init__fake_main_fake_generateOperations__if_then_2:
-	bne		root_405,zero,_init__fake_main_fake_generateOperations_fake_insert__if_then_2
-	j		_init__fake_main_fake_generateOperations_fake_insert_split_block_2
+_init__fake_main_fake_generateOperations__if_then:
+	bne		root_131,zero,_init__fake_main_fake_generateOperations_fake_insert__if_then
+	j		_init__fake_main_fake_generateOperations_fake_insert_split_block
 
-_init__fake_main_fake_generateOperations_fake_insert__if_then_2:
-	beq		root_405,zero,_init__fake_fake_insertImpl_1_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_4
+_init__fake_main_fake_generateOperations_fake_insert__if_then:
+	beq		root_131,zero,_init__fake_fake_insertImpl_1_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge
 
-_init__fake_fake_insertImpl_1_insertImpl__if_merge_4:
-	addi	vReg_444,root_405,8
-	lw		vReg_445,0(vReg_444)
-	beq		vReg_445,vReg_419,_init__fake_fake_insertImpl_1_insertImpl__if_then_3
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_5
+_init__fake_fake_insertImpl_1_insertImpl__if_merge:
+	addi	vReg_170,root_131,8
+	lw		vReg_171,0(vReg_170)
+	beq		vReg_171,vReg_145,_init__fake_fake_insertImpl_1_insertImpl__if_then
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_2
 
-_init__fake_fake_insertImpl_1_insertImpl__if_then_3:
-	addi	vReg_446,root_405,12
-	lw		vReg_447,0(vReg_446)
-	addi	vReg_448,vReg_447,1
-	sw		vReg_448,0(vReg_446)
-	j		_init__split_block_2
+_init__fake_fake_insertImpl_1_insertImpl__if_then:
+	addi	vReg_172,root_131,12
+	lw		vReg_173,0(vReg_172)
+	addi	vReg_174,vReg_173,1
+	sw		vReg_174,0(vReg_172)
+	j		_init__split_block
+
+_init__split_block:
+	mv		root_175,root_131
+	j		_init__fake_main_fake_generateOperations_split_block_4
+
+_init__fake_main_fake_generateOperations_split_block_4:
+	mv		root_162,root_175
+	j		_init__fake_main_fake_generateOperations__for_step
+
+_init__fake_fake_insertImpl_1_insertImpl__if_merge_2:
+	lw		vReg_176,0(vReg_170)
+	blt		vReg_176,vReg_145,_init__fake_fake_insertImpl_1_insertImpl__if_then_2
+	j		_init___parallel_copy_
+
+_init___parallel_copy_:
+	mv		id_177,id_103
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_1_insertImpl__if_merge_3:
+	addi	vReg_178,root_131,4
+	lw		vReg_179,0(vReg_178)
+	slli	vReg_180,id_177,2
+	addi	vReg_181,vReg_180,4
+	add		vReg_182,vReg_181,vReg_179
+	lw		vReg_183,0(vReg_182)
+	beq		vReg_183,zero,_init__fake_fake_insertImpl_2_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_2_insertImpl_split_block:
+	li		imm_184,16
+	mv		a0,imm_184
+	call	malloc
+	mv		vReg_185,a0
+	addi	vReg_186,vReg_185,4
+	li		imm_187,12
+	mv		a0,imm_187
+	call	malloc
+	mv		vReg_188,a0
+	li		imm_189,2
+	sw		imm_189,0(vReg_188)
+	sw		vReg_188,0(vReg_186)
+	addi	vReg_190,vReg_185,8
+	sw		vReg_145,0(vReg_190)
+	addi	vReg_191,vReg_185,12
+	li		imm_192,1
+	sw		imm_192,0(vReg_191)
+	addi	vReg_193,vReg_185,0
+	sw		root_131,0(vReg_193)
+	lw		vReg_194,0(vReg_186)
+	addi	vReg_195,vReg_194,4
+	li		imm_196,0
+	sw		imm_196,0(vReg_195)
+	lw		vReg_197,0(vReg_186)
+	addi	vReg_198,vReg_197,8
+	li		imm_199,0
+	sw		imm_199,0(vReg_198)
+	lw		vReg_200,0(vReg_178)
+	add		vReg_201,vReg_181,vReg_200
+	sw		vReg_185,0(vReg_201)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge:
+	addi	vReg_202,vReg_183,8
+	lw		vReg_203,0(vReg_202)
+	beq		vReg_203,vReg_145,_init__fake_fake_insertImpl_2_insertImpl__if_then_2
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge_2:
+	lw		vReg_204,0(vReg_202)
+	blt		vReg_204,vReg_145,_init__fake_fake_insertImpl_2_insertImpl__if_then
+	j		_init___parallel_copy__7
+
+_init__fake_fake_insertImpl_2_insertImpl__if_then:
+	mv		id_205,id_99
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge_3:
+	addi	vReg_206,vReg_183,4
+	lw		vReg_207,0(vReg_206)
+	slli	vReg_208,id_205,2
+	addi	vReg_209,vReg_208,4
+	add		vReg_210,vReg_209,vReg_207
+	lw		vReg_211,0(vReg_210)
+	beq		vReg_211,zero,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
+	li		imm_212,16
+	mv		a0,imm_212
+	call	malloc
+	mv		vReg_213,a0
+	addi	vReg_214,vReg_213,4
+	li		imm_215,12
+	mv		a0,imm_215
+	call	malloc
+	mv		vReg_216,a0
+	li		imm_217,2
+	sw		imm_217,0(vReg_216)
+	sw		vReg_216,0(vReg_214)
+	addi	vReg_218,vReg_213,8
+	sw		vReg_145,0(vReg_218)
+	addi	vReg_219,vReg_213,12
+	li		imm_220,1
+	sw		imm_220,0(vReg_219)
+	addi	vReg_221,vReg_213,0
+	sw		vReg_183,0(vReg_221)
+	lw		vReg_222,0(vReg_214)
+	addi	vReg_223,vReg_222,4
+	li		imm_224,0
+	sw		imm_224,0(vReg_223)
+	lw		vReg_225,0(vReg_214)
+	addi	vReg_226,vReg_225,8
+	li		imm_227,0
+	sw		imm_227,0(vReg_226)
+	lw		vReg_228,0(vReg_206)
+	add		vReg_229,vReg_209,vReg_228
+	sw		vReg_213,0(vReg_229)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
+	addi	vReg_230,vReg_211,8
+	lw		vReg_231,0(vReg_230)
+	beq		vReg_231,vReg_145,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
+	addi	vReg_232,vReg_211,12
+	lw		vReg_233,0(vReg_232)
+	addi	vReg_234,vReg_233,1
+	sw		vReg_234,0(vReg_232)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+	lw		vReg_235,0(vReg_230)
+	blt		vReg_235,vReg_145,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
+	j		_init___parallel_copy__2
+
+_init___parallel_copy__2:
+	mv		id_236,id_119
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+	addi	vReg_237,vReg_211,4
+	lw		vReg_238,0(vReg_237)
+	slli	vReg_239,id_236,2
+	addi	vReg_240,vReg_239,4
+	add		vReg_241,vReg_240,vReg_238
+	lw		vReg_242,0(vReg_241)
+	beq		vReg_242,zero,_init__fake_fake_insertImpl_3_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge:
+	addi	vReg_243,vReg_242,8
+	lw		vReg_244,0(vReg_243)
+	beq		vReg_244,vReg_145,_init__fake_fake_insertImpl_3_insertImpl__if_then_2
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge_2:
+	lw		vReg_245,0(vReg_243)
+	blt		vReg_245,vReg_145,_init__fake_fake_insertImpl_3_insertImpl__if_then
+	j		_init___parallel_copy__3
+
+_init___parallel_copy__3:
+	mv		id_246,id_129
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge_3:
+	addi	vReg_247,vReg_242,4
+	lw		vReg_248,0(vReg_247)
+	slli	vReg_249,id_246,2
+	addi	vReg_250,vReg_249,4
+	add		vReg_251,vReg_250,vReg_248
+	lw		vReg_252,0(vReg_251)
+	beq		vReg_252,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
+	addi	vReg_253,vReg_252,8
+	lw		vReg_254,0(vReg_253)
+	beq		vReg_254,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
+	addi	vReg_255,vReg_252,12
+	lw		vReg_256,0(vReg_255)
+	addi	vReg_257,vReg_256,1
+	sw		vReg_257,0(vReg_255)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+	lw		vReg_258,0(vReg_253)
+	blt		vReg_258,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
+	j		_init___parallel_copy__4
+
+_init___parallel_copy__4:
+	mv		id_259,id_117
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+	addi	vReg_260,vReg_252,4
+	lw		vReg_261,0(vReg_260)
+	slli	vReg_262,id_259,2
+	addi	vReg_263,vReg_262,4
+	add		vReg_264,vReg_263,vReg_261
+	lw		vReg_265,0(vReg_264)
+	beq		vReg_265,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge:
+	addi	vReg_266,vReg_265,8
+	lw		vReg_267,0(vReg_266)
+	beq		vReg_267,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then:
+	addi	vReg_268,vReg_265,12
+	lw		vReg_269,0(vReg_268)
+	addi	vReg_270,vReg_269,1
+	sw		vReg_270,0(vReg_268)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_2:
+	lw		vReg_271,0(vReg_266)
+	blt		vReg_271,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2
+	j		_init___parallel_copy__6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_2:
+	mv		id_272,id_111
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3:
+	addi	vReg_273,vReg_265,4
+	lw		vReg_274,0(vReg_273)
+	slli	vReg_275,id_272,2
+	addi	vReg_276,vReg_275,4
+	add		vReg_277,vReg_276,vReg_274
+	lw		vReg_278,0(vReg_277)
+	beq		vReg_278,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
+	li		imm_279,16
+	mv		a0,imm_279
+	call	malloc
+	mv		vReg_280,a0
+	addi	vReg_281,vReg_280,4
+	li		imm_282,12
+	mv		a0,imm_282
+	call	malloc
+	mv		vReg_283,a0
+	li		imm_284,2
+	sw		imm_284,0(vReg_283)
+	sw		vReg_283,0(vReg_281)
+	addi	vReg_285,vReg_280,8
+	sw		vReg_145,0(vReg_285)
+	addi	vReg_286,vReg_280,12
+	li		imm_287,1
+	sw		imm_287,0(vReg_286)
+	addi	vReg_288,vReg_280,0
+	sw		vReg_265,0(vReg_288)
+	lw		vReg_289,0(vReg_281)
+	addi	vReg_290,vReg_289,4
+	li		imm_291,0
+	sw		imm_291,0(vReg_290)
+	lw		vReg_292,0(vReg_281)
+	addi	vReg_293,vReg_292,8
+	li		imm_294,0
+	sw		imm_294,0(vReg_293)
+	lw		vReg_295,0(vReg_273)
+	add		vReg_296,vReg_276,vReg_295
+	sw		vReg_280,0(vReg_296)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge:
+	addi	vReg_297,vReg_278,8
+	lw		vReg_298,0(vReg_297)
+	beq		vReg_298,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_2:
+	lw		vReg_299,0(vReg_297)
+	blt		vReg_299,vReg_145,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then
+	j		_init___parallel_copy__5
+
+_init___parallel_copy__5:
+	mv		id_300,id_125
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3:
+	addi	vReg_301,vReg_278,4
+	lw		vReg_302,0(vReg_301)
+	slli	vReg_303,id_300,2
+	addi	vReg_304,vReg_303,4
+	add		vReg_305,vReg_304,vReg_302
+	lw		vReg_306,0(vReg_305)
+	mv		a0,vReg_306
+	mv		a1,vReg_278
+	mv		a2,id_300
+	mv		a3,vReg_145
+	call	insertImpl
+	mv		vReg_307,a0
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then:
+	mv		id_300,id_123
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
+	addi	vReg_308,vReg_278,12
+	lw		vReg_309,0(vReg_308)
+	addi	vReg_310,vReg_309,1
+	sw		vReg_310,0(vReg_308)
+	j		_init__split_block
+
+_init___parallel_copy__6:
+	mv		id_272,id_101
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block:
+	li		imm_311,16
+	mv		a0,imm_311
+	call	malloc
+	mv		vReg_312,a0
+	addi	vReg_313,vReg_312,4
+	li		imm_314,12
+	mv		a0,imm_314
+	call	malloc
+	mv		vReg_315,a0
+	li		imm_316,2
+	sw		imm_316,0(vReg_315)
+	sw		vReg_315,0(vReg_313)
+	addi	vReg_317,vReg_312,8
+	sw		vReg_145,0(vReg_317)
+	addi	vReg_318,vReg_312,12
+	li		imm_319,1
+	sw		imm_319,0(vReg_318)
+	addi	vReg_320,vReg_312,0
+	sw		vReg_252,0(vReg_320)
+	lw		vReg_321,0(vReg_313)
+	addi	vReg_322,vReg_321,4
+	li		imm_323,0
+	sw		imm_323,0(vReg_322)
+	lw		vReg_324,0(vReg_313)
+	addi	vReg_325,vReg_324,8
+	li		imm_326,0
+	sw		imm_326,0(vReg_325)
+	lw		vReg_327,0(vReg_260)
+	add		vReg_328,vReg_263,vReg_327
+	sw		vReg_312,0(vReg_328)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
+	mv		id_259,id_107
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block:
+	li		imm_329,16
+	mv		a0,imm_329
+	call	malloc
+	mv		vReg_330,a0
+	addi	vReg_331,vReg_330,4
+	li		imm_332,12
+	mv		a0,imm_332
+	call	malloc
+	mv		vReg_333,a0
+	li		imm_334,2
+	sw		imm_334,0(vReg_333)
+	sw		vReg_333,0(vReg_331)
+	addi	vReg_335,vReg_330,8
+	sw		vReg_145,0(vReg_335)
+	addi	vReg_336,vReg_330,12
+	li		imm_337,1
+	sw		imm_337,0(vReg_336)
+	addi	vReg_338,vReg_330,0
+	sw		vReg_242,0(vReg_338)
+	lw		vReg_339,0(vReg_331)
+	addi	vReg_340,vReg_339,4
+	li		imm_341,0
+	sw		imm_341,0(vReg_340)
+	lw		vReg_342,0(vReg_331)
+	addi	vReg_343,vReg_342,8
+	li		imm_344,0
+	sw		imm_344,0(vReg_343)
+	lw		vReg_345,0(vReg_247)
+	add		vReg_346,vReg_250,vReg_345
+	sw		vReg_330,0(vReg_346)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl__if_then:
+	mv		id_246,id_109
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_3_insertImpl__if_then_2:
+	addi	vReg_347,vReg_242,12
+	lw		vReg_348,0(vReg_347)
+	addi	vReg_349,vReg_348,1
+	sw		vReg_349,0(vReg_347)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_3_insertImpl_split_block:
+	li		imm_350,16
+	mv		a0,imm_350
+	call	malloc
+	mv		vReg_351,a0
+	addi	vReg_352,vReg_351,4
+	li		imm_353,12
+	mv		a0,imm_353
+	call	malloc
+	mv		vReg_354,a0
+	li		imm_355,2
+	sw		imm_355,0(vReg_354)
+	sw		vReg_354,0(vReg_352)
+	addi	vReg_356,vReg_351,8
+	sw		vReg_145,0(vReg_356)
+	addi	vReg_357,vReg_351,12
+	li		imm_358,1
+	sw		imm_358,0(vReg_357)
+	addi	vReg_359,vReg_351,0
+	sw		vReg_211,0(vReg_359)
+	lw		vReg_360,0(vReg_352)
+	addi	vReg_361,vReg_360,4
+	li		imm_362,0
+	sw		imm_362,0(vReg_361)
+	lw		vReg_363,0(vReg_352)
+	addi	vReg_364,vReg_363,8
+	li		imm_365,0
+	sw		imm_365,0(vReg_364)
+	lw		vReg_366,0(vReg_237)
+	add		vReg_367,vReg_240,vReg_366
+	sw		vReg_351,0(vReg_367)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_2:
+	mv		id_236,id_127
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init___parallel_copy__7:
+	mv		id_205,id_115
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_2_insertImpl__if_then_2:
+	addi	vReg_368,vReg_183,12
+	lw		vReg_369,0(vReg_368)
+	addi	vReg_370,vReg_369,1
+	sw		vReg_370,0(vReg_368)
+	j		_init__split_block
+
+_init__fake_fake_insertImpl_1_insertImpl__if_then_2:
+	mv		id_177,id_105
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_3
+
+_init__fake_fake_insertImpl_1_insertImpl_split_block:
+	li		imm_371,16
+	mv		a0,imm_371
+	call	malloc
+	mv		vReg_372,a0
+	addi	vReg_373,vReg_372,4
+	li		imm_374,12
+	mv		a0,imm_374
+	call	malloc
+	mv		vReg_375,a0
+	li		imm_376,2
+	sw		imm_376,0(vReg_375)
+	sw		vReg_375,0(vReg_373)
+	addi	vReg_377,vReg_372,8
+	sw		vReg_145,0(vReg_377)
+	addi	vReg_378,vReg_372,12
+	li		imm_379,1
+	sw		imm_379,0(vReg_378)
+	addi	vReg_380,vReg_372,0
+	li		imm_381,0
+	sw		imm_381,0(vReg_380)
+	lw		vReg_382,0(vReg_373)
+	addi	vReg_383,vReg_382,4
+	li		imm_384,0
+	sw		imm_384,0(vReg_383)
+	lw		vReg_385,0(vReg_373)
+	addi	vReg_386,vReg_385,8
+	li		imm_387,0
+	sw		imm_387,0(vReg_386)
+	li		imm_389,4
+	lw		vReg_388,0(imm_389)
+	addi	vReg_390,vReg_388,0
+	sw		vReg_372,0(vReg_390)
+	j		_init__split_block
+
+_init__fake_main_fake_generateOperations_fake_insert_split_block:
+	li		imm_391,16
+	mv		a0,imm_391
+	call	malloc
+	mv		vReg_392,a0
+	addi	vReg_393,vReg_392,4
+	li		imm_394,12
+	mv		a0,imm_394
+	call	malloc
+	mv		vReg_395,a0
+	li		imm_396,2
+	sw		imm_396,0(vReg_395)
+	sw		vReg_395,0(vReg_393)
+	addi	vReg_397,vReg_392,8
+	sw		vReg_145,0(vReg_397)
+	addi	vReg_398,vReg_392,12
+	li		imm_399,1
+	sw		imm_399,0(vReg_398)
+	addi	vReg_400,vReg_392,0
+	li		imm_401,0
+	sw		imm_401,0(vReg_400)
+	lw		vReg_402,0(vReg_393)
+	addi	vReg_403,vReg_402,4
+	li		imm_404,0
+	sw		imm_404,0(vReg_403)
+	lw		vReg_405,0(vReg_393)
+	addi	vReg_406,vReg_405,8
+	li		imm_407,0
+	sw		imm_407,0(vReg_406)
+	mv		root_408,vReg_392
+	mv		root_175,root_408
+	j		_init__fake_main_fake_generateOperations_split_block_4
+
+_init__fake_main_fake_generateOperations_fake_randOp__if_then:
+	mv		returnVal_159,returnVal_113
+	j		_init__fake_main_fake_generateOperations_split_block_2
 
 _init__split_block_2:
-	mv		root_449,root_405
-	j		_init__fake_main_fake_generateOperations_split_block_8
-
-_init__fake_main_fake_generateOperations_split_block_8:
-	mv		root_436,root_449
-	j		_init__fake_main_fake_generateOperations__for_step_2
-
-_init__fake_fake_insertImpl_1_insertImpl__if_merge_5:
-	lw		vReg_450,0(vReg_444)
-	blt		vReg_450,vReg_419,_init__fake_fake_insertImpl_1_insertImpl__if_then_4
-	j		_init___parallel_copy__8
-
-_init___parallel_copy__8:
-	mv		id_451,id_377
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_1_insertImpl__if_merge_6:
-	addi	vReg_452,root_405,4
-	lw		vReg_453,0(vReg_452)
-	slli	vReg_454,id_451,2
-	addi	vReg_455,vReg_454,4
-	add		vReg_456,vReg_455,vReg_453
-	lw		vReg_457,0(vReg_456)
-	beq		vReg_457,zero,_init__fake_fake_insertImpl_2_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_2_insertImpl_split_block_2:
-	li		imm_458,16
-	mv		a0,imm_458
-	call	malloc
-	mv		vReg_459,a0
-	addi	vReg_460,vReg_459,4
-	li		imm_461,12
-	mv		a0,imm_461
-	call	malloc
-	mv		vReg_462,a0
-	li		imm_463,2
-	sw		imm_463,0(vReg_462)
-	sw		vReg_462,0(vReg_460)
-	addi	vReg_464,vReg_459,8
-	sw		vReg_419,0(vReg_464)
-	addi	vReg_465,vReg_459,12
-	li		imm_466,1
-	sw		imm_466,0(vReg_465)
-	addi	vReg_467,vReg_459,0
-	sw		root_405,0(vReg_467)
-	lw		vReg_468,0(vReg_460)
-	addi	vReg_469,vReg_468,4
-	li		imm_470,0
-	sw		imm_470,0(vReg_469)
-	lw		vReg_471,0(vReg_460)
-	addi	vReg_472,vReg_471,8
-	li		imm_473,0
-	sw		imm_473,0(vReg_472)
-	lw		vReg_474,0(vReg_452)
-	add		vReg_475,vReg_455,vReg_474
-	sw		vReg_459,0(vReg_475)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge_4:
-	addi	vReg_476,vReg_457,8
-	lw		vReg_477,0(vReg_476)
-	beq		vReg_477,vReg_419,_init__fake_fake_insertImpl_2_insertImpl__if_then_4
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge_5:
-	lw		vReg_478,0(vReg_476)
-	blt		vReg_478,vReg_419,_init__fake_fake_insertImpl_2_insertImpl__if_then_3
-	j		_init___parallel_copy__14
-
-_init__fake_fake_insertImpl_2_insertImpl__if_then_3:
-	mv		id_479,id_373
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_2_insertImpl__if_merge_6:
-	addi	vReg_480,vReg_457,4
-	lw		vReg_481,0(vReg_480)
-	slli	vReg_482,id_479,2
-	addi	vReg_483,vReg_482,4
-	add		vReg_484,vReg_483,vReg_481
-	lw		vReg_485,0(vReg_484)
-	beq		vReg_485,zero,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
-	li		imm_486,16
-	mv		a0,imm_486
-	call	malloc
-	mv		vReg_487,a0
-	addi	vReg_488,vReg_487,4
-	li		imm_489,12
-	mv		a0,imm_489
-	call	malloc
-	mv		vReg_490,a0
-	li		imm_491,2
-	sw		imm_491,0(vReg_490)
-	sw		vReg_490,0(vReg_488)
-	addi	vReg_492,vReg_487,8
-	sw		vReg_419,0(vReg_492)
-	addi	vReg_493,vReg_487,12
-	li		imm_494,1
-	sw		imm_494,0(vReg_493)
-	addi	vReg_495,vReg_487,0
-	sw		vReg_457,0(vReg_495)
-	lw		vReg_496,0(vReg_488)
-	addi	vReg_497,vReg_496,4
-	li		imm_498,0
-	sw		imm_498,0(vReg_497)
-	lw		vReg_499,0(vReg_488)
-	addi	vReg_500,vReg_499,8
-	li		imm_501,0
-	sw		imm_501,0(vReg_500)
-	lw		vReg_502,0(vReg_480)
-	add		vReg_503,vReg_483,vReg_502
-	sw		vReg_487,0(vReg_503)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
-	addi	vReg_504,vReg_485,8
-	lw		vReg_505,0(vReg_504)
-	beq		vReg_505,vReg_419,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
-	addi	vReg_506,vReg_485,12
-	lw		vReg_507,0(vReg_506)
-	addi	vReg_508,vReg_507,1
-	sw		vReg_508,0(vReg_506)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
-	lw		vReg_509,0(vReg_504)
-	blt		vReg_509,vReg_419,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
-	j		_init___parallel_copy__9
-
-_init___parallel_copy__9:
-	mv		id_510,id_393
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
-	addi	vReg_511,vReg_485,4
-	lw		vReg_512,0(vReg_511)
-	slli	vReg_513,id_510,2
-	addi	vReg_514,vReg_513,4
-	add		vReg_515,vReg_514,vReg_512
-	lw		vReg_516,0(vReg_515)
-	beq		vReg_516,zero,_init__fake_fake_insertImpl_3_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge_4:
-	addi	vReg_517,vReg_516,8
-	lw		vReg_518,0(vReg_517)
-	beq		vReg_518,vReg_419,_init__fake_fake_insertImpl_3_insertImpl__if_then_4
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge_5:
-	lw		vReg_519,0(vReg_517)
-	blt		vReg_519,vReg_419,_init__fake_fake_insertImpl_3_insertImpl__if_then_3
-	j		_init___parallel_copy__10
-
-_init___parallel_copy__10:
-	mv		id_520,id_403
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl__if_merge_6:
-	addi	vReg_521,vReg_516,4
-	lw		vReg_522,0(vReg_521)
-	slli	vReg_523,id_520,2
-	addi	vReg_524,vReg_523,4
-	add		vReg_525,vReg_524,vReg_522
-	lw		vReg_526,0(vReg_525)
-	beq		vReg_526,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
-	addi	vReg_527,vReg_526,8
-	lw		vReg_528,0(vReg_527)
-	beq		vReg_528,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
-	addi	vReg_529,vReg_526,12
-	lw		vReg_530,0(vReg_529)
-	addi	vReg_531,vReg_530,1
-	sw		vReg_531,0(vReg_529)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
-	lw		vReg_532,0(vReg_527)
-	blt		vReg_532,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
-	j		_init___parallel_copy__11
-
-_init___parallel_copy__11:
-	mv		id_533,id_391
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
-	addi	vReg_534,vReg_526,4
-	lw		vReg_535,0(vReg_534)
-	slli	vReg_536,id_533,2
-	addi	vReg_537,vReg_536,4
-	add		vReg_538,vReg_537,vReg_535
-	lw		vReg_539,0(vReg_538)
-	beq		vReg_539,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_4:
-	addi	vReg_540,vReg_539,8
-	lw		vReg_541,0(vReg_540)
-	beq		vReg_541,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3:
-	addi	vReg_542,vReg_539,12
-	lw		vReg_543,0(vReg_542)
-	addi	vReg_544,vReg_543,1
-	sw		vReg_544,0(vReg_542)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_5:
-	lw		vReg_545,0(vReg_540)
-	blt		vReg_545,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_4
-	j		_init___parallel_copy__13
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_4:
-	mv		id_546,id_385
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6:
-	addi	vReg_547,vReg_539,4
-	lw		vReg_548,0(vReg_547)
-	slli	vReg_549,id_546,2
-	addi	vReg_550,vReg_549,4
-	add		vReg_551,vReg_550,vReg_548
-	lw		vReg_552,0(vReg_551)
-	beq		vReg_552,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
-	li		imm_553,16
-	mv		a0,imm_553
-	call	malloc
-	mv		vReg_554,a0
-	addi	vReg_555,vReg_554,4
-	li		imm_556,12
-	mv		a0,imm_556
-	call	malloc
-	mv		vReg_557,a0
-	li		imm_558,2
-	sw		imm_558,0(vReg_557)
-	sw		vReg_557,0(vReg_555)
-	addi	vReg_559,vReg_554,8
-	sw		vReg_419,0(vReg_559)
-	addi	vReg_560,vReg_554,12
-	li		imm_561,1
-	sw		imm_561,0(vReg_560)
-	addi	vReg_562,vReg_554,0
-	sw		vReg_539,0(vReg_562)
-	lw		vReg_563,0(vReg_555)
-	addi	vReg_564,vReg_563,4
-	li		imm_565,0
-	sw		imm_565,0(vReg_564)
-	lw		vReg_566,0(vReg_555)
-	addi	vReg_567,vReg_566,8
-	li		imm_568,0
-	sw		imm_568,0(vReg_567)
-	lw		vReg_569,0(vReg_547)
-	add		vReg_570,vReg_550,vReg_569
-	sw		vReg_554,0(vReg_570)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
-	addi	vReg_571,vReg_552,8
-	lw		vReg_572,0(vReg_571)
-	beq		vReg_572,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
-	lw		vReg_573,0(vReg_571)
-	blt		vReg_573,vReg_419,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
-	j		_init___parallel_copy__12
-
-_init___parallel_copy__12:
-	mv		id_574,id_399
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
-	addi	vReg_575,vReg_552,4
-	lw		vReg_576,0(vReg_575)
-	slli	vReg_577,id_574,2
-	addi	vReg_578,vReg_577,4
-	add		vReg_579,vReg_578,vReg_576
-	lw		vReg_580,0(vReg_579)
-	mv		a0,vReg_580
-	mv		a1,vReg_552
-	mv		a2,id_574
-	mv		a3,vReg_419
-	call	insertImpl
-	mv		vReg_581,a0
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
-	mv		id_574,id_397
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
-	addi	vReg_582,vReg_552,12
-	lw		vReg_583,0(vReg_582)
-	addi	vReg_584,vReg_583,1
-	sw		vReg_584,0(vReg_582)
-	j		_init__split_block_2
-
-_init___parallel_copy__13:
-	mv		id_546,id_375
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2:
-	li		imm_585,16
-	mv		a0,imm_585
-	call	malloc
-	mv		vReg_586,a0
-	addi	vReg_587,vReg_586,4
-	li		imm_588,12
-	mv		a0,imm_588
-	call	malloc
-	mv		vReg_589,a0
-	li		imm_590,2
-	sw		imm_590,0(vReg_589)
-	sw		vReg_589,0(vReg_587)
-	addi	vReg_591,vReg_586,8
-	sw		vReg_419,0(vReg_591)
-	addi	vReg_592,vReg_586,12
-	li		imm_593,1
-	sw		imm_593,0(vReg_592)
-	addi	vReg_594,vReg_586,0
-	sw		vReg_526,0(vReg_594)
-	lw		vReg_595,0(vReg_587)
-	addi	vReg_596,vReg_595,4
-	li		imm_597,0
-	sw		imm_597,0(vReg_596)
-	lw		vReg_598,0(vReg_587)
-	addi	vReg_599,vReg_598,8
-	li		imm_600,0
-	sw		imm_600,0(vReg_599)
-	lw		vReg_601,0(vReg_534)
-	add		vReg_602,vReg_537,vReg_601
-	sw		vReg_586,0(vReg_602)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
-	mv		id_533,id_381
-	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
-	li		imm_603,16
-	mv		a0,imm_603
-	call	malloc
-	mv		vReg_604,a0
-	addi	vReg_605,vReg_604,4
-	li		imm_606,12
-	mv		a0,imm_606
-	call	malloc
-	mv		vReg_607,a0
-	li		imm_608,2
-	sw		imm_608,0(vReg_607)
-	sw		vReg_607,0(vReg_605)
-	addi	vReg_609,vReg_604,8
-	sw		vReg_419,0(vReg_609)
-	addi	vReg_610,vReg_604,12
-	li		imm_611,1
-	sw		imm_611,0(vReg_610)
-	addi	vReg_612,vReg_604,0
-	sw		vReg_516,0(vReg_612)
-	lw		vReg_613,0(vReg_605)
-	addi	vReg_614,vReg_613,4
-	li		imm_615,0
-	sw		imm_615,0(vReg_614)
-	lw		vReg_616,0(vReg_605)
-	addi	vReg_617,vReg_616,8
-	li		imm_618,0
-	sw		imm_618,0(vReg_617)
-	lw		vReg_619,0(vReg_521)
-	add		vReg_620,vReg_524,vReg_619
-	sw		vReg_604,0(vReg_620)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl__if_then_3:
-	mv		id_520,id_383
-	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_3_insertImpl__if_then_4:
-	addi	vReg_621,vReg_516,12
-	lw		vReg_622,0(vReg_621)
-	addi	vReg_623,vReg_622,1
-	sw		vReg_623,0(vReg_621)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_3_insertImpl_split_block_2:
-	li		imm_624,16
-	mv		a0,imm_624
-	call	malloc
-	mv		vReg_625,a0
-	addi	vReg_626,vReg_625,4
-	li		imm_627,12
-	mv		a0,imm_627
-	call	malloc
-	mv		vReg_628,a0
-	li		imm_629,2
-	sw		imm_629,0(vReg_628)
-	sw		vReg_628,0(vReg_626)
-	addi	vReg_630,vReg_625,8
-	sw		vReg_419,0(vReg_630)
-	addi	vReg_631,vReg_625,12
-	li		imm_632,1
-	sw		imm_632,0(vReg_631)
-	addi	vReg_633,vReg_625,0
-	sw		vReg_485,0(vReg_633)
-	lw		vReg_634,0(vReg_626)
-	addi	vReg_635,vReg_634,4
-	li		imm_636,0
-	sw		imm_636,0(vReg_635)
-	lw		vReg_637,0(vReg_626)
-	addi	vReg_638,vReg_637,8
-	li		imm_639,0
-	sw		imm_639,0(vReg_638)
-	lw		vReg_640,0(vReg_511)
-	add		vReg_641,vReg_514,vReg_640
-	sw		vReg_625,0(vReg_641)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
-	mv		id_510,id_401
-	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init___parallel_copy__14:
-	mv		id_479,id_389
-	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_2_insertImpl__if_then_4:
-	addi	vReg_642,vReg_457,12
-	lw		vReg_643,0(vReg_642)
-	addi	vReg_644,vReg_643,1
-	sw		vReg_644,0(vReg_642)
-	j		_init__split_block_2
-
-_init__fake_fake_insertImpl_1_insertImpl__if_then_4:
-	mv		id_451,id_379
-	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_6
-
-_init__fake_fake_insertImpl_1_insertImpl_split_block_2:
-	li		imm_645,16
-	mv		a0,imm_645
-	call	malloc
-	mv		vReg_646,a0
-	addi	vReg_647,vReg_646,4
-	li		imm_648,12
-	mv		a0,imm_648
-	call	malloc
-	mv		vReg_649,a0
-	li		imm_650,2
-	sw		imm_650,0(vReg_649)
-	sw		vReg_649,0(vReg_647)
-	addi	vReg_651,vReg_646,8
-	sw		vReg_419,0(vReg_651)
-	addi	vReg_652,vReg_646,12
-	li		imm_653,1
-	sw		imm_653,0(vReg_652)
-	addi	vReg_654,vReg_646,0
-	li		imm_655,0
-	sw		imm_655,0(vReg_654)
-	lw		vReg_656,0(vReg_647)
-	addi	vReg_657,vReg_656,4
-	li		imm_658,0
-	sw		imm_658,0(vReg_657)
-	lw		vReg_659,0(vReg_647)
-	addi	vReg_660,vReg_659,8
-	li		imm_661,0
-	sw		imm_661,0(vReg_660)
-	li		imm_663,4
-	lw		vReg_662,0(imm_663)
-	addi	vReg_664,vReg_662,0
-	sw		vReg_646,0(vReg_664)
-	j		_init__split_block_2
-
-_init__fake_main_fake_generateOperations_fake_insert_split_block_2:
-	li		imm_665,16
-	mv		a0,imm_665
-	call	malloc
-	mv		vReg_666,a0
-	addi	vReg_667,vReg_666,4
-	li		imm_668,12
-	mv		a0,imm_668
-	call	malloc
-	mv		vReg_669,a0
-	li		imm_670,2
-	sw		imm_670,0(vReg_669)
-	sw		vReg_669,0(vReg_667)
-	addi	vReg_671,vReg_666,8
-	sw		vReg_419,0(vReg_671)
-	addi	vReg_672,vReg_666,12
-	li		imm_673,1
-	sw		imm_673,0(vReg_672)
-	addi	vReg_674,vReg_666,0
-	li		imm_675,0
-	sw		imm_675,0(vReg_674)
-	lw		vReg_676,0(vReg_667)
-	addi	vReg_677,vReg_676,4
-	li		imm_678,0
-	sw		imm_678,0(vReg_677)
-	lw		vReg_679,0(vReg_667)
-	addi	vReg_680,vReg_679,8
-	li		imm_681,0
-	sw		imm_681,0(vReg_680)
-	mv		root_682,vReg_666
-	mv		root_449,root_682
-	j		_init__fake_main_fake_generateOperations_split_block_8
-
-_init__fake_main_fake_generateOperations_fake_randOp__if_then_2:
-	mv		returnVal_433,returnVal_387
-	j		_init__fake_main_fake_generateOperations_split_block_6
-
-_init__split_block_3:
-	beq		root_405,zero,_init__split_block_4
+	beq		root_131,zero,_init__split_block_3
 	j		_init__fake_fake_printTree_1_printTree__if_merge
 
 _init__fake_fake_printTree_1_printTree__if_merge:
-	addi	vReg_683,root_405,4
-	lw		vReg_684,0(vReg_683)
-	addi	vReg_685,vReg_684,4
-	lw		vReg_686,0(vReg_685)
-	mv		a0,vReg_686
+	addi	vReg_409,root_131,4
+	lw		vReg_410,0(vReg_409)
+	addi	vReg_411,vReg_410,4
+	lw		vReg_412,0(vReg_411)
+	mv		a0,vReg_412
 	call	printTree
-	addi	vReg_687,root_405,8
-	lw		vReg_688,0(vReg_687)
-	mv		a0,vReg_688
+	addi	vReg_413,root_131,8
+	lw		vReg_414,0(vReg_413)
+	mv		a0,vReg_414
 	call	__builtin_printInt
-	la		str_const_689,__str_const_1
-	mv		a0,str_const_689
+	la		str_const_415,__str_const_1
+	mv		a0,str_const_415
 	call	__builtin_print
-	addi	vReg_690,root_405,12
-	lw		vReg_691,0(vReg_690)
-	mv		a0,vReg_691
+	addi	vReg_416,root_131,12
+	lw		vReg_417,0(vReg_416)
+	mv		a0,vReg_417
 	call	__builtin_printlnInt
-	lw		vReg_692,0(vReg_683)
-	addi	vReg_693,vReg_692,8
-	lw		vReg_694,0(vReg_693)
-	mv		a0,vReg_694
+	lw		vReg_418,0(vReg_409)
+	addi	vReg_419,vReg_418,8
+	lw		vReg_420,0(vReg_419)
+	mv		a0,vReg_420
 	call	printTree
-	j		_init__split_block_4
+	j		_init__split_block_3
 
-_init__split_block_4:
-	li		imm_695,0
-	mv		a0,imm_695
+_init__split_block_3:
+	li		imm_421,0
+	mv		a0,imm_421
 	mv		s11,s11_12
 	mv		s10,s10_11
 	mv		s9,s9_10
@@ -7330,6 +6715,621 @@ _init__split_block_4:
 	mv		s0,s0_1
 	mv		ra,ra_0
 	jr		ra
+
+_init__fake_main_fake_generateOperations_split_block_5:
+	slli	vReg_422,seed_93,13
+	xor		vReg_423,seed_93,vReg_422
+	li		imm_425,2147483647
+	and		vReg_424,vReg_423,imm_425
+	srai	vReg_426,vReg_424,17
+	xor		vReg_427,vReg_424,vReg_426
+	slli	vReg_428,vReg_427,5
+	xor		vReg_429,vReg_427,vReg_428
+	li		imm_431,2147483647
+	and		vReg_430,vReg_429,imm_431
+	li		imm_433,128
+	rem		vReg_432,vReg_430,imm_433
+	slli	vReg_434,vReg_430,13
+	xor		vReg_435,vReg_430,vReg_434
+	li		imm_437,2147483647
+	and		vReg_436,vReg_435,imm_437
+	srai	vReg_438,vReg_436,17
+	xor		vReg_439,vReg_436,vReg_438
+	slli	vReg_440,vReg_439,5
+	xor		vReg_441,vReg_439,vReg_440
+	li		imm_443,2147483647
+	and		vReg_442,vReg_441,imm_443
+	mv		seed_444,vReg_442
+	li		imm_445,429496728
+	blt		vReg_442,imm_445,_init__fake_main_fake_generateOperations_fake_randOp__if_then_2
+	j		_init__fake_main_fake_generateOperations_fake_randOp__if_merge_2
+
+_init__fake_main_fake_generateOperations_fake_randOp__if_then_2:
+	mv		returnVal_446,returnVal_85
+	j		_init__fake_main_fake_generateOperations_split_block_6
+
+_init__fake_main_fake_generateOperations_split_block_6:
+	li		imm_447,1
+	beq		returnVal_446,imm_447,_init__fake_main_fake_generateOperations__if_then_2
+	j		_init__fake_main_fake_generateOperations__if_else_2
+
+_init__fake_main_fake_generateOperations__if_then_2:
+	bne		root_91,zero,_init__fake_main_fake_generateOperations_fake_insert__if_then_2
+	j		_init__fake_main_fake_generateOperations_fake_insert_split_block_2
+
+_init__fake_main_fake_generateOperations_fake_insert__if_then_2:
+	beq		root_91,zero,_init__fake_fake_insertImpl_1_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_1_insertImpl__if_merge_4:
+	addi	vReg_448,root_91,8
+	lw		vReg_449,0(vReg_448)
+	beq		vReg_449,vReg_432,_init__fake_fake_insertImpl_1_insertImpl__if_then_3
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_1_insertImpl__if_then_3:
+	addi	vReg_450,root_91,12
+	lw		vReg_451,0(vReg_450)
+	addi	vReg_452,vReg_451,1
+	sw		vReg_452,0(vReg_450)
+	j		_init__split_block_4
+
+_init__split_block_4:
+	mv		root_453,root_91
+	j		_init__fake_main_fake_generateOperations_split_block_7
+
+_init__fake_main_fake_generateOperations_split_block_7:
+	mv		root_454,root_453
+	j		_init__fake_main_fake_generateOperations__for_step_2
+
+_init__fake_main_fake_generateOperations__for_step_2:
+	addi	i_455,i_92,1
+	mv		root_91,root_454
+	mv		i_92,i_455
+	mv		seed_93,seed_444
+	j		_init__fake_main_fake_generateOperations__for_cond_2
+
+_init__fake_fake_insertImpl_1_insertImpl__if_merge_5:
+	lw		vReg_456,0(vReg_448)
+	blt		vReg_456,vReg_432,_init__fake_fake_insertImpl_1_insertImpl__if_then_4
+	j		_init___parallel_copy__14
+
+_init__fake_fake_insertImpl_1_insertImpl__if_then_4:
+	mv		id_457,id_69
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_1_insertImpl__if_merge_6:
+	addi	vReg_458,root_91,4
+	lw		vReg_459,0(vReg_458)
+	slli	vReg_460,id_457,2
+	addi	vReg_461,vReg_460,4
+	add		vReg_462,vReg_461,vReg_459
+	lw		vReg_463,0(vReg_462)
+	beq		vReg_463,zero,_init__fake_fake_insertImpl_2_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_2_insertImpl_split_block_2:
+	li		imm_464,16
+	mv		a0,imm_464
+	call	malloc
+	mv		vReg_465,a0
+	addi	vReg_466,vReg_465,4
+	li		imm_467,12
+	mv		a0,imm_467
+	call	malloc
+	mv		vReg_468,a0
+	li		imm_469,2
+	sw		imm_469,0(vReg_468)
+	sw		vReg_468,0(vReg_466)
+	addi	vReg_470,vReg_465,8
+	sw		vReg_432,0(vReg_470)
+	addi	vReg_471,vReg_465,12
+	li		imm_472,1
+	sw		imm_472,0(vReg_471)
+	addi	vReg_473,vReg_465,0
+	sw		root_91,0(vReg_473)
+	lw		vReg_474,0(vReg_466)
+	addi	vReg_475,vReg_474,4
+	li		imm_476,0
+	sw		imm_476,0(vReg_475)
+	lw		vReg_477,0(vReg_466)
+	addi	vReg_478,vReg_477,8
+	li		imm_479,0
+	sw		imm_479,0(vReg_478)
+	lw		vReg_480,0(vReg_458)
+	add		vReg_481,vReg_461,vReg_480
+	sw		vReg_465,0(vReg_481)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge_4:
+	addi	vReg_482,vReg_463,8
+	lw		vReg_483,0(vReg_482)
+	beq		vReg_483,vReg_432,_init__fake_fake_insertImpl_2_insertImpl__if_then_3
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_2_insertImpl__if_then_3:
+	addi	vReg_484,vReg_463,12
+	lw		vReg_485,0(vReg_484)
+	addi	vReg_486,vReg_485,1
+	sw		vReg_486,0(vReg_484)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge_5:
+	lw		vReg_487,0(vReg_482)
+	blt		vReg_487,vReg_432,_init__fake_fake_insertImpl_2_insertImpl__if_then_4
+	j		_init___parallel_copy__8
+
+_init___parallel_copy__8:
+	mv		id_488,id_77
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_2_insertImpl__if_merge_6:
+	addi	vReg_489,vReg_463,4
+	lw		vReg_490,0(vReg_489)
+	slli	vReg_491,id_488,2
+	addi	vReg_492,vReg_491,4
+	add		vReg_493,vReg_492,vReg_490
+	lw		vReg_494,0(vReg_493)
+	beq		vReg_494,zero,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
+	li		imm_495,16
+	mv		a0,imm_495
+	call	malloc
+	mv		vReg_496,a0
+	addi	vReg_497,vReg_496,4
+	li		imm_498,12
+	mv		a0,imm_498
+	call	malloc
+	mv		vReg_499,a0
+	li		imm_500,2
+	sw		imm_500,0(vReg_499)
+	sw		vReg_499,0(vReg_497)
+	addi	vReg_501,vReg_496,8
+	sw		vReg_432,0(vReg_501)
+	addi	vReg_502,vReg_496,12
+	li		imm_503,1
+	sw		imm_503,0(vReg_502)
+	addi	vReg_504,vReg_496,0
+	sw		vReg_463,0(vReg_504)
+	lw		vReg_505,0(vReg_497)
+	addi	vReg_506,vReg_505,4
+	li		imm_507,0
+	sw		imm_507,0(vReg_506)
+	lw		vReg_508,0(vReg_497)
+	addi	vReg_509,vReg_508,8
+	li		imm_510,0
+	sw		imm_510,0(vReg_509)
+	lw		vReg_511,0(vReg_489)
+	add		vReg_512,vReg_492,vReg_511
+	sw		vReg_496,0(vReg_512)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
+	addi	vReg_513,vReg_494,8
+	lw		vReg_514,0(vReg_513)
+	beq		vReg_514,vReg_432,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
+	lw		vReg_515,0(vReg_513)
+	blt		vReg_515,vReg_432,_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
+	j		_init___parallel_copy__9
+
+_init___parallel_copy__9:
+	mv		id_516,id_63
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
+	addi	vReg_517,vReg_494,4
+	lw		vReg_518,0(vReg_517)
+	slli	vReg_519,id_516,2
+	addi	vReg_520,vReg_519,4
+	add		vReg_521,vReg_520,vReg_518
+	lw		vReg_522,0(vReg_521)
+	beq		vReg_522,zero,_init__fake_fake_insertImpl_3_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_3_insertImpl_split_block_2:
+	li		imm_523,16
+	mv		a0,imm_523
+	call	malloc
+	mv		vReg_524,a0
+	addi	vReg_525,vReg_524,4
+	li		imm_526,12
+	mv		a0,imm_526
+	call	malloc
+	mv		vReg_527,a0
+	li		imm_528,2
+	sw		imm_528,0(vReg_527)
+	sw		vReg_527,0(vReg_525)
+	addi	vReg_529,vReg_524,8
+	sw		vReg_432,0(vReg_529)
+	addi	vReg_530,vReg_524,12
+	li		imm_531,1
+	sw		imm_531,0(vReg_530)
+	addi	vReg_532,vReg_524,0
+	sw		vReg_494,0(vReg_532)
+	lw		vReg_533,0(vReg_525)
+	addi	vReg_534,vReg_533,4
+	li		imm_535,0
+	sw		imm_535,0(vReg_534)
+	lw		vReg_536,0(vReg_525)
+	addi	vReg_537,vReg_536,8
+	li		imm_538,0
+	sw		imm_538,0(vReg_537)
+	lw		vReg_539,0(vReg_517)
+	add		vReg_540,vReg_520,vReg_539
+	sw		vReg_524,0(vReg_540)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge_4:
+	addi	vReg_541,vReg_522,8
+	lw		vReg_542,0(vReg_541)
+	beq		vReg_542,vReg_432,_init__fake_fake_insertImpl_3_insertImpl__if_then_4
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge_5:
+	lw		vReg_543,0(vReg_541)
+	blt		vReg_543,vReg_432,_init__fake_fake_insertImpl_3_insertImpl__if_then_3
+	j		_init___parallel_copy__10
+
+_init___parallel_copy__10:
+	mv		id_544,id_73
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl__if_merge_6:
+	addi	vReg_545,vReg_522,4
+	lw		vReg_546,0(vReg_545)
+	slli	vReg_547,id_544,2
+	addi	vReg_548,vReg_547,4
+	add		vReg_549,vReg_548,vReg_546
+	lw		vReg_550,0(vReg_549)
+	beq		vReg_550,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
+	addi	vReg_551,vReg_550,8
+	lw		vReg_552,0(vReg_551)
+	beq		vReg_552,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
+	addi	vReg_553,vReg_550,12
+	lw		vReg_554,0(vReg_553)
+	addi	vReg_555,vReg_554,1
+	sw		vReg_555,0(vReg_553)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
+	lw		vReg_556,0(vReg_551)
+	blt		vReg_556,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
+	j		_init___parallel_copy__11
+
+_init___parallel_copy__11:
+	mv		id_557,id_59
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
+	addi	vReg_558,vReg_550,4
+	lw		vReg_559,0(vReg_558)
+	slli	vReg_560,id_557,2
+	addi	vReg_561,vReg_560,4
+	add		vReg_562,vReg_561,vReg_559
+	lw		vReg_563,0(vReg_562)
+	beq		vReg_563,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_split_block_2:
+	li		imm_564,16
+	mv		a0,imm_564
+	call	malloc
+	mv		vReg_565,a0
+	addi	vReg_566,vReg_565,4
+	li		imm_567,12
+	mv		a0,imm_567
+	call	malloc
+	mv		vReg_568,a0
+	li		imm_569,2
+	sw		imm_569,0(vReg_568)
+	sw		vReg_568,0(vReg_566)
+	addi	vReg_570,vReg_565,8
+	sw		vReg_432,0(vReg_570)
+	addi	vReg_571,vReg_565,12
+	li		imm_572,1
+	sw		imm_572,0(vReg_571)
+	addi	vReg_573,vReg_565,0
+	sw		vReg_550,0(vReg_573)
+	lw		vReg_574,0(vReg_566)
+	addi	vReg_575,vReg_574,4
+	li		imm_576,0
+	sw		imm_576,0(vReg_575)
+	lw		vReg_577,0(vReg_566)
+	addi	vReg_578,vReg_577,8
+	li		imm_579,0
+	sw		imm_579,0(vReg_578)
+	lw		vReg_580,0(vReg_558)
+	add		vReg_581,vReg_561,vReg_580
+	sw		vReg_565,0(vReg_581)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_4:
+	addi	vReg_582,vReg_563,8
+	lw		vReg_583,0(vReg_582)
+	beq		vReg_583,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_3:
+	addi	vReg_584,vReg_563,12
+	lw		vReg_585,0(vReg_584)
+	addi	vReg_586,vReg_585,1
+	sw		vReg_586,0(vReg_584)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_5:
+	lw		vReg_587,0(vReg_582)
+	blt		vReg_587,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_4
+	j		_init___parallel_copy__13
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_then_4:
+	mv		id_588,id_75
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6:
+	addi	vReg_589,vReg_563,4
+	lw		vReg_590,0(vReg_589)
+	slli	vReg_591,id_588,2
+	addi	vReg_592,vReg_591,4
+	add		vReg_593,vReg_592,vReg_590
+	lw		vReg_594,0(vReg_593)
+	beq		vReg_594,zero,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_4:
+	addi	vReg_595,vReg_594,8
+	lw		vReg_596,0(vReg_595)
+	beq		vReg_596,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
+	addi	vReg_597,vReg_594,12
+	lw		vReg_598,0(vReg_597)
+	addi	vReg_599,vReg_598,1
+	sw		vReg_599,0(vReg_597)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_5:
+	lw		vReg_600,0(vReg_595)
+	blt		vReg_600,vReg_432,_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4
+	j		_init___parallel_copy__12
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
+	mv		id_601,id_79
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6:
+	addi	vReg_602,vReg_594,4
+	lw		vReg_603,0(vReg_602)
+	slli	vReg_604,id_601,2
+	addi	vReg_605,vReg_604,4
+	add		vReg_606,vReg_605,vReg_603
+	lw		vReg_607,0(vReg_606)
+	mv		a0,vReg_607
+	mv		a1,vReg_594
+	mv		a2,id_601
+	mv		a3,vReg_432
+	call	insertImpl
+	mv		vReg_608,a0
+	j		_init__split_block_4
+
+_init___parallel_copy__12:
+	mv		id_601,id_87
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
+	li		imm_609,16
+	mv		a0,imm_609
+	call	malloc
+	mv		vReg_610,a0
+	addi	vReg_611,vReg_610,4
+	li		imm_612,12
+	mv		a0,imm_612
+	call	malloc
+	mv		vReg_613,a0
+	li		imm_614,2
+	sw		imm_614,0(vReg_613)
+	sw		vReg_613,0(vReg_611)
+	addi	vReg_615,vReg_610,8
+	sw		vReg_432,0(vReg_615)
+	addi	vReg_616,vReg_610,12
+	li		imm_617,1
+	sw		imm_617,0(vReg_616)
+	addi	vReg_618,vReg_610,0
+	sw		vReg_563,0(vReg_618)
+	lw		vReg_619,0(vReg_611)
+	addi	vReg_620,vReg_619,4
+	li		imm_621,0
+	sw		imm_621,0(vReg_620)
+	lw		vReg_622,0(vReg_611)
+	addi	vReg_623,vReg_622,8
+	li		imm_624,0
+	sw		imm_624,0(vReg_623)
+	lw		vReg_625,0(vReg_589)
+	add		vReg_626,vReg_592,vReg_625
+	sw		vReg_610,0(vReg_626)
+	j		_init__split_block_4
+
+_init___parallel_copy__13:
+	mv		id_588,id_65
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_2_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
+	mv		id_557,id_89
+	j		_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl_fake_fake_insertImpl_1_insertImpl_split_block_2:
+	li		imm_627,16
+	mv		a0,imm_627
+	call	malloc
+	mv		vReg_628,a0
+	addi	vReg_629,vReg_628,4
+	li		imm_630,12
+	mv		a0,imm_630
+	call	malloc
+	mv		vReg_631,a0
+	li		imm_632,2
+	sw		imm_632,0(vReg_631)
+	sw		vReg_631,0(vReg_629)
+	addi	vReg_633,vReg_628,8
+	sw		vReg_432,0(vReg_633)
+	addi	vReg_634,vReg_628,12
+	li		imm_635,1
+	sw		imm_635,0(vReg_634)
+	addi	vReg_636,vReg_628,0
+	sw		vReg_522,0(vReg_636)
+	lw		vReg_637,0(vReg_629)
+	addi	vReg_638,vReg_637,4
+	li		imm_639,0
+	sw		imm_639,0(vReg_638)
+	lw		vReg_640,0(vReg_629)
+	addi	vReg_641,vReg_640,8
+	li		imm_642,0
+	sw		imm_642,0(vReg_641)
+	lw		vReg_643,0(vReg_545)
+	add		vReg_644,vReg_548,vReg_643
+	sw		vReg_628,0(vReg_644)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_3_insertImpl__if_then_3:
+	mv		id_544,id_81
+	j		_init__fake_fake_insertImpl_3_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_3_insertImpl__if_then_4:
+	addi	vReg_645,vReg_522,12
+	lw		vReg_646,0(vReg_645)
+	addi	vReg_647,vReg_646,1
+	sw		vReg_647,0(vReg_645)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_3:
+	mv		id_516,id_71
+	j		_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_2_insertImpl_fake_fake_insertImpl_1_insertImpl__if_then_4:
+	addi	vReg_648,vReg_494,12
+	lw		vReg_649,0(vReg_648)
+	addi	vReg_650,vReg_649,1
+	sw		vReg_650,0(vReg_648)
+	j		_init__split_block_4
+
+_init__fake_fake_insertImpl_2_insertImpl__if_then_4:
+	mv		id_488,id_61
+	j		_init__fake_fake_insertImpl_2_insertImpl__if_merge_6
+
+_init___parallel_copy__14:
+	mv		id_457,id_83
+	j		_init__fake_fake_insertImpl_1_insertImpl__if_merge_6
+
+_init__fake_fake_insertImpl_1_insertImpl_split_block_2:
+	li		imm_651,16
+	mv		a0,imm_651
+	call	malloc
+	mv		vReg_652,a0
+	addi	vReg_653,vReg_652,4
+	li		imm_654,12
+	mv		a0,imm_654
+	call	malloc
+	mv		vReg_655,a0
+	li		imm_656,2
+	sw		imm_656,0(vReg_655)
+	sw		vReg_655,0(vReg_653)
+	addi	vReg_657,vReg_652,8
+	sw		vReg_432,0(vReg_657)
+	addi	vReg_658,vReg_652,12
+	li		imm_659,1
+	sw		imm_659,0(vReg_658)
+	addi	vReg_660,vReg_652,0
+	li		imm_661,0
+	sw		imm_661,0(vReg_660)
+	lw		vReg_662,0(vReg_653)
+	addi	vReg_663,vReg_662,4
+	li		imm_664,0
+	sw		imm_664,0(vReg_663)
+	lw		vReg_665,0(vReg_653)
+	addi	vReg_666,vReg_665,8
+	li		imm_667,0
+	sw		imm_667,0(vReg_666)
+	li		imm_669,4
+	lw		vReg_668,0(imm_669)
+	addi	vReg_670,vReg_668,0
+	sw		vReg_652,0(vReg_670)
+	j		_init__split_block_4
+
+_init__fake_main_fake_generateOperations_fake_insert_split_block_2:
+	li		imm_671,16
+	mv		a0,imm_671
+	call	malloc
+	mv		vReg_672,a0
+	addi	vReg_673,vReg_672,4
+	li		imm_674,12
+	mv		a0,imm_674
+	call	malloc
+	mv		vReg_675,a0
+	li		imm_676,2
+	sw		imm_676,0(vReg_675)
+	sw		vReg_675,0(vReg_673)
+	addi	vReg_677,vReg_672,8
+	sw		vReg_432,0(vReg_677)
+	addi	vReg_678,vReg_672,12
+	li		imm_679,1
+	sw		imm_679,0(vReg_678)
+	addi	vReg_680,vReg_672,0
+	li		imm_681,0
+	sw		imm_681,0(vReg_680)
+	lw		vReg_682,0(vReg_673)
+	addi	vReg_683,vReg_682,4
+	li		imm_684,0
+	sw		imm_684,0(vReg_683)
+	lw		vReg_685,0(vReg_673)
+	addi	vReg_686,vReg_685,8
+	li		imm_687,0
+	sw		imm_687,0(vReg_686)
+	mv		root_688,vReg_672
+	mv		root_453,root_688
+	j		_init__fake_main_fake_generateOperations_split_block_7
+
+_init__fake_main_fake_generateOperations__if_else_2:
+	beq		root_91,zero,_init__fake_main_fake_generateOperations_fake_erase__if_then_2
+	j		_init__fake_main_fake_generateOperations_fake_erase__if_merge_2
+
+_init__fake_main_fake_generateOperations_fake_erase__if_then_2:
+	mv		root_689,root_91
+	j		_init__fake_main_fake_generateOperations_split_block_8
+
+_init__fake_main_fake_generateOperations_split_block_8:
+	mv		root_454,root_689
+	j		_init__fake_main_fake_generateOperations__for_step_2
+
+_init__fake_main_fake_generateOperations_fake_erase__if_merge_2:
+	lui		global_tmp_690,0
+	sw		root_91,0(global_tmp_690)
+	mv		a0,root_91
+	li		imm_691,0
+	mv		a1,imm_691
+	li		imm_692,-1
+	mv		a2,imm_692
+	mv		a3,vReg_432
+	call	eraseImpl
+	mv		vReg_693,a0
+	lui		global_tmp_694,0
+	lw		root_695,0(global_tmp_694)
+	mv		root_689,root_695
+	j		_init__fake_main_fake_generateOperations_split_block_8
+
+_init__fake_main_fake_generateOperations_fake_randOp__if_merge_2:
+	mv		returnVal_446,returnVal_67
+	j		_init__fake_main_fake_generateOperations_split_block_6
 
 _init__fake_main_fake_generateOperations_split_block_9:
 	slli	vReg_696,seed_53,13

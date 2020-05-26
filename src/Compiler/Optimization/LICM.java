@@ -39,7 +39,7 @@ public class LICM extends Pass
         {
             isChanged = false;
             loopInvariantRegister.clear();
-//            loopInvariantInst.clear();
+            loopInvariantInst.clear();
             function.calcPreOrderBlockList();
             resolveDefUseChain(function);
             loopAnalyser.calcLoopInfo(function);
@@ -54,11 +54,11 @@ public class LICM extends Pass
                         if (isInvariant(function, header, inst))
                         {
                             loopInvariantRegister.add(inst.getDefRegister());
-//                            loopInvariantInst.add(inst);
+                            loopInvariantInst.add(inst);
                         }
                     }
                 }
-                if (!loopInvariantRegister.isEmpty())
+                if (!loopInvariantInst.isEmpty())
                 {
                     //create pre-header
                     BasicBlock preHeader = new BasicBlock(function, header.getName() + "_pre_header");
@@ -108,19 +108,19 @@ public class LICM extends Pass
                     }
 
                     //move invariant
-                    for (Register reg : loopInvariantRegister)
-                    {
-                        IRInstruction inst = def.get(reg);
-                        inst.removeThis();
-                        preHeader.tailInst.addPrevInst(inst);
-                        inst.setCurrentBlock(preHeader);
-                    }
-//                    for (IRInstruction instruction : loopInvariantInst)
+//                    for (Register reg : loopInvariantRegister)
 //                    {
-//                        instruction.removeThis();
-//                        preHeader.tailInst.addPrevInst(instruction);
-//                        instruction.setCurrentBlock(preHeader);
+//                        IRInstruction inst = def.get(reg);
+//                        inst.removeThis();
+//                        preHeader.tailInst.addPrevInst(inst);
+//                        inst.setCurrentBlock(preHeader);
 //                    }
+                    for (IRInstruction instruction : loopInvariantInst)
+                    {
+                        instruction.removeThis();
+                        preHeader.tailInst.addPrevInst(instruction);
+                        instruction.setCurrentBlock(preHeader);
+                    }
                     isChanged = true;
                     changed = true;
                     loopInvariantRegister.clear();

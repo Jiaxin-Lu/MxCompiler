@@ -2,6 +2,7 @@
   <dictionary name="xjun">
     <words>
       <w>globl</w>
+      <w>licm</w>
       <w>liveness</w>
       <w>sccp</w>
       <w>sequentialization</w>

@@ -142,6 +142,7 @@ public class Main
         DeadCodeEliminator deadCodeEliminator = new DeadCodeEliminator(irRoot);
         SCCP sccp = new SCCP(irRoot);
         SSADestructor ssaDestructor = new SSADestructor(irRoot);
+        LICM licm = new LICM(irRoot, dominatorTreeConstructor);
         cfgSimplifier.run();
 
         dominatorTreeConstructor.run();
@@ -166,10 +167,14 @@ public class Main
             System.out.println("SCCP complete!");
 
             changed |= cfgSimplifier.run();
+            changed |= licm.run();
+            System.out.println("LICM complete!");
+
+            changed |= cfgSimplifier.run();
             changed |= unusedFunctionEliminator.run();
             System.out.println("Unused Function Eliminator complete!");
-//            ++ changedCnt;
-//            if (changedCnt > 10) break;
+            ++ changedCnt;
+//            if (changedCnt > 1) break;
         }
         printIR(irRoot, "ssaIROutput.ir", false);
         ssaDestructor.run();

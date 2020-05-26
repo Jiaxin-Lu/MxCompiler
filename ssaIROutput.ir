@@ -1011,44 +1011,67 @@ func main {
     $root_10 = load 4 @root 0
     $MaxRandInt_2 = load 4 @MaxRandInt 0
     $_virtual_register_499 = call getInt 
-    $seed_2 = move $_virtual_register_499
     $_virtual_register_500 = div $MaxRandInt_2 10
     $_virtual_register_501 = mul 8 $_virtual_register_500
-    $i = move 0
+    jump %main_main_fake_generateOperations__for_cond_pre_header
+%main_main_fake_generateOperations__for_cond_pre_header:
+    $seed_licm_phi = move $_virtual_register_499
+    $root_licm_phi = move $root_10
+    $i_licm_phi = move 0
+    $returnVal_93 = move 1
+    $returnVal_94 = move 2
+    $id_13 = move 0
+    $id_14 = move 1
     jump %main_fake_generateOperations__for_cond
 %main_fake_generateOperations__for_cond:
-    $seed_3 = phi main_entry $seed_2 main_fake_generateOperations__for_step $seed_4 
-    $root_11 = phi main_entry $root_10 main_fake_generateOperations__for_step $root_12 
-    $i_2 = phi main_entry $i main_fake_generateOperations__for_step $i_3 
-    $_virtual_register_502 = slt $i_2 50000
+    $seed_2 = phi main_fake_generateOperations__for_step $seed_3 main_main_fake_generateOperations__for_cond_pre_header $seed_licm_phi 
+    $root_11 = phi main_fake_generateOperations__for_step $root_12 main_main_fake_generateOperations__for_cond_pre_header $root_licm_phi 
+    $i = phi main_fake_generateOperations__for_step $i_2 main_main_fake_generateOperations__for_cond_pre_header $i_licm_phi 
+    $_virtual_register_502 = slt $i 50000
     br $_virtual_register_502 %main_fake_generateOperations__for_body %main_split_block
 %main_split_block:
     $_virtual_register_503 = div $MaxRandInt_2 10
     $_virtual_register_504 = mul 2 $_virtual_register_503
-    $i_4 = move 0
+    jump %main_main_fake_generateOperations__for_cond_pre_header_2
+%main_main_fake_generateOperations__for_cond_pre_header_2:
+    $i_licm_phi_2 = move 0
+    $seed_licm_phi_2 = move $seed_2
+    $root_licm_phi_2 = move $root_11
+    $id_15 = move 1
+    $id_16 = move 0
+    $returnVal_95 = move 2
+    $returnVal_96 = move 1
     jump %main_fake_generateOperations__for_cond_2
 %main_fake_generateOperations__for_cond_2:
-    $i_5 = phi main_split_block $i_4 main_fake_generateOperations__for_step_2 $i_6 
-    $seed_5 = phi main_split_block $seed_3 main_fake_generateOperations__for_step_2 $seed_6 
-    $root_13 = phi main_split_block $root_11 main_fake_generateOperations__for_step_2 $root_14 
-    $_virtual_register_505 = slt $i_5 100000
+    $i_3 = phi main_fake_generateOperations__for_step_2 $i_4 main_main_fake_generateOperations__for_cond_pre_header_2 $i_licm_phi_2 
+    $seed_4 = phi main_fake_generateOperations__for_step_2 $seed_5 main_main_fake_generateOperations__for_cond_pre_header_2 $seed_licm_phi_2 
+    $root_13 = phi main_fake_generateOperations__for_step_2 $root_14 main_main_fake_generateOperations__for_cond_pre_header_2 $root_licm_phi_2 
+    $_virtual_register_505 = slt $i_3 100000
     br $_virtual_register_505 %main_fake_generateOperations__for_body_2 %main_split_block_2
 %main_split_block_2:
     $_virtual_register_506 = div $MaxRandInt_2 10
     $_virtual_register_507 = mul 4 $_virtual_register_506
-    $i_7 = move 0
+    jump %main_main_fake_generateOperations__for_cond_pre_header_3
+%main_main_fake_generateOperations__for_cond_pre_header_3:
+    $seed_licm_phi_3 = move $seed_4
+    $i_licm_phi_3 = move 0
+    $root_licm_phi_3 = move $root_13
+    $id_17 = move 1
+    $id_18 = move 0
+    $returnVal_97 = move 1
+    $returnVal_98 = move 2
     jump %main_fake_generateOperations__for_cond_3
 %main_fake_generateOperations__for_cond_3:
-    $seed_7 = phi main_split_block_2 $seed_5 main_fake_generateOperations__for_step_3 $seed_8 
-    $i_8 = phi main_split_block_2 $i_7 main_fake_generateOperations__for_step_3 $i_9 
-    $root_15 = phi main_split_block_2 $root_13 main_fake_generateOperations__for_step_3 $root_16 
-    $_virtual_register_508 = slt $i_8 50000
+    $seed_6 = phi main_fake_generateOperations__for_step_3 $seed_7 main_main_fake_generateOperations__for_cond_pre_header_3 $seed_licm_phi_3 
+    $i_5 = phi main_fake_generateOperations__for_step_3 $i_6 main_main_fake_generateOperations__for_cond_pre_header_3 $i_licm_phi_3 
+    $root_15 = phi main_fake_generateOperations__for_step_3 $root_16 main_main_fake_generateOperations__for_cond_pre_header_3 $root_licm_phi_3 
+    $_virtual_register_508 = slt $i_5 50000
     br $_virtual_register_508 %main_fake_generateOperations__for_body_3 %main_split_block_3
 %main_fake_generateOperations__for_body_3:
     jump %main_fake_generateOperations_split_block
 %main_fake_generateOperations_split_block:
-    $_virtual_register_509 = shl $seed_7 13
-    $_virtual_register_510 = xor $seed_7 $_virtual_register_509
+    $_virtual_register_509 = shl $seed_6 13
+    $_virtual_register_510 = xor $seed_6 $_virtual_register_509
     $_virtual_register_511 = and $_virtual_register_510 2147483647
     $_virtual_register_512 = shr $_virtual_register_511 17
     $_virtual_register_513 = xor $_virtual_register_511 $_virtual_register_512
@@ -1066,15 +1089,14 @@ func main {
     $_virtual_register_523 = shl $_virtual_register_522 5
     $_virtual_register_524 = xor $_virtual_register_522 $_virtual_register_523
     $_virtual_register_525 = and $_virtual_register_524 2147483647
-    $seed_8 = move $_virtual_register_525
+    $seed_7 = move $_virtual_register_525
     $_virtual_register_526 = slt $_virtual_register_525 $_virtual_register_507
     br $_virtual_register_526 %main_fake_generateOperations_fake_randOp__if_then %main_fake_generateOperations_fake_randOp__if_merge
 %main_fake_generateOperations_fake_randOp__if_then:
-    $returnVal_93 = move 1
     jump %main_fake_generateOperations_split_block_2
 %main_fake_generateOperations_split_block_2:
-    $returnVal_94 = phi main_fake_generateOperations_fake_randOp__if_then $returnVal_93 main_fake_generateOperations_fake_randOp__if_merge $returnVal_95 
-    $_virtual_register_527 = seq $returnVal_94 1
+    $returnVal_99 = phi main_fake_generateOperations_fake_randOp__if_then $returnVal_97 main_fake_generateOperations_fake_randOp__if_merge $returnVal_98 
+    $_virtual_register_527 = seq $returnVal_99 1
     br $_virtual_register_527 %main_fake_generateOperations__if_then %main_fake_generateOperations__if_else
 %main_fake_generateOperations__if_then:
     $_virtual_register_528 = sne $root_15 0
@@ -1108,7 +1130,7 @@ func main {
     $root_16 = phi main_fake_generateOperations_split_block_3 $root_18 main_fake_generateOperations_split_block_4 $root_19 
     jump %main_fake_generateOperations__for_step_3
 %main_fake_generateOperations__for_step_3:
-    $i_9 = add $i_8 1
+    $i_6 = add $i_5 1
     jump %main_fake_generateOperations__for_cond_3
 %main_fake_generateOperations_fake_insert__if_then:
     $_virtual_register_539 = seq $root_15 0
@@ -1119,24 +1141,22 @@ func main {
     $_virtual_register_542 = seq $_virtual_register_541 $_virtual_register_517
     br $_virtual_register_542 %main_fake_fake_insertImpl_1_insertImpl__if_then_2 %main_fake_fake_insertImpl_1_insertImpl__if_merge_2
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_2:
-    $id_13 = move 0
     $_virtual_register_543 = load 4 $_virtual_register_540 0
     $_virtual_register_544 = slt $_virtual_register_543 $_virtual_register_517
     br $_virtual_register_544 %main_fake_fake_insertImpl_1_insertImpl__if_then_3 %main_fake_fake_insertImpl_1_insertImpl__if_merge_3
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_3:
-    $id_14 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_2 $id_13 main_fake_fake_insertImpl_1_insertImpl__if_then_3 $id_15 
+    $id_19 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_2 $id_18 main_fake_fake_insertImpl_1_insertImpl__if_then_3 $id_17 
     $_virtual_register_545 = add $root_15 4
     $_virtual_register_546 = load 4 $_virtual_register_545 0
-    $_virtual_register_547 = mul $id_14 4
+    $_virtual_register_547 = mul $id_19 4
     $_virtual_register_548 = add $_virtual_register_547 4
     $_virtual_register_549 = add $_virtual_register_548 $_virtual_register_546
     $_virtual_register_550 = load 4 $_virtual_register_549 0
-    $_virtual_register_551 = call insertImpl $_virtual_register_550 $root_15 $id_14 $_virtual_register_517 
+    $_virtual_register_551 = call insertImpl $_virtual_register_550 $root_15 $id_19 $_virtual_register_517 
     jump %main_split_block_4
 %main_split_block_4:
     jump %main_fake_generateOperations_split_block_3
 %main_fake_fake_insertImpl_1_insertImpl__if_then_3:
-    $id_15 = move 1
     jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_3
 %main_fake_fake_insertImpl_1_insertImpl__if_then_2:
     $_virtual_register_552 = add $root_15 12
@@ -1182,7 +1202,6 @@ func main {
     $root_20 = load 4 @root 0
     jump %main_fake_generateOperations_split_block_4
 %main_fake_generateOperations_fake_randOp__if_merge:
-    $returnVal_95 = move 2
     jump %main_fake_generateOperations_split_block_2
 %main_split_block_3:
     $_virtual_register_569 = seq $root_15 0
@@ -1191,7 +1210,7 @@ func main {
     jump %main_split_block_5
 %main_split_block_5:
     store 4 @root $root_15 0
-    store 4 @seed $seed_7 0
+    store 4 @seed $seed_6 0
     ret 0
 %main_fake_fake_printTree_1_printTree__if_merge:
     $_virtual_register_570 = add $root_15 4
@@ -1214,8 +1233,8 @@ func main {
 %main_fake_generateOperations__for_body_2:
     jump %main_fake_generateOperations_split_block_5
 %main_fake_generateOperations_split_block_5:
-    $_virtual_register_581 = shl $seed_5 13
-    $_virtual_register_582 = xor $seed_5 $_virtual_register_581
+    $_virtual_register_581 = shl $seed_4 13
+    $_virtual_register_582 = xor $seed_4 $_virtual_register_581
     $_virtual_register_583 = and $_virtual_register_582 2147483647
     $_virtual_register_584 = shr $_virtual_register_583 17
     $_virtual_register_585 = xor $_virtual_register_583 $_virtual_register_584
@@ -1233,15 +1252,14 @@ func main {
     $_virtual_register_595 = shl $_virtual_register_594 5
     $_virtual_register_596 = xor $_virtual_register_594 $_virtual_register_595
     $_virtual_register_597 = and $_virtual_register_596 2147483647
-    $seed_6 = move $_virtual_register_597
+    $seed_5 = move $_virtual_register_597
     $_virtual_register_598 = slt $_virtual_register_597 $_virtual_register_504
     br $_virtual_register_598 %main_fake_generateOperations_fake_randOp__if_then_2 %main_fake_generateOperations_fake_randOp__if_merge_2
 %main_fake_generateOperations_fake_randOp__if_merge_2:
-    $returnVal_96 = move 2
     jump %main_fake_generateOperations_split_block_6
 %main_fake_generateOperations_split_block_6:
-    $returnVal_97 = phi main_fake_generateOperations_fake_randOp__if_merge_2 $returnVal_96 main_fake_generateOperations_fake_randOp__if_then_2 $returnVal_98 
-    $_virtual_register_599 = seq $returnVal_97 1
+    $returnVal_100 = phi main_fake_generateOperations_fake_randOp__if_merge_2 $returnVal_95 main_fake_generateOperations_fake_randOp__if_then_2 $returnVal_96 
+    $_virtual_register_599 = seq $returnVal_100 1
     br $_virtual_register_599 %main_fake_generateOperations__if_then_2 %main_fake_generateOperations__if_else_2
 %main_fake_generateOperations__if_then_2:
     $_virtual_register_600 = sne $root_13 0
@@ -1275,7 +1293,7 @@ func main {
     $root_14 = phi main_fake_generateOperations_split_block_7 $root_22 main_fake_generateOperations_split_block_8 $root_23 
     jump %main_fake_generateOperations__for_step_2
 %main_fake_generateOperations__for_step_2:
-    $i_6 = add $i_5 1
+    $i_4 = add $i_3 1
     jump %main_fake_generateOperations__for_cond_2
 %main_fake_generateOperations_fake_insert__if_then_2:
     $_virtual_register_611 = seq $root_13 0
@@ -1286,22 +1304,20 @@ func main {
     $_virtual_register_614 = seq $_virtual_register_613 $_virtual_register_589
     br $_virtual_register_614 %main_fake_fake_insertImpl_1_insertImpl__if_then_5 %main_fake_fake_insertImpl_1_insertImpl__if_merge_5
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_5:
-    $id_16 = move 0
     $_virtual_register_615 = load 4 $_virtual_register_612 0
     $_virtual_register_616 = slt $_virtual_register_615 $_virtual_register_589
     br $_virtual_register_616 %main_fake_fake_insertImpl_1_insertImpl__if_then_6 %main_fake_fake_insertImpl_1_insertImpl__if_merge_6
 %main_fake_fake_insertImpl_1_insertImpl__if_then_6:
-    $id_17 = move 1
     jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_6
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_6:
-    $id_18 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_5 $id_16 main_fake_fake_insertImpl_1_insertImpl__if_then_6 $id_17 
+    $id_20 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_5 $id_16 main_fake_fake_insertImpl_1_insertImpl__if_then_6 $id_15 
     $_virtual_register_617 = add $root_13 4
     $_virtual_register_618 = load 4 $_virtual_register_617 0
-    $_virtual_register_619 = mul $id_18 4
+    $_virtual_register_619 = mul $id_20 4
     $_virtual_register_620 = add $_virtual_register_619 4
     $_virtual_register_621 = add $_virtual_register_620 $_virtual_register_618
     $_virtual_register_622 = load 4 $_virtual_register_621 0
-    $_virtual_register_623 = call insertImpl $_virtual_register_622 $root_13 $id_18 $_virtual_register_589 
+    $_virtual_register_623 = call insertImpl $_virtual_register_622 $root_13 $id_20 $_virtual_register_589 
     jump %main_split_block_6
 %main_split_block_6:
     jump %main_fake_generateOperations_split_block_7
@@ -1349,13 +1365,12 @@ func main {
     $root_24 = load 4 @root 0
     jump %main_fake_generateOperations_split_block_8
 %main_fake_generateOperations_fake_randOp__if_then_2:
-    $returnVal_98 = move 1
     jump %main_fake_generateOperations_split_block_6
 %main_fake_generateOperations__for_body:
     jump %main_fake_generateOperations_split_block_9
 %main_fake_generateOperations_split_block_9:
-    $_virtual_register_641 = shl $seed_3 13
-    $_virtual_register_642 = xor $seed_3 $_virtual_register_641
+    $_virtual_register_641 = shl $seed_2 13
+    $_virtual_register_642 = xor $seed_2 $_virtual_register_641
     $_virtual_register_643 = and $_virtual_register_642 2147483647
     $_virtual_register_644 = shr $_virtual_register_643 17
     $_virtual_register_645 = xor $_virtual_register_643 $_virtual_register_644
@@ -1373,15 +1388,14 @@ func main {
     $_virtual_register_655 = shl $_virtual_register_654 5
     $_virtual_register_656 = xor $_virtual_register_654 $_virtual_register_655
     $_virtual_register_657 = and $_virtual_register_656 2147483647
-    $seed_4 = move $_virtual_register_657
+    $seed_3 = move $_virtual_register_657
     $_virtual_register_658 = slt $_virtual_register_657 $_virtual_register_501
     br $_virtual_register_658 %main_fake_generateOperations_fake_randOp__if_then_3 %main_fake_generateOperations_fake_randOp__if_merge_3
 %main_fake_generateOperations_fake_randOp__if_then_3:
-    $returnVal_99 = move 1
     jump %main_fake_generateOperations_split_block_10
 %main_fake_generateOperations_split_block_10:
-    $returnVal_100 = phi main_fake_generateOperations_fake_randOp__if_then_3 $returnVal_99 main_fake_generateOperations_fake_randOp__if_merge_3 $returnVal_101 
-    $_virtual_register_659 = seq $returnVal_100 1
+    $returnVal_101 = phi main_fake_generateOperations_fake_randOp__if_then_3 $returnVal_93 main_fake_generateOperations_fake_randOp__if_merge_3 $returnVal_94 
+    $_virtual_register_659 = seq $returnVal_101 1
     br $_virtual_register_659 %main_fake_generateOperations__if_then_3 %main_fake_generateOperations__if_else_3
 %main_fake_generateOperations__if_then_3:
     $_virtual_register_660 = sne $root_11 0
@@ -1409,18 +1423,16 @@ func main {
     $root_12 = phi main_fake_generateOperations_split_block_11 $root_25 main_fake_generateOperations_split_block_12 $root_27 
     jump %main_fake_generateOperations__for_step
 %main_fake_generateOperations__for_step:
-    $i_3 = add $i_2 1
+    $i_2 = add $i 1
     jump %main_fake_generateOperations__for_cond
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_8:
-    $id_19 = move 0
     $_virtual_register_668 = load 4 $_virtual_register_662 0
     $_virtual_register_669 = slt $_virtual_register_668 $_virtual_register_649
     br $_virtual_register_669 %main_fake_fake_insertImpl_1_insertImpl__if_then_9 %main_fake_fake_insertImpl_1_insertImpl__if_merge_9
 %main_fake_fake_insertImpl_1_insertImpl__if_then_9:
-    $id_20 = move 1
     jump %main_fake_fake_insertImpl_1_insertImpl__if_merge_9
 %main_fake_fake_insertImpl_1_insertImpl__if_merge_9:
-    $id_21 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_8 $id_19 main_fake_fake_insertImpl_1_insertImpl__if_then_9 $id_20 
+    $id_21 = phi main_fake_fake_insertImpl_1_insertImpl__if_merge_8 $id_13 main_fake_fake_insertImpl_1_insertImpl__if_then_9 $id_14 
     $_virtual_register_670 = add $root_11 4
     $_virtual_register_671 = load 4 $_virtual_register_670 0
     $_virtual_register_672 = mul $id_21 4
@@ -1489,7 +1501,6 @@ func main {
     $root_28 = load 4 @root 0
     jump %main_fake_generateOperations_split_block_12
 %main_fake_generateOperations_fake_randOp__if_merge_3:
-    $returnVal_101 = move 2
     jump %main_fake_generateOperations_split_block_10
 }
 

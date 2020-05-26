@@ -34,6 +34,11 @@ public class Phi extends IRInstruction
         return path;
     }
 
+    public void setPath(Map<BasicBlock, Operand> path)
+    {
+        this.path = path;
+    }
+
     public void addPath(BasicBlock basicBlock, Operand dst)
     {
         path.put(basicBlock, dst);

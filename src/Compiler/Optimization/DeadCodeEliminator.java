@@ -7,11 +7,12 @@ import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Register;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class DeadCodeEliminator extends Pass
 {
-    private Set<IRInstruction> markList = new HashSet<>();
+    private Set<IRInstruction> markList = new LinkedHashSet<>();
 
     public DeadCodeEliminator(IRRoot irRoot)
     {
@@ -46,7 +47,7 @@ public class DeadCodeEliminator extends Pass
 
     private void mark(Function function)
     {
-        Set<IRInstruction> workList = new HashSet<>();
+        Set<IRInstruction> workList = new LinkedHashSet<>();
         markList.clear();
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
@@ -75,6 +76,20 @@ public class DeadCodeEliminator extends Pass
                     }
                 }
             }
+
+            if (inst instanceof Phi)
+            {
+                for (BasicBlock basicBlock : ((Phi) inst).getPath().keySet())
+                {
+                    IRInstruction tailInst = basicBlock.tailInst;
+                    if (!markList.contains(tailInst))
+                    {
+                        markList.add(tailInst);
+                        workList.add(tailInst);
+                    }
+                }
+            }
+
             for (BasicBlock b : inst.getCurrentBlock().PostDominanceFrontier)
             {
                 IRInstruction j = b.tailInst;

@@ -175,33 +175,15 @@ public class DominatorTreeConstructor extends Pass
     {
         BasicBlock figure1 = basicBlock1;
         BasicBlock figure2 = basicBlock2;
-        BasicBlock pastFigure1 = null;
-        BasicBlock pastFigure2 = null;
-        if (checkRecursive(figure1) || checkRecursive(figure2))
-            return figure1;
-        while (figure2 != figure1)
+        while (figure1 != figure2)
         {
-            if (pastFigure1 == null)
-            {
-                pastFigure1 = figure1;
-                pastFigure2 = figure2;
-            } else {
-                if (pastFigure1 == figure1 && pastFigure2 == figure2)
-                    return figure1;
-                else {
-                    pastFigure1 = figure1;
-                    pastFigure2 = figure2;
-                }
-            }
             while (figure1.reverseCFGPostOrderIndex < figure2.reverseCFGPostOrderIndex)
             {
                 figure1 = figure1.postIDOM;
-                if (figure1 == figure1.postIDOM) return figure1;
             }
             while (figure2.reverseCFGPostOrderIndex < figure1.reverseCFGPostOrderIndex)
             {
                 figure2 = figure2.postIDOM;
-                if (figure2 == figure2.postIDOM) return figure2;
             }
         }
         return figure1;

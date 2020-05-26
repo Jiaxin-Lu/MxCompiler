@@ -10,10 +10,10 @@ public class LoopAnalysis extends Pass
 {
     private DominatorTreeConstructor dominatorTreeConstructor;
 
-    public LoopAnalysis(IRRoot irRoot)
+    public LoopAnalysis(IRRoot irRoot, DominatorTreeConstructor dominatorTreeConstructor)
     {
         super(irRoot);
-        this.dominatorTreeConstructor = new DominatorTreeConstructor(irRoot);
+        this.dominatorTreeConstructor = dominatorTreeConstructor;
     }
 
     private void init(Function function)
@@ -36,18 +36,19 @@ public class LoopAnalysis extends Pass
         return false;
     }
 
-    private void calcLoopInfo(Function function)
+    public void calcLoopInfo(Function function)
     {
         init(function);
-        for (BasicBlock basicBlock : function.getPreOrderBlockList())
+        dominatorTreeConstructor.computeDominatorTree(function);
+        for (BasicBlock backer : function.getPreOrderBlockList())
         {
-            for (BasicBlock successor : basicBlock.getSuccessors())
+            for (BasicBlock header : backer.getSuccessors())
             {
-                if (successor.DominatorTreeSuccessorsAll.contains(basicBlock))
+                if (header.DominatorTreeSuccessorsAll.contains(backer))
                 {
-                    function.loopHeader.add(successor);
-                    function.loopBacker.computeIfAbsent(successor, t -> new HashSet<>());
-                    function.loopBacker.get(successor).add(basicBlock);
+                    function.loopHeader.add(header);
+                    function.loopBacker.computeIfAbsent(header, t -> new HashSet<>());
+                    function.loopBacker.get(header).add(backer);
                 }
             }
         }

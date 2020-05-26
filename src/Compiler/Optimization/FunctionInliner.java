@@ -16,8 +16,8 @@ public class FunctionInliner extends Pass
     private Map<Function, Function> functionFunctionMap = new HashMap<>();
     private Map<Function, Integer> functionCountMap = new HashMap<>();
 
-    private static final int INLINE_INSTRUCTION_LIMIT = 200;
-    private static final int INLINE_DEP_LIMIT = 5;
+    private static final int INLINE_INSTRUCTION_LIMIT = 800;
+    private static final int INLINE_DEP_LIMIT = 10;
 
     boolean changed = false;
 

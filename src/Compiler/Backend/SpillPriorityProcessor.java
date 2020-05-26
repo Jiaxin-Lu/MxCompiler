@@ -7,6 +7,7 @@ import Compiler.RISCV.RVOperand.RVRegister;
 import Compiler.RISCV.RVRoot;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -49,13 +50,19 @@ public class SpillPriorityProcessor
         init(function);
         for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
         {
+            function.loopBacker.put(basicBlock, new LinkedHashSet<>());
+            function.loopGroup.put(basicBlock, new LinkedHashSet<>());
+            function.loopExit.put(basicBlock, new LinkedHashSet<>());
+            function.belongLoopHeader.put(basicBlock, new LinkedHashSet<>());
+        }
+        for (RVBasicBlock basicBlock : function.getPreOrderBlockList())
+        {
             for (RVBasicBlock successor : basicBlock.getSuccessors())
             if (successor.DominatorTreeSuccessorsAll != null)
             {
                 if (successor.DominatorTreeSuccessorsAll.contains(basicBlock))
                 {
                     function.loopHeader.add(successor);
-                    function.loopBacker.computeIfAbsent(successor, t -> new HashSet<>());
                     function.loopBacker.get(successor).add(basicBlock);
                 }
             }
@@ -64,12 +71,13 @@ public class SpillPriorityProcessor
         for (RVBasicBlock header : function.loopHeader)
         {
             workList.clear();
-            function.loopGroup.put(header, new HashSet<>());
             function.loopGroup.get(header).add(header);
+            function.belongLoopHeader.get(header).add(header);
             for (RVBasicBlock backer : function.loopBacker.get(header))
             {
                 workList.add(backer);
                 function.loopGroup.get(header).add(backer);
+                function.belongLoopHeader.get(backer).add(header);
                 while (!workList.isEmpty())
                 {
                     RVBasicBlock block = workList.pop();
@@ -79,7 +87,6 @@ public class SpillPriorityProcessor
                         {
                             function.loopGroup.get(header).add(predecessor);
                             workList.add(predecessor);
-                            function.belongLoopHeader.computeIfAbsent(predecessor, t -> new HashSet<>());
                             function.belongLoopHeader.get(predecessor).add(header);
                         }
                     }

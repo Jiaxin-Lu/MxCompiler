@@ -624,8 +624,19 @@ public class InstructionSelector implements IRVisitor
         }
         for (IRInstruction instruction : reg.getUsedInst())
         {
-            ((BranchInst) instruction).setRvInstB(new InstB(currentBlock, op, getRegister(lhs), getRegister(rhs),
-                    ((BranchInst) instruction).getThenBlock().rvBasicBlock));
+            if (rhs instanceof Immediate && ((Immediate) rhs).getImm() == 0)
+            {
+                ((BranchInst) instruction).setRvInstB(new InstB(currentBlock, op, getRegister(lhs), allRegisters.get("zero"),
+                        ((BranchInst) instruction).getThenBlock().rvBasicBlock));
+            } else if (lhs instanceof Immediate && ((Immediate) lhs).getImm() == 0)
+            {
+                ((BranchInst) instruction).setRvInstB(new InstB(currentBlock, op, allRegisters.get("zero"), getRegister(rhs),
+                        ((BranchInst) instruction).getThenBlock().rvBasicBlock));
+            } else
+            {
+                ((BranchInst) instruction).setRvInstB(new InstB(currentBlock, op, getRegister(lhs), getRegister(rhs),
+                        ((BranchInst) instruction).getThenBlock().rvBasicBlock));
+            }
         }
         return true;
     }

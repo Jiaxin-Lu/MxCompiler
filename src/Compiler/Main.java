@@ -143,6 +143,8 @@ public class Main
         SCCP sccp = new SCCP(irRoot);
         SSADestructor ssaDestructor = new SSADestructor(irRoot);
         LICM licm = new LICM(irRoot, dominatorTreeConstructor);
+        ArithmeticOptimizer arithmeticOptimizer = new ArithmeticOptimizer(irRoot);
+
         cfgSimplifier.run();
 
         dominatorTreeConstructor.run();
@@ -180,6 +182,8 @@ public class Main
         ssaDestructor.run();
 
         cfgSimplifier.run(true);
+        arithmeticOptimizer.run();
+
         printIR(irRoot, "irOutput.ir", true);
     }
 }

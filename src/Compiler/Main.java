@@ -144,6 +144,7 @@ public class Main
         SSADestructor ssaDestructor = new SSADestructor(irRoot);
         LICM licm = new LICM(irRoot, dominatorTreeConstructor);
         ArithmeticOptimizer arithmeticOptimizer = new ArithmeticOptimizer(irRoot);
+        GVN gvn = new GVN(irRoot);
 
         cfgSimplifier.run();
 
@@ -168,6 +169,11 @@ public class Main
             changed |= sccp.run();
             System.out.println("SCCP complete!");
 
+            dominatorTreeConstructor.run();
+            System.out.println("GVN ...");
+            changed |= gvn.run();
+            System.out.println("GVN complete!");
+
             changed |= cfgSimplifier.run();
             changed |= licm.run();
             System.out.println("LICM complete!");
@@ -184,6 +190,6 @@ public class Main
         cfgSimplifier.run(true);
         arithmeticOptimizer.run();
 
-        printIR(irRoot, "irOutput.ir", false);
+        printIR(irRoot, "irOutput.ir", true);
     }
 }

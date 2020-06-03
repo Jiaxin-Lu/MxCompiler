@@ -169,6 +169,7 @@ public class Main
             changed |= sccp.run();
             System.out.println("SCCP complete!");
 
+            //GVN has passed the correctness but failed to accelerate.
             dominatorTreeConstructor.run();
             System.out.println("GVN ...");
             changed |= gvn.run();
@@ -190,6 +191,6 @@ public class Main
         cfgSimplifier.run(true);
         arithmeticOptimizer.run();
 
-        printIR(irRoot, "irOutput.ir", true);
+        printIR(irRoot, "irOutput.ir", false);
     }
 }

@@ -17,7 +17,8 @@ public class FunctionInliner extends Pass
     private Map<Function, Integer> functionCountMap = new HashMap<>();
 
     private static final int INLINE_INSTRUCTION_LIMIT = 800;
-    private static final int INLINE_DEP_LIMIT = 10;
+    private static final int INLINE_INSTRUCTION_LIMIT_ALL = 1000;
+    private static final int INLINE_DEP_LIMIT = 15;
 
     boolean changed = false;
 
@@ -150,7 +151,7 @@ public class FunctionInliner extends Pass
                     for (IRInstruction inst = basicBlock.headInst, nextInst; inst != null; inst = nextInst)
                     {
                         nextInst = inst.getNextInst();
-                        if (inst instanceof CallInst && worthNonRecursiveInline(((CallInst) inst).getFunction()))
+                        if (inst instanceof CallInst && worthNonRecursiveInline(((CallInst) inst).getFunction(), function))
                         {
                             Function callee = ((CallInst) inst).getFunction();
                             isChanged = true;
@@ -303,19 +304,20 @@ public class FunctionInliner extends Pass
         return spiltBlock.headInst;
     }
 
-    private boolean worthNonRecursiveInline(Function function)
+    private boolean worthNonRecursiveInline(Function function, Function caller)
     {
         if (!functionCallCountMap.containsKey(function)) return false;
         if (function.recursiveCallee.contains(function)) return false;
 //        if (function.getInClassThis() != null) return false;
-        return functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT;
+        return functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT ||
+                (functionInstCountMap.get(caller) + functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT_ALL);
     }
 
     private boolean worthRecursiveInline(Function function)
     {
         if (!functionCallCountMap.containsKey(function)) return false;
         if (function.getInClassThis() != null) return false;
-        return functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT;
+        return functionInstCountMap.get(function) < INLINE_INSTRUCTION_LIMIT_ALL;
     }
 
 }

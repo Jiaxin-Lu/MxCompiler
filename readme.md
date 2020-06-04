@@ -168,7 +168,7 @@ This optimization works on my computer but didn't work on Online Judge. The prob
 
 ### RISC-V
 
-I wrote a new instruction system to convert IR instructions to the RISC-V instructions.
+A new instruction system to convert IR instructions to the RISC-V instructions.
  They could be found in `Compiler.RISCV` package.
  
 For convenience of further implementation, I rewrote the components in IR to `RVBasicBlock`,
@@ -179,3 +179,10 @@ I altered the operand in IR to fit the requirement of RISC-V instructions.
 ### Register Allocation
 
 Graph coloring in `Modern Compiler Implementation in Java (the tigger book)` Chapter 11.
+
+Calculate spill priority with loop analysis.
+
+### Peephole
+
+* Remove redundant move with the same `dst` and `src`.
+* Remove load after store.

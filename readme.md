@@ -1,4 +1,4 @@
-## MxCompiler
+# MxCompiler
 
 
 > Is this the end of all the endings.
@@ -8,18 +8,18 @@ This is the course project of MS208.
 This compiler has already pass Baseline 2 (the strongest baseline in the course) and 
 its performance is stronger than GCC O1. 
 
-### Parser
+## Parser
 
 Using ANTLR4 as parser.
  
 
-### AST
+## AST
 
 The structure of AST can be found in the `Compiler.AST` package.
 
 Build AST in `ASTBuilder.java`.
 
-### Semantic Analysis
+## Semantic Analysis
 
 * Initialize global scope and add `_init_` function for global variable.
 * Scan declaration of classes and functions.
@@ -29,15 +29,15 @@ Build AST in `ASTBuilder.java`.
 
 You can find all these in the `Compiler.Frontend` package.
 
-### Intermediate Representation
+## Intermediate Representation
 
 I didn't use LLVM IR because I find its quite a waste.
 
-##### Components
+### Components
 
 Components of my IR is similar to the LLVM IR with `IRRoot`, `Function`, `BasicBlock`, and `IRInstruction`.
 
-##### IRInstruction
+### IRInstruction
 
 * [x] AllocInst
 * [x] BinaryInst
@@ -54,13 +54,13 @@ Components of my IR is similar to the LLVM IR with `IRRoot`, `Function`, `BasicB
 
 You can understand each instruction by its name.
 
-##### Interpreter
+### Interpreter
 
 I modified the interpreter written by abcdabcd987 to interpret my IR.
 
-### Optimization
+## Optimization
 
-#### CFG Simplification
+### CFG Simplification
 
 On SSA, 
 
@@ -75,7 +75,7 @@ On non-SSA,
 * remove unreachable block
 * merge two blocks if they are each other's only predecessor and successor
 
-#### SSA Constructor & Destructor
+### SSA Constructor & Destructor
 
 For SSA constructor, I implemented the algorithm in `Engineering a Compiler` Chapter 9.3.
 
@@ -84,7 +84,7 @@ For SSA destructor, I tried to implement the parallel copy sequentialization alg
      Quality, and Efficiency](https://hal.inria.fr/inria-00349925v1/document), but it didn't work as
  it should be so there might be some bugs I should fix.
  
-#### Dominator Tree Constructor
+### Dominator Tree Constructor
 
 I implemented the algorithm in [A Simple, Fast Dominance Algorithm](https://www.cs.rice.edu/~keith/EMBED/dom.pdf).
 
@@ -92,7 +92,7 @@ This implementation is fast and easy but might have some problem that the dead l
  the original code will cause dead loop in this algorithm. This could be avoided by adding
  some analysis on the code structure but will make the algorithm less elegant.
  
-#### Dead Code Elimination
+### Dead Code Elimination
 
 A very powerful optimization.
 
@@ -100,7 +100,7 @@ I implemented the algorithm in `Engineering a Compiler` Chapter 10.2.
 
 The critical instruction I set is ReturnInst, CallInst, and StoreInst.  
 
-#### Sparse Conditional Constant Propagation
+### Sparse Conditional Constant Propagation
 
 A very powerful optimization and very useful for arithmetic calculation with known numbers when compiling.
 
@@ -110,7 +110,7 @@ Actually, with SCCP and function inline, testcase `t28` (recursively calculate g
 
 I referenced the algorithm in `Engineering a Compiler` Chapter 10.7.
 
-#### Function Inline
+### Function Inline
 
 A very powerful optimization.
 
@@ -122,25 +122,25 @@ A very powerful optimization.
  
 It might exceed the time limit if the size of instructions is too large. 
 
-#### Unused Function Eliminator
+### Unused Function Eliminator
 
 To eliminate the uncalled functions for better output.
 
-#### Loop Invariant Code Motion
+### Loop Invariant Code Motion
 
 To move the loop invariant out of the loop.
 
-#### Arithmetic Optimization
+### Arithmetic Optimization
 
 * Optimize multiplication with the form `a = mul b 2^n` to `a = shl b n`.
 * Optimize add with the form `a = add b 0` to `a = mv b`.
 
-#### Common Sub-Expression Elimination
+### Common Sub-Expression Elimination
 
 I implemented local common sub-expression elimination in this section. 
  It will optimize BinaryInst and CmpInst.
 
-#### Global Value Numbering
+### Global Value Numbering
  
 I implemented the global value numbering algorithm on [this page](https://www.cs.cornell.edu/courses/cs6120/2019fa/blog/global-value-numbering/).
 
@@ -148,14 +148,14 @@ This optimization works on my computer but didn't work on Online Judge. The prob
  I found is that the simple instructions decreased, while the cache miss and
  mem operation increased when judging online (which is not the case on my computer).
 
-#### Other Small Optimization
+### Other Small Optimization
 
-##### Print relevant Optimization
+#### Print relevant Optimization
 
 * Optimize `print(toString(x))` / `println(toString(x))` to `printInt(x)` / `printlnInt(x)`
 * Optimize `print(x + y)` / `println(x + y)` to `print(x); print(y);` / `print(x); println(y);`
 
-##### Global Variable Localization
+#### Global Variable Localization
 
 * Load the global variable used in a function when entering the function.
 * Store the global variable used when exiting the function.
@@ -164,9 +164,9 @@ This optimization works on my computer but didn't work on Online Judge. The prob
  which is not optimal universally.)
 
 
-### Backend
+## Backend
 
-##### RISC-V
+### RISC-V
 
 I wrote a new instruction system to convert IR instructions to the RISC-V instructions.
  They could be found in `Compiler.RISCV` package.
@@ -176,6 +176,6 @@ For convenience of further implementation, I rewrote the components in IR to `RV
  
 I altered the operand in IR to fit the requirement of RISC-V instructions.
 
-##### Register Allocation
+### Register Allocation
 
 Graph coloring in `Modern Compiler Implementation in Java (the tigger book)` Chapter 11.

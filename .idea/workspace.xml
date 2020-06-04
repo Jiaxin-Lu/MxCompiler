@@ -130,14 +130,7 @@
       <workItem from="1589981200504" duration="11926000" />
       <workItem from="1590311247285" duration="59492000" />
       <workItem from="1590845317137" duration="2175000" />
-      <workItem from="1591189791726" duration="29944000" />
-    </task>
-    <task id="LOCAL-00085" summary="add AsmPrinter">
-      <created>1588871785975</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1588871785975</updated>
+      <workItem from="1591189791726" duration="30240000" />
     </task>
     <task id="LOCAL-00086" summary="add InstructionSelector">
       <created>1588872376512</created>
@@ -475,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591238902145</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="Is this the end of all the endings.">
+      <created>1591246237381</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1591246237382</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +499,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add .bash files" />
     <MESSAGE value="add lib" />
     <MESSAGE value="add libs" />
     <MESSAGE value="better output" />
@@ -524,7 +523,8 @@
     <MESSAGE value="add GVN" />
     <MESSAGE value="refactor" />
     <MESSAGE value="optimize ArithmeticOptimizer" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimize ArithmeticOptimizer" />
+    <MESSAGE value="Is this the end of all the endings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Is this the end of all the endings." />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -559,10 +559,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="-61" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1591246214654">
+    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1591246236691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="-61" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591246214654" />
+    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591246236691" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -615,10 +615,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588789541207" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1591209941384">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1591246247359">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1591209941384" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1591246247359" />
     <state x="562" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589873237120">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

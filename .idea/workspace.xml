@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="add GVN">
+    <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/irOutput.ir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/oldIrOutput.ir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.mx" beforeDir="false" afterPath="$PROJECT_DIR$/code.mx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/selectInst.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssaIROutput.ir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/ArithmeticOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/ArithmeticOptimizer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,21 +133,7 @@
       <workItem from="1589981200504" duration="11926000" />
       <workItem from="1590311247285" duration="59492000" />
       <workItem from="1590845317137" duration="2175000" />
-      <workItem from="1591189791726" duration="16912000" />
-    </task>
-    <task id="LOCAL-00082" summary="Let new RISCV relevant operands and instructions take over.">
-      <created>1588870486081</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1588870486081</updated>
-    </task>
-    <task id="LOCAL-00083" summary="Let new RISCV relevant operands and instructions take over.">
-      <created>1588870493226</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1588870493226</updated>
+      <workItem from="1591189791726" duration="23187000" />
     </task>
     <task id="LOCAL-00084" summary="Let new RISCV relevant operands and instructions take over.">
       <created>1588870843862</created>
@@ -481,7 +464,21 @@
       <option name="project" value="LOCAL" />
       <updated>1591207713014</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="refactor">
+      <created>1591209907777</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1591209907778</updated>
+    </task>
+    <task id="LOCAL-00132" summary="refactor">
+      <created>1591209931978</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1591209931978</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,7 +502,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add builtin" />
     <MESSAGE value="fix bugs in register allocation" />
     <MESSAGE value="add .bash files" />
     <MESSAGE value="add lib" />
@@ -530,7 +526,8 @@
     <MESSAGE value="optimize LICM" />
     <MESSAGE value="optimize FunctionInliner" />
     <MESSAGE value="add GVN" />
-    <option name="LAST_COMMIT_MESSAGE" value="add GVN" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -565,10 +562,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583309386921" />
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1591209914564">
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1591209931288">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591209914564" />
+    <state x="320" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591209931288" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -577,22 +574,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589302368020" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1591209809643">
+    <state width="1493" height="435" key="GridCell.Tab.0.bottom" timestamp="1591238716684">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591209809643" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1591209809643">
+    <state width="1493" height="435" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591238716684" />
+    <state width="1493" height="435" key="GridCell.Tab.0.center" timestamp="1591238716683">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591209809643" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1591209809643">
+    <state width="1493" height="435" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591238716683" />
+    <state width="1493" height="435" key="GridCell.Tab.0.left" timestamp="1591238716683">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591209809643" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1591209809643">
+    <state width="1493" height="435" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591238716683" />
+    <state width="1493" height="435" key="GridCell.Tab.0.right" timestamp="1591238716684">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591209809643" />
+    <state width="1493" height="435" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591238716684" />
     <state width="1493" height="209" key="GridCell.Tab.1.bottom" timestamp="1590771569874">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -621,10 +618,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" width="1138" height="716" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588789541207" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1590485666819">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1591209941384">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590485666819" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1591209941384" />
     <state x="562" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589873237120">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

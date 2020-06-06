@@ -110,6 +110,13 @@ Actually, with SCCP and function inline, testcase `t28` (recursively calculate g
 
 I referenced the algorithm in `Engineering a Compiler` Chapter 10.7.
 
+Except for constant folding, I also did:
+
+* fold string calls with constant string
+* eliminate redundant move instructions (in my implementation, I can't fold the move instruction
+ `dst = src` if `dst` is in the path of one phi instruction because the order of phi instruction
+ is not that optimal).
+
 ### Function Inline
 
 A very powerful optimization.
@@ -129,6 +136,9 @@ To eliminate the uncalled functions for better output.
 ### Loop Invariant Code Motion
 
 To move the loop invariant out of the loop.
+
+[This page](https://www.cs.cornell.edu/courses/cs6120/2019fa/blog/loop-reduction/) has some great examples
+ on loop analysis and loop invariant code motion.
 
 ### Arithmetic Optimization
 

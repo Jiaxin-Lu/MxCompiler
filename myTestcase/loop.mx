@@ -1,0 +1,77 @@
+/*
+Author: Jiaxin Lu, 18
+Input:
+=== input ===
+=== end ===
+Output:
+=== output ===
+8586878889909192939495969798998384000000000000000000000000000000000000000000000000000000000000000000000000000000000010000
+10001
+10002
+=== end ===
+ExitCode: 0
+InstLimit: -1
+*/
+
+/*
+Let it loop :)
+*/
+
+int main()
+{
+    int[] a = new int[100];
+    int[][] b = new int[33][33];
+    int[][][] c = new int[17][17][17];
+    int aa, bb, cc;
+
+    int i;
+    for (i = 0; i < 10000; ++i)
+    {
+        a[99] ++;
+    }
+    for (i = 0; i < 10000; ++i)
+    {
+        b[30][30] = a[99] + 1;
+    }
+    for (i = 0; i < 10000; ++i)
+    {
+        c[10][10][10] = b[30][30] + 1;
+    }
+    aa = a[99];
+    bb = b[30][30];
+    cc = c[10][10][10];
+
+    int t;
+
+    for (i = 0; i < 10000; ++i)
+    {
+        t = aa + bb * cc;
+        a[0] = i;
+        b[0][i%33] = i;
+        c[0][i%17][i%17] = i;
+    }
+
+    int j, k;
+    for (i = 0; i < 100; ++i)
+    {
+        for (j = 0; j < 100; ++j)
+        {
+            for (k = 0; k < 100; ++k)
+            {
+                int ii = i % 17;
+                int jj = j % 17;
+                int kk = k % 17;
+                b[ii][jj] = c[ii][jj][kk];
+                a[ii] = i;
+            }
+        }
+    }
+    for (i = 0; i < 100; ++i)
+    {
+        printInt(a[i]);
+    }
+    println("");
+    printlnInt(b[30][30]);
+    printlnInt(c[10][10][10]);
+    return 0;
+}

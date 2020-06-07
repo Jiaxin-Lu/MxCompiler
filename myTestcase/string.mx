@@ -1,0 +1,63 @@
+/*
+Author: Jiaxin Lu, 18
+Input:
+=== input ===
+=== end ===
+Output:
+=== output ===
+Like daylight
+It's golden like daylight
+You gotta step into the daylight and let it go
+Just let it go, let it go
+1188
+=== end ===
+ExitCode: 0
+InstLimit: -1
+*/
+
+/*
+Like daylight
+It's golden like daylight
+You gotta step into the daylight and let it go
+Just let it go, let it go
+*/
+
+/*
+Good SCCP could fold these strings.
+*/
+
+int main()
+{
+    string a, daylight, b;
+    a = "Like daylight";
+    daylight = a.substring(5, a.length());
+    b = "It's golden";
+    int t = a.ord(0) + a.ord(6) - 65;
+    b = b + " like " + daylight;
+    if (t == b.ord(4 + 6 + 2))
+    {
+        println(a);
+        println(b);
+    } else {
+        println("what r u doing?");
+        return 0;
+    }
+    string let_it_go;
+    string c = "You gotta step into the " + daylight + " and let it go", d;
+    t = 4 + 6;
+    t++; ++t; ++t; t++; ++t;
+    t = t + 5;
+    t = t + "the".length();
+    ++t;
+    int l = 3 * "the".length();
+    t = t + l;
+    t = t + t;
+    t = t >> 1;
+    t = t + 4;
+    let_it_go = c.substring(t, c.length());
+    d = "Just " + let_it_go + ", " + let_it_go;
+    println(c);
+    println(d);
+    println(toString(a.length() + b.length() + c.length() * d.length()));
+    return 0;
+}

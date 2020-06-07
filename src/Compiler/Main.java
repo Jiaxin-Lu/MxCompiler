@@ -191,6 +191,6 @@ public class Main
         cfgSimplifier.run(true);
         arithmeticOptimizer.run();
 
-        printIR(irRoot, "irOutput.ir", false);
+        printIR(irRoot, "irOutput.ir", true);
     }
 }

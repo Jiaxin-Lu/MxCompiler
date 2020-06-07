@@ -2,10 +2,7 @@ package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.IRInstruction.BinaryInst;
-import Compiler.IR.IRInstruction.CmpInst;
-import Compiler.IR.IRInstruction.IRInstruction;
-import Compiler.IR.IRInstruction.MoveInst;
+import Compiler.IR.IRInstruction.*;
 import Compiler.IR.IRRoot;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
@@ -28,6 +25,13 @@ public class CSE extends Pass
             this.op = op;
             this.lhs = lhs instanceof Immediate ? String.valueOf(((Immediate) lhs).getImm()) : lhs.toString();
             this.rhs = rhs instanceof Immediate ? String.valueOf(((Immediate) rhs).getImm()) : rhs.toString();
+        }
+
+        HashInst(String op, Operand lhs)
+        {
+            this.op = op;
+            this.lhs = lhs instanceof Immediate ? String.valueOf(((Immediate) lhs).getImm()) : lhs.toString();
+            this.rhs = "unary_null";
         }
 
         @Override
@@ -122,6 +126,19 @@ public class CSE extends Pass
                         expressionMap.put(cmp2, ((CmpInst) inst).getDst());
                     }
                 }
+            } else if (inst instanceof UnaryInst)
+            {
+                HashInst unary = new HashInst(((UnaryInst) inst).getOp().toString(), ((UnaryInst) inst).getSrc());
+                Operand dst = expressionMap.get(unary);
+                if (dst != null)
+                {
+                    isChanged = true;
+                    ((UnaryInst) inst).preDst = dst;
+                    inst.replaceInst(new MoveInst(basicBlock, dst, ((UnaryInst) inst).getDst()));
+                } else {
+                    ((UnaryInst) inst).preDst = null;
+                    expressionMap.put(unary, ((UnaryInst) inst).getDst());
+                }
             }
         }
         for (BasicBlock successor : basicBlock.getSuccessors())
@@ -149,6 +166,10 @@ public class CSE extends Pass
                     HashInst cmp2 = new HashInst(((CmpInst) inst).getOp().toString(), ((CmpInst) inst).getRhs(), ((CmpInst) inst).getLhs());
                     expressionMap.remove(cmp2);
                 }
+            } else if (inst instanceof UnaryInst)
+            {
+                HashInst unary = new HashInst(((UnaryInst) inst).getOp().toString(), ((UnaryInst) inst).getSrc());
+                expressionMap.remove(unary);
             }
         }
         return isChanged;

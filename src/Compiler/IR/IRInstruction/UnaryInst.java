@@ -124,6 +124,9 @@ public class UnaryInst extends IRInstruction
         }
     }
 
+    //CSE
+    public Operand preDst = null;
+
 //    @Override
 //    public void calcDefUse()
 //    {

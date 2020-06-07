@@ -148,7 +148,7 @@ To move the loop invariant out of the loop.
 ### Common Sub-Expression Elimination
 
 I implemented local common sub-expression elimination in this section. 
- It will optimize BinaryInst and CmpInst.
+ It will optimize BinaryInst, CmpInst, and UnaryInst.
 
 ### Global Value Numbering
  

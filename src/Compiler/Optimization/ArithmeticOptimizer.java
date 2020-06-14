@@ -21,13 +21,13 @@ public class ArithmeticOptimizer extends Pass
     {
         for (Function function : irRoot.getFunctionMap().values())
         {
-            multiplicationOptimize(function);
-            addZeroOptimize(function);
+            mulDivOptimize(function);
+            addOptimize(function);
         }
         return false;
     }
 
-    private void addZeroOptimize(Function function)
+    private void addOptimize(Function function)
     {
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
@@ -49,13 +49,17 @@ public class ArithmeticOptimizer extends Pass
                         {
                             inst.replaceInst(new MoveInst(basicBlock, ((BinaryInst) inst).getLhs(), ((BinaryInst) inst).getDst()));
                         }
+                    } else if (((BinaryInst) inst).getRhs() == ((BinaryInst) inst).getLhs())
+                    {
+                        inst.replaceInst(new BinaryInst(basicBlock, BinaryInst.Op.SHL,
+                                ((BinaryInst) inst).getLhs(), new Immediate(1), ((BinaryInst) inst).getDst()));
                     }
                 }
             }
         }
     }
 
-    private void multiplicationOptimize(Function function)
+    private void mulDivOptimize(Function function)
     {
         for (BasicBlock basicBlock : function.getPreOrderBlockList())
         {
@@ -78,6 +82,18 @@ public class ArithmeticOptimizer extends Pass
                             int shl = (int) Math.floor(Math.log(imm) / Math.log(2));
                             inst.replaceInst(new BinaryInst(basicBlock, BinaryInst.Op.SHL,
                                     ((BinaryInst) inst).getLhs(), new Immediate(shl), ((BinaryInst) inst).getDst()));
+                        }
+                    }
+                } else if (((BinaryInst) inst).getOp() == BinaryInst.Op.DIV)
+                {
+                    if (((BinaryInst) inst).getRhs() instanceof Immediate)
+                    {
+                        int imm = ((Immediate) ((BinaryInst) inst).getRhs()).getImm();
+                        if ((imm & (imm-1)) == 0 && imm > 0)
+                        {
+                            int shr = (int) Math.floor(Math.log(imm) / Math.log(2));
+                            inst.replaceInst(new BinaryInst(basicBlock, BinaryInst.Op.SHR,
+                                    ((BinaryInst) inst).getLhs(), new Immediate(shr), ((BinaryInst) inst).getDst()));
                         }
                     }
                 }

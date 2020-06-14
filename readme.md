@@ -3,6 +3,8 @@
 
 > Is this the end of all the endings.
 
+---
+
 This is the course project of MS208.
 
 This compiler has already pass Baseline 2 (the strongest baseline in the course) and 
@@ -143,7 +145,9 @@ To move the loop invariant out of the loop.
 ### Arithmetic Optimization
 
 * Optimize multiplication with the form `a = mul b 2^n` to `a = shl b n`.
+* Optimize div with the form `a = div b 2^n` to `a = shr b n`.
 * Optimize add with the form `a = add b 0` to `a = mv b`.
+* Optimize add with the form `b = add a a` to `b = shl a 1`.
 
 ### Common Sub-Expression Elimination
 
@@ -197,6 +201,7 @@ Calculate spill priority with loop analysis.
 * Remove redundant move with the same `dst` and `src`.
 * Remove load after store.
 
+---
 
 > You gotta step into the daylight and let it go.
 >

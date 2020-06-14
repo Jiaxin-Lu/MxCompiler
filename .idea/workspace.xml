@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="182ccb37-b276-4bf1-ada2-36b48c597e27" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Optimization/ArithmeticOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Optimization/ArithmeticOptimizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,14 +135,7 @@
       <workItem from="1591451083076" duration="1089000" />
       <workItem from="1591545290056" duration="7302000" />
       <workItem from="1592057472167" duration="766000" />
-      <workItem from="1592149135214" duration="1425000" />
-    </task>
-    <task id="LOCAL-00093" summary="fix Peephole">
-      <created>1589100088982</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1589100088982</updated>
+      <workItem from="1592149135214" duration="1664000" />
     </task>
     <task id="LOCAL-00094" summary="on RegisterAllocator....">
       <created>1589100104041</created>
@@ -480,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591553107598</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="optimize ArithmeticOptimizer">
+      <created>1592150641633</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1592150641633</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,12 +524,12 @@
     <MESSAGE value="optimize FunctionInliner" />
     <MESSAGE value="add GVN" />
     <MESSAGE value="refactor" />
-    <MESSAGE value="optimize ArithmeticOptimizer" />
     <MESSAGE value="add unary to CSE" />
     <MESSAGE value="Is this the end of all the endings." />
     <MESSAGE value="add my testcase" />
     <MESSAGE value="You gotta step into the daylight and let it go." />
-    <option name="LAST_COMMIT_MESSAGE" value="You gotta step into the daylight and let it go." />
+    <MESSAGE value="optimize ArithmeticOptimizer" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimize ArithmeticOptimizer" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="70" key="#Inspections" timestamp="1588529186488">
@@ -556,10 +556,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1589985709688" />
-    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1591553106864">
+    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2" timestamp="1592150639950">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591553106864" />
+    <state x="193" y="11" width="1094" height="813" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592150639950" />
     <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1587981164719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
